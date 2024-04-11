@@ -1,0 +1,14 @@
+-r reqs-install.txt
+
+requests-mock
+
+types-requests
+
+pytest
+pytest-asyncio
+pytest-clarity
+pytest-cov
+pytest-mypy
+pytest-randomly
+#pytest-sphinx  # FIXME Causing pytest errors
+pytest-xdist

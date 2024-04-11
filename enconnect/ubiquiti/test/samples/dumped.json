@@ -1,0 +1,37 @@
+{
+  "meta": {
+    "rc": "ok"
+  },
+  "data": [
+    {
+      "last_ip": "192.168.1.100",
+      "oui": "",
+      "first_seen": "2023-12-21T00:00:00Z",
+      "last_seen": "2024-04-14T00:00:00Z",
+      "is_guest": false,
+      "fingerprint_engine_version": "1.0.2",
+      "is_wired": true,
+      "dev_family": 13,
+      "mac": "1a:01:68:00:11:00",
+      "dev_cat": 1,
+      "local_dns_record_enabled": false,
+      "virtual_network_override_id": "",
+      "use_fixedip": false,
+      "confidence": 60,
+      "local_dns_record": "",
+      "usergroup_id": "",
+      "last_connection_network_name": "internal",
+      "fingerprint_source": 0,
+      "dev_id": 2664,
+      "virtual_network_override_enabled": false,
+      "last_connection_network_id": "64dd8949157af8134e5df9c8",
+      "noted": true,
+      "site_id": "64dd8927157af8134e5df9b3",
+      "name": "Jupiter Desktop",
+      "os_name": 3,
+      "_id": "65d963e0e9285243cbbe6116",
+      "dev_vendor": 66,
+      "fixed_ip": "192.168.1.100"
+    }
+  ]
+}

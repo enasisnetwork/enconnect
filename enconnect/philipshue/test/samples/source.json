@@ -1,0 +1,98 @@
+{
+  "errors": [],
+  "data": [
+
+
+
+    {
+      "id": "749f6ccb-0109-33a2-a675-d55f789fd28d",
+      "product_data": {
+        "model_id": "BSB002",
+        "manufacturer_name": "Signify Netherlands B.V.",
+        "product_name": "Hue Bridge",
+        "product_archetype": "bridge_v2",
+        "certified": true,
+        "software_version": "1.63.1963089030"
+      },
+      "metadata": {
+        "name": "Jupiter Bridge",
+        "archetype": "bridge_v2"
+      },
+      "identify": {},
+      "services": [
+        {
+          "rid": "d07ef79d-5abc-3cb7-ab7a-2532f03bd5dd",
+          "rtype": "bridge"
+        },
+        {
+          "rid": "b2b9ae5e-7dcb-3147-adc1-7be9feee6db6",
+          "rtype": "zigbee_connectivity"
+        },
+        {
+          "rid": "a0ce8607-79ac-316b-ae6f-e2939db02de3",
+          "rtype": "entertainment"
+        },
+        {
+          "rid": "e68317cb-05c5-3fce-9aa1-4edbd86c81fb",
+          "rtype": "zigbee_device_discovery"
+        }
+      ],
+      "type": "device"
+    },
+
+    {
+      "id": "d07ef79d-5abc-3cb7-ab7a-2532f03bd5dd",
+      "owner": {
+        "rid": "749f6ccb-0109-33a2-a675-d55f789fd28d",
+        "rtype": "device"
+      },
+      "bridge_id": "ecb5fafffe912f7a",
+      "time_zone": {
+        "time_zone": "America/Chicago"
+      },
+      "type": "bridge"
+    },
+
+    {
+      "id": "a0ce8607-79ac-316b-ae6f-e2939db02de3",
+      "owner": {
+        "rid": "749f6ccb-0109-33a2-a675-d55f789fd28d",
+        "rtype": "device"
+      },
+      "renderer": false,
+      "proxy": true,
+      "equalizer": false,
+      "max_streams": 1,
+      "type": "entertainment"
+    },
+
+    {
+      "id": "b2b9ae5e-7dcb-3147-adc1-7be9feee6db6",
+      "owner": {
+        "rid": "749f6ccb-0109-33a2-a675-d55f789fd28d",
+        "rtype": "device"
+      },
+      "status": "connected",
+      "mac_address": "00:17:88:01:05:51:2f:7a",
+      "channel": {
+        "status": "set",
+        "value": "channel_25"
+      },
+      "extended_pan_id": "f878512273fe60e4",
+      "type": "zigbee_connectivity"
+    },
+
+    {
+      "id": "e68317cb-05c5-3fce-9aa1-4edbd86c81fb",
+      "owner": {
+        "rid": "749f6ccb-0109-33a2-a675-d55f789fd28d",
+        "rtype": "device"
+      },
+      "status": "ready",
+      "type": "zigbee_device_discovery"
+    }
+
+
+
+  ]
+}
