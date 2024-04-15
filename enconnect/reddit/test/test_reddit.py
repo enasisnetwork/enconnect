@@ -8,6 +8,8 @@ is permitted, for more information consult the project license file.
 
 
 from encommon import ENPYRWS
+from encommon.types import inrepr
+from encommon.types import instr
 from encommon.utils import load_sample
 from encommon.utils import prep_sample
 from encommon.utils import read_text
@@ -36,13 +38,15 @@ def test_Reddit() -> None:
         '_Reddit__params']
 
 
-    assert 1 <= repr(social).find(
-        'reddit.Reddit object')
+    assert inrepr(
+        'reddit.Reddit object',
+        social)
 
     assert hash(social) > 0
 
-    assert 1 <= str(social).find(
-        'reddit.Reddit object')
+    assert instr(
+        'reddit.Reddit object',
+        social)
 
 
     assert social.params is params

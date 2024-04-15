@@ -8,6 +8,8 @@ is permitted, for more information consult the project license file.
 
 
 from encommon import ENPYRWS
+from encommon.types import inrepr
+from encommon.types import instr
 from encommon.utils import load_sample
 from encommon.utils import prep_sample
 from encommon.utils import read_text
@@ -38,13 +40,15 @@ def test_Instagram() -> None:
         '_Instagram__params']
 
 
-    assert 1 <= repr(social).find(
-        'instagram.Instagram object')
+    assert inrepr(
+        'instagram.Instagram object',
+        social)
 
     assert hash(social) > 0
 
-    assert 1 <= str(social).find(
-        'instagram.Instagram object')
+    assert instr(
+        'instagram.Instagram object',
+        social)
 
 
     assert social.params is params

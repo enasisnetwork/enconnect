@@ -8,6 +8,8 @@ is permitted, for more information consult the project license file.
 
 
 from encommon import ENPYRWS
+from encommon.types import inrepr
+from encommon.types import instr
 from encommon.utils import load_sample
 from encommon.utils import prep_sample
 from encommon.utils import read_text
@@ -40,13 +42,15 @@ def test_Router() -> None:
         '_Router__session']
 
 
-    assert 1 <= repr(router).find(
-        'router.Router object')
+    assert inrepr(
+        'router.Router object',
+        router)
 
     assert hash(router) > 0
 
-    assert 1 <= str(router).find(
-        'router.Router object')
+    assert instr(
+        'router.Router object',
+        router)
 
 
     assert router.params is params
