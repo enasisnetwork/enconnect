@@ -8,6 +8,8 @@ is permitted, for more information consult the project license file.
 
 
 from encommon import ENPYRWS
+from encommon.types import inrepr
+from encommon.types import instr
 from encommon.utils import load_sample
 from encommon.utils import prep_sample
 from encommon.utils import read_text
@@ -37,13 +39,15 @@ def test_YouTube() -> None:
         '_YouTube__params']
 
 
-    assert 1 <= repr(social).find(
-        'youtube.YouTube object')
+    assert inrepr(
+        'youtube.YouTube object',
+        social)
 
     assert hash(social) > 0
 
-    assert 1 <= str(social).find(
-        'youtube.YouTube object')
+    assert instr(
+        'youtube.YouTube object',
+        social)
 
 
     assert social.params is params

@@ -8,6 +8,8 @@ is permitted, for more information consult the project license file.
 
 
 from encommon import ENPYRWS
+from encommon.types import inrepr
+from encommon.types import instr
 from encommon.utils import load_sample
 from encommon.utils import prep_sample
 from encommon.utils import read_text
@@ -38,13 +40,15 @@ def test_Bridge() -> None:
         '_Bridge__params']
 
 
-    assert 1 <= repr(bridge).find(
-        'bridge.Bridge object')
+    assert inrepr(
+        'bridge.Bridge object',
+        bridge)
 
     assert hash(bridge) > 0
 
-    assert 1 <= str(bridge).find(
-        'bridge.Bridge object')
+    assert instr(
+        'bridge.Bridge object',
+        bridge)
 
 
     assert bridge.params is params

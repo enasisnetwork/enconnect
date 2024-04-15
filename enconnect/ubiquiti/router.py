@@ -81,10 +81,14 @@ class Router:
             'username': params.username,
             'password': params.password}
 
-        return self.request(
+        response = self.request(
             method='post',
             path='api/auth/login',
             json=payload)
+
+        response.raise_for_status()
+
+        return response
 
 
     def request(
