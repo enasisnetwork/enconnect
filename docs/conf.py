@@ -44,4 +44,5 @@ intersphinx_mapping = {
 
 nitpick_ignore = [
     ('py:class', 'pydantic.main.BaseModel'),
-    ('py:class', 'requests.models.Response')]
+    ('py:class', 'requests.models.Response'),
+    ('py:class', 'requests.sessions.Session')]

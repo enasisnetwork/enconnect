@@ -3,6 +3,7 @@ Instagram Parameters
 
 .. autoclass:: enconnect.instagram.InstagramParams
    :members:
+   :show-inheritance:
    :noindex:
 
 Instagram Client
@@ -10,11 +11,12 @@ Instagram Client
 
 .. autoclass:: enconnect.instagram.Instagram
    :members:
-   :inherited-members:
+   :show-inheritance:
    :noindex:
 
 .. autoclass:: enconnect.instagram.InstagramMedia
    :members:
+   :show-inheritance:
    :noindex:
 
 Philips Hue Parameters
@@ -22,6 +24,7 @@ Philips Hue Parameters
 
 .. autoclass:: enconnect.philipshue.BridgeParams
    :members:
+   :show-inheritance:
    :noindex:
 
 Philips Hue Client
@@ -29,7 +32,7 @@ Philips Hue Client
 
 .. autoclass:: enconnect.philipshue.Bridge
    :members:
-   :inherited-members:
+   :show-inheritance:
    :noindex:
 
 Reddit Parameters
@@ -37,6 +40,7 @@ Reddit Parameters
 
 .. autoclass:: enconnect.reddit.RedditParams
    :members:
+   :show-inheritance:
    :noindex:
 
 Reddit Client
@@ -44,11 +48,12 @@ Reddit Client
 
 .. autoclass:: enconnect.reddit.Reddit
    :members:
-   :inherited-members:
+   :show-inheritance:
    :noindex:
 
 .. autoclass:: enconnect.reddit.RedditListing
    :members:
+   :show-inheritance:
    :noindex:
 
 Ubiquiti Router Parameters
@@ -56,6 +61,7 @@ Ubiquiti Router Parameters
 
 .. autoclass:: enconnect.ubiquiti.RouterParams
    :members:
+   :show-inheritance:
    :noindex:
 
 Ubiquiti Router Client
@@ -63,7 +69,7 @@ Ubiquiti Router Client
 
 .. autoclass:: enconnect.ubiquiti.Router
    :members:
-   :inherited-members:
+   :show-inheritance:
    :noindex:
 
 YouTube Parameters
@@ -71,6 +77,7 @@ YouTube Parameters
 
 .. autoclass:: enconnect.youtube.YouTubeParams
    :members:
+   :show-inheritance:
    :noindex:
 
 YouTube Client
@@ -78,9 +85,10 @@ YouTube Client
 
 .. autoclass:: enconnect.youtube.YouTube
    :members:
-   :inherited-members:
+   :show-inheritance:
    :noindex:
 
 .. autoclass:: enconnect.youtube.YouTubeResult
    :members:
+   :show-inheritance:
    :noindex:
