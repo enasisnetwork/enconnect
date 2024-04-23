@@ -18,7 +18,6 @@ from re import sub as re_sub
 from sys import stdout
 from typing import Literal
 from typing import Optional
-from typing import get_args
 
 
 
@@ -68,8 +67,6 @@ def makeout(
     if prefix is not None:
 
         string = f'{string.lstrip(" ")}'
-
-        assert prefix in get_args(PREFIX)
 
         padding = 3
         _prefix = ''
