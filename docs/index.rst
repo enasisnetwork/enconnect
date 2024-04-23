@@ -1,7 +1,7 @@
 Instagram Parameters
 ====================
 
-.. autoclass:: enconnect.instagram.InstagramParams
+.. autopydantic_model:: enconnect.instagram.InstagramParams
    :members:
    :show-inheritance:
    :noindex:
@@ -14,7 +14,7 @@ Instagram Client
    :show-inheritance:
    :noindex:
 
-.. autoclass:: enconnect.instagram.InstagramMedia
+.. autopydantic_model:: enconnect.instagram.InstagramMedia
    :members:
    :show-inheritance:
    :noindex:
@@ -22,7 +22,7 @@ Instagram Client
 Philips Hue Parameters
 ======================
 
-.. autoclass:: enconnect.philipshue.BridgeParams
+.. autopydantic_model:: enconnect.philipshue.BridgeParams
    :members:
    :show-inheritance:
    :noindex:
@@ -38,7 +38,7 @@ Philips Hue Client
 Reddit Parameters
 =================
 
-.. autoclass:: enconnect.reddit.RedditParams
+.. autopydantic_model:: enconnect.reddit.RedditParams
    :members:
    :show-inheritance:
    :noindex:
@@ -51,7 +51,7 @@ Reddit Client
    :show-inheritance:
    :noindex:
 
-.. autoclass:: enconnect.reddit.RedditListing
+.. autopydantic_model:: enconnect.reddit.RedditListing
    :members:
    :show-inheritance:
    :noindex:
@@ -59,7 +59,7 @@ Reddit Client
 Ubiquiti Router Parameters
 ==========================
 
-.. autoclass:: enconnect.ubiquiti.RouterParams
+.. autopydantic_model:: enconnect.ubiquiti.RouterParams
    :members:
    :show-inheritance:
    :noindex:
@@ -75,7 +75,7 @@ Ubiquiti Router Client
 YouTube Parameters
 ==================
 
-.. autoclass:: enconnect.youtube.YouTubeParams
+.. autopydantic_model:: enconnect.youtube.YouTubeParams
    :members:
    :show-inheritance:
    :noindex:
@@ -88,7 +88,7 @@ YouTube Client
    :show-inheritance:
    :noindex:
 
-.. autoclass:: enconnect.youtube.YouTubeResult
+.. autopydantic_model:: enconnect.youtube.YouTubeResult
    :members:
    :show-inheritance:
    :noindex:
