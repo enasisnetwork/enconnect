@@ -73,6 +73,8 @@ class Router:
     ) -> Response:
         """
         Establish new session obtaining cookie for authorization.
+
+        :returns: Response for upstream request to the server.
         """
 
         params = self.params
