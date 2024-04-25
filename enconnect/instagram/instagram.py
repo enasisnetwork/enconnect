@@ -44,6 +44,9 @@ class InstagramMedia(BaseModel, extra='allow'):
     """
     Contains information returned from the upstream response.
 
+    .. note::
+       Fields are not completely documented for this model.
+
     :param data: Keyword arguments passed to Pydantic model.
         Parameter is picked up by autodoc, please ignore.
     """
