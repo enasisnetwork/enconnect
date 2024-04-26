@@ -516,6 +516,23 @@ outdated: \
 
 
 
+.PHONY: cloc
+cloc:
+	@## Breakdown lines of code within the project
+	@#
+	@$(MAKE) cleanup-pycache
+	@#
+	$(call MAKE_PR2NT,\
+		<cD>make <cL>cloc<c0>)
+	@#
+	$(call MAKE_PR3NT,\
+		<c37>Executing <c90>cloc<c37> \
+		in <c90>$(PROJECT)<c37>..<c0>)
+	@cloc $(PROJECT)
+	$(call MAKE_PR1NT,<cD>DONE<c0>)
+
+
+
 .PHONY: pypackage
 pypackage: \
 	.check-venv-develop
