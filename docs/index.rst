@@ -92,3 +92,11 @@ YouTube Client
    :members:
    :show-inheritance:
    :noindex:
+
+Utilities
+=========
+
+.. autoclass:: enconnect.utils.HTTPClient
+   :members:
+   :show-inheritance:
+   :noindex:
