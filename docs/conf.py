@@ -43,6 +43,9 @@ intersphinx_mapping = {
     'python': ('https://docs.python.org/3', None)}
 
 nitpick_ignore = [
+    ('py:class', 'httpx.AsyncClient'),
+    ('py:class', 'httpx.Client'),
+    ('py:class', 'httpx.Response'),
     ('py:class', 'pydantic.main.BaseModel'),
     ('py:class', 'requests.models.Response'),
     ('py:class', 'requests.sessions.Session')]
