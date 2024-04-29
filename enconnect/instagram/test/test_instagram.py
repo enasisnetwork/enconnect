@@ -7,37 +7,59 @@ is permitted, for more information consult the project license file.
 
 
 
+from unittest.mock import AsyncMock
+from unittest.mock import patch
+
 from encommon import ENPYRWS
 from encommon.types import inrepr
 from encommon.types import instr
+from encommon.types.strings import SEMPTY
 from encommon.utils import load_sample
 from encommon.utils import prep_sample
 from encommon.utils import read_text
 
-from requests_mock import Mocker
+from httpx import Request
+from httpx import Response
+
+from pytest import fixture
+from pytest import mark
 
 from . import SAMPLES
 from ..instagram import Instagram
-from ..instagram import MEDIA_FIELDS
 from ..params import InstagramParams
 
 
 
-def test_Instagram() -> None:
+@fixture
+def social() -> Instagram:
     """
-    Perform various tests associated with relevant routines.
+    Construct the instance for use in the downstream tests.
+
+    :returns: Newly constructed instance of related class.
     """
 
     params = InstagramParams(
         token='mocked')
 
-    social = Instagram(params)
+    return Instagram(params)
+
+
+
+def test_Instagram(
+    social: Instagram,
+) -> None:
+    """
+    Perform various tests associated with relevant routines.
+
+    :param social: Class instance for connecting to service.
+    """
 
 
     attrs = list(social.__dict__)
 
     assert attrs == [
-        '_Instagram__params']
+        '_Instagram__params',
+        '_Instagram__client']
 
 
     assert inrepr(
@@ -51,35 +73,76 @@ def test_Instagram() -> None:
         social)
 
 
-    assert social.params is params
+    assert social.params is not None
 
 
-    def _mocker_media() -> None:
+    patched = patch(
+        'httpx.Client.request')
 
-        server = params.server
-        token = params.token
-
-        fields = ','.join(MEDIA_FIELDS)
-
-        location = (
-            f'https://{server}/'
-            'me/media'
-            f'?fields={fields}'
-            f'&access_token={token}')
+    with patched as mocker:
 
         source = read_text(
             f'{SAMPLES}/source.json')
 
-        mocker.get(
-            url=location,
-            text=source)
+        request = Request('get', SEMPTY)
+
+        mocker.side_effect = [
+            Response(
+                status_code=200,
+                content=source,
+                request=request)]
+
+        media = social.latest_block()
 
 
-    with Mocker() as mocker:
+    sample_path = (
+        f'{SAMPLES}/dumped.json')
 
-        _mocker_media()
+    sample = load_sample(
+        sample_path,
+        [x.model_dump()
+         for x in media],
+        update=ENPYRWS)
 
-        media = social.get_media()
+    expect = prep_sample([
+        x.model_dump()
+        for x in media])
+
+    assert sample == expect
+
+
+
+@mark.asyncio
+async def test_Instagram_async(
+    social: Instagram,
+) -> None:
+    """
+    Perform various tests associated with relevant routines.
+
+    :param social: Class instance for connecting to service.
+    """
+
+
+    patched = patch(
+        'httpx.AsyncClient.request',
+        new_callable=AsyncMock)
+
+    with patched as mocker:
+
+        source = read_text(
+            f'{SAMPLES}/source.json')
+
+        request = Request('get', SEMPTY)
+
+        mocker.side_effect = [
+            Response(
+                status_code=200,
+                content=source,
+                request=request)]
+
+        waited = social.latest_async()
+
+        media = await waited
 
 
     sample_path = (
