@@ -76,7 +76,7 @@ def test_HTTPClient(
 
     assert httpx.retry == 3
 
-    assert httpx.backoff == 1.0
+    assert httpx.backoff == 3.0
 
     assert httpx.states == {429}
 
