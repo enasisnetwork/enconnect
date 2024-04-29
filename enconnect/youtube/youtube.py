@@ -13,10 +13,11 @@ from typing import Optional
 from typing import TYPE_CHECKING
 from typing import get_args
 
+from httpx import Response
+
 from pydantic import BaseModel
 
-from requests import Response
-from requests import request
+from ..utils import HTTPClient
 
 if TYPE_CHECKING:
     from .params import YouTubeParams
@@ -132,6 +133,7 @@ class YouTube:
     """
 
     __params: 'YouTubeParams'
+    __client: HTTPClient
 
 
     def __init__(
@@ -143,6 +145,13 @@ class YouTube:
         """
 
         self.__params = params
+
+        client = HTTPClient(
+            timeout=params.timeout,
+            verify=params.ssl_verify,
+            capem=params.ssl_capem)
+
+        self.__client = client
 
 
     @property
@@ -158,9 +167,22 @@ class YouTube:
         return self.__params
 
 
-    def request(
+    @property
+    def client(
         self,
-        method: str,
+    ) -> HTTPClient:
+        """
+        Return the value for the attribute from class instance.
+
+        :returns: Value for the attribute from class instance.
+        """
+
+        return self.__client
+
+
+    def request_block(
+        self,
+        method: Literal['get'],
         path: str,
         params: Optional[dict[str, Any]] = None,
     ) -> Response:
@@ -176,27 +198,74 @@ class YouTube:
         params = dict(params or {})
 
         server = self.params.server
-        verify = self.params.ssl_verify
-        capem = self.params.ssl_capem
+        token = self.params.token
+        client = self.client
 
-
-        params['key'] = (
-            self.params.token)
+        params['key'] = token
 
         location = (
             f'https://{server}/'
             f'youtube/v3/{path}')
 
+        request = client.request_block
 
         return request(
             method=method,
-            url=location,
-            timeout=self.params.timeout,
-            params=params,
-            verify=capem or verify)
+            location=location,
+            params=params)
 
 
-    def get_search(
+    async def request_async(
+        self,
+        method: Literal['get'],
+        path: str,
+        params: Optional[dict[str, Any]] = None,
+    ) -> Response:
+        """
+        Return the response for upstream request to the server.
+
+        :param method: Method for operation with the API server.
+        :param path: Path for the location to upstream endpoint.
+        :param params: Optional parameters included in request.
+        :returns: Response for upstream request to the server.
+        """
+
+        params = dict(params or {})
+
+        server = self.params.server
+        token = self.params.token
+        client = self.client
+
+        params['key'] = token
+
+        location = (
+            f'https://{server}/'
+            f'youtube/v3/{path}')
+
+        request = client.request_async
+
+        return await request(
+            method=method,
+            location=location,
+            params=params)
+
+
+    def search(
+        # NOCVR
+        self,
+        params: Optional[dict[str, Any]] = None,
+    ) -> list[YouTubeResult]:
+        """
+        Return the results from the provided search parameters.
+
+        :param params: Optional parameters included in request.
+        :returns: Results from the provided search parameters.
+        """
+
+        return self.search_block(params)
+
+
+    def search_block(
         self,
         params: Optional[dict[str, Any]] = None,
     ) -> list[YouTubeResult]:
@@ -220,7 +289,52 @@ class YouTube:
             params['part'] = 'snippet,id'
 
 
-        response = self.request(
+        request = self.request_block
+
+        response = request(
+            'get', 'search', params)
+
+        response.raise_for_status()
+
+        fetched = response.json()
+
+        assert isinstance(fetched, dict)
+
+
+        return [
+            YouTubeResult(**x)
+            for x in fetched['items']
+            if x['id']['kind']
+            in _RESULT_KINDS]
+
+
+    async def search_async(
+        self,
+        params: Optional[dict[str, Any]] = None,
+    ) -> list[YouTubeResult]:
+        """
+        Return the results from the provided search parameters.
+
+        :param params: Optional parameters included in request.
+        :returns: Results from the provided search parameters.
+        """
+
+        params = dict(params or {})
+
+
+        if 'maxResults' not in params:
+            params['maxResults'] = 50
+
+        if 'order' not in params:
+            params['order'] = 'date'
+
+        if 'part' not in params:
+            params['part'] = 'snippet,id'
+
+
+        request = self.request_async
+
+        response = await request(
             'get', 'search', params)
 
         response.raise_for_status()

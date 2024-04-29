@@ -8,13 +8,15 @@ is permitted, for more information consult the project license file.
 
 
 from typing import Any
+from typing import Literal
 from typing import Optional
 from typing import TYPE_CHECKING
 
+from httpx import Response
+
 from pydantic import BaseModel
 
-from requests import Response
-from requests import request
+from ..utils import HTTPClient
 
 if TYPE_CHECKING:
     from .params import InstagramParams
@@ -93,6 +95,7 @@ class Instagram:
     """
 
     __params: 'InstagramParams'
+    __client: HTTPClient
 
 
     def __init__(
@@ -104,6 +107,13 @@ class Instagram:
         """
 
         self.__params = params
+
+        client = HTTPClient(
+            timeout=params.timeout,
+            verify=params.ssl_verify,
+            capem=params.ssl_capem)
+
+        self.__client = client
 
 
     @property
@@ -119,9 +129,22 @@ class Instagram:
         return self.__params
 
 
-    def request(
+    @property
+    def client(
         self,
-        method: str,
+    ) -> HTTPClient:
+        """
+        Return the value for the attribute from class instance.
+
+        :returns: Value for the attribute from class instance.
+        """
+
+        return self.__client
+
+
+    def request_block(
+        self,
+        method: Literal['get'],
         path: str,
         params: Optional[dict[str, Any]] = None,
     ) -> Response:
@@ -137,26 +160,70 @@ class Instagram:
         params = dict(params or {})
 
         server = self.params.server
-        verify = self.params.ssl_verify
-        capem = self.params.ssl_capem
+        token = self.params.token
+        client = self.client
 
-
-        params['access_token'] = (
-            self.params.token)
+        params['access_token'] = token
 
         location = (
             f'https://{server}/{path}')
 
+        request = client.request_block
 
         return request(
             method=method,
-            url=location,
-            timeout=self.params.timeout,
-            params=params,
-            verify=capem or verify)
+            location=location,
+            params=params)
 
 
-    def get_media(
+    async def request_async(
+        self,
+        method: Literal['get'],
+        path: str,
+        params: Optional[dict[str, Any]] = None,
+    ) -> Response:
+        """
+        Return the response for upstream request to the server.
+
+        :param method: Method for operation with the API server.
+        :param path: Path for the location to upstream endpoint.
+        :param params: Optional parameters included in request.
+        :returns: Response for upstream request to the server.
+        """
+
+        params = dict(params or {})
+
+        server = self.params.server
+        token = self.params.token
+        client = self.client
+
+        params['access_token'] = token
+
+        location = (
+            f'https://{server}/{path}')
+
+        request = client.request_async
+
+        return await request(
+            method=method,
+            location=location,
+            params=params)
+
+
+    def latest(
+        # NOCVR
+        self,
+    ) -> list[InstagramMedia]:
+        """
+        Return the posts from the account associated with user.
+
+        :returns: Posts from the account associated with user.
+        """
+
+        return self.latest_block()
+
+
+    def latest_block(
         self,
     ) -> list[InstagramMedia]:
         """
@@ -168,7 +235,39 @@ class Instagram:
         fields = ','.join(MEDIA_FIELDS)
 
 
-        response = self.request(
+        request = self.request_block
+
+        response = request(
+            'get', 'me/media',
+            {'fields': fields})
+
+        response.raise_for_status()
+
+        fetched = response.json()
+
+        assert isinstance(fetched, dict)
+
+
+        return [
+            InstagramMedia(**x)
+            for x in fetched['data']]
+
+
+    async def latest_async(
+        self,
+    ) -> list[InstagramMedia]:
+        """
+        Return the posts from the account associated with user.
+
+        :returns: Posts from the account associated with user.
+        """
+
+        fields = ','.join(MEDIA_FIELDS)
+
+
+        request = self.request_async
+
+        response = await request(
             'get', 'me/media',
             {'fields': fields})
 
