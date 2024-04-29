@@ -93,8 +93,8 @@ YouTube Client
    :show-inheritance:
    :noindex:
 
-Utilities
-=========
+Low Level Utilities
+===================
 
 .. autoclass:: enconnect.utils.HTTPClient
    :members:
