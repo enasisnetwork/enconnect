@@ -210,6 +210,19 @@ class Instagram:
             params=params)
 
 
+    def latest(
+        # NOCVR
+        self,
+    ) -> list[InstagramMedia]:
+        """
+        Return the posts from the account associated with user.
+
+        :returns: Posts from the account associated with user.
+        """
+
+        return self.latest_block()
+
+
     def latest_block(
         self,
     ) -> list[InstagramMedia]:

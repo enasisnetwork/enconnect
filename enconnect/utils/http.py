@@ -71,11 +71,13 @@ class HTTPClient:
 
         client_block = BlockClient(
             timeout=timeout,
-            verify=capem or verify)
+            verify=capem or verify,
+            follow_redirects=True)
 
         client_async = AsyncClient(
             timeout=timeout,
-            verify=capem or verify)
+            verify=capem or verify,
+            follow_redirects=True)
 
         self.__timeout = timeout
         self.__verify = verify

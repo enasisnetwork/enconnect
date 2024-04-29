@@ -250,6 +250,21 @@ class YouTube:
             params=params)
 
 
+    def search(
+        # NOCVR
+        self,
+        params: Optional[dict[str, Any]] = None,
+    ) -> list[YouTubeResult]:
+        """
+        Return the results from the provided search parameters.
+
+        :param params: Optional parameters included in request.
+        :returns: Results from the provided search parameters.
+        """
+
+        return self.search_block(params)
+
+
     def search_block(
         self,
         params: Optional[dict[str, Any]] = None,

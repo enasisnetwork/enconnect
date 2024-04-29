@@ -237,6 +237,23 @@ class Reddit:
             params=params)
 
 
+    def latest(
+        # NOCVR
+        self,
+        subred: str,
+        params: Optional[dict[str, Any]] = None,
+    ) -> list[RedditListing]:
+        """
+        Return the new items within the provided subreddit path.
+
+        :param subred: Path to subreddit containing the content.
+        :param params: Optional parameters included in request.
+        :returns: New items within the provided subreddit path.
+        """
+
+        return self.latest_block(subred, params)
+
+
     def latest_block(
         self,
         subred: str,
