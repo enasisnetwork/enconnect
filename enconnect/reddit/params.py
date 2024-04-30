@@ -19,7 +19,6 @@ class RedditParams(BaseModel, extra='forbid'):
 
     :param server: Host or IP address for server connection.
     :param timeout: Timeout when waiting for server response.
-    :param token: Token used when authenticating to server.
     :param ssl_verify: Require valid certificate from server.
     :param ssl_capem: Optional path to certificate authority.
     :param data: Keyword arguments passed to Pydantic model.
