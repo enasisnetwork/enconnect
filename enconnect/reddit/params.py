@@ -17,16 +17,25 @@ class RedditParams(BaseModel, extra='forbid'):
     """
     Process and validate the class configuration parameters.
 
-    :param server: Host or IP address for server connection.
     :param timeout: Timeout when waiting for server response.
+    :param username: Username for authenticating with server.
+    :param password: Password for authenticating with server.
+    :param client: Token used when authenticating to server.
+    :param secret: Token used when authenticating to server.
+    :param useragent: Reddit has specifics about this value.
     :param ssl_verify: Require valid certificate from server.
     :param ssl_capem: Optional path to certificate authority.
     :param data: Keyword arguments passed to Pydantic model.
         Parameter is picked up by autodoc, please ignore.
     """
 
-    server: str = 'reddit.com'
     timeout: int = 30
+
+    username: str
+    password: str
+    client: str
+    secret: str
+    useragent: str
 
     ssl_verify: bool = True
     ssl_capem: Optional[str] = None

@@ -48,8 +48,10 @@ def test_HTTPClient(
 
     assert attrs == [
         '_HTTPClient__timeout',
+        '_HTTPClient__headers',
         '_HTTPClient__verify',
         '_HTTPClient__capem',
+        '_HTTPClient__httpauth',
         '_HTTPClient__retry',
         '_HTTPClient__backoff',
         '_HTTPClient__states',
@@ -70,9 +72,13 @@ def test_HTTPClient(
 
     assert httpx.timeout == 30
 
+    assert httpx.headers is None
+
     assert httpx.verify is True
 
     assert httpx.capem is None
+
+    assert httpx.httpauth is None
 
     assert httpx.retry == 3
 

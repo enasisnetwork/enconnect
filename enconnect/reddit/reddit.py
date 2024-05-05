@@ -7,6 +7,7 @@ is permitted, for more information consult the project license file.
 
 
 
+import asyncio
 from typing import Any
 from typing import Literal
 from typing import Optional
@@ -19,6 +20,8 @@ from httpx import Response
 from pydantic import BaseModel
 
 from ..utils import HTTPClient
+from ..utils.http import _HTTPAUTH
+from ..utils.http import _PAYLOAD
 
 if TYPE_CHECKING:
     from .params import RedditParams
@@ -130,6 +133,8 @@ class Reddit:
     __params: 'RedditParams'
     __client: HTTPClient
 
+    __token: Optional[str]
+
 
     def __init__(
         self,
@@ -147,6 +152,8 @@ class Reddit:
             capem=params.ssl_capem)
 
         self.__client = client
+
+        self.__token = None
 
 
     @property
@@ -175,11 +182,114 @@ class Reddit:
         return self.__client
 
 
+    @property
+    def token(
+        self,
+    ) -> Optional[str]:
+        """
+        Return the value for the attribute from class instance.
+
+        :returns: Value for the attribute from class instance.
+        """
+
+        return self.__token
+
+
+    def request_token_block(
+        self,
+    ) -> str:
+        """
+        Establish new session obtaining token for authorization.
+
+        :returns: Access token used with authenticated requests.
+        """
+
+        if self.__token is not None:
+            return self.__token
+
+        params = self.params
+        username = params.username
+        password = params.password
+        client = params.client
+        secret = params.secret
+
+        request = self.request_block
+
+        payload = {
+            'grant_type': 'password',
+            'username': username,
+            'password': password}
+
+        response = request(
+            method='post',
+            path='api/v1/access_token',
+            data=payload,
+            httpauth=(client, secret))
+
+        response.raise_for_status()
+
+        fetched = response.json()
+
+        assert isinstance(fetched, dict)
+
+        self.__token = (
+            fetched['access_token'])
+
+        return self.__token
+
+
+    async def request_token_async(
+        self,
+    ) -> str:
+        """
+        Establish new session obtaining token for authorization.
+
+        :returns: Access token used with authenticated requests.
+        """
+
+        if self.__token is not None:
+            await asyncio.sleep(0)
+            return self.__token
+
+        params = self.params
+        username = params.username
+        password = params.password
+        client = params.client
+        secret = params.secret
+
+        request = self.request_async
+
+        payload = {
+            'grant_type': 'password',
+            'username': username,
+            'password': password}
+
+        response = await request(
+            method='post',
+            path='api/v1/access_token',
+            data=payload,
+            httpauth=(client, secret))
+
+        response.raise_for_status()
+
+        fetched = response.json()
+
+        assert isinstance(fetched, dict)
+
+        self.__token = (
+            fetched['access_token'])
+
+        return self.__token
+
+
     def request_block(
         self,
-        method: Literal['get'],
+        method: Literal['get', 'post'],
         path: str,
         params: Optional[dict[str, Any]] = None,
+        data: Optional[_PAYLOAD] = None,
+        *,
+        httpauth: Optional[_HTTPAUTH] = None,
     ) -> Response:
         """
         Return the response for upstream request to the server.
@@ -187,30 +297,50 @@ class Reddit:
         :param method: Method for operation with the API server.
         :param path: Path for the location to upstream endpoint.
         :param params: Optional parameters included in request.
+        :param data: Optional dict payload included in request.
+        :param httpauth: Optional information for authentication.
         :returns: Response for upstream request to the server.
         """
 
-        params = dict(params or {})
+        useragent = self.params.useragent
 
-        server = self.params.server
+        server = 'www.reddit.com'
         client = self.client
+
+        request = client.request_block
+
+
+        token = self.__token
+        token_key = 'Authorization'
+
+        headers = {
+            'User-Agent': useragent}
+
+        if token is not None:
+            headers[token_key] = token
+            server = 'oauth.reddit.com'
+
 
         location = (
             f'https://{server}/{path}')
-
-        request = client.request_block
 
         return request(
             method=method,
             location=location,
-            params=params)
+            params=params,
+            data=data,
+            headers=headers,
+            httpauth=httpauth)
 
 
     async def request_async(
         self,
-        method: Literal['get'],
+        method: Literal['get', 'post'],
         path: str,
         params: Optional[dict[str, Any]] = None,
+        data: Optional[_PAYLOAD] = None,
+        *,
+        httpauth: Optional[_HTTPAUTH] = None,
     ) -> Response:
         """
         Return the response for upstream request to the server.
@@ -218,23 +348,40 @@ class Reddit:
         :param method: Method for operation with the API server.
         :param path: Path for the location to upstream endpoint.
         :param params: Optional parameters included in request.
+        :param data: Optional dict payload included in request.
+        :param httpauth: Optional information for authentication.
         :returns: Response for upstream request to the server.
         """
 
-        params = dict(params or {})
+        useragent = self.params.useragent
 
-        server = self.params.server
+        server = 'www.reddit.com'
         client = self.client
+
+        request = client.request_async
+
+
+        token = self.__token
+        token_key = 'Authorization'
+
+        headers = {
+            'User-Agent': useragent}
+
+        if token is not None:
+            headers[token_key] = token
+            server = 'oauth.reddit.com'
+
 
         location = (
             f'https://{server}/{path}')
 
-        request = client.request_async
-
         return await request(
             method=method,
             location=location,
-            params=params)
+            params=params,
+            data=data,
+            headers=headers,
+            httpauth=httpauth)
 
 
     def latest(
@@ -269,11 +416,28 @@ class Reddit:
 
         params = dict(params or {})
 
-
         request = self.request_block
 
-        response = request(
-            'get', f'r/{subred}/new.json')
+        if self.__token is None:
+            self.request_token_block()
+
+
+        def _request() -> Response:
+
+            return request(
+                method='get',
+                path=f'r/{subred}/new.json')
+
+
+        response = _request()
+
+        if response.status_code == 401:
+
+            self.__token = None
+
+            self.request_token_block()
+
+            response = _request()
 
         response.raise_for_status()
 
@@ -305,11 +469,28 @@ class Reddit:
 
         params = dict(params or {})
 
-
         request = self.request_async
 
-        response = await request(
-            'get', f'r/{subred}/new.json')
+        if self.__token is None:
+            await self.request_token_async()
+
+
+        async def _request() -> Response:
+
+            return await request(
+                method='get',
+                path=f'r/{subred}/new.json')
+
+
+        response = await _request()
+
+        if response.status_code == 401:
+
+            self.__token = None
+
+            await self.request_token_async()
+
+            response = await _request()
 
         response.raise_for_status()
 
