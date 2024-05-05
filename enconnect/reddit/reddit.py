@@ -302,8 +302,6 @@ class Reddit:
         :returns: Response for upstream request to the server.
         """
 
-        useragent = self.params.useragent
-
         server = 'www.reddit.com'
         client = self.client
 
@@ -312,6 +310,8 @@ class Reddit:
 
         token = self.__token
         token_key = 'Authorization'
+
+        useragent = self.params.useragent
 
         headers = {
             'User-Agent': useragent}
@@ -353,8 +353,6 @@ class Reddit:
         :returns: Response for upstream request to the server.
         """
 
-        useragent = self.params.useragent
-
         server = 'www.reddit.com'
         client = self.client
 
@@ -363,6 +361,8 @@ class Reddit:
 
         token = self.__token
         token_key = 'Authorization'
+
+        useragent = self.params.useragent
 
         headers = {
             'User-Agent': useragent}

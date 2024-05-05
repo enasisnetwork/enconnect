@@ -30,6 +30,10 @@ from ..params import InstagramParams
 
 
 
+_REQGET = Request('get', SEMPTY)
+
+
+
 @fixture
 def social() -> Instagram:
     """
@@ -76,6 +80,17 @@ def test_Instagram(
     assert social.params is not None
 
 
+
+def test_Instagram_block(
+    social: Instagram,
+) -> None:
+    """
+    Perform various tests associated with relevant routines.
+
+    :param social: Class instance for connecting to service.
+    """
+
+
     patched = patch(
         'httpx.Client.request')
 
@@ -84,13 +99,11 @@ def test_Instagram(
         source = read_text(
             f'{SAMPLES}/source.json')
 
-        request = Request('get', SEMPTY)
-
         mocker.side_effect = [
             Response(
                 status_code=200,
                 content=source,
-                request=request)]
+                request=_REQGET)]
 
         media = social.latest_block()
 
@@ -132,13 +145,11 @@ async def test_Instagram_async(
         source = read_text(
             f'{SAMPLES}/source.json')
 
-        request = Request('get', SEMPTY)
-
         mocker.side_effect = [
             Response(
                 status_code=200,
                 content=source,
-                request=request)]
+                request=_REQGET)]
 
         waited = social.latest_async()
 

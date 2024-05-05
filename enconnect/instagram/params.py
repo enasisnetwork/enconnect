@@ -17,7 +17,6 @@ class InstagramParams(BaseModel, extra='forbid'):
     """
     Process and validate the class configuration parameters.
 
-    :param server: Host or IP address for server connection.
     :param timeout: Timeout when waiting for server response.
     :param token: Token used when authenticating to server.
     :param ssl_verify: Require valid certificate from server.
@@ -26,7 +25,6 @@ class InstagramParams(BaseModel, extra='forbid'):
         Parameter is picked up by autodoc, please ignore.
     """
 
-    server: str = 'graph.instagram.com'
     timeout: int = 30
 
     token: str

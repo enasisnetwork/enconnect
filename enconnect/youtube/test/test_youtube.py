@@ -30,6 +30,10 @@ from ..youtube import YouTube
 
 
 
+_REQGET = Request('get', SEMPTY)
+
+
+
 @fixture
 def social() -> YouTube:
     """
@@ -76,6 +80,17 @@ def test_YouTube(
     assert social.params is not None
 
 
+
+def test_YouTube_block(
+    social: YouTube,
+) -> None:
+    """
+    Perform various tests associated with relevant routines.
+
+    :param social: Class instance for connecting to service.
+    """
+
+
     patched = patch(
         'httpx.Client.request')
 
@@ -84,16 +99,17 @@ def test_YouTube(
         source = read_text(
             f'{SAMPLES}/source.json')
 
-        request = Request('get', SEMPTY)
-
         mocker.side_effect = [
             Response(
                 status_code=200,
                 content=source,
-                request=request)]
+                request=_REQGET)]
 
-        results = social.search_block(
-            {'channelId': 'mocked'})
+        payload = {'channelId': 'mocked'}
+
+        results = (
+            social
+            .search_block(payload))
 
 
     sample_path = (
@@ -133,16 +149,17 @@ async def test_YouTube_async(
         source = read_text(
             f'{SAMPLES}/source.json')
 
-        request = Request('get', SEMPTY)
-
         mocker.side_effect = [
             Response(
                 status_code=200,
                 content=source,
-                request=request)]
+                request=_REQGET)]
 
-        waited = social.search_async(
-            {'channelId': 'mocked'})
+        payload = {'channelId': 'mocked'}
+
+        waited = (
+            social
+            .search_async(payload))
 
         results = await waited
 

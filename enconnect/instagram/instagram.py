@@ -159,11 +159,11 @@ class Instagram:
 
         params = dict(params or {})
 
-        server = self.params.server
-        token = self.params.token
+        server = 'graph.instagram.com'
         client = self.client
 
-        params['access_token'] = token
+        params['access_token'] = (
+            self.params.token)
 
         location = (
             f'https://{server}/{path}')
@@ -193,11 +193,11 @@ class Instagram:
 
         params = dict(params or {})
 
-        server = self.params.server
-        token = self.params.token
+        server = 'graph.instagram.com'
         client = self.client
 
-        params['access_token'] = token
+        params['access_token'] = (
+            self.params.token)
 
         location = (
             f'https://{server}/{path}')
