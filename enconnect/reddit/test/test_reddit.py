@@ -30,6 +30,11 @@ from ..reddit import Reddit
 
 
 
+REQUEST_GET = Request('get', SEMPTY)
+REQUEST_POST = Request('post', SEMPTY)
+
+
+
 @fixture
 def social() -> Reddit:
     """
@@ -38,7 +43,12 @@ def social() -> Reddit:
     :returns: Newly constructed instance of related class.
     """
 
-    params = RedditParams()
+    params = RedditParams(
+        username='mocked',
+        password='mocked',
+        client='mocked',
+        secret='mocked',
+        useragent='mocked')
 
     return Reddit(params)
 
@@ -58,7 +68,8 @@ def test_Reddit(
 
     assert attrs == [
         '_Reddit__params',
-        '_Reddit__client']
+        '_Reddit__client',
+        '_Reddit__token']
 
 
     assert inrepr(
@@ -74,6 +85,19 @@ def test_Reddit(
 
     assert social.params is not None
 
+    assert social.token is None
+
+
+
+def test_Reddit_block(
+    social: Reddit,
+) -> None:
+    """
+    Perform various tests associated with relevant routines.
+
+    :param social: Class instance for connecting to service.
+    """
+
 
     patched = patch(
         'httpx.Client.request')
@@ -83,15 +107,30 @@ def test_Reddit(
         source = read_text(
             f'{SAMPLES}/source.json')
 
-        request = Request('get', SEMPTY)
+        token = read_text(
+            f'{SAMPLES}/token.json')
 
         mocker.side_effect = [
             Response(
                 status_code=200,
+                content=token,
+                request=REQUEST_POST),
+            Response(
+                status_code=401,
                 content=source,
-                request=request)]
+                request=REQUEST_GET),
+            Response(
+                status_code=200,
+                content=token,
+                request=REQUEST_POST),
+            Response(
+                status_code=200,
+                content=source,
+                request=REQUEST_GET)]
 
-        listing = social.latest_block('mocked')
+        listing = (
+            social
+            .latest_block('mocked'))
 
 
     sample_path = (
@@ -108,6 +147,9 @@ def test_Reddit(
         for x in listing])
 
     assert sample == expect
+
+
+    social.request_token_block()
 
 
 
@@ -131,15 +173,30 @@ async def test_Reddit_async(
         source = read_text(
             f'{SAMPLES}/source.json')
 
-        request = Request('get', SEMPTY)
+        token = read_text(
+            f'{SAMPLES}/token.json')
 
         mocker.side_effect = [
             Response(
                 status_code=200,
+                content=token,
+                request=REQUEST_POST),
+            Response(
+                status_code=401,
                 content=source,
-                request=request)]
+                request=REQUEST_GET),
+            Response(
+                status_code=200,
+                content=token,
+                request=REQUEST_POST),
+            Response(
+                status_code=200,
+                content=source,
+                request=REQUEST_GET)]
 
-        waited = social.latest_async('mocked')
+        waited = (
+            social
+            .latest_async('mocked'))
 
         listing = await waited
 
@@ -158,3 +215,6 @@ async def test_Reddit_async(
         for x in listing])
 
     assert sample == expect
+
+
+    await social.request_token_async()

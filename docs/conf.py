@@ -46,6 +46,7 @@ nitpick_ignore = [
     ('py:class', 'httpx.AsyncClient'),
     ('py:class', 'httpx.Client'),
     ('py:class', 'httpx.Response'),
+    ('py:class', 'httpx.Headers'),
     ('py:class', 'pydantic.main.BaseModel'),
     ('py:class', 'requests.models.Response'),
     ('py:class', 'requests.sessions.Session')]
