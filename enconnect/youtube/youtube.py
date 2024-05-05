@@ -197,11 +197,11 @@ class YouTube:
 
         params = dict(params or {})
 
-        server = self.params.server
-        token = self.params.token
+        server = 'www.googleapis.com'
         client = self.client
 
-        params['key'] = token
+        params['key'] = (
+            self.params.token)
 
         location = (
             f'https://{server}/'
@@ -232,11 +232,11 @@ class YouTube:
 
         params = dict(params or {})
 
-        server = self.params.server
-        token = self.params.token
+        server = 'www.googleapis.com'
         client = self.client
 
-        params['key'] = token
+        params['key'] = (
+            self.params.token)
 
         location = (
             f'https://{server}/'

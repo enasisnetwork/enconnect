@@ -30,8 +30,8 @@ from ..reddit import Reddit
 
 
 
-REQUEST_GET = Request('get', SEMPTY)
-REQUEST_POST = Request('post', SEMPTY)
+_REQGET = Request('get', SEMPTY)
+_REQPOST = Request('post', SEMPTY)
 
 
 
@@ -114,19 +114,19 @@ def test_Reddit_block(
             Response(
                 status_code=200,
                 content=token,
-                request=REQUEST_POST),
+                request=_REQPOST),
             Response(
                 status_code=401,
                 content=source,
-                request=REQUEST_GET),
+                request=_REQGET),
             Response(
                 status_code=200,
                 content=token,
-                request=REQUEST_POST),
+                request=_REQPOST),
             Response(
                 status_code=200,
                 content=source,
-                request=REQUEST_GET)]
+                request=_REQGET)]
 
         listing = (
             social
@@ -180,19 +180,19 @@ async def test_Reddit_async(
             Response(
                 status_code=200,
                 content=token,
-                request=REQUEST_POST),
+                request=_REQPOST),
             Response(
                 status_code=401,
                 content=source,
-                request=REQUEST_GET),
+                request=_REQGET),
             Response(
                 status_code=200,
                 content=token,
-                request=REQUEST_POST),
+                request=_REQPOST),
             Response(
                 status_code=200,
                 content=source,
-                request=REQUEST_GET)]
+                request=_REQGET)]
 
         waited = (
             social

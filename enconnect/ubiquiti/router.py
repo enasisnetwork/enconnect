@@ -78,10 +78,12 @@ class Router:
         """
 
         params = self.params
+        username = params.username
+        password = params.password
 
         payload = {
-            'username': params.username,
-            'password': params.password}
+            'username': username,
+            'password': password}
 
         response = self.request(
             method='post',
