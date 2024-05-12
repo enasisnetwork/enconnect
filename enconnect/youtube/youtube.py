@@ -51,6 +51,16 @@ RESULT_BASIC = {
 
 
 
+VIDEO_VALUE = {
+    'channelId': 'channel',
+    'channelTitle': 'channel_title',
+    'description': 'about',
+    'publishedAt': 'published',
+    'thumbnails': 'thumbnail',
+    'title': 'title'}
+
+
+
 class YouTubeResult(BaseModel, extra='ignore'):
     """
     Contains information returned from the upstream response.
@@ -105,6 +115,67 @@ class YouTubeResult(BaseModel, extra='ignore'):
         for old, new in items:
 
             value = match.get(old)
+
+            if value is None:
+                continue  # NOCVR
+
+            data[new] = value
+
+
+        if 'thumbnail' in data:
+            data['thumbnail'] = (
+                data['thumbnail']
+                ['high']['url'])
+
+
+        data['kind'] = data['kind'][8:]
+
+
+        super().__init__(**data)
+
+
+
+class YouTubeVideo(BaseModel, extra='ignore'):
+    """
+    Contains information returned from the upstream response.
+
+    .. note::
+       Fields are not completely documented for this model.
+
+    :param data: Keyword arguments passed to Pydantic model.
+        Parameter is picked up by autodoc, please ignore.
+    """
+
+    kind: RESULT_KINDS
+
+    channel: str
+    video: str
+
+    title: str
+    about: str
+    thumbnail: str
+    published: str
+
+
+    def __init__(
+        self,
+        **data: Any,
+    ) -> None:
+        """
+        Initialize instance for class using provided parameters.
+        """
+
+
+        data['video'] = data['id']
+
+
+        video = data['snippet']
+
+        items = VIDEO_VALUE.items()
+
+        for old, new in items:
+
+            value = video.get(old)
 
             if value is None:
                 continue  # NOCVR
@@ -349,3 +420,100 @@ class YouTube:
             for x in fetched['items']
             if x['id']['kind']
             in _RESULT_KINDS]
+
+
+    def videos(
+        # NOCVR
+        self,
+        params: Optional[dict[str, Any]] = None,
+    ) -> list[YouTubeVideo]:
+        """
+        Return the videos from the provided search parameters.
+
+        :param params: Optional parameters included in request.
+        :returns: Results from the provided search parameters.
+        """
+
+        return self.videos_block(params)
+
+
+    def videos_block(
+        self,
+        params: Optional[dict[str, Any]] = None,
+    ) -> list[YouTubeVideo]:
+        """
+        Return the videos from the provided search parameters.
+
+        :param params: Optional parameters included in request.
+        :returns: Results from the provided search parameters.
+        """
+
+        params = dict(params or {})
+
+
+        if 'maxResults' not in params:
+            params['maxResults'] = 50
+
+        if 'order' not in params:
+            params['order'] = 'date'
+
+        if 'part' not in params:
+            params['part'] = 'snippet,id'
+
+
+        request = self.request_block
+
+        response = request(
+            'get', 'videos', params)
+
+        response.raise_for_status()
+
+        fetched = response.json()
+
+        assert isinstance(fetched, dict)
+
+
+        return [
+            YouTubeVideo(**x)
+            for x in fetched['items']]
+
+
+    async def videos_async(
+        self,
+        params: Optional[dict[str, Any]] = None,
+    ) -> list[YouTubeVideo]:
+        """
+        Return the videos from the provided search parameters.
+
+        :param params: Optional parameters included in request.
+        :returns: Results from the provided search parameters.
+        """
+
+        params = dict(params or {})
+
+
+        if 'maxResults' not in params:
+            params['maxResults'] = 50
+
+        if 'order' not in params:
+            params['order'] = 'date'
+
+        if 'part' not in params:
+            params['part'] = 'snippet,id'
+
+
+        request = self.request_async
+
+        response = await request(
+            'get', 'videos', params)
+
+        response.raise_for_status()
+
+        fetched = response.json()
+
+        assert isinstance(fetched, dict)
+
+
+        return [
+            YouTubeVideo(**x)
+            for x in fetched['items']]
