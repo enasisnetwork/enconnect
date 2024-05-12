@@ -81,7 +81,7 @@ def test_YouTube(
 
 
 
-def test_YouTube_block(
+def test_YouTube_search_block(
     social: YouTube,
 ) -> None:
     """
@@ -97,7 +97,7 @@ def test_YouTube_block(
     with patched as mocker:
 
         source = read_text(
-            f'{SAMPLES}/source.json')
+            f'{SAMPLES}/search/source.json')
 
         mocker.side_effect = [
             Response(
@@ -113,7 +113,7 @@ def test_YouTube_block(
 
 
     sample_path = (
-        f'{SAMPLES}/dumped.json')
+        f'{SAMPLES}/search/dumped.json')
 
     sample = load_sample(
         sample_path,
@@ -130,7 +130,7 @@ def test_YouTube_block(
 
 
 @mark.asyncio
-async def test_YouTube_async(
+async def test_YouTube_search_async(
     social: YouTube,
 ) -> None:
     """
@@ -147,7 +147,7 @@ async def test_YouTube_async(
     with patched as mocker:
 
         source = read_text(
-            f'{SAMPLES}/source.json')
+            f'{SAMPLES}/search/source.json')
 
         mocker.side_effect = [
             Response(
@@ -165,7 +165,107 @@ async def test_YouTube_async(
 
 
     sample_path = (
-        f'{SAMPLES}/dumped.json')
+        f'{SAMPLES}/search/dumped.json')
+
+    sample = load_sample(
+        sample_path,
+        [x.model_dump()
+         for x in results],
+        update=ENPYRWS)
+
+    expect = prep_sample([
+        x.model_dump()
+        for x in results])
+
+    assert sample == expect
+
+
+
+def test_YouTube_videos_block(
+    social: YouTube,
+) -> None:
+    """
+    Perform various tests associated with relevant routines.
+
+    :param social: Class instance for connecting to service.
+    """
+
+
+    patched = patch(
+        'httpx.Client.request')
+
+    with patched as mocker:
+
+        source = read_text(
+            f'{SAMPLES}/videos/source.json')
+
+        mocker.side_effect = [
+            Response(
+                status_code=200,
+                content=source,
+                request=_REQGET)]
+
+        payload = {'id': 'mocked'}
+
+        results = (
+            social
+            .videos_block(payload))
+
+
+    sample_path = (
+        f'{SAMPLES}/videos/dumped.json')
+
+    sample = load_sample(
+        sample_path,
+        [x.model_dump()
+         for x in results],
+        update=ENPYRWS)
+
+    expect = prep_sample([
+        x.model_dump()
+        for x in results])
+
+    assert sample == expect
+
+
+
+@mark.asyncio
+async def test_YouTube_videos_async(
+    social: YouTube,
+) -> None:
+    """
+    Perform various tests associated with relevant routines.
+
+    :param social: Class instance for connecting to service.
+    """
+
+
+    patched = patch(
+        'httpx.AsyncClient.request',
+        new_callable=AsyncMock)
+
+    with patched as mocker:
+
+        source = read_text(
+            f'{SAMPLES}/videos/source.json')
+
+        mocker.side_effect = [
+            Response(
+                status_code=200,
+                content=source,
+                request=_REQGET)]
+
+        payload = {'id': 'mocked'}
+
+        waited = (
+            social
+            .videos_async(payload))
+
+        results = await waited
+
+
+    sample_path = (
+        f'{SAMPLES}/videos/dumped.json')
 
     sample = load_sample(
         sample_path,
