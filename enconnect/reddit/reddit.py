@@ -384,6 +384,102 @@ class Reddit:
             httpauth=httpauth)
 
 
+    def listing_block(
+        self,
+        unique: str,
+    ) -> RedditListing:
+        """
+        Return the specific content within the social platform.
+
+        :param unique: Unique identifier within social platform.
+        :returns: Specific content within the social platform.
+        """
+
+        request = self.request_block
+
+        if self.__token is None:
+            self.request_token_block()
+
+
+        def _request() -> Response:
+
+            return request(
+                method='get',
+                path=f'comments/{unique}.json')
+
+
+        response = _request()
+
+        if response.status_code == 401:
+
+            self.__token = None
+
+            self.request_token_block()
+
+            response = _request()
+
+        response.raise_for_status()
+
+        fetched = response.json()
+
+        assert isinstance(fetched, list)
+
+
+        source = fetched[0]['data']
+        children = source['children']
+
+        return RedditListing(
+            **children[0]['data'])
+
+
+    async def listing_async(
+        self,
+        unique: str,
+    ) -> RedditListing:
+        """
+        Return the specific content within the social platform.
+
+        :param unique: Unique identifier within social platform.
+        :returns: Specific content within the social platform.
+        """
+
+        request = self.request_async
+
+        if self.__token is None:
+            await self.request_token_async()
+
+
+        async def _request() -> Response:
+
+            return await request(
+                method='get',
+                path=f'comments/{unique}.json')
+
+
+        response = await _request()
+
+        if response.status_code == 401:
+
+            self.__token = None
+
+            await self.request_token_async()
+
+            response = await _request()
+
+        response.raise_for_status()
+
+        fetched = response.json()
+
+        assert isinstance(fetched, list)
+
+
+        source = fetched[0]['data']
+        children = source['children']
+
+        return RedditListing(
+            **children[0]['data'])
+
+
     def latest(
         # NOCVR
         self,

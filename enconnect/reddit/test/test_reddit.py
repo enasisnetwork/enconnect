@@ -7,6 +7,8 @@ is permitted, for more information consult the project license file.
 
 
 
+from json import dumps
+from json import loads
 from unittest.mock import AsyncMock
 from unittest.mock import patch
 
@@ -89,7 +91,7 @@ def test_Reddit(
 
 
 
-def test_Reddit_block(
+def test_Reddit_latest_block(
     social: Reddit,
 ) -> None:
     """
@@ -104,47 +106,50 @@ def test_Reddit_block(
 
     with patched as mocker:
 
-        source = read_text(
+        _latest = read_text(
             f'{SAMPLES}/source.json')
 
-        token = read_text(
+        _token = read_text(
             f'{SAMPLES}/token.json')
+
+        _listing = dumps([
+            loads(_latest)])
 
         mocker.side_effect = [
             Response(
                 status_code=200,
-                content=token,
+                content=_token,
                 request=_REQPOST),
             Response(
                 status_code=401,
-                content=source,
+                content=_latest,
                 request=_REQGET),
             Response(
                 status_code=200,
-                content=token,
+                content=_token,
                 request=_REQPOST),
             Response(
                 status_code=200,
-                content=source,
+                content=_latest,
                 request=_REQGET)]
 
-        listing = (
-            social
-            .latest_block('mocked'))
+        latest = (
+            social.latest_block(
+                'mocked'))
 
 
     sample_path = (
-        f'{SAMPLES}/dumped.json')
+        f'{SAMPLES}/latest.json')
 
     sample = load_sample(
         sample_path,
         [x.model_dump()
-         for x in listing],
+         for x in latest],
         update=ENPYRWS)
 
     expect = prep_sample([
         x.model_dump()
-        for x in listing])
+        for x in latest])
 
     assert sample == expect
 
@@ -154,7 +159,7 @@ def test_Reddit_block(
 
 
 @mark.asyncio
-async def test_Reddit_async(
+async def test_Reddit_latest_async(
     social: Reddit,
 ) -> None:
     """
@@ -170,51 +175,175 @@ async def test_Reddit_async(
 
     with patched as mocker:
 
-        source = read_text(
+        _latest = read_text(
             f'{SAMPLES}/source.json')
 
-        token = read_text(
+        _token = read_text(
             f'{SAMPLES}/token.json')
 
         mocker.side_effect = [
             Response(
                 status_code=200,
-                content=token,
+                content=_token,
                 request=_REQPOST),
             Response(
                 status_code=401,
-                content=source,
+                content=_latest,
                 request=_REQGET),
             Response(
                 status_code=200,
-                content=token,
+                content=_token,
                 request=_REQPOST),
             Response(
                 status_code=200,
-                content=source,
+                content=_latest,
                 request=_REQGET)]
 
-        waited = (
-            social
-            .latest_async('mocked'))
-
-        listing = await waited
+        latest = await (
+            social.latest_async(
+                'mocked'))
 
 
     sample_path = (
-        f'{SAMPLES}/dumped.json')
+        f'{SAMPLES}/latest.json')
 
     sample = load_sample(
         sample_path,
         [x.model_dump()
-         for x in listing],
+         for x in latest],
         update=ENPYRWS)
 
     expect = prep_sample([
         x.model_dump()
-        for x in listing])
+        for x in latest])
 
     assert sample == expect
 
 
     await social.request_token_async()
+
+
+
+def test_Reddit_listing_block(
+    social: Reddit,
+) -> None:
+    """
+    Perform various tests associated with relevant routines.
+
+    :param social: Class instance for connecting to service.
+    """
+
+
+    patched = patch(
+        'httpx.Client.request')
+
+    with patched as mocker:
+
+        _latest = read_text(
+            f'{SAMPLES}/source.json')
+
+        _token = read_text(
+            f'{SAMPLES}/token.json')
+
+        _listing = dumps([
+            loads(_latest)])
+
+        mocker.side_effect = [
+            Response(
+                status_code=200,
+                content=_token,
+                request=_REQPOST),
+            Response(
+                status_code=401,
+                content=_listing,
+                request=_REQGET),
+            Response(
+                status_code=200,
+                content=_token,
+                request=_REQPOST),
+            Response(
+                status_code=200,
+                content=_listing,
+                request=_REQGET)]
+
+        listing = (
+            social.listing_block(
+                'mocked'))
+
+
+    sample_path = (
+        f'{SAMPLES}/listing.json')
+
+    sample = load_sample(
+        sample_path,
+        listing.model_dump(),
+        update=ENPYRWS)
+
+    expect = prep_sample(
+        listing.model_dump())
+
+    assert sample == expect
+
+
+
+@mark.asyncio
+async def test_Reddit_listing_async(
+    social: Reddit,
+) -> None:
+    """
+    Perform various tests associated with relevant routines.
+
+    :param social: Class instance for connecting to service.
+    """
+
+
+    patched = patch(
+        'httpx.AsyncClient.request',
+        new_callable=AsyncMock)
+
+    with patched as mocker:
+
+        _latest = read_text(
+            f'{SAMPLES}/source.json')
+
+        _token = read_text(
+            f'{SAMPLES}/token.json')
+
+        _listing = dumps([
+            loads(_latest)])
+
+        mocker.side_effect = [
+            Response(
+                status_code=200,
+                content=_token,
+                request=_REQPOST),
+            Response(
+                status_code=401,
+                content=_listing,
+                request=_REQGET),
+            Response(
+                status_code=200,
+                content=_token,
+                request=_REQPOST),
+            Response(
+                status_code=200,
+                content=_listing,
+                request=_REQGET)]
+
+        listing = await (
+            social.listing_async(
+                'mocked'))
+
+
+    sample_path = (
+        f'{SAMPLES}/listing.json')
+
+    sample = load_sample(
+        sample_path,
+        listing.model_dump(),
+        update=ENPYRWS)
+
+    expect = prep_sample(
+        listing.model_dump())
+
+    assert sample == expect

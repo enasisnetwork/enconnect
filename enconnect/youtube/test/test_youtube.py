@@ -197,9 +197,14 @@ def test_YouTube_videos_block(
     with patched as mocker:
 
         source = read_text(
-            f'{SAMPLES}/videos/source.json')
+            f'{SAMPLES}/videos'
+            '/source.json')
 
         mocker.side_effect = [
+            Response(
+                status_code=200,
+                content=source,
+                request=_REQGET),
             Response(
                 status_code=200,
                 content=source,
@@ -207,25 +212,33 @@ def test_YouTube_videos_block(
 
         payload = {'id': 'mocked'}
 
-        results = (
-            social
-            .videos_block(payload))
+        videos = (
+            social.videos_block(
+                payload))
+
+        video = (
+            social.video_block(
+                'mocked'))
 
 
     sample_path = (
-        f'{SAMPLES}/videos/dumped.json')
+        f'{SAMPLES}/videos'
+        '/dumped.json')
 
     sample = load_sample(
         sample_path,
         [x.model_dump()
-         for x in results],
+         for x in videos],
         update=ENPYRWS)
 
     expect = prep_sample([
         x.model_dump()
-        for x in results])
+        for x in videos])
 
     assert sample == expect
+
+
+    assert video == videos[0]
 
 
 
@@ -247,9 +260,14 @@ async def test_YouTube_videos_async(
     with patched as mocker:
 
         source = read_text(
-            f'{SAMPLES}/videos/source.json')
+            f'{SAMPLES}/videos'
+            '/source.json')
 
         mocker.side_effect = [
+            Response(
+                status_code=200,
+                content=source,
+                request=_REQGET),
             Response(
                 status_code=200,
                 content=source,
@@ -257,24 +275,30 @@ async def test_YouTube_videos_async(
 
         payload = {'id': 'mocked'}
 
-        waited = (
-            social
-            .videos_async(payload))
+        videos = await (
+            social.videos_async(
+                payload))
 
-        results = await waited
+        video = await (
+            social.video_async(
+                'mocked'))
 
 
     sample_path = (
-        f'{SAMPLES}/videos/dumped.json')
+        f'{SAMPLES}/videos'
+        '/dumped.json')
 
     sample = load_sample(
         sample_path,
         [x.model_dump()
-         for x in results],
+         for x in videos],
         update=ENPYRWS)
 
     expect = prep_sample([
         x.model_dump()
-        for x in results])
+        for x in videos])
 
     assert sample == expect
+
+
+    assert video == videos[0]
