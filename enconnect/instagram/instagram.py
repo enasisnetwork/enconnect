@@ -223,6 +223,66 @@ class Instagram:
         return self.latest_block()
 
 
+    def media_block(
+        self,
+        unique: int | str,
+    ) -> InstagramMedia:
+        """
+        Return the specific content within the social platform.
+
+        :param unique: Unique identifier within social platform.
+        :returns: Specific content within the social platform.
+        """
+
+        fields = ','.join(MEDIA_FIELDS)
+
+
+        request = self.request_block
+
+        response = request(
+            'get', str(unique),
+            {'fields': fields})
+
+        response.raise_for_status()
+
+        fetched = response.json()
+
+        assert isinstance(fetched, dict)
+
+
+        return InstagramMedia(**fetched)
+
+
+    async def media_async(
+        self,
+        unique: int | str,
+    ) -> InstagramMedia:
+        """
+        Return the specific content within the social platform.
+
+        :param unique: Unique identifier within social platform.
+        :returns: Specific content within the social platform.
+        """
+
+        fields = ','.join(MEDIA_FIELDS)
+
+
+        request = self.request_async
+
+        response = await request(
+            'get', str(unique),
+            {'fields': fields})
+
+        response.raise_for_status()
+
+        fetched = response.json()
+
+        assert isinstance(fetched, dict)
+
+
+        return InstagramMedia(**fetched)
+
+
     def latest_block(
         self,
     ) -> list[InstagramMedia]:

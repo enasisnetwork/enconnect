@@ -7,6 +7,8 @@ is permitted, for more information consult the project license file.
 
 
 
+from json import dumps
+from json import loads
 from unittest.mock import AsyncMock
 from unittest.mock import patch
 
@@ -96,30 +98,56 @@ def test_Instagram_block(
 
     with patched as mocker:
 
-        source = read_text(
+        _latest = read_text(
             f'{SAMPLES}/source.json')
+
+        _media = dumps(loads(
+            _latest)['data'][0])
 
         mocker.side_effect = [
             Response(
                 status_code=200,
-                content=source,
+                content=_latest,
+                request=_REQGET),
+            Response(
+                status_code=200,
+                content=_media,
                 request=_REQGET)]
 
-        media = social.latest_block()
+        latest = (
+            social.latest_block())
+
+        media = (
+            social.media_block(
+                'mocked'))
 
 
     sample_path = (
-        f'{SAMPLES}/dumped.json')
+        f'{SAMPLES}/latest.json')
 
     sample = load_sample(
         sample_path,
         [x.model_dump()
-         for x in media],
+         for x in latest],
         update=ENPYRWS)
 
     expect = prep_sample([
         x.model_dump()
-        for x in media])
+        for x in latest])
+
+    assert sample == expect
+
+
+    sample_path = (
+        f'{SAMPLES}/media.json')
+
+    sample = load_sample(
+        sample_path,
+        media.model_dump(),
+        update=ENPYRWS)
+
+    expect = prep_sample(
+        media.model_dump())
 
     assert sample == expect
 
@@ -142,31 +170,55 @@ async def test_Instagram_async(
 
     with patched as mocker:
 
-        source = read_text(
+        _latest = read_text(
             f'{SAMPLES}/source.json')
+
+        _media = dumps(loads(
+            _latest)['data'][0])
 
         mocker.side_effect = [
             Response(
                 status_code=200,
-                content=source,
+                content=_latest,
+                request=_REQGET),
+            Response(
+                status_code=200,
+                content=_media,
                 request=_REQGET)]
 
-        waited = social.latest_async()
+        latest = await (
+            social.latest_async())
 
-        media = await waited
+        media = await (
+            social.media_async(
+                'mocked'))
 
 
     sample_path = (
-        f'{SAMPLES}/dumped.json')
+        f'{SAMPLES}/latest.json')
 
     sample = load_sample(
         sample_path,
         [x.model_dump()
-         for x in media],
+         for x in latest],
         update=ENPYRWS)
 
     expect = prep_sample([
         x.model_dump()
-        for x in media])
+        for x in latest])
+
+    assert sample == expect
+
+
+    sample_path = (
+        f'{SAMPLES}/media.json')
+
+    sample = load_sample(
+        sample_path,
+        media.model_dump(),
+        update=ENPYRWS)
+
+    expect = prep_sample(
+        media.model_dump())
 
     assert sample == expect

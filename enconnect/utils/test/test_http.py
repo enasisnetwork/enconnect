@@ -23,7 +23,7 @@ from ..http import HTTPClient
 
 
 @fixture
-def httpx() -> HTTPClient:
+def client() -> HTTPClient:
     """
     Construct the instance for use in the downstream tests.
 
@@ -35,16 +35,16 @@ def httpx() -> HTTPClient:
 
 
 def test_HTTPClient(
-    httpx: HTTPClient,
+    client: HTTPClient,
 ) -> None:
     """
     Perform various tests associated with relevant routines.
 
-    :param httpx: Class instance for connecting with server.
+    :param client: Class instance for connecting with server.
     """
 
 
-    attrs = list(httpx.__dict__)
+    attrs = list(client.__dict__)
 
     assert attrs == [
         '_HTTPClient__timeout',
@@ -61,50 +61,50 @@ def test_HTTPClient(
 
     assert inrepr(
         'http.HTTPClient object',
-        httpx)
+        client)
 
-    assert hash(httpx) > 0
+    assert hash(client) > 0
 
     assert instr(
         'http.HTTPClient object',
-        httpx)
+        client)
 
 
-    assert httpx.timeout == 30
+    assert client.timeout == 30
 
-    assert httpx.headers is None
+    assert client.headers is None
 
-    assert httpx.verify is True
+    assert client.verify is True
 
-    assert httpx.capem is None
+    assert client.capem is None
 
-    assert httpx.httpauth is None
+    assert client.httpauth is None
 
-    assert httpx.retry == 3
+    assert client.retry == 3
 
-    assert httpx.backoff == 3.0
+    assert client.backoff == 3.0
 
-    assert httpx.states == {429}
+    assert client.states == {429}
 
-    assert httpx.client_block is not None
+    assert client.client_block is not None
 
-    assert httpx.client_async is not None
+    assert client.client_async is not None
 
 
 
 def test_HTTPClient_block(
-    httpx: HTTPClient,
+    client: HTTPClient,
 ) -> None:
     """
     Perform various tests associated with relevant routines.
 
-    :param httpx: Class instance for connecting with server.
+    :param client: Class instance for connecting with server.
     """
 
     patched = patch(
         'httpx.Client.request')
 
-    request = httpx.request_block
+    request = client.request_block
 
     with patched as mocker:
 
@@ -125,19 +125,19 @@ def test_HTTPClient_block(
 
 @mark.asyncio
 async def test_HTTPClient_async(
-    httpx: HTTPClient,
+    client: HTTPClient,
 ) -> None:
     """
     Perform various tests associated with relevant routines.
 
-    :param httpx: Class instance for connecting with server.
+    :param client: Class instance for connecting with server.
     """
 
     patched = patch(
         'httpx.AsyncClient.request',
         new_callable=AsyncMock)
 
-    request = httpx.request_async
+    request = client.request_async
 
     with patched as mocker:
 

@@ -517,3 +517,38 @@ class YouTube:
         return [
             YouTubeVideo(**x)
             for x in fetched['items']]
+
+
+    def video_block(
+        self,
+        unique: str,
+    ) -> YouTubeVideo:
+        """
+        Return the specific content within the social platform.
+
+        :param unique: Unique identifier within social platform.
+        :returns: Specific content within the social platform.
+        """
+
+        videos = self.videos_block(
+            {'id': unique})
+
+        return videos[0]
+
+
+    async def video_async(
+        self,
+        unique: str,
+    ) -> YouTubeVideo:
+        """
+        Return the specific content within the social platform.
+
+        :param unique: Unique identifier within social platform.
+        :returns: Specific content within the social platform.
+        """
+
+        videos = await (
+            self.videos_async({
+                'id': unique}))
+
+        return videos[0]
