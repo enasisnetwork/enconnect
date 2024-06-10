@@ -112,9 +112,6 @@ def test_Reddit_latest_block(
         _token = read_text(
             f'{SAMPLES}/token.json')
 
-        _listing = dumps([
-            loads(_latest)])
-
         mocker.side_effect = [
             Response(
                 status_code=200,
