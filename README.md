@@ -16,7 +16,8 @@ Should you venture into the sections below you will be able to use the
 `sphinx` recipe to build documention in the `docs/html` directory.
 
 ## Useful and related links
-- https://developers.facebook.com/docs/instagram-basic-display-api/reference/media
+- [Instagram API](https://developers.facebook.com/docs/instagram-basic-display-api/reference/media)
+- [YouTube API](https://developers.google.com/youtube/v3/docs)
 
 ## Installing the package
 Installing stable from the PyPi repository
@@ -38,32 +39,33 @@ Set up the Python virtual environments expected by the Makefile.
 make -s venv-create
 ```
 
-### Execute the linters and tests
-The comprehensive approach is to use the `check` recipe. This will stop on
-any failure that is encountered.
-```
-make -s check
-```
-However you can run the linters in a non-blocking mode.
-```
-make -s linters-pass
-```
-And finally run the various tests to validate the code and produce coverage
-information found in the `htmlcov` folder in the root of the project.
-```
-make -s pytest
-```
+## Version management
+:warning: Ensure that no changes are pending.
 
-## Build and upload to PyPi
-Build the package.
-```
-make -s pypackage
-```
-Upload to the test PyPi.
-```
-make -s pypi-upload-test
-```
-Upload to the prod PyPi.
-```
-make -s pypi-upload-prod
-```
+1. Rebuild the environment.
+   ```
+   make -s check-revenv
+   ```
+
+1. Update the [version.txt](enconnect/version.txt) file.
+
+1. Push to the `main` branch.
+
+1. Create [repository](https://github.com/enasisnetwork/enconnect) release.
+
+1. Build the Python package.<br>
+   ```
+   make -s pypackage
+   ```
+
+1. Upload Python package to PyPi test.
+   ```
+   make -s pypi-upload-test
+   ```
+
+1. Upload Python package to PyPi prod.
+   ```
+   make -s pypi-upload-prod
+   ```
+
+1. Update [Read the Docs](https://enconnect.readthedocs.io) documentation.
