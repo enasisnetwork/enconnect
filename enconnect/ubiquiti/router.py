@@ -11,8 +11,10 @@ from typing import Any
 from typing import Optional
 from typing import TYPE_CHECKING
 
-from requests import Response
-from requests import Session
+from httpx import Response
+
+from ..utils import HTTPClient
+from ..utils.http import _METHODS
 
 if TYPE_CHECKING:
     from .params import RouterParams
@@ -27,7 +29,7 @@ class Router:
     """
 
     __params: 'RouterParams'
-    __session: Session
+    __client: HTTPClient
 
 
     def __init__(
@@ -39,7 +41,13 @@ class Router:
         """
 
         self.__params = params
-        self.__session = Session()
+
+        client = HTTPClient(
+            timeout=params.timeout,
+            verify=params.ssl_verify,
+            capem=params.ssl_capem)
+
+        self.__client = client
 
 
     @property
@@ -56,16 +64,16 @@ class Router:
 
 
     @property
-    def session(
+    def client(
         self,
-    ) -> Session:
+    ) -> HTTPClient:
         """
         Return the value for the attribute from class instance.
 
         :returns: Value for the attribute from class instance.
         """
 
-        return self.__session
+        return self.__client
 
 
     def request_cookie(
@@ -97,7 +105,7 @@ class Router:
 
     def request(
         self,
-        method: str,
+        method: _METHODS,
         path: str,
         params: Optional[dict[str, Any]] = None,
         json: Optional[dict[str, Any]] = None,
@@ -115,27 +123,24 @@ class Router:
         params = dict(params or {})
         json = dict(json or {})
 
-        request = self.session.request
-
         server = self.params.server
-        verify = self.params.ssl_verify
-        capem = self.params.ssl_capem
+        client = self.client
 
         location = (
             f'https://{server}/{path}')
 
+        request = client.request_block
+
         return request(
             method=method,
-            url=location,
-            timeout=self.params.timeout,
+            location=location,
             params=params,
-            json=json,
-            verify=capem or verify)
+            json=json)
 
 
     def request_proxy(
         self,
-        method: str,
+        method: _METHODS,
         path: str,
         params: Optional[dict[str, Any]] = None,
         json: Optional[dict[str, Any]] = None,

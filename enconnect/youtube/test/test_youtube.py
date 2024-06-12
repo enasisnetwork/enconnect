@@ -79,6 +79,8 @@ def test_YouTube(
 
     assert social.params is not None
 
+    assert social.client is not None
+
 
 
 def test_YouTube_search_block(

@@ -1,8 +1,6 @@
 -r reqs-install.txt
 
-requests-mock
-
-types-requests
+respx
 
 pytest
 pytest-asyncio

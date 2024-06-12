@@ -81,6 +81,8 @@ def test_Instagram(
 
     assert social.params is not None
 
+    assert social.client is not None
+
 
 
 def test_Instagram_block(

@@ -87,6 +87,8 @@ def test_Reddit(
 
     assert social.params is not None
 
+    assert social.client is not None
+
     assert social.token is None
 
 
