@@ -10,11 +10,17 @@ is permitted, for more information consult the project license file.
 from encommon import ENPYRWS
 from encommon.types import inrepr
 from encommon.types import instr
+from encommon.types.strings import SEMPTY
 from encommon.utils import load_sample
 from encommon.utils import prep_sample
 from encommon.utils import read_text
 
-from requests_mock import Mocker
+from httpx import Request
+from httpx import Response
+
+from pytest import fixture
+
+from respx import MockRouter
 
 from . import SAMPLES
 from ..params import RouterParams
@@ -22,9 +28,16 @@ from ..router import Router
 
 
 
-def test_Router() -> None:
+_REQGET = Request('get', SEMPTY)
+
+
+
+@fixture
+def router() -> Router:
     """
-    Perform various tests associated with relevant routines.
+    Construct the instance for use in the downstream tests.
+
+    :returns: Newly constructed instance of related class.
     """
 
     params = RouterParams(
@@ -32,14 +45,25 @@ def test_Router() -> None:
         username='mocked',
         password='mocked')
 
-    router = Router(params)
+    return Router(params)
+
+
+
+def test_Router(
+    router: Router,
+) -> None:
+    """
+    Perform various tests associated with relevant routines.
+
+    :param router: Class instance for connecting to service.
+    """
 
 
     attrs = list(router.__dict__)
 
     assert attrs == [
         '_Router__params',
-        '_Router__session']
+        '_Router__client']
 
 
     assert inrepr(
@@ -53,56 +77,60 @@ def test_Router() -> None:
         router)
 
 
-    assert router.params is params
+    assert router.params is not None
 
-    assert router.session is not None
-
-
-    def _mocker_cookie() -> None:
-
-        server = params.server
-
-        location = (
-            f'https://{server}'
-            '/api/auth/login')
-
-        mocker.post(location)
+    assert router.client is not None
 
 
-    def _mocker_users() -> None:
 
-        server = params.server
+def test_Router_request(
+    router: Router,
+    respx_mock: MockRouter,
+) -> None:
+    """
+    Perform various tests associated with relevant routines.
 
-        location = (
-            f'https://{server}'
-            '/proxy/network'
-            '/api/s/default/rest/user')
-
-        source = read_text(
-            f'{SAMPLES}/source.json')
-
-        mocker.register_uri(
-            'get', location,
-            [{'text': source,
-              'status_code': 401},
-             {'text': source}])
+    :param router: Class instance for connecting to service.
+    :param respx_mock: Object for mocking request operation.
+    """
 
 
-    with Mocker() as mocker:
+    _source = read_text(
+        f'{SAMPLES}/source.json')
 
-        _mocker_cookie()
-        _mocker_users()
+    location = (
+        'https://192.168.1.1')
 
-        request = router.request_proxy
 
-        response = request(
-            'get', 'rest/user')
+    (respx_mock
+     .get(
+         f'{location}/proxy/network'
+         '/api/s/default/rest/user')
+     .mock(side_effect=[
+         Response(
+             status_code=401,
+             request=_REQGET),
+         Response(
+             status_code=200,
+             content=_source,
+             request=_REQGET)]))
 
+    (respx_mock
+     .post(f'{location}/api/auth/login')
+     .mock(Response(
+         status_code=200,
+         content=_source,
+         request=_REQGET)))
+
+
+    response = (
+        router.request_proxy(
+            'get', 'rest/user'))
 
     response.raise_for_status()
 
-    fetched = response.json()
 
+    fetched = response.json()
 
     sample_path = (
         f'{SAMPLES}/dumped.json')

@@ -11,8 +11,10 @@ from typing import Any
 from typing import Optional
 from typing import TYPE_CHECKING
 
-from requests import Response
-from requests import request
+from httpx import Response
+
+from ..utils import HTTPClient
+from ..utils.http import _METHODS
 
 if TYPE_CHECKING:
     from .params import BridgeParams
@@ -27,6 +29,7 @@ class Bridge:
     """
 
     __params: 'BridgeParams'
+    __client: HTTPClient
 
 
     def __init__(
@@ -38,6 +41,13 @@ class Bridge:
         """
 
         self.__params = params
+
+        client = HTTPClient(
+            timeout=params.timeout,
+            verify=params.ssl_verify,
+            capem=params.ssl_capem)
+
+        self.__client = client
 
 
     @property
@@ -53,9 +63,22 @@ class Bridge:
         return self.__params
 
 
+    @property
+    def client(
+        self,
+    ) -> HTTPClient:
+        """
+        Return the value for the attribute from class instance.
+
+        :returns: Value for the attribute from class instance.
+        """
+
+        return self.__client
+
+
     def request(
         self,
-        method: str,
+        method: _METHODS,
         path: str,
         params: Optional[dict[str, Any]] = None,
         json: Optional[dict[str, Any]] = None,
@@ -75,8 +98,7 @@ class Bridge:
 
         server = self.params.server
         token = self.params.token
-        verify = self.params.ssl_verify
-        capem = self.params.ssl_capem
+        client = self.client
 
         token_key = 'hue-application-key'
 
@@ -84,11 +106,11 @@ class Bridge:
             f'https://{server}'
             f'/clip/v2/{path}')
 
+        request = client.request_block
+
         return request(
             method=method,
-            url=location,
-            timeout=self.params.timeout,
+            location=location,
             params=params,
-            json=json,
             headers={token_key: token},
-            verify=capem or verify)
+            json=json)

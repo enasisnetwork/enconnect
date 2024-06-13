@@ -9,8 +9,6 @@ is permitted, for more information consult the project license file.
 
 from json import dumps
 from json import loads
-from unittest.mock import AsyncMock
-from unittest.mock import patch
 
 from encommon import ENPYRWS
 from encommon.types import inrepr
@@ -25,6 +23,8 @@ from httpx import Response
 
 from pytest import fixture
 from pytest import mark
+
+from respx import MockRouter
 
 from . import SAMPLES
 from ..params import RedditParams
@@ -87,52 +87,69 @@ def test_Reddit(
 
     assert social.params is not None
 
+    assert social.client is not None
+
     assert social.token is None
 
 
 
 def test_Reddit_latest_block(
     social: Reddit,
+    respx_mock: MockRouter,
 ) -> None:
     """
     Perform various tests associated with relevant routines.
 
     :param social: Class instance for connecting to service.
+    :param respx_mock: Object for mocking request operation.
     """
 
 
-    patched = patch(
-        'httpx.Client.request')
+    _latest = read_text(
+        f'{SAMPLES}/source.json')
 
-    with patched as mocker:
+    _token = read_text(
+        f'{SAMPLES}/token.json')
 
-        _latest = read_text(
-            f'{SAMPLES}/source.json')
+    location = [
+        'https://oauth.reddit.com',
+        'https://www.reddit.com']
 
-        _token = read_text(
-            f'{SAMPLES}/token.json')
 
-        mocker.side_effect = [
-            Response(
-                status_code=200,
-                content=_token,
-                request=_REQPOST),
-            Response(
-                status_code=401,
-                content=_latest,
-                request=_REQGET),
-            Response(
-                status_code=200,
-                content=_token,
-                request=_REQPOST),
-            Response(
-                status_code=200,
-                content=_latest,
-                request=_REQGET)]
+    (respx_mock
+     .post(
+         f'{location[1]}/api'
+         '/v1/access_token')
+     .mock(Response(
+         status_code=200,
+         content=_token,
+         request=_REQPOST)))
 
-        latest = (
-            social.latest_block(
-                'mocked'))
+    (respx_mock
+     .post(
+         f'{location[0]}/api'
+         '/v1/access_token')
+     .mock(Response(
+         status_code=200,
+         content=_token,
+         request=_REQPOST)))
+
+    (respx_mock
+     .get(
+         f'{location[0]}/r'
+         '/mocked/new.json')
+     .mock(side_effect=[
+         Response(
+             status_code=401,
+             request=_REQGET),
+         Response(
+             status_code=200,
+             content=_latest,
+             request=_REQGET)]))
+
+
+    latest = (
+        social.latest_block('mocked'))
 
 
     sample_path = (
@@ -158,47 +175,61 @@ def test_Reddit_latest_block(
 @mark.asyncio
 async def test_Reddit_latest_async(
     social: Reddit,
+    respx_mock: MockRouter,
 ) -> None:
     """
     Perform various tests associated with relevant routines.
 
     :param social: Class instance for connecting to service.
+    :param respx_mock: Object for mocking request operation.
     """
 
 
-    patched = patch(
-        'httpx.AsyncClient.request',
-        new_callable=AsyncMock)
+    _latest = read_text(
+        f'{SAMPLES}/source.json')
 
-    with patched as mocker:
+    _token = read_text(
+        f'{SAMPLES}/token.json')
 
-        _latest = read_text(
-            f'{SAMPLES}/source.json')
+    location = [
+        'https://oauth.reddit.com',
+        'https://www.reddit.com']
 
-        _token = read_text(
-            f'{SAMPLES}/token.json')
 
-        mocker.side_effect = [
-            Response(
-                status_code=200,
-                content=_token,
-                request=_REQPOST),
-            Response(
-                status_code=401,
-                content=_latest,
-                request=_REQGET),
-            Response(
-                status_code=200,
-                content=_token,
-                request=_REQPOST),
-            Response(
-                status_code=200,
-                content=_latest,
-                request=_REQGET)]
+    (respx_mock
+     .post(
+         f'{location[1]}/api'
+         '/v1/access_token')
+     .mock(Response(
+         status_code=200,
+         content=_token,
+         request=_REQPOST)))
 
-        latest = await (
-            social.latest_async(
-                'mocked'))
+    (respx_mock
+     .post(
+         f'{location[0]}/api'
+         '/v1/access_token')
+     .mock(Response(
+         status_code=200,
+         content=_token,
+         request=_REQPOST)))
+
+    (respx_mock
+     .get(
+         f'{location[0]}/r'
+         '/mocked/new.json')
+     .mock(side_effect=[
+         Response(
+             status_code=401,
+             request=_REQGET),
+         Response(
+             status_code=200,
+             content=_latest,
+             request=_REQGET)]))
+
+
+    latest = await (
+        social.latest_async('mocked'))
 
 
     sample_path = (
@@ -223,49 +254,64 @@ async def test_Reddit_latest_async(
 
 def test_Reddit_listing_block(
     social: Reddit,
+    respx_mock: MockRouter,
 ) -> None:
     """
     Perform various tests associated with relevant routines.
 
     :param social: Class instance for connecting to service.
+    :param respx_mock: Object for mocking request operation.
     """
 
 
-    patched = patch(
-        'httpx.Client.request')
+    _latest = read_text(
+        f'{SAMPLES}/source.json')
 
-    with patched as mocker:
+    _token = read_text(
+        f'{SAMPLES}/token.json')
 
-        _latest = read_text(
-            f'{SAMPLES}/source.json')
+    _listing = dumps([
+        loads(_latest)])
 
-        _token = read_text(
-            f'{SAMPLES}/token.json')
+    location = [
+        'https://oauth.reddit.com',
+        'https://www.reddit.com']
 
-        _listing = dumps([
-            loads(_latest)])
 
-        mocker.side_effect = [
-            Response(
-                status_code=200,
-                content=_token,
-                request=_REQPOST),
-            Response(
-                status_code=401,
-                content=_listing,
-                request=_REQGET),
-            Response(
-                status_code=200,
-                content=_token,
-                request=_REQPOST),
-            Response(
-                status_code=200,
-                content=_listing,
-                request=_REQGET)]
+    (respx_mock
+     .post(
+         f'{location[1]}/api'
+         '/v1/access_token')
+     .mock(Response(
+         status_code=200,
+         content=_token,
+         request=_REQPOST)))
 
-        listing = (
-            social.listing_block(
-                'mocked'))
+    (respx_mock
+     .post(
+         f'{location[0]}/api'
+         '/v1/access_token')
+     .mock(Response(
+         status_code=200,
+         content=_token,
+         request=_REQPOST)))
+
+    (respx_mock
+     .get(
+         f'{location[0]}'
+         '/comments/mocked.json')
+     .mock(side_effect=[
+         Response(
+             status_code=401,
+             request=_REQGET),
+         Response(
+             status_code=200,
+             content=_listing,
+             request=_REQGET)]))
+
+
+    listing = (
+        social.listing_block('mocked'))
 
 
     sample_path = (
@@ -286,50 +332,64 @@ def test_Reddit_listing_block(
 @mark.asyncio
 async def test_Reddit_listing_async(
     social: Reddit,
+    respx_mock: MockRouter,
 ) -> None:
     """
     Perform various tests associated with relevant routines.
 
     :param social: Class instance for connecting to service.
+    :param respx_mock: Object for mocking request operation.
     """
 
 
-    patched = patch(
-        'httpx.AsyncClient.request',
-        new_callable=AsyncMock)
+    _latest = read_text(
+        f'{SAMPLES}/source.json')
 
-    with patched as mocker:
+    _token = read_text(
+        f'{SAMPLES}/token.json')
 
-        _latest = read_text(
-            f'{SAMPLES}/source.json')
+    _listing = dumps([
+        loads(_latest)])
 
-        _token = read_text(
-            f'{SAMPLES}/token.json')
+    location = [
+        'https://oauth.reddit.com',
+        'https://www.reddit.com']
 
-        _listing = dumps([
-            loads(_latest)])
 
-        mocker.side_effect = [
-            Response(
-                status_code=200,
-                content=_token,
-                request=_REQPOST),
-            Response(
-                status_code=401,
-                content=_listing,
-                request=_REQGET),
-            Response(
-                status_code=200,
-                content=_token,
-                request=_REQPOST),
-            Response(
-                status_code=200,
-                content=_listing,
-                request=_REQGET)]
+    (respx_mock
+     .post(
+         f'{location[1]}/api'
+         '/v1/access_token')
+     .mock(Response(
+         status_code=200,
+         content=_token,
+         request=_REQPOST)))
 
-        listing = await (
-            social.listing_async(
-                'mocked'))
+    (respx_mock
+     .post(
+         f'{location[0]}/api'
+         '/v1/access_token')
+     .mock(Response(
+         status_code=200,
+         content=_token,
+         request=_REQPOST)))
+
+    (respx_mock
+     .get(
+         f'{location[0]}'
+         '/comments/mocked.json')
+     .mock(side_effect=[
+         Response(
+             status_code=401,
+             request=_REQGET),
+         Response(
+             status_code=200,
+             content=_listing,
+             request=_REQGET)]))
+
+
+    listing = await (
+        social.listing_async('mocked'))
 
 
     sample_path = (

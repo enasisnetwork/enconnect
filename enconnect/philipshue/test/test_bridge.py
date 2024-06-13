@@ -10,11 +10,17 @@ is permitted, for more information consult the project license file.
 from encommon import ENPYRWS
 from encommon.types import inrepr
 from encommon.types import instr
+from encommon.types.strings import SEMPTY
 from encommon.utils import load_sample
 from encommon.utils import prep_sample
 from encommon.utils import read_text
 
-from requests_mock import Mocker
+from httpx import Request
+from httpx import Response
+
+from pytest import fixture
+
+from respx import MockRouter
 
 from . import SAMPLES
 from ..bridge import Bridge
@@ -22,22 +28,41 @@ from ..params import BridgeParams
 
 
 
-def test_Bridge() -> None:
+_REQGET = Request('get', SEMPTY)
+
+
+
+@fixture
+def bridge() -> Bridge:
     """
-    Perform various tests associated with relevant routines.
+    Construct the instance for use in the downstream tests.
+
+    :returns: Newly constructed instance of related class.
     """
 
     params = BridgeParams(
         server='192.168.1.10',
         token='mocked')
 
-    bridge = Bridge(params)
+    return Bridge(params)
+
+
+
+def test_Bridge(
+    bridge: Bridge,
+) -> None:
+    """
+    Perform various tests associated with relevant routines.
+
+    :param social: Class instance for connecting to service.
+    """
 
 
     attrs = list(bridge.__dict__)
 
     assert attrs == [
-        '_Bridge__params']
+        '_Bridge__params',
+        '_Bridge__client']
 
 
     assert inrepr(
@@ -51,39 +76,47 @@ def test_Bridge() -> None:
         bridge)
 
 
-    assert bridge.params is params
+    assert bridge.params is not None
+
+    assert bridge.client is not None
 
 
-    def _mocker_resource() -> None:
 
-        server = params.server
+def test_Bridge_request(
+    bridge: Bridge,
+    respx_mock: MockRouter,
+) -> None:
+    """
+    Perform various tests associated with relevant routines.
 
-        location = (
-            f'https://{server}'
-            '/clip/v2/resource')
-
-        source = read_text(
-            f'{SAMPLES}/source.json')
-
-        mocker.get(
-            url=location,
-            text=source)
+    :param social: Class instance for connecting to service.
+    :param respx_mock: Object for mocking request operation.
+    """
 
 
-    with Mocker() as mocker:
+    _source = read_text(
+        f'{SAMPLES}/source.json')
 
-        _mocker_resource()
+    location = (
+        'https://192.168.1.10')
 
-        request = bridge.request
 
-        response = request(
-            'get', 'resource')
+    (respx_mock
+     .get(f'{location}/clip/v2/resource')
+     .mock(Response(
+         status_code=200,
+         content=_source,
+         request=_REQGET)))
 
+
+    response = (
+        bridge.request(
+            'get', 'resource'))
 
     response.raise_for_status()
 
-    fetched = response.json()
 
+    fetched = response.json()
 
     sample_path = (
         f'{SAMPLES}/dumped.json')

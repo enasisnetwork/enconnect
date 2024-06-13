@@ -17,6 +17,7 @@ from typing import Optional
 from httpx import AsyncClient
 from httpx import Client as BlockClient
 from httpx import Response
+from httpx._client import UseClientDefault
 from httpx._types import VerifyTypes
 
 
@@ -270,6 +271,8 @@ class HTTPClient:
         backoff = self.backoff
         states = self.states
 
+        default = UseClientDefault()
+
         client = self.client_block
         request = client.request
 
@@ -282,7 +285,7 @@ class HTTPClient:
                 params=params or None,
                 data=data or None,
                 json=json or None,
-                auth=httpauth or None)
+                auth=httpauth or default)
 
             status = response.status_code
 
@@ -322,6 +325,8 @@ class HTTPClient:
         backoff = self.backoff
         states = self.states
 
+        default = UseClientDefault()
+
         client = self.client_async
         request = client.request
 
@@ -334,7 +339,7 @@ class HTTPClient:
                 params=params or None,
                 data=data or None,
                 json=json or None,
-                auth=httpauth or None)
+                auth=httpauth or default)
 
             status = response.status_code
 

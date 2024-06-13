@@ -9,8 +9,6 @@ is permitted, for more information consult the project license file.
 
 from json import dumps
 from json import loads
-from unittest.mock import AsyncMock
-from unittest.mock import patch
 
 from encommon import ENPYRWS
 from encommon.types import inrepr
@@ -25,6 +23,8 @@ from httpx import Response
 
 from pytest import fixture
 from pytest import mark
+
+from respx import MockRouter
 
 from . import SAMPLES
 from ..instagram import Instagram
@@ -81,45 +81,52 @@ def test_Instagram(
 
     assert social.params is not None
 
+    assert social.client is not None
+
 
 
 def test_Instagram_block(
     social: Instagram,
+    respx_mock: MockRouter,
 ) -> None:
     """
     Perform various tests associated with relevant routines.
 
     :param social: Class instance for connecting to service.
+    :param respx_mock: Object for mocking request operation.
     """
 
 
-    patched = patch(
-        'httpx.Client.request')
+    _latest = read_text(
+        f'{SAMPLES}/source.json')
 
-    with patched as mocker:
+    _media = dumps(loads(
+        _latest)['data'][0])
 
-        _latest = read_text(
-            f'{SAMPLES}/source.json')
+    location = (
+        'https://graph.instagram.com')
 
-        _media = dumps(loads(
-            _latest)['data'][0])
 
-        mocker.side_effect = [
-            Response(
-                status_code=200,
-                content=_latest,
-                request=_REQGET),
-            Response(
-                status_code=200,
-                content=_media,
-                request=_REQGET)]
+    (respx_mock
+     .get(f'{location}/me/media')
+     .mock(Response(
+         status_code=200,
+         content=_latest,
+         request=_REQGET)))
 
-        latest = (
-            social.latest_block())
+    (respx_mock
+     .get(f'{location}/mocked')
+     .mock(Response(
+         status_code=200,
+         content=_media,
+         request=_REQGET)))
 
-        media = (
-            social.media_block(
-                'mocked'))
+
+    latest = (
+        social.latest_block())
+
+    media = (
+        social.media_block('mocked'))
 
 
     sample_path = (
@@ -156,42 +163,46 @@ def test_Instagram_block(
 @mark.asyncio
 async def test_Instagram_async(
     social: Instagram,
+    respx_mock: MockRouter,
 ) -> None:
     """
     Perform various tests associated with relevant routines.
 
     :param social: Class instance for connecting to service.
+    :param respx_mock: Object for mocking request operation.
     """
 
 
-    patched = patch(
-        'httpx.AsyncClient.request',
-        new_callable=AsyncMock)
+    _latest = read_text(
+        f'{SAMPLES}/source.json')
 
-    with patched as mocker:
+    _media = dumps(loads(
+        _latest)['data'][0])
 
-        _latest = read_text(
-            f'{SAMPLES}/source.json')
+    location = (
+        'https://graph.instagram.com')
 
-        _media = dumps(loads(
-            _latest)['data'][0])
 
-        mocker.side_effect = [
-            Response(
-                status_code=200,
-                content=_latest,
-                request=_REQGET),
-            Response(
-                status_code=200,
-                content=_media,
-                request=_REQGET)]
+    (respx_mock
+     .get(f'{location}/me/media')
+     .mock(Response(
+         status_code=200,
+         content=_latest,
+         request=_REQGET)))
 
-        latest = await (
-            social.latest_async())
+    (respx_mock
+     .get(f'{location}/mocked')
+     .mock(Response(
+         status_code=200,
+         content=_media,
+         request=_REQGET)))
 
-        media = await (
-            social.media_async(
-                'mocked'))
+
+    latest = await (
+        social.latest_async())
+
+    media = await (
+        social.media_async('mocked'))
 
 
     sample_path = (
