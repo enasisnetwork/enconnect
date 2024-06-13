@@ -11,6 +11,7 @@ import asyncio
 from copy import deepcopy
 from time import sleep
 from typing import Any
+from typing import AsyncIterator
 from typing import Literal
 from typing import Optional
 
@@ -282,10 +283,10 @@ class HTTPClient:
                 method=method,
                 url=location,
                 headers=headers or None,
+                auth=httpauth or default,
                 params=params or None,
                 data=data or None,
-                json=json or None,
-                auth=httpauth or default)
+                json=json or None)
 
             status = response.status_code
 
@@ -336,10 +337,10 @@ class HTTPClient:
                 method=method,
                 url=location,
                 headers=headers or None,
+                auth=httpauth or default,
                 params=params or None,
                 data=data or None,
-                json=json or None,
-                auth=httpauth or default)
+                json=json or None)
 
             status = response.status_code
 
@@ -351,3 +352,58 @@ class HTTPClient:
         await asyncio.sleep(0)
 
         return response
+
+
+    async def stream_async(  # noqa: CFQ002
+        self,
+        method: _METHODS,
+        location: str,
+        params: Optional[_PAYLOAD] = None,
+        json: Optional[_PAYLOAD] = None,
+        *,
+        data: Optional[_PAYLOAD] = None,
+        headers: Optional[_HEADERS] = None,
+        httpauth: Optional[_HTTPAUTH] = None,
+    ) -> AsyncIterator[str]:
+        """
+        Return the response for upstream request to the server.
+
+        :param method: Method for operation with the API server.
+        :param location: Location with path for server request.
+        :param params: Optional parameters included in request.
+        :param json: Optional JSON payload included in request.
+        :param data: Optional dict payload included in request.
+        :param headers: Optional headers to include in requests.
+        :param httpauth: Optional information for authentication.
+        :returns: Response for upstream request to the server.
+        """
+
+        default = UseClientDefault()
+
+        client = self.client_async
+        request = client.stream
+
+
+        _stream = request(
+            method=method,
+            url=location,
+            headers=headers or None,
+            auth=httpauth or default,
+            params=params or None,
+            data=data or None,
+            json=json or None)
+
+
+        async with _stream as stream:
+
+            lines = stream.aiter_lines()
+
+            async for line in lines:
+
+                if line is None:
+                    continue
+
+                line = str(line).strip()
+
+                if len(line) >= 1:
+                    yield line
