@@ -172,6 +172,7 @@ async def test_Instagram_async(
     :param respx_mock: Object for mocking request operation.
     """
 
+
     _latest = read_text(
         f'{SAMPLES}/source.json')
 
