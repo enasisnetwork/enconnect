@@ -7,8 +7,6 @@ is permitted, for more information consult the project license file.
 
 
 
-from unittest.mock import patch
-
 from encommon import ENPYRWS
 from encommon.types import inrepr
 from encommon.types import instr
@@ -21,6 +19,8 @@ from httpx import Request
 from httpx import Response
 
 from pytest import fixture
+
+from respx import MockRouter
 
 from . import SAMPLES
 from ..params import RouterParams
@@ -85,39 +85,49 @@ def test_Router(
 
 def test_Router_request(
     router: Router,
+    respx_mock: MockRouter,
 ) -> None:
     """
     Perform various tests associated with relevant routines.
 
     :param router: Class instance for connecting to service.
+    :param respx_mock: Object for mocking request operation.
     """
 
 
-    patched = patch(
-        'httpx.Client.request')
+    _source = read_text(
+        f'{SAMPLES}/source.json')
 
-    with patched as mocker:
+    location = (
+        'https://192.168.1.1')
 
-        source = read_text(
-            f'{SAMPLES}/source.json')
 
-        mocker.side_effect = [
-            Response(
-                status_code=401,
-                request=_REQGET),
-            Response(
-                status_code=200,
-                request=_REQGET),
-            Response(
-                status_code=200,
-                content=source,
-                request=_REQGET)]
+    (respx_mock
+     .get(
+         f'{location}/proxy/network'
+         '/api/s/default/rest/user')
+     .mock(side_effect=[
+         Response(
+             status_code=401,
+             request=_REQGET),
+         Response(
+             status_code=200,
+             content=_source,
+             request=_REQGET)]))
 
-        response = (
-            router.request_proxy(
-                'get', 'rest/user'))
+    (respx_mock
+     .post(f'{location}/api/auth/login')
+     .mock(Response(
+         status_code=200,
+         content=_source,
+         request=_REQGET)))
 
-        response.raise_for_status()
+
+    response = (
+        router.request_proxy(
+            'get', 'rest/user'))
+
+    response.raise_for_status()
 
 
     fetched = response.json()

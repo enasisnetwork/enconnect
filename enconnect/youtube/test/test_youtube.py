@@ -7,9 +7,6 @@ is permitted, for more information consult the project license file.
 
 
 
-from unittest.mock import AsyncMock
-from unittest.mock import patch
-
 from encommon import ENPYRWS
 from encommon.types import inrepr
 from encommon.types import instr
@@ -23,6 +20,8 @@ from httpx import Response
 
 from pytest import fixture
 from pytest import mark
+
+from respx import MockRouter
 
 from . import SAMPLES
 from ..params import YouTubeParams
@@ -85,47 +84,51 @@ def test_YouTube(
 
 def test_YouTube_search_block(
     social: YouTube,
+    respx_mock: MockRouter,
 ) -> None:
     """
     Perform various tests associated with relevant routines.
 
     :param social: Class instance for connecting to service.
+    :param respx_mock: Object for mocking request operation.
     """
 
 
-    patched = patch(
-        'httpx.Client.request')
+    _search = read_text(
+        f'{SAMPLES}/search'
+        '/source.json')
 
-    with patched as mocker:
+    location = (
+        'https://www.googleapis.com'
+        '/youtube/v3')
 
-        source = read_text(
-            f'{SAMPLES}/search/source.json')
 
-        mocker.side_effect = [
-            Response(
-                status_code=200,
-                content=source,
-                request=_REQGET)]
+    (respx_mock
+     .get(f'{location}/search')
+     .mock(Response(
+         status_code=200,
+         content=_search,
+         request=_REQGET)))
 
-        payload = {'channelId': 'mocked'}
 
-        results = (
-            social
-            .search_block(payload))
+    search = (
+        social.search_block(
+            {'channelId': 'mocked'}))
 
 
     sample_path = (
-        f'{SAMPLES}/search/dumped.json')
+        f'{SAMPLES}/search'
+        '/dumped.json')
 
     sample = load_sample(
         sample_path,
         [x.model_dump()
-         for x in results],
+         for x in search],
         update=ENPYRWS)
 
     expect = prep_sample([
         x.model_dump()
-        for x in results])
+        for x in search])
 
     assert sample == expect
 
@@ -134,50 +137,51 @@ def test_YouTube_search_block(
 @mark.asyncio
 async def test_YouTube_search_async(
     social: YouTube,
+    respx_mock: MockRouter,
 ) -> None:
     """
     Perform various tests associated with relevant routines.
 
     :param social: Class instance for connecting to service.
+    :param respx_mock: Object for mocking request operation.
     """
 
 
-    patched = patch(
-        'httpx.AsyncClient.request',
-        new_callable=AsyncMock)
+    _search = read_text(
+        f'{SAMPLES}/search'
+        '/source.json')
 
-    with patched as mocker:
+    location = (
+        'https://www.googleapis.com'
+        '/youtube/v3')
 
-        source = read_text(
-            f'{SAMPLES}/search/source.json')
 
-        mocker.side_effect = [
-            Response(
-                status_code=200,
-                content=source,
-                request=_REQGET)]
+    (respx_mock
+     .get(f'{location}/search')
+     .mock(Response(
+         status_code=200,
+         content=_search,
+         request=_REQGET)))
 
-        payload = {'channelId': 'mocked'}
 
-        waited = (
-            social
-            .search_async(payload))
-
-        results = await waited
+    search = await (
+        social.search_async(
+            {'channelId': 'mocked'}))
 
 
     sample_path = (
-        f'{SAMPLES}/search/dumped.json')
+        f'{SAMPLES}/search'
+        '/dumped.json')
 
     sample = load_sample(
         sample_path,
         [x.model_dump()
-         for x in results],
+         for x in search],
         update=ENPYRWS)
 
     expect = prep_sample([
         x.model_dump()
-        for x in results])
+        for x in search])
 
     assert sample == expect
 
@@ -185,42 +189,46 @@ async def test_YouTube_search_async(
 
 def test_YouTube_videos_block(
     social: YouTube,
+    respx_mock: MockRouter,
 ) -> None:
     """
     Perform various tests associated with relevant routines.
 
     :param social: Class instance for connecting to service.
+    :param respx_mock: Object for mocking request operation.
     """
 
 
-    patched = patch(
-        'httpx.Client.request')
+    _videos = read_text(
+        f'{SAMPLES}/videos'
+        '/source.json')
 
-    with patched as mocker:
+    location = (
+        'https://www.googleapis.com'
+        '/youtube/v3')
 
-        source = read_text(
-            f'{SAMPLES}/videos'
-            '/source.json')
 
-        mocker.side_effect = [
-            Response(
-                status_code=200,
-                content=source,
-                request=_REQGET),
-            Response(
-                status_code=200,
-                content=source,
-                request=_REQGET)]
+    (respx_mock
+     .get(f'{location}/videos')
+     .mock(Response(
+         status_code=200,
+         content=_videos,
+         request=_REQGET)))
 
-        payload = {'id': 'mocked'}
+    (respx_mock
+     .get(f'{location}/videos')
+     .mock(Response(
+         status_code=200,
+         content=_videos,
+         request=_REQGET)))
 
-        videos = (
-            social.videos_block(
-                payload))
 
-        video = (
-            social.video_block(
-                'mocked'))
+    videos = (
+        social.videos_block(
+            {'id': 'mocked'}))
+
+    video = (
+        social.video_block('mocked'))
 
 
     sample_path = (
@@ -247,43 +255,46 @@ def test_YouTube_videos_block(
 @mark.asyncio
 async def test_YouTube_videos_async(
     social: YouTube,
+    respx_mock: MockRouter,
 ) -> None:
     """
     Perform various tests associated with relevant routines.
 
     :param social: Class instance for connecting to service.
+    :param respx_mock: Object for mocking request operation.
     """
 
 
-    patched = patch(
-        'httpx.AsyncClient.request',
-        new_callable=AsyncMock)
+    _videos = read_text(
+        f'{SAMPLES}/videos'
+        '/source.json')
 
-    with patched as mocker:
+    location = (
+        'https://www.googleapis.com'
+        '/youtube/v3')
 
-        source = read_text(
-            f'{SAMPLES}/videos'
-            '/source.json')
 
-        mocker.side_effect = [
-            Response(
-                status_code=200,
-                content=source,
-                request=_REQGET),
-            Response(
-                status_code=200,
-                content=source,
-                request=_REQGET)]
+    (respx_mock
+     .get(f'{location}/videos')
+     .mock(Response(
+         status_code=200,
+         content=_videos,
+         request=_REQGET)))
 
-        payload = {'id': 'mocked'}
+    (respx_mock
+     .get(f'{location}/videos')
+     .mock(Response(
+         status_code=200,
+         content=_videos,
+         request=_REQGET)))
 
-        videos = await (
-            social.videos_async(
-                payload))
 
-        video = await (
-            social.video_async(
-                'mocked'))
+    videos = await (
+        social.videos_async(
+            {'id': 'mocked'}))
+
+    video = await (
+        social.video_async('mocked'))
 
 
     sample_path = (
