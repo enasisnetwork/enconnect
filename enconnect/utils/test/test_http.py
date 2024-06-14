@@ -7,16 +7,23 @@ is permitted, for more information consult the project license file.
 
 
 
+import asyncio
+from typing import AsyncIterator
+from typing import Iterator
 from unittest.mock import AsyncMock
 from unittest.mock import patch
 
 from encommon.types import inrepr
 from encommon.types import instr
 
+from httpx import AsyncByteStream
 from httpx import Response
+from httpx import SyncByteStream
 
 from pytest import fixture
 from pytest import mark
+
+from respx import MockRouter
 
 from ..http import HTTPClient
 
@@ -92,7 +99,7 @@ def test_HTTPClient(
 
 
 
-def test_HTTPClient_block(
+def test_HTTPClient_request_block(
     client: HTTPClient,
 ) -> None:
     """
@@ -124,7 +131,7 @@ def test_HTTPClient_block(
 
 
 @mark.asyncio
-async def test_HTTPClient_async(
+async def test_HTTPClient_request_async(
     client: HTTPClient,
 ) -> None:
     """
@@ -153,3 +160,123 @@ async def test_HTTPClient_async(
         assert status == 200
 
         assert mocker.call_count == 2
+
+
+
+def test_HTTPClient_stream_block(
+    client: HTTPClient,
+    respx_mock: MockRouter,
+) -> None:
+    """
+    Perform various tests associated with relevant routines.
+
+    :param client: Class instance for connecting with server.
+    :param respx_mock: Object for mocking request operation.
+    """
+
+
+    location = (
+        'https://192.168.1.10'
+        '/eventstream/clip/v2')
+
+
+    class Stream(SyncByteStream):
+
+        def __iter__(
+            self,
+        ) -> Iterator[bytes]:
+
+            chunks = [
+                b'stream content\n',
+                b'stream content\n']
+
+            yield from chunks
+
+
+    (respx_mock
+     .get(location)
+     .mock(Response(
+         status_code=200,
+         stream=Stream())))
+
+
+    request = client.stream_block
+
+    stream = request(
+        'get', location)
+
+
+    chunks: list[str] = []
+
+    for chunk in stream:
+        chunks.append(chunk)
+
+    assert chunks == [
+        'stream content',
+        'stream content']
+
+
+
+@mark.asyncio
+async def test_HTTPClient_stream_async(
+    client: HTTPClient,
+    respx_mock: MockRouter,
+) -> None:
+    """
+    Perform various tests associated with relevant routines.
+
+    :param client: Class instance for connecting with server.
+    :param respx_mock: Object for mocking request operation.
+    """
+
+
+    location = (
+        'https://192.168.1.10'
+        '/eventstream/clip/v2')
+
+
+    class Stream(AsyncByteStream):
+
+        async def __aiter__(  # noqa: ASYNC900
+            self,
+        ) -> AsyncIterator[bytes]:
+
+            chunks = [
+                b'stream content\n',
+                b'stream content\n']
+
+            await asyncio.sleep(0)
+
+            for chunk in chunks:
+
+                yield chunk
+
+                await asyncio.sleep(0)
+
+            await asyncio.sleep(0)
+
+
+    (respx_mock
+     .get(location)
+     .mock(Response(
+         status_code=200,
+         stream=Stream())))
+
+
+    request = client.stream_async
+
+    stream = request(
+        'get', location)
+
+
+    chunks: list[str] = []
+
+    async for chunk in stream:
+        chunks.append(chunk)
+
+    assert chunks == [
+        'stream content',
+        'stream content']
+
+
+    await asyncio.sleep(0)

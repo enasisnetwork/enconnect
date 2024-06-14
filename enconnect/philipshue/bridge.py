@@ -7,8 +7,10 @@ is permitted, for more information consult the project license file.
 
 
 
+from json import loads
 from typing import Any
 from typing import AsyncIterator
+from typing import Iterator
 from typing import Optional
 from typing import TYPE_CHECKING
 
@@ -117,9 +119,46 @@ class Bridge:
             json=json)
 
 
-    async def events(
+    def events_block(
         self,
-    ) -> AsyncIterator[str]:
+    ) -> Iterator[list[dict[str, Any]]]:
+        """
+        Return the response for upstream request to the server.
+        """
+
+        server = self.params.server
+        token = self.params.token
+        client = self.client
+
+        token_key = 'hue-application-key'
+
+        location = (
+            f'https://{server}'
+            f'/eventstream/clip/v2')
+
+        request = client.stream_block
+
+
+        stream = request(
+            method='get',
+            location=location,
+            headers={
+                'Accept': 'text/event-stream',
+                token_key: token},
+            timeout=60)
+
+
+        for event in stream:
+
+            if event[0:5] != 'data:':
+                continue
+
+            yield loads(event[6:])
+
+
+    async def events_async(  # noqa: ASYNC900
+        self,
+    ) -> AsyncIterator[list[dict[str, Any]]]:
         """
         Return the response for upstream request to the server.
         """
@@ -142,7 +181,13 @@ class Bridge:
             location=location,
             headers={
                 'Accept': 'text/event-stream',
-                token_key: token})
+                token_key: token},
+            timeout=60)
+
 
         async for event in stream:
-            yield event
+
+            if event[0:5] != 'data:':
+                continue
+
+            yield loads(event[6:])

@@ -1,0 +1,75 @@
+[
+  [
+    {
+      "creationtime": "2024-06-14T02:08:59Z",
+      "data": [
+        {
+          "id": "b4bf7483-e9be-414b-abcd-e382508669fa",
+          "id_v1": "/sensors/13",
+          "light": {
+            "light_level": 13656,
+            "light_level_report": {
+              "changed": "2024-06-14T02:08:59.290Z",
+              "light_level": 13656
+            },
+            "light_level_valid": true
+          },
+          "owner": {
+            "rid": "c9f435ce-715f-47ba-b73c-f0d7fe5e6930",
+            "rtype": "device"
+          },
+          "type": "light_level"
+        }
+      ],
+      "id": "007de7ac-fcd1-4308-9488-9429271d69a4",
+      "type": "update"
+    }
+  ],
+  [
+    {
+      "creationtime": "2024-06-14T02:09:00Z",
+      "data": [
+        {
+          "id": "dd0c5b45-6f2d-46b2-843a-62608fd1691c",
+          "id_v1": "/sensors/22",
+          "light": {
+            "light_level": 12272,
+            "light_level_report": {
+              "changed": "2024-06-14T02:08:59.671Z",
+              "light_level": 12272
+            },
+            "light_level_valid": true
+          },
+          "owner": {
+            "rid": "df3fb2ef-a966-4edb-a430-2934b1d06960",
+            "rtype": "device"
+          },
+          "type": "light_level"
+        }
+      ],
+      "id": "4ff03bfc-f5f1-46e5-bf47-ade256786911",
+      "type": "update"
+    },
+    {
+      "creationtime": "2024-06-14T02:09:00Z",
+      "data": [
+        {
+          "id": "b97dfc82-a429-4f83-8be8-8c32010f698e",
+          "light": {
+            "light_level_report": {
+              "changed": "2024-06-14T02:09:00.125Z",
+              "light_level": 12272
+            }
+          },
+          "owner": {
+            "rid": "115e8d9c-7140-40c5-90dc-164c779b697b",
+            "rtype": "bridge_home"
+          },
+          "type": "grouped_light_level"
+        }
+      ],
+      "id": "d9f02804-3005-43e4-b91d-d5d346c06997",
+      "type": "update"
+    }
+  ]
+]
