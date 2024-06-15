@@ -121,9 +121,12 @@ class Bridge:
 
     def events_block(
         self,
+        timeout: int = 60,
     ) -> Iterator[list[dict[str, Any]]]:
         """
         Return the response for upstream request to the server.
+
+        :param timeout: Timeout when waiting for server response.
         """
 
         server = self.params.server
@@ -145,7 +148,7 @@ class Bridge:
             headers={
                 'Accept': 'text/event-stream',
                 token_key: token},
-            timeout=60)
+            timeout=timeout)
 
 
         for event in stream:
@@ -158,9 +161,12 @@ class Bridge:
 
     async def events_async(  # noqa: ASYNC900
         self,
+        timeout: int = 60,  # noqa: ASYNC109
     ) -> AsyncIterator[list[dict[str, Any]]]:
         """
         Return the response for upstream request to the server.
+
+        :param timeout: Timeout when waiting for server response.
         """
 
         server = self.params.server
@@ -182,7 +188,7 @@ class Bridge:
             headers={
                 'Accept': 'text/event-stream',
                 token_key: token},
-            timeout=60)
+            timeout=timeout)
 
 
         async for event in stream:

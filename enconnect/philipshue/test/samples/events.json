@@ -1,74 +1,95 @@
 [
   [
     {
-      "creationtime": "2024-06-14T02:08:59Z",
+      "creationtime": "2024-06-15T03:27:34Z",
       "data": [
         {
-          "id": "b4bf7483-e9be-414b-abcd-e382508669fa",
-          "id_v1": "/sensors/13",
-          "light": {
-            "light_level": 13656,
-            "light_level_report": {
-              "changed": "2024-06-14T02:08:59.290Z",
-              "light_level": 13656
+          "id": "027a9a2b-b571-4874-be41-c7f53aef21a2",
+          "id_v1": "/sensors/110",
+          "motion": {
+            "motion": true,
+            "motion_report": {
+              "changed": "2024-06-15T03:27:34.146Z",
+              "motion": true
             },
-            "light_level_valid": true
+            "motion_valid": true
           },
           "owner": {
-            "rid": "c9f435ce-715f-47ba-b73c-f0d7fe5e6930",
+            "rid": "9ba45a76-d0c6-48d8-ac5d-cf319b193639",
             "rtype": "device"
           },
-          "type": "light_level"
+          "type": "motion"
         }
       ],
-      "id": "007de7ac-fcd1-4308-9488-9429271d69a4",
+      "id": "3131bfaf-8e51-4755-87fc-52ca953abe35",
+      "type": "update"
+    },
+    {
+      "creationtime": "2024-06-15T03:27:34Z",
+      "data": [
+        {
+          "id": "ced31213-01d3-4a2a-a5a2-24f0c511dd2d",
+          "motion": {
+            "motion_report": {
+              "changed": "2024-06-15T03:27:34.630Z",
+              "motion": true
+            }
+          },
+          "owner": {
+            "rid": "115e8d9c-7140-40c5-90dc-164c779bd67b",
+            "rtype": "bridge_home"
+          },
+          "type": "grouped_motion"
+        }
+      ],
+      "id": "8507b5c1-9444-49cf-8dba-6065848f397c",
       "type": "update"
     }
   ],
   [
     {
-      "creationtime": "2024-06-14T02:09:00Z",
+      "creationtime": "2024-06-15T03:27:44Z",
       "data": [
         {
-          "id": "dd0c5b45-6f2d-46b2-843a-62608fd1691c",
-          "id_v1": "/sensors/22",
-          "light": {
-            "light_level": 12272,
-            "light_level_report": {
-              "changed": "2024-06-14T02:08:59.671Z",
-              "light_level": 12272
+          "id": "027a9a2b-b571-4874-be41-c7f53aef21a2",
+          "id_v1": "/sensors/110",
+          "motion": {
+            "motion": false,
+            "motion_report": {
+              "changed": "2024-06-15T03:27:44.062Z",
+              "motion": false
             },
-            "light_level_valid": true
+            "motion_valid": true
           },
           "owner": {
-            "rid": "df3fb2ef-a966-4edb-a430-2934b1d06960",
+            "rid": "9ba45a76-d0c6-48d8-ac5d-cf319b193639",
             "rtype": "device"
           },
-          "type": "light_level"
+          "type": "motion"
         }
       ],
-      "id": "4ff03bfc-f5f1-46e5-bf47-ade256786911",
+      "id": "b34aecdc-db67-4bcb-9727-d1491fb00371",
       "type": "update"
     },
     {
-      "creationtime": "2024-06-14T02:09:00Z",
+      "creationtime": "2024-06-15T03:27:44Z",
       "data": [
         {
-          "id": "b97dfc82-a429-4f83-8be8-8c32010f698e",
-          "light": {
-            "light_level_report": {
-              "changed": "2024-06-14T02:09:00.125Z",
-              "light_level": 12272
+          "id": "ced31213-01d3-4a2a-a5a2-24f0c511dd2d",
+          "motion": {
+            "motion_report": {
+              "changed": "2024-06-15T03:27:44.529Z",
+              "motion": false
             }
           },
           "owner": {
-            "rid": "115e8d9c-7140-40c5-90dc-164c779b697b",
+            "rid": "115e8d9c-7140-40c5-90dc-164c779bd67b",
             "rtype": "bridge_home"
           },
-          "type": "grouped_light_level"
+          "type": "grouped_motion"
         }
       ],
-      "id": "d9f02804-3005-43e4-b91d-d5d346c06997",
+      "id": "01ba2b40-ba06-4caa-8ada-f2d7ab5748e0",
       "type": "update"
     }
   ]
