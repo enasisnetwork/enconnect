@@ -404,17 +404,10 @@ class HTTPClient:
 
         with stream as _stream:
 
-            lines = _stream.iter_lines()
+            lines = (
+                _stream.iter_lines())
 
-            for line in lines:
-
-                if line is None:
-                    continue  # NOCVR
-
-                line = str(line).strip()
-
-                if len(line) >= 1:
-                    yield line
+            yield from lines
 
 
     async def stream_async(  # noqa: ASYNC900,CFQ002
@@ -462,14 +455,8 @@ class HTTPClient:
 
         async with stream as _stream:
 
-            lines = _stream.aiter_lines()
+            lines = (
+                _stream.aiter_lines())
 
             async for line in lines:
-
-                if line is None:
-                    continue  # NOCVR
-
-                line = str(line).strip()
-
-                if len(line) >= 1:
-                    yield line  # noqa: ASYNC119
+                yield line  # noqa: ASYNC119

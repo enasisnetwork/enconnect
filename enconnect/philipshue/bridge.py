@@ -7,7 +7,12 @@ is permitted, for more information consult the project license file.
 
 
 
+import asyncio
+from json import loads
+from threading import Event as BlockEvent
 from typing import Any
+from typing import AsyncIterator
+from typing import Iterator
 from typing import Optional
 from typing import TYPE_CHECKING
 
@@ -18,6 +23,8 @@ from ..utils.http import _METHODS
 
 if TYPE_CHECKING:
     from .params import BridgeParams
+
+AsyncEvent = asyncio.Event
 
 
 
@@ -114,3 +121,114 @@ class Bridge:
             params=params,
             headers={token_key: token},
             json=json)
+
+
+    def events_block(
+        self,
+        timeout: int = 60,
+        cancel: Optional[BlockEvent] = None,
+    ) -> Iterator[list[dict[str, Any]]]:
+        """
+        Return the response for upstream request to the server.
+
+        :param timeout: Timeout when waiting for server response.
+        :param cancel: Event used to indicate we should cacnel.
+        """
+
+        if cancel is None:
+            cancel = BlockEvent()
+
+        server = self.params.server
+        token = self.params.token
+        client = self.client
+
+        accept = 'text/event-stream'
+        token_key = 'hue-application-key'
+
+        location = (
+            f'https://{server}'
+            f'/eventstream/clip/v2')
+
+        request = client.stream_block
+
+
+        stream = request(
+            method='get',
+            location=location,
+            headers={
+                'Accept': accept,
+                token_key: token},
+            timeout=timeout)
+
+
+        for event in stream:
+
+            if event is None:
+                continue  # NOCVR
+
+            event = event.strip()
+
+            if event[0:5] != 'data:':
+                continue
+
+            yield loads(event[6:])
+
+            if cancel.is_set():
+                break  # NOCVR
+
+
+    async def events_async(  # noqa: ASYNC900
+        self,
+        timeout: int = 60,  # noqa: ASYNC109
+        cancel: Optional[AsyncEvent] = None,
+    ) -> AsyncIterator[list[dict[str, Any]]]:
+        """
+        Return the response for upstream request to the server.
+
+        :param timeout: Timeout when waiting for server response.
+        :param cancel: Event used to indicate we should cacnel.
+        """
+
+        if cancel is None:
+            cancel = AsyncEvent()
+
+        server = self.params.server
+        token = self.params.token
+        client = self.client
+
+        accept = 'text/event-stream'
+        token_key = 'hue-application-key'
+
+        location = (
+            f'https://{server}'
+            f'/eventstream/clip/v2')
+
+        request = client.stream_async
+
+
+        stream = request(
+            method='get',
+            location=location,
+            headers={
+                'Accept': accept,
+                token_key: token},
+            timeout=timeout)
+
+
+        async for event in stream:
+
+            if event is None:
+                continue  # NOCVR
+
+            event = event.strip()
+
+            if event[0:5] != 'data:':
+                continue
+
+            yield loads(event[6:])
+
+            if cancel.is_set():
+                break  # NOCVR
+
+
+        await asyncio.sleep(0)
