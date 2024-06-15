@@ -11,6 +11,8 @@ import asyncio
 from copy import deepcopy
 from time import sleep
 from typing import Any
+from typing import AsyncIterator
+from typing import Iterator
 from typing import Literal
 from typing import Optional
 
@@ -276,16 +278,17 @@ class HTTPClient:
         client = self.client_block
         request = client.request
 
+
         for count in range(retry):
 
             response = request(
                 method=method,
                 url=location,
                 headers=headers or None,
+                auth=httpauth or default,
                 params=params or None,
                 data=data or None,
-                json=json or None,
-                auth=httpauth or default)
+                json=json or None)
 
             status = response.status_code
 
@@ -293,6 +296,7 @@ class HTTPClient:
                 break
 
             sleep(backoff)
+
 
         return response
 
@@ -330,16 +334,17 @@ class HTTPClient:
         client = self.client_async
         request = client.request
 
+
         for count in range(retry):
 
             response = await request(
                 method=method,
                 url=location,
                 headers=headers or None,
+                auth=httpauth or default,
                 params=params or None,
                 data=data or None,
-                json=json or None,
-                auth=httpauth or default)
+                json=json or None)
 
             status = response.status_code
 
@@ -348,6 +353,123 @@ class HTTPClient:
 
             await asyncio.sleep(backoff)
 
+
         await asyncio.sleep(0)
 
         return response
+
+
+    def stream_block(  # noqa: CFQ002
+        self,
+        method: _METHODS,
+        location: str,
+        params: Optional[_PAYLOAD] = None,
+        json: Optional[_PAYLOAD] = None,
+        *,
+        data: Optional[_PAYLOAD] = None,
+        timeout: Optional[int] = None,
+        headers: Optional[_HEADERS] = None,
+        httpauth: Optional[_HTTPAUTH] = None,
+    ) -> Iterator[str]:
+        """
+        Return the response for upstream request to the server.
+
+        :param method: Method for operation with the API server.
+        :param location: Location with path for server request.
+        :param params: Optional parameters included in request.
+        :param json: Optional JSON payload included in request.
+        :param data: Optional dict payload included in request.
+        :param timeout: Timeout when waiting for server response.
+        :param headers: Optional headers to include in requests.
+        :param httpauth: Optional information for authentication.
+        :returns: Response for upstream request to the server.
+        """
+
+        default = UseClientDefault()
+
+        client = self.client_block
+        request = client.stream
+
+
+        stream = request(
+            method=method,
+            url=location,
+            headers=headers or None,
+            auth=httpauth or default,
+            timeout=timeout or default,
+            params=params or None,
+            data=data or None,
+            json=json or None)
+
+
+        with stream as _stream:
+
+            lines = _stream.iter_lines()
+
+            for line in lines:
+
+                if line is None:
+                    continue  # NOCVR
+
+                line = str(line).strip()
+
+                if len(line) >= 1:
+                    yield line
+
+
+    async def stream_async(  # noqa: ASYNC900,CFQ002
+        self,
+        method: _METHODS,
+        location: str,
+        params: Optional[_PAYLOAD] = None,
+        json: Optional[_PAYLOAD] = None,
+        *,
+        data: Optional[_PAYLOAD] = None,
+        timeout: Optional[int] = None,  # noqa: ASYNC109
+        headers: Optional[_HEADERS] = None,
+        httpauth: Optional[_HTTPAUTH] = None,
+    ) -> AsyncIterator[str]:
+        """
+        Return the response for upstream request to the server.
+
+        :param method: Method for operation with the API server.
+        :param location: Location with path for server request.
+        :param params: Optional parameters included in request.
+        :param json: Optional JSON payload included in request.
+        :param data: Optional dict payload included in request.
+        :param timeout: Timeout when waiting for server response.
+        :param headers: Optional headers to include in requests.
+        :param httpauth: Optional information for authentication.
+        :returns: Response for upstream request to the server.
+        """
+
+        default = UseClientDefault()
+
+        client = self.client_async
+        request = client.stream
+
+
+        stream = request(
+            method=method,
+            url=location,
+            headers=headers or None,
+            auth=httpauth or default,
+            timeout=timeout or default,
+            params=params or None,
+            data=data or None,
+            json=json or None)
+
+
+        async with stream as _stream:
+
+            lines = _stream.aiter_lines()
+
+            async for line in lines:
+
+                if line is None:
+                    continue  # NOCVR
+
+                line = str(line).strip()
+
+                if len(line) >= 1:
+                    yield line  # noqa: ASYNC119
