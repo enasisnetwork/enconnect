@@ -177,9 +177,9 @@ class Bridge:
                 break  # NOCVR
 
 
-    async def events_async(  # noqa: ASYNC900
+    async def events_async(
         self,
-        timeout: int = 60,  # noqa: ASYNC109
+        timeout: int = 60,
         cancel: Optional[AsyncEvent] = None,
     ) -> AsyncIterator[list[dict[str, Any]]]:
         """

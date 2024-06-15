@@ -410,7 +410,7 @@ class HTTPClient:
             yield from lines
 
 
-    async def stream_async(  # noqa: ASYNC900,CFQ002
+    async def stream_async(  # noqa: CFQ002
         self,
         method: _METHODS,
         location: str,
@@ -418,7 +418,7 @@ class HTTPClient:
         json: Optional[_PAYLOAD] = None,
         *,
         data: Optional[_PAYLOAD] = None,
-        timeout: Optional[int] = None,  # noqa: ASYNC109
+        timeout: Optional[int] = None,
         headers: Optional[_HEADERS] = None,
         httpauth: Optional[_HTTPAUTH] = None,
     ) -> AsyncIterator[str]:
@@ -459,4 +459,4 @@ class HTTPClient:
                 _stream.aiter_lines())
 
             async for line in lines:
-                yield line  # noqa: ASYNC119
+                yield line

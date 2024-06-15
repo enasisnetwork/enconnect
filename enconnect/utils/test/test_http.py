@@ -180,7 +180,7 @@ def test_HTTPClient_stream_block(
         '/eventstream/clip/v2')
 
 
-    class Stream(SyncByteStream):
+    class ByteStream(SyncByteStream):
 
         def __iter__(
             self,
@@ -193,11 +193,13 @@ def test_HTTPClient_stream_block(
             yield from chunks
 
 
+    streamer = ByteStream()
+
     (respx_mock
      .get(location)
      .mock(Response(
          status_code=200,
-         stream=Stream())))
+         stream=streamer)))
 
 
     request = client.stream_block
@@ -235,9 +237,9 @@ async def test_HTTPClient_stream_async(
         '/eventstream/clip/v2')
 
 
-    class Stream(AsyncByteStream):
+    class ByteStream(AsyncByteStream):
 
-        async def __aiter__(  # noqa: ASYNC900
+        async def __aiter__(
             self,
         ) -> AsyncIterator[bytes]:
 
@@ -256,11 +258,13 @@ async def test_HTTPClient_stream_async(
             await asyncio.sleep(0)
 
 
+    streamer = ByteStream()
+
     (respx_mock
      .get(location)
      .mock(Response(
          status_code=200,
-         stream=Stream())))
+         stream=streamer)))
 
 
     request = client.stream_async
