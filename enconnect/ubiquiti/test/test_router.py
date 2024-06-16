@@ -10,12 +10,10 @@ is permitted, for more information consult the project license file.
 from encommon import ENPYRWS
 from encommon.types import inrepr
 from encommon.types import instr
-from encommon.types.strings import SEMPTY
 from encommon.utils import load_sample
 from encommon.utils import prep_sample
 from encommon.utils import read_text
 
-from httpx import Request
 from httpx import Response
 
 from pytest import fixture
@@ -25,10 +23,6 @@ from respx import MockRouter
 from . import SAMPLES
 from ..params import RouterParams
 from ..router import Router
-
-
-
-_REQGET = Request('get', SEMPTY)
 
 
 
@@ -108,19 +102,16 @@ def test_Router_request(
          '/api/s/default/rest/user')
      .mock(side_effect=[
          Response(
-             status_code=401,
-             request=_REQGET),
+             status_code=401),
          Response(
              status_code=200,
-             content=_source,
-             request=_REQGET)]))
+             content=_source)]))
 
     (respx_mock
      .post(f'{location}/api/auth/login')
      .mock(Response(
          status_code=200,
-         content=_source,
-         request=_REQGET)))
+         content=_source)))
 
 
     response = (
