@@ -13,12 +13,10 @@ from json import loads
 from encommon import ENPYRWS
 from encommon.types import inrepr
 from encommon.types import instr
-from encommon.types.strings import SEMPTY
 from encommon.utils import load_sample
 from encommon.utils import prep_sample
 from encommon.utils import read_text
 
-from httpx import Request
 from httpx import Response
 
 from pytest import fixture
@@ -29,10 +27,6 @@ from respx import MockRouter
 from . import SAMPLES
 from ..instagram import Instagram
 from ..params import InstagramParams
-
-
-
-_REQGET = Request('get', SEMPTY)
 
 
 
@@ -111,15 +105,13 @@ def test_Instagram_block(
      .get(f'{location}/me/media')
      .mock(Response(
          status_code=200,
-         content=_latest,
-         request=_REQGET)))
+         content=_latest)))
 
     (respx_mock
      .get(f'{location}/mocked')
      .mock(Response(
          status_code=200,
-         content=_media,
-         request=_REQGET)))
+         content=_media)))
 
 
     latest = (
@@ -187,15 +179,13 @@ async def test_Instagram_async(
      .get(f'{location}/me/media')
      .mock(Response(
          status_code=200,
-         content=_latest,
-         request=_REQGET)))
+         content=_latest)))
 
     (respx_mock
      .get(f'{location}/mocked')
      .mock(Response(
          status_code=200,
-         content=_media,
-         request=_REQGET)))
+         content=_media)))
 
 
     latest = await (

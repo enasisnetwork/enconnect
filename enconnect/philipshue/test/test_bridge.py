@@ -17,13 +17,11 @@ from typing import Iterator
 from encommon import ENPYRWS
 from encommon.types import inrepr
 from encommon.types import instr
-from encommon.types.strings import SEMPTY
 from encommon.utils import load_sample
 from encommon.utils import prep_sample
 from encommon.utils import read_text
 
 from httpx import AsyncByteStream
-from httpx import Request
 from httpx import Response
 from httpx import SyncByteStream
 
@@ -35,10 +33,6 @@ from respx import MockRouter
 from . import SAMPLES
 from ..bridge import Bridge
 from ..params import BridgeParams
-
-
-
-_REQGET = Request('get', SEMPTY)
 
 
 
@@ -116,8 +110,7 @@ def test_Bridge_request(
      .get(f'{location}/clip/v2/resource')
      .mock(Response(
          status_code=200,
-         content=_source,
-         request=_REQGET)))
+         content=_source)))
 
 
     response = (

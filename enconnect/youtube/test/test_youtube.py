@@ -10,12 +10,10 @@ is permitted, for more information consult the project license file.
 from encommon import ENPYRWS
 from encommon.types import inrepr
 from encommon.types import instr
-from encommon.types.strings import SEMPTY
 from encommon.utils import load_sample
 from encommon.utils import prep_sample
 from encommon.utils import read_text
 
-from httpx import Request
 from httpx import Response
 
 from pytest import fixture
@@ -26,10 +24,6 @@ from respx import MockRouter
 from . import SAMPLES
 from ..params import YouTubeParams
 from ..youtube import YouTube
-
-
-
-_REQGET = Request('get', SEMPTY)
 
 
 
@@ -107,8 +101,7 @@ def test_YouTube_search_block(
      .get(f'{location}/search')
      .mock(Response(
          status_code=200,
-         content=_search,
-         request=_REQGET)))
+         content=_search)))
 
 
     search = (
@@ -160,8 +153,7 @@ async def test_YouTube_search_async(
      .get(f'{location}/search')
      .mock(Response(
          status_code=200,
-         content=_search,
-         request=_REQGET)))
+         content=_search)))
 
 
     search = await (
@@ -212,15 +204,13 @@ def test_YouTube_videos_block(
      .get(f'{location}/videos')
      .mock(Response(
          status_code=200,
-         content=_videos,
-         request=_REQGET)))
+         content=_videos)))
 
     (respx_mock
      .get(f'{location}/videos')
      .mock(Response(
          status_code=200,
-         content=_videos,
-         request=_REQGET)))
+         content=_videos)))
 
 
     videos = (
@@ -278,15 +268,13 @@ async def test_YouTube_videos_async(
      .get(f'{location}/videos')
      .mock(Response(
          status_code=200,
-         content=_videos,
-         request=_REQGET)))
+         content=_videos)))
 
     (respx_mock
      .get(f'{location}/videos')
      .mock(Response(
          status_code=200,
-         content=_videos,
-         request=_REQGET)))
+         content=_videos)))
 
 
     videos = await (

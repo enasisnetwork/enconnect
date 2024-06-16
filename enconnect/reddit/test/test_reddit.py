@@ -13,12 +13,10 @@ from json import loads
 from encommon import ENPYRWS
 from encommon.types import inrepr
 from encommon.types import instr
-from encommon.types.strings import SEMPTY
 from encommon.utils import load_sample
 from encommon.utils import prep_sample
 from encommon.utils import read_text
 
-from httpx import Request
 from httpx import Response
 
 from pytest import fixture
@@ -29,11 +27,6 @@ from respx import MockRouter
 from . import SAMPLES
 from ..params import RedditParams
 from ..reddit import Reddit
-
-
-
-_REQGET = Request('get', SEMPTY)
-_REQPOST = Request('post', SEMPTY)
 
 
 
@@ -122,8 +115,7 @@ def test_Reddit_latest_block(
          '/v1/access_token')
      .mock(Response(
          status_code=200,
-         content=_token,
-         request=_REQPOST)))
+         content=_token)))
 
     (respx_mock
      .post(
@@ -131,8 +123,7 @@ def test_Reddit_latest_block(
          '/v1/access_token')
      .mock(Response(
          status_code=200,
-         content=_token,
-         request=_REQPOST)))
+         content=_token)))
 
     (respx_mock
      .get(
@@ -140,12 +131,10 @@ def test_Reddit_latest_block(
          '/mocked/new.json')
      .mock(side_effect=[
          Response(
-             status_code=401,
-             request=_REQGET),
+             status_code=401),
          Response(
              status_code=200,
-             content=_latest,
-             request=_REQGET)]))
+             content=_latest)]))
 
 
     latest = (
@@ -202,8 +191,7 @@ async def test_Reddit_latest_async(
          '/v1/access_token')
      .mock(Response(
          status_code=200,
-         content=_token,
-         request=_REQPOST)))
+         content=_token)))
 
     (respx_mock
      .post(
@@ -211,8 +199,7 @@ async def test_Reddit_latest_async(
          '/v1/access_token')
      .mock(Response(
          status_code=200,
-         content=_token,
-         request=_REQPOST)))
+         content=_token)))
 
     (respx_mock
      .get(
@@ -220,12 +207,10 @@ async def test_Reddit_latest_async(
          '/mocked/new.json')
      .mock(side_effect=[
          Response(
-             status_code=401,
-             request=_REQGET),
+             status_code=401),
          Response(
              status_code=200,
-             content=_latest,
-             request=_REQGET)]))
+             content=_latest)]))
 
 
     latest = await (
@@ -284,8 +269,7 @@ def test_Reddit_listing_block(
          '/v1/access_token')
      .mock(Response(
          status_code=200,
-         content=_token,
-         request=_REQPOST)))
+         content=_token)))
 
     (respx_mock
      .post(
@@ -293,8 +277,7 @@ def test_Reddit_listing_block(
          '/v1/access_token')
      .mock(Response(
          status_code=200,
-         content=_token,
-         request=_REQPOST)))
+         content=_token)))
 
     (respx_mock
      .get(
@@ -302,12 +285,10 @@ def test_Reddit_listing_block(
          '/comments/mocked.json')
      .mock(side_effect=[
          Response(
-             status_code=401,
-             request=_REQGET),
+             status_code=401),
          Response(
              status_code=200,
-             content=_listing,
-             request=_REQGET)]))
+             content=_listing)]))
 
 
     listing = (
@@ -362,8 +343,7 @@ async def test_Reddit_listing_async(
          '/v1/access_token')
      .mock(Response(
          status_code=200,
-         content=_token,
-         request=_REQPOST)))
+         content=_token)))
 
     (respx_mock
      .post(
@@ -371,8 +351,7 @@ async def test_Reddit_listing_async(
          '/v1/access_token')
      .mock(Response(
          status_code=200,
-         content=_token,
-         request=_REQPOST)))
+         content=_token)))
 
     (respx_mock
      .get(
@@ -380,12 +359,10 @@ async def test_Reddit_listing_async(
          '/comments/mocked.json')
      .mock(side_effect=[
          Response(
-             status_code=401,
-             request=_REQGET),
+             status_code=401),
          Response(
              status_code=200,
-             content=_listing,
-             request=_REQGET)]))
+             content=_listing)]))
 
 
     listing = await (
