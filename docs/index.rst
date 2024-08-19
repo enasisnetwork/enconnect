@@ -22,7 +22,7 @@ Instagram Client
 Philips Hue Parameters
 ======================
 
-.. autopydantic_model:: enconnect.philipshue.BridgeParams
+.. autopydantic_model:: enconnect.philips.BridgeParams
    :members:
    :show-inheritance:
    :noindex:
@@ -30,7 +30,7 @@ Philips Hue Parameters
 Philips Hue Client
 ==================
 
-.. autoclass:: enconnect.philipshue.Bridge
+.. autoclass:: enconnect.philips.Bridge
    :members:
    :show-inheritance:
    :noindex:

@@ -7,12 +7,13 @@ is permitted, for more information consult the project license file.
 
 
 
-from encommon import ENPYRWS
 from encommon.types import inrepr
 from encommon.types import instr
 from encommon.utils import load_sample
 from encommon.utils import prep_sample
+from encommon.utils import read_sample
 from encommon.utils import read_text
+from encommon.utils.sample import ENPYRWS
 
 from httpx import Response
 
@@ -89,47 +90,50 @@ def test_Router_request(
     """
 
 
-    _source = read_text(
+    source = read_text(
         f'{SAMPLES}/source.json')
 
-    location = (
-        'https://192.168.1.1')
+    source = read_sample(
+        sample=source)
 
 
     (respx_mock
      .get(
-         f'{location}/proxy/network'
-         '/api/s/default/rest/user')
+         'https://192.168.1.1'
+         '/proxy/network/api/s'
+         '/default/rest/user')
      .mock(side_effect=[
-         Response(
-             status_code=401),
+         Response(401),
          Response(
              status_code=200,
-             content=_source)]))
+             content=source)]))
 
     (respx_mock
-     .post(f'{location}/api/auth/login')
-     .mock(Response(
-         status_code=200,
-         content=_source)))
+     .post(
+         'https://192.168.1.1'
+         '/api/auth/login')
+     .mock(Response(200)))
 
 
-    response = (
-        router.request_proxy(
-            'get', 'rest/user'))
+    request = router.reqroxy
+
+    response = request(
+        'get', 'rest/user')
 
     response.raise_for_status()
 
-
     fetched = response.json()
+
 
     sample_path = (
         f'{SAMPLES}/dumped.json')
 
     sample = load_sample(
-        sample_path, fetched,
-        update=ENPYRWS)
+        path=sample_path,
+        update=ENPYRWS,
+        content=fetched)
 
-    expect = prep_sample(fetched)
+    expect = prep_sample(
+        content=fetched)
 
     assert sample == expect

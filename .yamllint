@@ -15,7 +15,13 @@ rules:
     max: 3
 
   truthy:
-    allowed-values: ['true', 'false']
+    allowed-values:
+      - 'true'
+      - 'false'
 
   line-length:
     max: 90
+
+  new-line-at-end-of-file: enable
+
+  trailing-spaces: enable

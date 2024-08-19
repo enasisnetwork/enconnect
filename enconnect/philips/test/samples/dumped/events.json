@@ -1,0 +1,115 @@
+[
+  {
+    "id": "aa012345-abcd-1234-ab12-abcdef000025",
+    "id_v1": "/sensors/3",
+    "motion": {
+      "motion": true,
+      "motion_report": {
+        "changed": "1970-01-01T00:00:00Z",
+        "motion": true
+      },
+      "motion_valid": true
+    },
+    "owner": {
+      "rid": "aa012345-abcd-1234-ab12-abcdef000004",
+      "rtype": "device"
+    },
+    "type": "motion"
+  },
+  {
+    "id": "aa012345-abcd-1234-ab12-abcdef000025",
+    "id_v1": "/sensors/3",
+    "motion": {
+      "motion": false,
+      "motion_report": {
+        "changed": "1970-01-01T00:00:00Z",
+        "motion": false
+      },
+      "motion_valid": true
+    },
+    "owner": {
+      "rid": "aa012345-abcd-1234-ab12-abcdef000004",
+      "rtype": "device"
+    },
+    "type": "motion"
+  },
+  {
+    "id": "aa012345-abcd-1234-ab12-abcdef000019",
+    "id_v1": "/sensors/1",
+    "button": {
+      "button_report": {
+        "event": "initial_press",
+        "updated": "1970-01-01T00:00:00Z"
+      },
+      "last_event": "initial_press"
+    },
+    "owner": {
+      "rid": "aa012345-abcd-1234-ab12-abcdef000003",
+      "rtype": "device"
+    },
+    "type": "button"
+  },
+  {
+    "id": "aa012345-abcd-1234-ab12-abcdef000019",
+    "id_v1": "/sensors/1",
+    "button": {
+      "button_report": {
+        "event": "short_release",
+        "updated": "1970-01-01T00:00:00Z"
+      },
+      "last_event": "short_release"
+    },
+    "owner": {
+      "rid": "aa012345-abcd-1234-ab12-abcdef000003",
+      "rtype": "device"
+    },
+    "type": "button"
+  },
+  {
+    "contact_report": {
+      "changed": "1970-01-01T00:00:00Z",
+      "state": "no_contact"
+    },
+    "id": "aa012345-abcd-1234-ab12-abcdef000035",
+    "owner": {
+      "rid": "aa012345-abcd-1234-ab12-abcdef000006",
+      "rtype": "device"
+    },
+    "type": "contact"
+  },
+  {
+    "contact_report": {
+      "changed": "1970-01-01T00:00:00Z",
+      "state": "contact"
+    },
+    "id": "aa012345-abcd-1234-ab12-abcdef000035",
+    "owner": {
+      "rid": "aa012345-abcd-1234-ab12-abcdef000006",
+      "rtype": "device"
+    },
+    "type": "contact"
+  },
+  {
+    "dimming": {
+      "brightness": 100.0
+    },
+    "id": "aa012345-abcd-1234-ab12-abcdef000049",
+    "id_v1": "/groups/1",
+    "on": {
+      "on": false
+    },
+    "owner": {
+      "rid": "aa012345-abcd-1234-ab12-abcdef000048",
+      "rtype": "room"
+    },
+    "type": "grouped_light"
+  },
+  {
+    "id": "aa012345-abcd-1234-ab12-abcdef000050",
+    "id_v1": "/scenes/JrCpop0RBs9U6c75",
+    "status": {
+      "active": "static"
+    },
+    "type": "scene"
+  }
+]

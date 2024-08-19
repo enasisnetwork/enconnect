@@ -109,6 +109,8 @@ class Router:
         path: str,
         params: Optional[dict[str, Any]] = None,
         json: Optional[dict[str, Any]] = None,
+        *,
+        timeout: Optional[int] = None,
     ) -> Response:
         """
         Return the response for upstream request to the server.
@@ -117,6 +119,8 @@ class Router:
         :param path: Path for the location to upstream endpoint.
         :param params: Optional parameters included in request.
         :param json: Optional JSON payload included in request.
+        :param timeout: Timeout waiting for the server response.
+            This will override the default client instantiated.
         :returns: Response for upstream request to the server.
         """
 
@@ -138,12 +142,14 @@ class Router:
             json=json)
 
 
-    def request_proxy(
+    def reqroxy(
         self,
         method: _METHODS,
         path: str,
         params: Optional[dict[str, Any]] = None,
         json: Optional[dict[str, Any]] = None,
+        *,
+        timeout: Optional[int] = None,
     ) -> Response:
         """
         Return the response for upstream request to the server.
@@ -158,6 +164,8 @@ class Router:
         :param path: Path for the location to upstream endpoint.
         :param params: Optional parameters included in request.
         :param json: Optional JSON payload included in request.
+        :param timeout: Timeout waiting for the server response.
+            This will override the default client instantiated.
         :returns: Response for upstream request to the server.
         """
 

@@ -1,0 +1,1262 @@
+{
+  "errors": [],
+  "data": [
+    {
+      "id": "aa012345-abcd-1234-ab12-abcdef000002",
+      "product_data": {
+        "model_id": "BSB002",
+        "manufacturer_name": "Signify Netherlands B.V.",
+        "product_name": "Hue Bridge",
+        "product_archetype": "bridge_v2",
+        "certified": true,
+        "software_version": "1.65.1965017030"
+      },
+      "metadata": {
+        "name": "Jupiter",
+        "archetype": "bridge_v2"
+      },
+      "identify": {},
+      "services": [
+        {
+          "rid": "aa012345-abcd-1234-ab12-abcdef000009",
+          "rtype": "bridge"
+        },
+        {
+          "rid": "aa012345-abcd-1234-ab12-abcdef000010",
+          "rtype": "zigbee_connectivity"
+        },
+        {
+          "rid": "aa012345-abcd-1234-ab12-abcdef000011",
+          "rtype": "entertainment"
+        },
+        {
+          "rid": "aa012345-abcd-1234-ab12-abcdef000012",
+          "rtype": "zigbee_device_discovery"
+        }
+      ],
+      "type": "device"
+    },
+    {
+      "id": "aa012345-abcd-1234-ab12-abcdef000009",
+      "owner": {
+        "rid": "aa012345-abcd-1234-ab12-abcdef000002",
+        "rtype": "device"
+      },
+      "bridge_id": "ecb5fafffe912f7a",
+      "time_zone": {
+        "time_zone": "America/Chicago"
+      },
+      "type": "bridge"
+    },
+    {
+      "id": "aa012345-abcd-1234-ab12-abcdef000011",
+      "owner": {
+        "rid": "aa012345-abcd-1234-ab12-abcdef000002",
+        "rtype": "device"
+      },
+      "renderer": false,
+      "proxy": true,
+      "equalizer": false,
+      "max_streams": 1,
+      "type": "entertainment"
+    },
+    {
+      "id": "aa012345-abcd-1234-ab12-abcdef000010",
+      "owner": {
+        "rid": "aa012345-abcd-1234-ab12-abcdef000002",
+        "rtype": "device"
+      },
+      "status": "connected",
+      "mac_address": "00:17:88:01:05:00:00:10",
+      "channel": {
+        "status": "set",
+        "value": "channel_25"
+      },
+      "extended_pan_id": "a123456789bcd0ef",
+      "type": "zigbee_connectivity"
+    },
+    {
+      "id": "aa012345-abcd-1234-ab12-abcdef000012",
+      "owner": {
+        "rid": "aa012345-abcd-1234-ab12-abcdef000002",
+        "rtype": "device"
+      },
+      "status": "ready",
+      "action": {
+        "action_type_values": [
+          "search"
+        ]
+      },
+      "type": "zigbee_device_discovery"
+    },
+    {
+      "id": "aa012345-abcd-1234-ab12-abcdef000001",
+      "id_v1": "/groups/0",
+      "children": [
+        {
+          "rid": "aa012345-abcd-1234-ab12-abcdef000002",
+          "rtype": "device"
+        },
+        {
+          "rid": "aa012345-abcd-1234-ab12-abcdef000003",
+          "rtype": "device"
+        },
+        {
+          "rid": "aa012345-abcd-1234-ab12-abcdef000004",
+          "rtype": "device"
+        },
+        {
+          "rid": "aa012345-abcd-1234-ab12-abcdef000005",
+          "rtype": "device"
+        },
+        {
+          "rid": "aa012345-abcd-1234-ab12-abcdef000006",
+          "rtype": "device"
+        },
+        {
+          "rid": "aa012345-abcd-1234-ab12-abcdef000007",
+          "rtype": "device"
+        },
+        {
+          "rid": "aa012345-abcd-1234-ab12-abcdef000008",
+          "rtype": "device"
+        }
+      ],
+      "services": [
+        {
+          "rid": "aa012345-abcd-1234-ab12-abcdef000013",
+          "rtype": "grouped_light"
+        },
+        {
+          "rid": "aa012345-abcd-1234-ab12-abcdef000014",
+          "rtype": "grouped_motion"
+        },
+        {
+          "rid": "aa012345-abcd-1234-ab12-abcdef000015",
+          "rtype": "grouped_light_level"
+        }
+      ],
+      "type": "bridge_home"
+    },
+    {
+      "id": "aa012345-abcd-1234-ab12-abcdef000013",
+      "id_v1": "/groups/0",
+      "owner": {
+        "rid": "aa012345-abcd-1234-ab12-abcdef000001",
+        "rtype": "bridge_home"
+      },
+      "color": {},
+      "on": {
+        "on": true
+      },
+      "dimming": {
+        "brightness": 80
+      },
+      "dimming_delta": {},
+      "color_temperature": {},
+      "color_temperature_delta": {},
+      "alert": {
+        "action_values": [
+          "breathe"
+        ]
+      },
+      "signaling": {
+        "signal_values": [
+          "alternating",
+          "no_signal",
+          "on_off",
+          "on_off_color"
+        ]
+      },
+      "dynamics": {},
+      "type": "grouped_light"
+    },
+    {
+      "id": "aa012345-abcd-1234-ab12-abcdef000015",
+      "owner": {
+        "rid": "aa012345-abcd-1234-ab12-abcdef000001",
+        "rtype": "bridge_home"
+      },
+      "enabled": true,
+      "light": {
+        "light_level_report": {
+          "changed": "1970-01-01T00:00:00Z",
+          "light_level": 0
+        }
+      },
+      "type": "grouped_light_level"
+    },
+    {
+      "id": "aa012345-abcd-1234-ab12-abcdef000014",
+      "owner": {
+        "rid": "aa012345-abcd-1234-ab12-abcdef000001",
+        "rtype": "bridge_home"
+      },
+      "enabled": true,
+      "motion": {
+        "motion_report": {
+          "changed": "1970-01-01T00:00:00Z",
+          "motion": false
+        }
+      },
+      "type": "grouped_motion"
+    },
+    {
+      "id": "aa012345-abcd-1234-ab12-abcdef000003",
+      "id_v1": "/sensors/1",
+      "product_data": {
+        "model_id": "RDM002",
+        "manufacturer_name": "Signify Netherlands B.V.",
+        "product_name": "Hue tap dial switch",
+        "product_archetype": "unknown_archetype",
+        "certified": true,
+        "software_version": "2.59.25",
+        "hardware_platform_type": "100b-121"
+      },
+      "metadata": {
+        "name": "Jupiter Button",
+        "archetype": "unknown_archetype"
+      },
+      "services": [
+        {
+          "rid": "aa012345-abcd-1234-ab12-abcdef000016",
+          "rtype": "zigbee_connectivity"
+        },
+        {
+          "rid": "aa012345-abcd-1234-ab12-abcdef000017",
+          "rtype": "relative_rotary"
+        },
+        {
+          "rid": "aa012345-abcd-1234-ab12-abcdef000018",
+          "rtype": "device_power"
+        },
+        {
+          "rid": "aa012345-abcd-1234-ab12-abcdef000019",
+          "rtype": "button"
+        },
+        {
+          "rid": "aa012345-abcd-1234-ab12-abcdef000020",
+          "rtype": "button"
+        },
+        {
+          "rid": "aa012345-abcd-1234-ab12-abcdef000021",
+          "rtype": "button"
+        },
+        {
+          "rid": "aa012345-abcd-1234-ab12-abcdef000022",
+          "rtype": "button"
+        },
+        {
+          "rid": "aa012345-abcd-1234-ab12-abcdef000023",
+          "rtype": "device_software_update"
+        }
+      ],
+      "type": "device"
+    },
+    {
+      "id": "aa012345-abcd-1234-ab12-abcdef000020",
+      "id_v1": "/sensors/2",
+      "owner": {
+        "rid": "aa012345-abcd-1234-ab12-abcdef000003",
+        "rtype": "device"
+      },
+      "metadata": {
+        "control_id": 2
+      },
+      "button": {
+        "last_event": "short_release",
+        "button_report": {
+          "updated": "1970-01-01T00:00:00Z",
+          "event": "short_release"
+        },
+        "repeat_interval": 800,
+        "event_values": [
+          "initial_press",
+          "repeat",
+          "short_release",
+          "long_release",
+          "long_press"
+        ]
+      },
+      "type": "button"
+    },
+    {
+      "id": "aa012345-abcd-1234-ab12-abcdef000021",
+      "id_v1": "/sensors/2",
+      "owner": {
+        "rid": "aa012345-abcd-1234-ab12-abcdef000003",
+        "rtype": "device"
+      },
+      "metadata": {
+        "control_id": 3
+      },
+      "button": {
+        "last_event": "long_release",
+        "button_report": {
+          "updated": "1970-01-01T00:00:00Z",
+          "event": "long_release"
+        },
+        "repeat_interval": 800,
+        "event_values": [
+          "initial_press",
+          "repeat",
+          "short_release",
+          "long_release",
+          "long_press"
+        ]
+      },
+      "type": "button"
+    },
+    {
+      "id": "aa012345-abcd-1234-ab12-abcdef000019",
+      "id_v1": "/sensors/2",
+      "owner": {
+        "rid": "aa012345-abcd-1234-ab12-abcdef000003",
+        "rtype": "device"
+      },
+      "metadata": {
+        "control_id": 1
+      },
+      "button": {
+        "repeat_interval": 800,
+        "event_values": [
+          "initial_press",
+          "repeat",
+          "short_release",
+          "long_release",
+          "long_press"
+        ]
+      },
+      "type": "button"
+    },
+    {
+      "id": "aa012345-abcd-1234-ab12-abcdef000022",
+      "id_v1": "/sensors/2",
+      "owner": {
+        "rid": "aa012345-abcd-1234-ab12-abcdef000003",
+        "rtype": "device"
+      },
+      "metadata": {
+        "control_id": 4
+      },
+      "button": {
+        "repeat_interval": 800,
+        "event_values": [
+          "initial_press",
+          "repeat",
+          "short_release",
+          "long_release",
+          "long_press"
+        ]
+      },
+      "type": "button"
+    },
+    {
+      "id": "aa012345-abcd-1234-ab12-abcdef000018",
+      "id_v1": "/sensors/1",
+      "owner": {
+        "rid": "aa012345-abcd-1234-ab12-abcdef000003",
+        "rtype": "device"
+      },
+      "power_state": {
+        "battery_state": "normal",
+        "battery_level": 100
+      },
+      "type": "device_power"
+    },
+    {
+      "id": "aa012345-abcd-1234-ab12-abcdef000023",
+      "owner": {
+        "rid": "aa012345-abcd-1234-ab12-abcdef000003",
+        "rtype": "device"
+      },
+      "state": "no_update",
+      "problems": [],
+      "type": "device_software_update"
+    },
+    {
+      "id": "aa012345-abcd-1234-ab12-abcdef000017",
+      "id_v1": "/sensors/1",
+      "owner": {
+        "rid": "aa012345-abcd-1234-ab12-abcdef000003",
+        "rtype": "device"
+      },
+      "relative_rotary": {
+        "last_event": {
+          "action": "repeat",
+          "rotation": {
+            "direction": "clock_wise",
+            "steps": 242,
+            "duration": 400
+          }
+        },
+        "rotary_report": {
+          "updated": "1970-01-01T00:00:00Z",
+          "action": "repeat",
+          "rotation": {
+            "direction": "clock_wise",
+            "steps": 242,
+            "duration": 400
+          }
+        }
+      },
+      "type": "relative_rotary"
+    },
+    {
+      "id": "aa012345-abcd-1234-ab12-abcdef000016",
+      "id_v1": "/sensors/1",
+      "owner": {
+        "rid": "aa012345-abcd-1234-ab12-abcdef000003",
+        "rtype": "device"
+      },
+      "status": "connected",
+      "mac_address": "00:17:88:01:0d:00:00:16",
+      "type": "zigbee_connectivity"
+    },
+    {
+      "id": "aa012345-abcd-1234-ab12-abcdef000004",
+      "id_v1": "/sensors/3",
+      "product_data": {
+        "model_id": "SML002",
+        "manufacturer_name": "Signify Netherlands B.V.",
+        "product_name": "Hue outdoor motion sensor",
+        "product_archetype": "unknown_archetype",
+        "certified": true,
+        "software_version": "1.1.27575",
+        "hardware_platform_type": "100b-10d"
+      },
+      "metadata": {
+        "name": "Jupiter Motion",
+        "archetype": "unknown_archetype"
+      },
+      "identify": {},
+      "usertest": {
+        "status": "set",
+        "usertest": false
+      },
+      "services": [
+        {
+          "rid": "aa012345-abcd-1234-ab12-abcdef000024",
+          "rtype": "zigbee_connectivity"
+        },
+        {
+          "rid": "aa012345-abcd-1234-ab12-abcdef000025",
+          "rtype": "motion"
+        },
+        {
+          "rid": "aa012345-abcd-1234-ab12-abcdef000026",
+          "rtype": "device_power"
+        },
+        {
+          "rid": "aa012345-abcd-1234-ab12-abcdef000027",
+          "rtype": "light_level"
+        },
+        {
+          "rid": "aa012345-abcd-1234-ab12-abcdef000028",
+          "rtype": "temperature"
+        },
+        {
+          "rid": "aa012345-abcd-1234-ab12-abcdef000029",
+          "rtype": "device_software_update"
+        }
+      ],
+      "type": "device"
+    },
+    {
+      "id": "aa012345-abcd-1234-ab12-abcdef000026",
+      "id_v1": "/sensors/3",
+      "owner": {
+        "rid": "aa012345-abcd-1234-ab12-abcdef000004",
+        "rtype": "device"
+      },
+      "power_state": {
+        "battery_state": "normal",
+        "battery_level": 100
+      },
+      "type": "device_power"
+    },
+    {
+      "id": "aa012345-abcd-1234-ab12-abcdef000029",
+      "owner": {
+        "rid": "aa012345-abcd-1234-ab12-abcdef000004",
+        "rtype": "device"
+      },
+      "state": "no_update",
+      "problems": [],
+      "type": "device_software_update"
+    },
+    {
+      "id": "aa012345-abcd-1234-ab12-abcdef000027",
+      "id_v1": "/sensors/8",
+      "owner": {
+        "rid": "aa012345-abcd-1234-ab12-abcdef000004",
+        "rtype": "device"
+      },
+      "enabled": true,
+      "light": {
+        "light_level": 231,
+        "light_level_valid": true,
+        "light_level_report": {
+          "changed": "1970-01-01T00:00:00Z",
+          "light_level": 231
+        }
+      },
+      "type": "light_level"
+    },
+    {
+      "id": "aa012345-abcd-1234-ab12-abcdef000025",
+      "id_v1": "/sensors/3",
+      "owner": {
+        "rid": "aa012345-abcd-1234-ab12-abcdef000004",
+        "rtype": "device"
+      },
+      "enabled": true,
+      "motion": {
+        "motion": false,
+        "motion_valid": true,
+        "motion_report": {
+          "changed": "1970-01-01T00:00:00Z",
+          "motion": false
+        }
+      },
+      "sensitivity": {
+        "status": "set",
+        "sensitivity": 0,
+        "sensitivity_max": 4
+      },
+      "type": "motion"
+    },
+    {
+      "id": "aa012345-abcd-1234-ab12-abcdef000028",
+      "id_v1": "/sensors/9",
+      "owner": {
+        "rid": "aa012345-abcd-1234-ab12-abcdef000004",
+        "rtype": "device"
+      },
+      "enabled": true,
+      "temperature": {
+        "temperature": 28.47,
+        "temperature_valid": true,
+        "temperature_report": {
+          "changed": "1970-01-01T00:00:00Z",
+          "temperature": 28.47
+        }
+      },
+      "type": "temperature"
+    },
+    {
+      "id": "aa012345-abcd-1234-ab12-abcdef000024",
+      "id_v1": "/sensors/3",
+      "owner": {
+        "rid": "aa012345-abcd-1234-ab12-abcdef000004",
+        "rtype": "device"
+      },
+      "status": "connected",
+      "mac_address": "00:17:88:01:06:00:00:24",
+      "type": "zigbee_connectivity"
+    },
+    {
+      "id": "aa012345-abcd-1234-ab12-abcdef000005",
+      "id_v1": "/sensors/4",
+      "product_data": {
+        "model_id": "RDM001",
+        "manufacturer_name": "Signify Netherlands B.V.",
+        "product_name": "Hue wall switch module",
+        "product_archetype": "unknown_archetype",
+        "certified": true,
+        "software_version": "1.0.5",
+        "hardware_platform_type": "100b-11c"
+      },
+      "metadata": {
+        "name": "Jupiter Switch",
+        "archetype": "unknown_archetype"
+      },
+      "device_mode": {
+        "status": "set",
+        "mode": "switch_single_rocker",
+        "mode_values": [
+          "switch_single_rocker",
+          "switch_single_pushbutton",
+          "switch_dual_rocker",
+          "switch_dual_pushbutton"
+        ]
+      },
+      "services": [
+        {
+          "rid": "aa012345-abcd-1234-ab12-abcdef000030",
+          "rtype": "zigbee_connectivity"
+        },
+        {
+          "rid": "aa012345-abcd-1234-ab12-abcdef000031",
+          "rtype": "button"
+        },
+        {
+          "rid": "aa012345-abcd-1234-ab12-abcdef000032",
+          "rtype": "device_power"
+        },
+        {
+          "rid": "aa012345-abcd-1234-ab12-abcdef000033",
+          "rtype": "device_software_update"
+        }
+      ],
+      "type": "device"
+    },
+    {
+      "id": "aa012345-abcd-1234-ab12-abcdef000031",
+      "id_v1": "/sensors/4",
+      "owner": {
+        "rid": "aa012345-abcd-1234-ab12-abcdef000005",
+        "rtype": "device"
+      },
+      "metadata": {
+        "control_id": 1
+      },
+      "button": {
+        "last_event": "short_release",
+        "button_report": {
+          "updated": "1970-01-01T00:00:00Z",
+          "event": "short_release"
+        },
+        "repeat_interval": 800,
+        "event_values": [
+          "initial_press",
+          "short_release"
+        ]
+      },
+      "type": "button"
+    },
+    {
+      "id": "aa012345-abcd-1234-ab12-abcdef000032",
+      "id_v1": "/sensors/4",
+      "owner": {
+        "rid": "aa012345-abcd-1234-ab12-abcdef000005",
+        "rtype": "device"
+      },
+      "power_state": {
+        "battery_state": "normal",
+        "battery_level": 100
+      },
+      "type": "device_power"
+    },
+    {
+      "id": "aa012345-abcd-1234-ab12-abcdef000033",
+      "owner": {
+        "rid": "aa012345-abcd-1234-ab12-abcdef000005",
+        "rtype": "device"
+      },
+      "state": "no_update",
+      "problems": [],
+      "type": "device_software_update"
+    },
+    {
+      "id": "aa012345-abcd-1234-ab12-abcdef000030",
+      "id_v1": "/sensors/4",
+      "owner": {
+        "rid": "aa012345-abcd-1234-ab12-abcdef000005",
+        "rtype": "device"
+      },
+      "status": "connected",
+      "mac_address": "00:17:88:01:0c:00:00:30",
+      "type": "zigbee_connectivity"
+    },
+    {
+      "id": "aa012345-abcd-1234-ab12-abcdef000006",
+      "product_data": {
+        "model_id": "SOC001",
+        "manufacturer_name": "Signify Netherlands B.V.",
+        "product_name": "Hue secure contact sensor",
+        "product_archetype": "unknown_archetype",
+        "certified": true,
+        "software_version": "2.67.9",
+        "hardware_platform_type": "100b-125"
+      },
+      "metadata": {
+        "name": "Jupiter Contact",
+        "archetype": "unknown_archetype"
+      },
+      "identify": {},
+      "services": [
+        {
+          "rid": "aa012345-abcd-1234-ab12-abcdef000034",
+          "rtype": "zigbee_connectivity"
+        },
+        {
+          "rid": "aa012345-abcd-1234-ab12-abcdef000035",
+          "rtype": "contact"
+        },
+        {
+          "rid": "aa012345-abcd-1234-ab12-abcdef000036",
+          "rtype": "tamper"
+        },
+        {
+          "rid": "aa012345-abcd-1234-ab12-abcdef000037",
+          "rtype": "device_power"
+        },
+        {
+          "rid": "aa012345-abcd-1234-ab12-abcdef000038",
+          "rtype": "device_software_update"
+        }
+      ],
+      "type": "device"
+    },
+    {
+      "id": "aa012345-abcd-1234-ab12-abcdef000035",
+      "owner": {
+        "rid": "aa012345-abcd-1234-ab12-abcdef000006",
+        "rtype": "device"
+      },
+      "enabled": true,
+      "contact_report": {
+        "changed": "1970-01-01T00:00:00Z",
+        "state": "contact"
+      },
+      "type": "contact"
+    },
+    {
+      "id": "aa012345-abcd-1234-ab12-abcdef000037",
+      "owner": {
+        "rid": "aa012345-abcd-1234-ab12-abcdef000006",
+        "rtype": "device"
+      },
+      "power_state": {
+        "battery_state": "normal",
+        "battery_level": 100
+      },
+      "type": "device_power"
+    },
+    {
+      "id": "aa012345-abcd-1234-ab12-abcdef000038",
+      "owner": {
+        "rid": "aa012345-abcd-1234-ab12-abcdef000006",
+        "rtype": "device"
+      },
+      "state": "no_update",
+      "problems": [],
+      "type": "device_software_update"
+    },
+    {
+      "id": "aa012345-abcd-1234-ab12-abcdef000036",
+      "owner": {
+        "rid": "aa012345-abcd-1234-ab12-abcdef000006",
+        "rtype": "device"
+      },
+      "tamper_reports": [
+        {
+          "changed": "1970-01-01T00:00:00.000Z",
+          "source": "battery_door",
+          "state": "not_tampered"
+        }
+      ],
+      "type": "tamper"
+    },
+    {
+      "id": "aa012345-abcd-1234-ab12-abcdef000034",
+      "owner": {
+        "rid": "aa012345-abcd-1234-ab12-abcdef000006",
+        "rtype": "device"
+      },
+      "status": "connected",
+      "mac_address": "00:17:88:01:0d:00:00:34",
+      "type": "zigbee_connectivity"
+    },
+    {
+      "id": "aa012345-abcd-1234-ab12-abcdef000007",
+      "id_v1": "/lights/1",
+      "product_data": {
+        "model_id": "LWA003",
+        "manufacturer_name": "Signify Netherlands B.V.",
+        "product_name": "Hue white lamp",
+        "product_archetype": "sultan_bulb",
+        "certified": true,
+        "software_version": "1.116.3",
+        "hardware_platform_type": "100b-114"
+      },
+      "metadata": {
+        "name": "Jupiter Light",
+        "archetype": "wall_lantern"
+      },
+      "identify": {},
+      "services": [
+        {
+          "rid": "aa012345-abcd-1234-ab12-abcdef000039",
+          "rtype": "zigbee_connectivity"
+        },
+        {
+          "rid": "aa012345-abcd-1234-ab12-abcdef000040",
+          "rtype": "light"
+        },
+        {
+          "rid": "aa012345-abcd-1234-ab12-abcdef000041",
+          "rtype": "taurus_7455"
+        },
+        {
+          "rid": "aa012345-abcd-1234-ab12-abcdef000042",
+          "rtype": "device_software_update"
+        }
+      ],
+      "type": "device"
+    },
+    {
+      "id": "aa012345-abcd-1234-ab12-abcdef000042",
+      "owner": {
+        "rid": "aa012345-abcd-1234-ab12-abcdef000007",
+        "rtype": "device"
+      },
+      "state": "no_update",
+      "problems": [],
+      "type": "device_software_update"
+    },
+    {
+      "id": "aa012345-abcd-1234-ab12-abcdef000040",
+      "id_v1": "/lights/1",
+      "owner": {
+        "rid": "aa012345-abcd-1234-ab12-abcdef000007",
+        "rtype": "device"
+      },
+      "metadata": {
+        "name": "Jupiter Light",
+        "archetype": "wall_lantern",
+        "fixed_mired": 366,
+        "function": "mixed"
+      },
+      "product_data": {
+        "function": "mixed"
+      },
+      "identify": {},
+      "service_id": 0,
+      "color": {
+        "xy": {
+          "x": 0.2247,
+          "y": 0.3287
+        }
+      },
+      "on": {
+        "on": true
+      },
+      "dimming": {
+        "brightness": 80,
+        "min_dim_level": 5.0
+      },
+      "dimming_delta": {},
+      "dynamics": {
+        "status": "none",
+        "status_values": [
+          "none"
+        ],
+        "speed": 0.0,
+        "speed_valid": false
+      },
+      "alert": {
+        "action_values": [
+          "breathe"
+        ]
+      },
+      "signaling": {
+        "signal_values": [
+          "no_signal",
+          "on_off"
+        ]
+      },
+      "mode": "normal",
+      "effects": {
+        "status_values": [
+          "no_effect",
+          "candle"
+        ],
+        "status": "no_effect",
+        "effect_values": [
+          "no_effect",
+          "candle"
+        ]
+      },
+      "powerup": {
+        "preset": "powerfail",
+        "configured": true,
+        "on": {
+          "mode": "previous"
+        },
+        "dimming": {
+          "mode": "previous"
+        }
+      },
+      "type": "light"
+    },
+    {
+      "id": "aa012345-abcd-1234-ab12-abcdef000039",
+      "id_v1": "/lights/1",
+      "owner": {
+        "rid": "aa012345-abcd-1234-ab12-abcdef000007",
+        "rtype": "device"
+      },
+      "status": "connected",
+      "mac_address": "00:17:88:01:0c:00:00:39",
+      "type": "zigbee_connectivity"
+    },
+    {
+      "id": "aa012345-abcd-1234-ab12-abcdef000008",
+      "id_v1": "/lights/2",
+      "product_data": {
+        "model_id": "LOM010",
+        "manufacturer_name": "Signify Netherlands B.V.",
+        "product_name": "Hue smart plug",
+        "product_archetype": "plug",
+        "certified": true,
+        "software_version": "1.116.3",
+        "hardware_platform_type": "100b-11a"
+      },
+      "metadata": {
+        "name": "Jupiter Plug",
+        "archetype": "plug"
+      },
+      "identify": {},
+      "services": [
+        {
+          "rid": "aa012345-abcd-1234-ab12-abcdef000043",
+          "rtype": "zigbee_connectivity"
+        },
+        {
+          "rid": "aa012345-abcd-1234-ab12-abcdef000044",
+          "rtype": "light"
+        },
+        {
+          "rid": "aa012345-abcd-1234-ab12-abcdef000045",
+          "rtype": "device_software_update"
+        }
+      ],
+      "type": "device"
+    },
+    {
+      "id": "aa012345-abcd-1234-ab12-abcdef000044",
+      "id_v1": "/lights/2",
+      "owner": {
+        "rid": "aa012345-abcd-1234-ab12-abcdef000008",
+        "rtype": "device"
+      },
+      "metadata": {
+        "name": "Jupiter Plug",
+        "archetype": "plug",
+        "function": "functional"
+      },
+      "product_data": {
+        "function": "functional"
+      },
+      "identify": {},
+      "service_id": 0,
+      "on": {
+        "on": true
+      },
+      "dynamics": {
+        "status": "none",
+        "status_values": [
+          "none"
+        ],
+        "speed": 0.0,
+        "speed_valid": false
+      },
+      "alert": {
+        "action_values": []
+      },
+      "mode": "normal",
+      "powerup": {
+        "preset": "powerfail",
+        "configured": true,
+        "on": {
+          "mode": "previous"
+        }
+      },
+      "type": "light"
+    },
+    {
+      "id": "aa012345-abcd-1234-ab12-abcdef000043",
+      "id_v1": "/lights/2",
+      "owner": {
+        "rid": "aa012345-abcd-1234-ab12-abcdef000008",
+        "rtype": "device"
+      },
+      "status": "connected",
+      "mac_address": "00:17:88:01:0d:00:00:43",
+      "type": "zigbee_connectivity"
+    },
+    {
+      "id": "aa012345-abcd-1234-ab12-abcdef000045",
+      "owner": {
+        "rid": "aa012345-abcd-1234-ab12-abcdef000008",
+        "rtype": "device"
+      },
+      "state": "no_update",
+      "problems": [],
+      "type": "device_software_update"
+    },
+    {
+      "id": "aa012345-abcd-1234-ab12-abcdef000046",
+      "id_v1": "/groups/1",
+      "children": [
+        {
+          "rid": "aa012345-abcd-1234-ab12-abcdef000007",
+          "rtype": "device"
+        },
+        {
+          "rid": "aa012345-abcd-1234-ab12-abcdef000008",
+          "rtype": "device"
+        }
+      ],
+      "services": [
+        {
+          "rid": "aa012345-abcd-1234-ab12-abcdef000047",
+          "rtype": "grouped_light"
+        }
+      ],
+      "metadata": {
+        "name": "Jupiter",
+        "archetype": "carport"
+      },
+      "type": "room"
+    },
+    {
+      "id": "aa012345-abcd-1234-ab12-abcdef000047",
+      "id_v1": "/groups/1",
+      "owner": {
+        "rid": "aa012345-abcd-1234-ab12-abcdef000046",
+        "rtype": "room"
+      },
+      "color": {
+        "xy": {
+          "x": 0.2247,
+          "y": 0.3287
+        }
+      },
+      "on": {
+        "on": true
+      },
+      "dimming": {
+        "brightness": 80
+      },
+      "dimming_delta": {},
+      "alert": {
+        "action_values": [
+          "breathe"
+        ]
+      },
+      "signaling": {
+        "signal_values": [
+          "no_signal",
+          "on_off"
+        ]
+      },
+      "dynamics": {},
+      "type": "grouped_light"
+    },
+    {
+      "id": "aa012345-abcd-1234-ab12-abcdef000048",
+      "id_v1": "/groups/2",
+      "children": [
+        {
+          "rid": "aa012345-abcd-1234-ab12-abcdef000007",
+          "rtype": "device"
+        },
+        {
+          "rid": "aa012345-abcd-1234-ab12-abcdef000008",
+          "rtype": "device"
+        }
+      ],
+      "services": [
+        {
+          "rid": "aa012345-abcd-1234-ab12-abcdef000049",
+          "rtype": "grouped_light"
+        }
+      ],
+      "metadata": {
+        "name": "Ganymede",
+        "archetype": "terrace"
+      },
+      "type": "zone"
+    },
+    {
+      "id": "aa012345-abcd-1234-ab12-abcdef000049",
+      "id_v1": "/groups/2",
+      "owner": {
+        "rid": "aa012345-abcd-1234-ab12-abcdef000048",
+        "rtype": "zone"
+      },
+      "color": {
+        "xy": {
+          "x": 0.2247,
+          "y": 0.3287
+        }
+      },
+      "on": {
+        "on": true
+      },
+      "dimming": {
+        "brightness": 80
+      },
+      "dimming_delta": {},
+      "alert": {
+        "action_values": [
+          "breathe"
+        ]
+      },
+      "signaling": {
+        "signal_values": [
+          "no_signal",
+          "on_off"
+        ]
+      },
+      "dynamics": {},
+      "type": "grouped_light"
+    },
+    {
+      "id": "aa012345-abcd-1234-ab12-abcdef000050",
+      "id_v1": "/scenes/JrCpop0RBs9U6c75",
+      "actions": [
+        {
+          "target": {
+            "rid": "aa012345-abcd-1234-ab12-abcdef000007",
+            "rtype": "light"
+          },
+          "action": {
+            "on": {
+              "on": true
+            },
+            "dimming": {
+              "brightness": 100.0
+            }
+          }
+        }
+      ],
+      "palette": {
+        "color": [],
+        "dimming": [
+          {
+            "brightness": 100.0
+          }
+        ],
+        "color_temperature": [
+          {
+            "color_temperature": {
+              "mirek": 370
+            },
+            "dimming": {
+              "brightness": 100.0
+            }
+          }
+        ],
+        "effects": []
+      },
+      "recall": {},
+      "metadata": {
+        "name": "Active",
+        "image": {
+          "rid": "732ff1d9-76a7-4630-aad0-c8acc499bb0b",
+          "rtype": "public_image"
+        }
+      },
+      "group": {
+        "rid": "aa012345-abcd-1234-ab12-abcdef000048",
+        "rtype": "zone"
+      },
+      "speed": 0.6031746031746031,
+      "auto_dynamic": false,
+      "status": {
+        "active": "inactive"
+      },
+      "type": "scene"
+    },
+    {
+      "id": "aa012345-abcd-1234-ab12-abcdef000051",
+      "id_v1": "/scenes/PuHVJ2YNiDo794jV",
+      "actions": [
+        {
+          "target": {
+            "rid": "aa012345-abcd-1234-ab12-abcdef000007",
+            "rtype": "light"
+          },
+          "action": {
+            "on": {
+              "on": true
+            },
+            "dimming": {
+              "brightness": 100.0
+            }
+          }
+        }
+      ],
+      "palette": {
+        "color": [],
+        "dimming": [
+          {
+            "brightness": 20.01504136375032
+          }
+        ],
+        "color_temperature": [],
+        "effects": []
+      },
+      "recall": {},
+      "metadata": {
+        "name": "Standby",
+        "image": {
+          "rid": "28bbfeff-1a0c-444e-bb4b-0b74b88e0c95",
+          "rtype": "public_image"
+        }
+      },
+      "group": {
+        "rid": "aa012345-abcd-1234-ab12-abcdef000048",
+        "rtype": "zone"
+      },
+      "speed": 0.6031746031746031,
+      "auto_dynamic": false,
+      "status": {
+        "active": "static"
+      },
+      "type": "scene"
+    },
+    {
+      "id": "aa012345-abcd-1234-ab12-abcdef000052",
+      "id_v1": "/scenes/NiDo79VVJ2Y4jPuH",
+      "actions": [
+        {
+          "target": {
+            "rid": "aa012345-abcd-1234-ab12-abcdef000007",
+            "rtype": "light"
+          },
+          "action": {
+            "on": {
+              "on": true
+            },
+            "dimming": {
+              "brightness": 100.0
+            }
+          }
+        }
+      ],
+      "palette": {
+        "color": [],
+        "dimming": [
+          {
+            "brightness": 100
+          }
+        ],
+        "color_temperature": [],
+        "effects": []
+      },
+      "recall": {},
+      "metadata": {
+        "name": "Absent",
+        "image": {
+          "rid": "28bbfeff-1a0c-444e-bb4b-0b74b88e0c95",
+          "rtype": "public_image"
+        }
+      },
+      "group": {
+        "rid": "aa012345-abcd-1234-ab12-abcdef000048",
+        "rtype": "zone"
+      },
+      "speed": 0.6031746031746031,
+      "auto_dynamic": false,
+      "status": {
+        "active": "inactive"
+      },
+      "type": "scene"
+    }
+  ]
+}
