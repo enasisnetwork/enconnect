@@ -1,0 +1,218 @@
+[
+
+
+
+  {
+    "name": "Advanced Zigbee RGBW Bulb",
+    "label": "Jupiter Light",
+    "type": "Advanced Zigbee RGBW Bulb",
+    "id": "1",
+    "date": "1970-01-01T00:00:00Z",
+    "model": null,
+    "manufacturer": null,
+    "room": "Interior",
+    "capabilities": [
+      "Configuration",
+      "Actuator",
+      "Bulb",
+      "Refresh",
+      "ColorTemperature",
+      "ColorMode",
+      "ColorControl",
+      "ChangeLevel",
+      "SwitchLevel",
+      "Light",
+      "Switch"
+    ],
+    "attributes": {
+      "colorTemperature": "5405",
+      "dataType": "ENUM",
+      "values": [
+        "on",
+        "off"
+      ],
+      "RGB": null,
+      "hue": "50",
+      "level": "20",
+      "switch": "on",
+      "colorName": "Cyan",
+      "colorMode": "RGB",
+      "saturation": "100",
+      "color": null
+    },
+    "commands": [
+      {
+        "command": "configure"
+      },
+      {
+        "command": "flash"
+      },
+      {
+        "command": "off"
+      },
+      {
+        "command": "on"
+      },
+      {
+        "command": "presetLevel"
+      },
+      {
+        "command": "refresh"
+      },
+      {
+        "command": "setColor"
+      },
+      {
+        "command": "setColorTemperature"
+      },
+      {
+        "command": "setHue"
+      },
+      {
+        "command": "setLevel"
+      },
+      {
+        "command": "setSaturation"
+      },
+      {
+        "command": "startLevelChange"
+      },
+      {
+        "command": "stopLevelChange"
+      },
+      {
+        "command": "updateFirmware"
+      }
+    ]
+  },
+
+
+
+  {
+    "name": "Advanced Zigbee RGBW Bulb",
+    "label": "Jupiter Special",
+    "type": "Advanced Zigbee RGBW Bulb",
+    "id": "2",
+    "date": "1970-01-01T00:00:00Z",
+    "model": null,
+    "manufacturer": null,
+    "room": "Interior",
+    "capabilities": [
+      "Configuration",
+      "Actuator",
+      "Bulb",
+      "Refresh",
+      "ColorTemperature",
+      "ColorMode",
+      "ColorControl",
+      "ChangeLevel",
+      "SwitchLevel",
+      "Light",
+      "Switch"
+    ],
+    "attributes": {
+      "colorTemperature": "5405",
+      "dataType": "ENUM",
+      "values": [
+        "on",
+        "off"
+      ],
+      "RGB": null,
+      "hue": "86",
+      "level": "80",
+      "switch": "off",
+      "colorName": "Magenta",
+      "colorMode": "RGB",
+      "saturation": "100",
+      "color": null
+    },
+    "commands": [
+      {
+        "command": "configure"
+      },
+      {
+        "command": "flash"
+      },
+      {
+        "command": "off"
+      },
+      {
+        "command": "on"
+      },
+      {
+        "command": "presetLevel"
+      },
+      {
+        "command": "refresh"
+      },
+      {
+        "command": "setColor"
+      },
+      {
+        "command": "setColorTemperature"
+      },
+      {
+        "command": "setHue"
+      },
+      {
+        "command": "setLevel"
+      },
+      {
+        "command": "setSaturation"
+      },
+      {
+        "command": "startLevelChange"
+      },
+      {
+        "command": "stopLevelChange"
+      },
+      {
+        "command": "updateFirmware"
+      }
+    ]
+  },
+
+
+
+
+
+
+  {
+    "name": "Bright",
+    "label": "Bright",
+    "type": "Scene Activator",
+    "id": "3",
+    "date": "1970-01-01T00:00:00Z",
+    "model": null,
+    "manufacturer": null,
+    "room": null,
+    "capabilities": [
+      "Switch",
+      "PushableButton"
+    ],
+    "attributes": {
+      "numberOfButtons": "1",
+      "dataType": "ENUM",
+      "values": [
+        "on",
+        "off"
+      ],
+      "pushed": "1",
+      "switch": "on"
+    },
+    "commands": [
+      {
+        "command": "off"
+      },
+      {
+        "command": "on"
+      },
+      {
+        "command": "push"
+      }
+    ]
+  }
+
+
+
+]

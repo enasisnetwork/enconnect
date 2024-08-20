@@ -35,6 +35,22 @@ Philips Hue Client
    :show-inheritance:
    :noindex:
 
+Hubitat Elevation Parameters
+============================
+
+.. autopydantic_model:: enconnect.hubitat.BridgeParams
+   :members:
+   :show-inheritance:
+   :noindex:
+
+Hubitat Elevation Client
+========================
+
+.. autoclass:: enconnect.hubitat.Bridge
+   :members:
+   :show-inheritance:
+   :noindex:
+
 Reddit Parameters
 =================
 
