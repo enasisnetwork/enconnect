@@ -10,12 +10,12 @@ is permitted, for more information consult the project license file.
 from json import dumps
 from json import loads
 
-from encommon import ENPYRWS
 from encommon.types import inrepr
 from encommon.types import instr
 from encommon.utils import load_sample
 from encommon.utils import prep_sample
 from encommon.utils import read_text
+from encommon.utils.sample import ENPYRWS
 
 from httpx import Response
 

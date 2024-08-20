@@ -9,12 +9,13 @@ is permitted, for more information consult the project license file.
 
 import asyncio
 from json import loads
-from threading import Event as BlockEvent
 from typing import Any
 from typing import AsyncIterator
 from typing import Iterator
 from typing import Optional
 from typing import TYPE_CHECKING
+
+from encommon.types import DictStrAny
 
 from httpx import Response
 
@@ -23,8 +24,6 @@ from ..utils.http import _METHODS
 
 if TYPE_CHECKING:
     from .params import BridgeParams
-
-AsyncEvent = asyncio.Event
 
 
 
@@ -89,6 +88,8 @@ class Bridge:
         path: str,
         params: Optional[dict[str, Any]] = None,
         json: Optional[dict[str, Any]] = None,
+        *,
+        timeout: Optional[int] = None,
     ) -> Response:
         """
         Return the response for upstream request to the server.
@@ -97,6 +98,8 @@ class Bridge:
         :param path: Path for the location to upstream endpoint.
         :param params: Optional parameters included in request.
         :param json: Optional JSON payload included in request.
+        :param timeout: Timeout waiting for the server response.
+            This will override the default client instantiated.
         :returns: Response for upstream request to the server.
         """
 
@@ -109,6 +112,8 @@ class Bridge:
 
         token_key = 'hue-application-key'
 
+        headers = {token_key: token}
+
         location = (
             f'https://{server}'
             f'/clip/v2/{path}')
@@ -119,24 +124,20 @@ class Bridge:
             method=method,
             location=location,
             params=params,
-            headers={token_key: token},
+            headers=headers,
             json=json)
 
 
     def events_block(
         self,
-        timeout: int = 60,
-        cancel: Optional[BlockEvent] = None,
-    ) -> Iterator[list[dict[str, Any]]]:
+        timeout: Optional[int] = None,
+    ) -> Iterator[DictStrAny]:
         """
         Return the response for upstream request to the server.
 
-        :param timeout: Timeout when waiting for server response.
-        :param cancel: Event used to indicate we should cacnel.
+        :param timeout: Timeout waiting for the server response.
+            This will override the default client instantiated.
         """
-
-        if cancel is None:
-            cancel = BlockEvent()
 
         server = self.params.server
         token = self.params.token
@@ -144,6 +145,10 @@ class Bridge:
 
         accept = 'text/event-stream'
         token_key = 'hue-application-key'
+
+        headers = {
+            'Accept': accept,
+            token_key: token}
 
         location = (
             f'https://{server}'
@@ -155,9 +160,7 @@ class Bridge:
         stream = request(
             method='get',
             location=location,
-            headers={
-                'Accept': accept,
-                token_key: token},
+            headers=headers,
             timeout=timeout)
 
 
@@ -171,26 +174,25 @@ class Bridge:
             if event[0:5] != 'data:':
                 continue
 
-            yield loads(event[6:])
+            loaded = loads(event[6:])
 
-            if cancel.is_set():
-                break  # NOCVR
+            for _event in loaded:
+
+                events = _event['data']
+
+                yield from events
 
 
     async def events_async(
         self,
-        timeout: int = 60,
-        cancel: Optional[AsyncEvent] = None,
-    ) -> AsyncIterator[list[dict[str, Any]]]:
+        timeout: Optional[int] = None,
+    ) -> AsyncIterator[DictStrAny]:
         """
         Return the response for upstream request to the server.
 
-        :param timeout: Timeout when waiting for server response.
-        :param cancel: Event used to indicate we should cacnel.
+        :param timeout: Timeout waiting for the server response.
+            This will override the default client instantiated.
         """
-
-        if cancel is None:
-            cancel = AsyncEvent()
 
         server = self.params.server
         token = self.params.token
@@ -198,6 +200,10 @@ class Bridge:
 
         accept = 'text/event-stream'
         token_key = 'hue-application-key'
+
+        headers = {
+            'Accept': accept,
+            token_key: token}
 
         location = (
             f'https://{server}'
@@ -209,9 +215,7 @@ class Bridge:
         stream = request(
             method='get',
             location=location,
-            headers={
-                'Accept': accept,
-                token_key: token},
+            headers=headers,
             timeout=timeout)
 
 
@@ -225,10 +229,19 @@ class Bridge:
             if event[0:5] != 'data:':
                 continue
 
-            yield loads(event[6:])
+            loaded = loads(event[6:])
 
-            if cancel.is_set():
-                break  # NOCVR
+            for _event in loaded:
+
+                events = _event['data']
+
+                for event in events:
+
+                    assert isinstance(event, dict)
+
+                    yield event
+
+                    await asyncio.sleep(0)
 
 
         await asyncio.sleep(0)

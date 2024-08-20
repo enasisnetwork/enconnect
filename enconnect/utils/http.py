@@ -43,7 +43,7 @@ class HTTPClient:
     """
     Interact with the upstream server in blocking or async.
 
-    :param timeout: Timeout when waiting for server response.
+    :param timeout: Timeout waiting for the server response.
     :param headers: Optional headers to include in requests.
     :param verify: Require valid certificate from the server.
     :param capem: Optional path to the certificate authority.
@@ -253,6 +253,7 @@ class HTTPClient:
         json: Optional[_PAYLOAD] = None,
         *,
         data: Optional[_PAYLOAD] = None,
+        timeout: Optional[int] = None,
         headers: Optional[_HEADERS] = None,
         httpauth: Optional[_HTTPAUTH] = None,
     ) -> Response:
@@ -264,6 +265,7 @@ class HTTPClient:
         :param params: Optional parameters included in request.
         :param json: Optional JSON payload included in request.
         :param data: Optional dict payload included in request.
+        :param timeout: Timeout waiting for the server response.
         :param headers: Optional headers to include in requests.
         :param httpauth: Optional information for authentication.
         :returns: Response for upstream request to the server.
@@ -286,6 +288,7 @@ class HTTPClient:
                 url=location,
                 headers=headers or None,
                 auth=httpauth or default,
+                timeout=timeout or default,
                 params=params or None,
                 data=data or None,
                 json=json or None)
@@ -309,6 +312,7 @@ class HTTPClient:
         json: Optional[_PAYLOAD] = None,
         *,
         data: Optional[_PAYLOAD] = None,
+        timeout: Optional[int] = None,
         headers: Optional[_HEADERS] = None,
         httpauth: Optional[_HTTPAUTH] = None,
     ) -> Response:
@@ -320,6 +324,7 @@ class HTTPClient:
         :param params: Optional parameters included in request.
         :param json: Optional JSON payload included in request.
         :param data: Optional dict payload included in request.
+        :param timeout: Timeout waiting for the server response.
         :param headers: Optional headers to include in requests.
         :param httpauth: Optional information for authentication.
         :returns: Response for upstream request to the server.
@@ -342,6 +347,7 @@ class HTTPClient:
                 url=location,
                 headers=headers or None,
                 auth=httpauth or default,
+                timeout=timeout or default,
                 params=params or None,
                 data=data or None,
                 json=json or None)
@@ -379,7 +385,7 @@ class HTTPClient:
         :param params: Optional parameters included in request.
         :param json: Optional JSON payload included in request.
         :param data: Optional dict payload included in request.
-        :param timeout: Timeout when waiting for server response.
+        :param timeout: Timeout waiting for the server response.
         :param headers: Optional headers to include in requests.
         :param httpauth: Optional information for authentication.
         :returns: Response for upstream request to the server.
@@ -430,7 +436,7 @@ class HTTPClient:
         :param params: Optional parameters included in request.
         :param json: Optional JSON payload included in request.
         :param data: Optional dict payload included in request.
-        :param timeout: Timeout when waiting for server response.
+        :param timeout: Timeout waiting for the server response.
         :param headers: Optional headers to include in requests.
         :param httpauth: Optional information for authentication.
         :returns: Response for upstream request to the server.

@@ -9,7 +9,7 @@ is permitted, for more information consult the project license file.
 
 from typing import Optional
 
-from pydantic import BaseModel
+from encommon.types import BaseModel
 
 
 
