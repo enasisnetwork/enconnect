@@ -12,6 +12,7 @@ from json import loads
 
 from encommon.types import inrepr
 from encommon.types import instr
+from encommon.types import lattrs
 from encommon.utils import load_sample
 from encommon.utils import prep_sample
 from encommon.utils import read_text
@@ -55,7 +56,7 @@ def test_Instagram(
     """
 
 
-    attrs = list(social.__dict__)
+    attrs = lattrs(social)
 
     assert attrs == [
         '_Instagram__params',
@@ -73,9 +74,9 @@ def test_Instagram(
         social)
 
 
-    assert social.params is not None
+    assert social.params
 
-    assert social.client is not None
+    assert social.client
 
 
 
@@ -92,7 +93,7 @@ def test_Instagram_block(
 
 
     _latest = read_text(
-        f'{SAMPLES}/source.json')
+        SAMPLES / 'source.json')
 
     _media = dumps(loads(
         _latest)['data'][0])
@@ -122,7 +123,7 @@ def test_Instagram_block(
 
 
     sample_path = (
-        f'{SAMPLES}/latest.json')
+        SAMPLES / 'latest.json')
 
     sample = load_sample(
         sample_path,
@@ -134,11 +135,11 @@ def test_Instagram_block(
         x.model_dump()
         for x in latest])
 
-    assert sample == expect
+    assert expect == sample
 
 
     sample_path = (
-        f'{SAMPLES}/media.json')
+        SAMPLES / 'media.json')
 
     sample = load_sample(
         sample_path,
@@ -148,7 +149,7 @@ def test_Instagram_block(
     expect = prep_sample(
         media.model_dump())
 
-    assert sample == expect
+    assert expect == sample
 
 
 
@@ -166,7 +167,7 @@ async def test_Instagram_async(
 
 
     _latest = read_text(
-        f'{SAMPLES}/source.json')
+        SAMPLES / 'source.json')
 
     _media = dumps(loads(
         _latest)['data'][0])
@@ -196,7 +197,7 @@ async def test_Instagram_async(
 
 
     sample_path = (
-        f'{SAMPLES}/latest.json')
+        SAMPLES / 'latest.json')
 
     sample = load_sample(
         sample_path,
@@ -208,11 +209,11 @@ async def test_Instagram_async(
         x.model_dump()
         for x in latest])
 
-    assert sample == expect
+    assert expect == sample
 
 
     sample_path = (
-        f'{SAMPLES}/media.json')
+        SAMPLES / 'media.json')
 
     sample = load_sample(
         sample_path,
@@ -222,4 +223,4 @@ async def test_Instagram_async(
     expect = prep_sample(
         media.model_dump())
 
-    assert sample == expect
+    assert expect == sample

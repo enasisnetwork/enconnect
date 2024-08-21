@@ -9,7 +9,6 @@ is permitted, for more information consult the project license file.
 
 import asyncio
 from json import loads
-from typing import Any
 from typing import AsyncIterator
 from typing import Iterator
 from typing import Optional
@@ -21,6 +20,7 @@ from httpx import Response
 
 from ..utils import HTTPClient
 from ..utils.http import _METHODS
+from ..utils.http import _PAYLOAD
 
 if TYPE_CHECKING:
     from .params import BridgeParams
@@ -86,8 +86,8 @@ class Bridge:
         self,
         method: _METHODS,
         path: str,
-        params: Optional[dict[str, Any]] = None,
-        json: Optional[dict[str, Any]] = None,
+        params: Optional[_PAYLOAD] = None,
+        json: Optional[_PAYLOAD] = None,
         *,
         timeout: Optional[int] = None,
     ) -> Response:
@@ -100,7 +100,7 @@ class Bridge:
         :param json: Optional JSON payload included in request.
         :param timeout: Timeout waiting for the server response.
             This will override the default client instantiated.
-        :returns: Response for upstream request to the server.
+        :returns: Response from upstream request to the server.
         """
 
         params = dict(params or {})

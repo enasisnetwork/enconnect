@@ -23,7 +23,7 @@ from httpx import SyncByteStream
 
 SAMPLES = (
     Path(__file__).parent
-    .joinpath('samples'))
+    / 'samples')
 
 
 

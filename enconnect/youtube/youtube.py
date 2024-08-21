@@ -7,17 +7,21 @@ is permitted, for more information consult the project license file.
 
 
 
+from typing import Annotated
 from typing import Any
 from typing import Literal
 from typing import Optional
 from typing import TYPE_CHECKING
 from typing import get_args
 
+from encommon.types import BaseModel
+
 from httpx import Response
 
-from pydantic import BaseModel
+from pydantic import Field
 
 from ..utils import HTTPClient
+from ..utils.http import _PAYLOAD
 
 if TYPE_CHECKING:
     from .params import YouTubeParams
@@ -64,29 +68,57 @@ VIDEO_VALUE = {
 class YouTubeResult(BaseModel, extra='ignore'):
     """
     Contains information returned from the upstream response.
-
-    .. note::
-       Fields are not completely documented for this model.
-
-    :param data: Keyword arguments passed to Pydantic model.
-        Parameter is picked up by autodoc, please ignore.
     """
 
-    kind: RESULT_KINDS
+    kind: Annotated[
+        RESULT_KINDS,
+        Field(...,
+              description='Value from the server response')]
 
-    channel: Optional[str] = None
-    playlist: Optional[str] = None
-    video: Optional[str] = None
+    channel: Annotated[
+        Optional[str],
+        Field(None,
+              description='Value from the server response')]
 
-    title: str
-    about: Optional[str] = None
-    channel_title: Optional[str] = None
-    thumbnail: str
-    published: str
+    playlist: Annotated[
+        Optional[str],
+        Field(None,
+              description='Value from the server response')]
+
+    video: Annotated[
+        Optional[str],
+        Field(None,
+              description='Value from the server response')]
+
+    title: Annotated[
+        str,
+        Field(...,
+              description='Value from the server response')]
+
+    about: Annotated[
+        Optional[str],
+        Field(None,
+              description='Value from the server response')]
+
+    channel_title: Annotated[
+        Optional[str],
+        Field(None,
+              description='Value from the server response')]
+
+    thumbnail: Annotated[
+        str,
+        Field(...,
+              description='Value from the server response')]
+
+    published: Annotated[
+        str,
+        Field(...,
+              description='Value from the server response')]
 
 
     def __init__(
         self,
+        /,
         **data: Any,
     ) -> None:
         """
@@ -138,27 +170,47 @@ class YouTubeResult(BaseModel, extra='ignore'):
 class YouTubeVideo(BaseModel, extra='ignore'):
     """
     Contains information returned from the upstream response.
-
-    .. note::
-       Fields are not completely documented for this model.
-
-    :param data: Keyword arguments passed to Pydantic model.
-        Parameter is picked up by autodoc, please ignore.
     """
 
-    kind: RESULT_KINDS
+    kind: Annotated[
+        RESULT_KINDS,
+        Field(...,
+              description='Value from the server response')]
 
-    channel: str
-    video: str
+    channel: Annotated[
+        str,
+        Field(...,
+              description='Value from the server response')]
 
-    title: str
-    about: str
-    thumbnail: str
-    published: str
+    video: Annotated[
+        str,
+        Field(...,
+              description='Value from the server response')]
+
+    title: Annotated[
+        str,
+        Field(...,
+              description='Value from the server response')]
+
+    about: Annotated[
+        Optional[str],
+        Field(None,
+              description='Value from the server response')]
+
+    thumbnail: Annotated[
+        str,
+        Field(...,
+              description='Value from the server response')]
+
+    published: Annotated[
+        str,
+        Field(...,
+              description='Value from the server response')]
 
 
     def __init__(
         self,
+        /,
         **data: Any,
     ) -> None:
         """
@@ -255,7 +307,7 @@ class YouTube:
         self,
         method: Literal['get'],
         path: str,
-        params: Optional[dict[str, Any]] = None,
+        params: Optional[_PAYLOAD] = None,
     ) -> Response:
         """
         Return the response for upstream request to the server.
@@ -263,7 +315,7 @@ class YouTube:
         :param method: Method for operation with the API server.
         :param path: Path for the location to upstream endpoint.
         :param params: Optional parameters included in request.
-        :returns: Response for upstream request to the server.
+        :returns: Response from upstream request to the server.
         """
 
         params = dict(params or {})
@@ -290,7 +342,7 @@ class YouTube:
         self,
         method: Literal['get'],
         path: str,
-        params: Optional[dict[str, Any]] = None,
+        params: Optional[_PAYLOAD] = None,
     ) -> Response:
         """
         Return the response for upstream request to the server.
@@ -298,7 +350,7 @@ class YouTube:
         :param method: Method for operation with the API server.
         :param path: Path for the location to upstream endpoint.
         :param params: Optional parameters included in request.
-        :returns: Response for upstream request to the server.
+        :returns: Response from upstream request to the server.
         """
 
         params = dict(params or {})
@@ -324,7 +376,7 @@ class YouTube:
     def search(
         # NOCVR
         self,
-        params: Optional[dict[str, Any]] = None,
+        params: Optional[_PAYLOAD] = None,
     ) -> list[YouTubeResult]:
         """
         Return the results from the provided search parameters.
@@ -338,7 +390,7 @@ class YouTube:
 
     def search_block(
         self,
-        params: Optional[dict[str, Any]] = None,
+        params: Optional[_PAYLOAD] = None,
     ) -> list[YouTubeResult]:
         """
         Return the results from the provided search parameters.
@@ -381,7 +433,7 @@ class YouTube:
 
     async def search_async(
         self,
-        params: Optional[dict[str, Any]] = None,
+        params: Optional[_PAYLOAD] = None,
     ) -> list[YouTubeResult]:
         """
         Return the results from the provided search parameters.
@@ -425,7 +477,7 @@ class YouTube:
     def videos(
         # NOCVR
         self,
-        params: Optional[dict[str, Any]] = None,
+        params: Optional[_PAYLOAD] = None,
     ) -> list[YouTubeVideo]:
         """
         Return the videos from the provided search parameters.
@@ -439,7 +491,7 @@ class YouTube:
 
     def videos_block(
         self,
-        params: Optional[dict[str, Any]] = None,
+        params: Optional[_PAYLOAD] = None,
     ) -> list[YouTubeVideo]:
         """
         Return the videos from the provided search parameters.
@@ -480,7 +532,7 @@ class YouTube:
 
     async def videos_async(
         self,
-        params: Optional[dict[str, Any]] = None,
+        params: Optional[_PAYLOAD] = None,
     ) -> list[YouTubeVideo]:
         """
         Return the videos from the provided search parameters.

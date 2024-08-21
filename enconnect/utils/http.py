@@ -10,11 +10,12 @@ is permitted, for more information consult the project license file.
 import asyncio
 from copy import deepcopy
 from time import sleep
-from typing import Any
 from typing import AsyncIterator
 from typing import Iterator
 from typing import Literal
 from typing import Optional
+
+from encommon.types import DictStrAny
 
 from httpx import AsyncClient
 from httpx import Client as BlockClient
@@ -35,7 +36,7 @@ _HTTPAUTH = tuple[str, str]
 
 _HEADERS = dict[str, str]
 
-_PAYLOAD = dict[str, Any]
+_PAYLOAD = DictStrAny
 
 
 
@@ -268,7 +269,7 @@ class HTTPClient:
         :param timeout: Timeout waiting for the server response.
         :param headers: Optional headers to include in requests.
         :param httpauth: Optional information for authentication.
-        :returns: Response for upstream request to the server.
+        :returns: Response from upstream request to the server.
         """
 
         retry = self.retry
@@ -327,7 +328,7 @@ class HTTPClient:
         :param timeout: Timeout waiting for the server response.
         :param headers: Optional headers to include in requests.
         :param httpauth: Optional information for authentication.
-        :returns: Response for upstream request to the server.
+        :returns: Response from upstream request to the server.
         """
 
         retry = self.retry
@@ -388,7 +389,7 @@ class HTTPClient:
         :param timeout: Timeout waiting for the server response.
         :param headers: Optional headers to include in requests.
         :param httpauth: Optional information for authentication.
-        :returns: Response for upstream request to the server.
+        :returns: Response from upstream request to the server.
         """
 
         default = UseClientDefault()
@@ -439,7 +440,7 @@ class HTTPClient:
         :param timeout: Timeout waiting for the server response.
         :param headers: Optional headers to include in requests.
         :param httpauth: Optional information for authentication.
-        :returns: Response for upstream request to the server.
+        :returns: Response from upstream request to the server.
         """
 
         default = UseClientDefault()

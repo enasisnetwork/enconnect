@@ -15,6 +15,7 @@ from unittest.mock import patch
 
 from encommon.types import inrepr
 from encommon.types import instr
+from encommon.types import lattrs
 
 from httpx import AsyncByteStream
 from httpx import Response
@@ -51,7 +52,7 @@ def test_HTTPClient(
     """
 
 
-    attrs = list(client.__dict__)
+    attrs = lattrs(client)
 
     assert attrs == [
         '_HTTPClient__timeout',
@@ -79,13 +80,13 @@ def test_HTTPClient(
 
     assert client.timeout == 30
 
-    assert client.headers is None
+    assert not client.headers
 
-    assert client.verify is True
+    assert client.verify
 
-    assert client.capem is None
+    assert not client.capem
 
-    assert client.httpauth is None
+    assert not client.httpauth
 
     assert client.retry == 3
 
@@ -93,9 +94,9 @@ def test_HTTPClient(
 
     assert client.states == {429}
 
-    assert client.client_block is not None
+    assert client.client_block
 
-    assert client.client_async is not None
+    assert client.client_async
 
 
 

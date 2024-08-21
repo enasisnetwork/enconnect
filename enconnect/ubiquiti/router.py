@@ -7,7 +7,6 @@ is permitted, for more information consult the project license file.
 
 
 
-from typing import Any
 from typing import Optional
 from typing import TYPE_CHECKING
 
@@ -15,6 +14,7 @@ from httpx import Response
 
 from ..utils import HTTPClient
 from ..utils.http import _METHODS
+from ..utils.http import _PAYLOAD
 
 if TYPE_CHECKING:
     from .params import RouterParams
@@ -82,7 +82,7 @@ class Router:
         """
         Establish new session obtaining cookie for authorization.
 
-        :returns: Response for upstream request to the server.
+        :returns: Response from upstream request to the server.
         """
 
         params = self.params
@@ -107,8 +107,8 @@ class Router:
         self,
         method: _METHODS,
         path: str,
-        params: Optional[dict[str, Any]] = None,
-        json: Optional[dict[str, Any]] = None,
+        params: Optional[_PAYLOAD] = None,
+        json: Optional[_PAYLOAD] = None,
         *,
         timeout: Optional[int] = None,
     ) -> Response:
@@ -121,7 +121,7 @@ class Router:
         :param json: Optional JSON payload included in request.
         :param timeout: Timeout waiting for the server response.
             This will override the default client instantiated.
-        :returns: Response for upstream request to the server.
+        :returns: Response from upstream request to the server.
         """
 
         params = dict(params or {})
@@ -146,8 +146,8 @@ class Router:
         self,
         method: _METHODS,
         path: str,
-        params: Optional[dict[str, Any]] = None,
-        json: Optional[dict[str, Any]] = None,
+        params: Optional[_PAYLOAD] = None,
+        json: Optional[_PAYLOAD] = None,
         *,
         timeout: Optional[int] = None,
     ) -> Response:
@@ -166,7 +166,7 @@ class Router:
         :param json: Optional JSON payload included in request.
         :param timeout: Timeout waiting for the server response.
             This will override the default client instantiated.
-        :returns: Response for upstream request to the server.
+        :returns: Response from upstream request to the server.
         """
 
         site = self.params.site

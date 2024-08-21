@@ -7,35 +7,75 @@ is permitted, for more information consult the project license file.
 
 
 
+from typing import Annotated
+from typing import Any
 from typing import Optional
 
-from pydantic import BaseModel
+from encommon.types import BaseModel
+
+from pydantic import Field
 
 
 
 class RedditParams(BaseModel, extra='forbid'):
     """
     Process and validate the class configuration parameters.
-
-    :param timeout: Timeout when waiting for server response.
-    :param username: Username for authenticating with server.
-    :param password: Password for authenticating with server.
-    :param client: Token used when authenticating to server.
-    :param secret: Token used when authenticating to server.
-    :param useragent: Reddit has specifics about this value.
-    :param ssl_verify: Require valid certificate from server.
-    :param ssl_capem: Optional path to certificate authority.
-    :param data: Keyword arguments passed to Pydantic model.
-        Parameter is picked up by autodoc, please ignore.
     """
 
-    timeout: int = 30
+    timeout: Annotated[
+        int,
+        Field(30,
+              description='Timeout connecting to server')]
 
-    username: str
-    password: str
-    client: str
-    secret: str
-    useragent: str
+    username: Annotated[
+        str,
+        Field(...,
+              description='Parameter for the integration',
+              min_length=1)]
 
-    ssl_verify: bool = True
-    ssl_capem: Optional[str] = None
+    password: Annotated[
+        str,
+        Field(...,
+              description='Parameter for the integration',
+              min_length=1)]
+
+    client: Annotated[
+        str,
+        Field(...,
+              description='Parameter for the integration',
+              min_length=1)]
+
+    secret: Annotated[
+        str,
+        Field(...,
+              description='Parameter for the integration',
+              min_length=1)]
+
+    useragent: Annotated[
+        str,
+        Field(...,
+              description='Parameter for the integration',
+              min_length=1)]
+
+    ssl_verify: Annotated[
+        bool,
+        Field(True,
+              description='Verify the ceritifcate valid')]
+
+    ssl_capem: Annotated[
+        Optional[str],
+        Field(None,
+              description='Verify the ceritifcate valid',
+              min_length=1)]
+
+
+    def __init__(
+        self,
+        /,
+        **data: Any,
+    ) -> None:
+        """
+        Initialize instance for class using provided parameters.
+        """
+
+        super().__init__(**data)
