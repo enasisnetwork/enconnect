@@ -1,2 +1,2 @@
-encommon
+encommon>=0.15
 httpx
