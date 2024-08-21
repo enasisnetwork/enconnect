@@ -9,32 +9,173 @@
     {
       "last_ip": "192.168.1.100",
       "oui": "",
-      "first_seen": "2023-12-21T00:00:00Z",
-      "last_seen": "2024-04-14T00:00:00Z",
+      "first_seen": 946684800,
+      "last_seen": 946684800,
       "is_guest": false,
       "fingerprint_engine_version": "1.0.2",
+      "dev_id_override": 1908,
       "is_wired": true,
+      "last_ipv6": [
+        "fe80::ab3:ab34:12cd:2100"
+      ],
       "dev_family": 13,
       "mac": "1a:01:68:00:11:00",
       "dev_cat": 1,
       "local_dns_record_enabled": false,
+      "last_uplink_name": "jupiter",
+      "use_fixedip": false,
+      "confidence": 90,
+      "local_dns_record": "",
+      "usergroup_id": "",
+      "last_uplink_mac": "e4:38:83:00:00:01",
+      "fingerprint_override": true,
+      "last_connection_network_name": "internal",
+      "fingerprint_source": 0,
+      "dev_id": 2663,
+      "noted": true,
+      "last_connection_network_id": "abcdef1234567890abcd0001",
+      "network_id": "abcdef1234567890abcd0001",
+      "site_id": "abcdef1234567890abcd0002",
+      "name": "jupiter_desktop",
+      "os_name": 18,
+      "_id": "abcdef1234567890abcd0003",
+      "dev_vendor": 43,
+      "fixed_ip": "192.168.1.100"
+    },
+
+
+
+
+
+
+    {
+      "last_ip": "192.168.1.120",
+      "oui": "",
+      "first_seen": 946684800,
+      "last_seen": 946684800,
+      "is_guest": false,
+      "fingerprint_engine_version": "0.0.0",
+      "disconnect_timestamp": 946684800,
+      "is_wired": false,
+      "last_ipv6": [
+        "fe80::ab3:ab34:12cd:2120"
+      ],
+      "dev_family": 9,
+      "mac": "1a:01:68:00:11:20",
+      "hostname": "",
+      "dev_cat": 44,
+      "local_dns_record_enabled": false,
+      "virtual_network_override_id": "",
+      "last_uplink_name": "jupiter",
+      "use_fixedip": true,
+      "last_radio": "na",
+      "confidence": 100,
+      "local_dns_record": "",
+      "usergroup_id": "",
+      "last_uplink_mac": "e4:38:83:00:00:02",
+      "last_connection_network_name": "internal",
+      "fingerprint_source": 5,
+      "dev_id": 4842,
+      "virtual_network_override_enabled": false,
+      "noted": true,
+      "last_connection_network_id": "abcdef1234567890abcd0001",
+      "network_id": "abcdef1234567890abcd0001",
+      "fixed_ap_enabled": false,
+      "site_id": "abcdef1234567890abcd0002",
+      "name": "phone",
+      "os_name": 24,
+      "_id": "abcdef1234567890abcd0006",
+      "dev_vendor": 320,
+      "fixed_ip": "192.168.1.120",
+      "wlanconf_id": "abcdef1234567890abcd0005"
+    },
+
+
+
+
+
+
+    {
+      "last_ip": "192.168.1.121",
+      "oui": "",
+      "first_seen": 946684800,
+      "last_seen": 946684800,
+      "is_guest": false,
+      "disconnect_timestamp": 946684800,
+      "fingerprint_engine_version": "0.0.0",
+      "dev_id_override": 4629,
+      "is_wired": false,
+      "last_ipv6": [
+        "fe80::ab3:ab34:12cd:2121"
+      ],
+      "dev_family": 10,
+      "mac": "1a:01:68:00:11:21",
+      "hostname": "",
+      "dev_cat": 44,
+      "local_dns_record_enabled": false,
+      "virtual_network_override_id": "",
+      "last_uplink_name": "jupiter",
+      "use_fixedip": true,
+      "last_radio": "na",
+      "local_dns_record": "",
+      "confidence": 100,
+      "usergroup_id": "",
+      "last_uplink_mac": "e4:38:83:00:00:02",
+      "fingerprint_override": true,
+      "last_connection_network_name": "internal",
+      "fingerprint_source": 5,
+      "dev_id": 4629,
+      "virtual_network_override_enabled": false,
+      "noted": true,
+      "last_connection_network_id": "abcdef1234567890abcd0001",
+      "network_id": "abcdef1234567890abcd0001",
+      "fixed_ap_enabled": false,
+      "site_id": "abcdef1234567890abcd0002",
+      "name": "tablet",
+      "os_name": 24,
+      "_id": "abcdef1234567890abcd0007",
+      "fixed_ip": "192.168.1.121",
+      "dev_vendor": 320,
+      "wlanconf_id": "abcdef1234567890abcd0005"
+    },
+
+
+
+
+
+
+    {
+      "last_ip": "192.168.1.101",
+      "oui": "Apple, Inc.",
+      "first_seen": 946684800,
+      "last_seen": 946684800,
+      "is_guest": false,
+      "fingerprint_engine_version": "0.0.0",
+      "disconnect_timestamp": 946684800,
+      "is_wired": false,
+      "dev_family": 13,
+      "mac": "1a:01:68:00:11:01",
+      "hostname": "laptop",
+      "dev_cat": 1,
+      "local_dns_record_enabled": false,
       "virtual_network_override_id": "",
       "use_fixedip": false,
-      "confidence": 60,
+      "confidence": 67,
       "local_dns_record": "",
       "usergroup_id": "",
       "last_connection_network_name": "internal",
-      "fingerprint_source": 0,
-      "dev_id": 2664,
+      "fingerprint_source": 5,
+      "dev_id": 2667,
       "virtual_network_override_enabled": false,
-      "last_connection_network_id": "64dd8949157af8134e5df9c8",
+      "last_connection_network_id": "abcdef1234567890abcd0001",
       "noted": true,
-      "site_id": "64dd8927157af8134e5df9b3",
-      "name": "Jupiter Desktop",
-      "os_name": 3,
-      "_id": "65d963e0e9285243cbbe6116",
-      "dev_vendor": 66,
-      "fixed_ip": "192.168.1.100"
+      "fixed_ap_enabled": false,
+      "site_id": "abcdef1234567890abcd0002",
+      "name": "laptop",
+      "os_name": 24,
+      "_id": "abcdef1234567890abcd0008",
+      "dev_vendor": 320,
+      "wlanconf_id": "abcdef1234567890abcd0005"
     }
 
 
