@@ -92,7 +92,7 @@ def test_Router_request(
 
 
     source = read_text(
-        f'{SAMPLES}/source.json')
+        SAMPLES / 'source.json')
 
     source = read_sample(
         sample=source)
@@ -119,7 +119,8 @@ def test_Router_request(
     request = router.reqroxy
 
     response = request(
-        'get', 'rest/user')
+        method='get',
+        path='rest/user')
 
     response.raise_for_status()
 

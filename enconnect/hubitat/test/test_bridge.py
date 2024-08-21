@@ -92,7 +92,7 @@ def test_Bridge_request(
 
 
     source = read_text(
-        f'{SAMPLES}/source.json')
+        SAMPLES / 'source.json')
 
     source = read_sample(
         sample=source)
