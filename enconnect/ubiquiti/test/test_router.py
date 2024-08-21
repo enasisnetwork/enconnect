@@ -9,6 +9,7 @@ is permitted, for more information consult the project license file.
 
 from encommon.types import inrepr
 from encommon.types import instr
+from encommon.types import lattrs
 from encommon.utils import load_sample
 from encommon.utils import prep_sample
 from encommon.utils import read_sample
@@ -54,7 +55,7 @@ def test_Router(
     """
 
 
-    attrs = list(router.__dict__)
+    attrs = lattrs(router)
 
     assert attrs == [
         '_Router__params',
@@ -72,9 +73,9 @@ def test_Router(
         router)
 
 
-    assert router.params is not None
+    assert router.params
 
-    assert router.client is not None
+    assert router.client
 
 
 
@@ -91,7 +92,7 @@ def test_Router_request(
 
 
     source = read_text(
-        f'{SAMPLES}/source.json')
+        SAMPLES / 'source.json')
 
     source = read_sample(
         sample=source)
@@ -118,7 +119,8 @@ def test_Router_request(
     request = router.reqroxy
 
     response = request(
-        'get', 'rest/user')
+        method='get',
+        path='rest/user')
 
     response.raise_for_status()
 
@@ -126,7 +128,7 @@ def test_Router_request(
 
 
     sample_path = (
-        f'{SAMPLES}/dumped.json')
+        SAMPLES / 'dumped.json')
 
     sample = load_sample(
         path=sample_path,
@@ -136,4 +138,4 @@ def test_Router_request(
     expect = prep_sample(
         content=fetched)
 
-    assert sample == expect
+    assert expect == sample

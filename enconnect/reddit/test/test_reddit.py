@@ -12,6 +12,7 @@ from json import loads
 
 from encommon.types import inrepr
 from encommon.types import instr
+from encommon.types import lattrs
 from encommon.utils import load_sample
 from encommon.utils import prep_sample
 from encommon.utils import read_text
@@ -59,7 +60,7 @@ def test_Reddit(
     """
 
 
-    attrs = list(social.__dict__)
+    attrs = lattrs(social)
 
     assert attrs == [
         '_Reddit__params',
@@ -78,11 +79,11 @@ def test_Reddit(
         social)
 
 
-    assert social.params is not None
+    assert social.params
 
-    assert social.client is not None
+    assert social.client
 
-    assert social.token is None
+    assert not social.token
 
 
 
@@ -99,10 +100,10 @@ def test_Reddit_latest_block(
 
 
     _latest = read_text(
-        f'{SAMPLES}/source.json')
+        SAMPLES / 'source.json')
 
     _token = read_text(
-        f'{SAMPLES}/token.json')
+        SAMPLES / 'token.json')
 
     location = [
         'https://oauth.reddit.com',
@@ -142,7 +143,7 @@ def test_Reddit_latest_block(
 
 
     sample_path = (
-        f'{SAMPLES}/latest.json')
+        SAMPLES / 'latest.json')
 
     sample = load_sample(
         sample_path,
@@ -154,7 +155,7 @@ def test_Reddit_latest_block(
         x.model_dump()
         for x in latest])
 
-    assert sample == expect
+    assert expect == sample
 
 
     social.request_token_block()
@@ -175,10 +176,10 @@ async def test_Reddit_latest_async(
 
 
     _latest = read_text(
-        f'{SAMPLES}/source.json')
+        SAMPLES / 'source.json')
 
     _token = read_text(
-        f'{SAMPLES}/token.json')
+        SAMPLES / 'token.json')
 
     location = [
         'https://oauth.reddit.com',
@@ -218,7 +219,7 @@ async def test_Reddit_latest_async(
 
 
     sample_path = (
-        f'{SAMPLES}/latest.json')
+        SAMPLES / 'latest.json')
 
     sample = load_sample(
         sample_path,
@@ -230,7 +231,7 @@ async def test_Reddit_latest_async(
         x.model_dump()
         for x in latest])
 
-    assert sample == expect
+    assert expect == sample
 
 
     await social.request_token_async()
@@ -250,10 +251,10 @@ def test_Reddit_listing_block(
 
 
     _latest = read_text(
-        f'{SAMPLES}/source.json')
+        SAMPLES / 'source.json')
 
     _token = read_text(
-        f'{SAMPLES}/token.json')
+        SAMPLES / 'token.json')
 
     _listing = dumps([
         loads(_latest)])
@@ -296,7 +297,7 @@ def test_Reddit_listing_block(
 
 
     sample_path = (
-        f'{SAMPLES}/listing.json')
+        SAMPLES / 'listing.json')
 
     sample = load_sample(
         sample_path,
@@ -306,7 +307,7 @@ def test_Reddit_listing_block(
     expect = prep_sample(
         listing.model_dump())
 
-    assert sample == expect
+    assert expect == sample
 
 
 
@@ -324,10 +325,10 @@ async def test_Reddit_listing_async(
 
 
     _latest = read_text(
-        f'{SAMPLES}/source.json')
+        SAMPLES / 'source.json')
 
     _token = read_text(
-        f'{SAMPLES}/token.json')
+        SAMPLES / 'token.json')
 
     _listing = dumps([
         loads(_latest)])
@@ -370,7 +371,7 @@ async def test_Reddit_listing_async(
 
 
     sample_path = (
-        f'{SAMPLES}/listing.json')
+        SAMPLES / 'listing.json')
 
     sample = load_sample(
         sample_path,
@@ -380,4 +381,4 @@ async def test_Reddit_listing_async(
     expect = prep_sample(
         listing.model_dump())
 
-    assert sample == expect
+    assert expect == sample

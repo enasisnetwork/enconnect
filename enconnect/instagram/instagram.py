@@ -7,16 +7,20 @@ is permitted, for more information consult the project license file.
 
 
 
+from typing import Annotated
 from typing import Any
 from typing import Literal
 from typing import Optional
 from typing import TYPE_CHECKING
 
+from encommon.types import BaseModel
+
 from httpx import Response
 
-from pydantic import BaseModel
+from pydantic import Field
 
 from ..utils import HTTPClient
+from ..utils.http import _PAYLOAD
 
 if TYPE_CHECKING:
     from .params import InstagramParams
@@ -45,27 +49,57 @@ MEDIA_RENAME = {
 class InstagramMedia(BaseModel, extra='allow'):
     """
     Contains information returned from the upstream response.
-
-    .. note::
-       Fields are not completely documented for this model.
-
-    :param data: Keyword arguments passed to Pydantic model.
-        Parameter is picked up by autodoc, please ignore.
     """
 
-    caption: Optional[str] = None
-    id: str
-    shared: Optional[bool] = None
-    type: str
-    location: str
-    permalink: Optional[str] = None
-    thumbnail: Optional[str] = None
-    timestamp: str
-    username: str
+    caption: Annotated[
+        Optional[str],
+        Field(None,
+              description='Value from the server response')]
+
+    id: Annotated[
+        str,
+        Field(...,
+              description='Value from the server response')]
+
+    shared: Annotated[
+        Optional[bool],
+        Field(None,
+              description='Value from the server response')]
+
+    type: Annotated[
+        str,
+        Field(...,
+              description='Value from the server response')]
+
+    location: Annotated[
+        str,
+        Field(...,
+              description='Value from the server response')]
+
+    permalink: Annotated[
+        Optional[str],
+        Field(None,
+              description='Value from the server response')]
+
+    thumbnail: Annotated[
+        Optional[str],
+        Field(None,
+              description='Value from the server response')]
+
+    timestamp: Annotated[
+        str,
+        Field(...,
+              description='Value from the server response')]
+
+    username: Annotated[
+        str,
+        Field(...,
+              description='Value from the server response')]
 
 
     def __init__(
         self,
+        /,
         **data: Any,
     ) -> None:
         """
@@ -146,7 +180,7 @@ class Instagram:
         self,
         method: Literal['get'],
         path: str,
-        params: Optional[dict[str, Any]] = None,
+        params: Optional[_PAYLOAD] = None,
     ) -> Response:
         """
         Return the response for upstream request to the server.
@@ -154,7 +188,7 @@ class Instagram:
         :param method: Method for operation with the API server.
         :param path: Path for the location to upstream endpoint.
         :param params: Optional parameters included in request.
-        :returns: Response for upstream request to the server.
+        :returns: Response from upstream request to the server.
         """
 
         params = dict(params or {})
@@ -180,7 +214,7 @@ class Instagram:
         self,
         method: Literal['get'],
         path: str,
-        params: Optional[dict[str, Any]] = None,
+        params: Optional[_PAYLOAD] = None,
     ) -> Response:
         """
         Return the response for upstream request to the server.
@@ -188,7 +222,7 @@ class Instagram:
         :param method: Method for operation with the API server.
         :param path: Path for the location to upstream endpoint.
         :param params: Optional parameters included in request.
-        :returns: Response for upstream request to the server.
+        :returns: Response from upstream request to the server.
         """
 
         params = dict(params or {})

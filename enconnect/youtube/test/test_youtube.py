@@ -9,6 +9,7 @@ is permitted, for more information consult the project license file.
 
 from encommon.types import inrepr
 from encommon.types import instr
+from encommon.types import lattrs
 from encommon.utils import load_sample
 from encommon.utils import prep_sample
 from encommon.utils import read_text
@@ -52,7 +53,7 @@ def test_YouTube(
     """
 
 
-    attrs = list(social.__dict__)
+    attrs = lattrs(social)
 
     assert attrs == [
         '_YouTube__params',
@@ -70,9 +71,9 @@ def test_YouTube(
         social)
 
 
-    assert social.params is not None
+    assert social.params
 
-    assert social.client is not None
+    assert social.client
 
 
 
@@ -123,7 +124,7 @@ def test_YouTube_search_block(
         x.model_dump()
         for x in search])
 
-    assert sample == expect
+    assert expect == sample
 
 
 
@@ -175,7 +176,7 @@ async def test_YouTube_search_async(
         x.model_dump()
         for x in search])
 
-    assert sample == expect
+    assert expect == sample
 
 
 
@@ -235,7 +236,7 @@ def test_YouTube_videos_block(
         x.model_dump()
         for x in videos])
 
-    assert sample == expect
+    assert expect == sample
 
 
     assert video == videos[0]
@@ -299,7 +300,7 @@ async def test_YouTube_videos_async(
         x.model_dump()
         for x in videos])
 
-    assert sample == expect
+    assert expect == sample
 
 
     assert video == videos[0]

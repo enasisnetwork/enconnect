@@ -8,16 +8,18 @@ is permitted, for more information consult the project license file.
 
 
 import asyncio
+from typing import Annotated
 from typing import Any
 from typing import Literal
 from typing import Optional
 from typing import TYPE_CHECKING
 
+from encommon.types import BaseModel
 from encommon.types import getate
 
 from httpx import Response
 
-from pydantic import BaseModel
+from pydantic import Field
 
 from ..utils import HTTPClient
 from ..utils.http import _HTTPAUTH
@@ -40,42 +42,107 @@ LISTING_VALUE = {
 class RedditListing(BaseModel, extra='ignore'):
     """
     Contains information returned from the upstream response.
-
-    .. note::
-       Fields are not completely documented for this model.
-
-    :param data: Keyword arguments passed to Pydantic model.
-        Parameter is picked up by autodoc, please ignore.
     """
 
-    name: str
-    id: str
-    created: int
-    title: str
-    selftext: Optional[str] = None
-    author: str
+    name: Annotated[
+        str,
+        Field(...,
+              description='Value from the server response')]
 
-    url: str
-    permalink: str
-    thumbnail: str
-    url_dest: Optional[str] = None
-    domain: str
+    id: Annotated[
+        str,
+        Field(...,
+              description='Value from the server response')]
 
-    medias: Optional[list[str]] = None
+    created: Annotated[
+        int,
+        Field(...,
+              description='Value from the server response')]
 
-    pinned: bool
-    edited: bool | float
-    stickied: bool
-    archived: bool
+    title: Annotated[
+        str,
+        Field(...,
+              description='Value from the server response')]
 
-    vote_downs: int
-    vote_ups: int
+    selftext: Annotated[
+        Optional[str],
+        Field(None,
+              description='Value from the server response')]
 
-    score: int
+    author: Annotated[
+        str,
+        Field(...,
+              description='Value from the server response')]
+
+    url: Annotated[
+        str,
+        Field(...,
+              description='Value from the server response')]
+
+    permalink: Annotated[
+        str,
+        Field(...,
+              description='Value from the server response')]
+
+    thumbnail: Annotated[
+        str,
+        Field(...,
+              description='Value from the server response')]
+
+    url_dest: Annotated[
+        Optional[str],
+        Field(None,
+              description='Value from the server response')]
+
+    domain: Annotated[
+        str,
+        Field(...,
+              description='Value from the server response')]
+
+    medias: Annotated[
+        Optional[list[str]],
+        Field(None,
+              description='Value from the server response')]
+
+    pinned: Annotated[
+        bool,
+        Field(...,
+              description='Value from the server response')]
+
+    edited: Annotated[
+        bool | float,
+        Field(...,
+              description='Value from the server response')]
+
+    stickied: Annotated[
+        bool,
+        Field(...,
+              description='Value from the server response')]
+
+    archived: Annotated[
+        bool,
+        Field(...,
+              description='Value from the server response')]
+
+    vote_downs: Annotated[
+        int,
+        Field(...,
+              description='Value from the server response')]
+
+    vote_ups: Annotated[
+        int,
+        Field(...,
+              description='Value from the server response')]
+
+    score: Annotated[
+        int,
+        Field(...,
+              description='Value from the server response')]
 
 
     def __init__(
         self,
+        /,
         **data: Any,
     ) -> None:
         """
@@ -286,7 +353,7 @@ class Reddit:
         self,
         method: Literal['get', 'post'],
         path: str,
-        params: Optional[dict[str, Any]] = None,
+        params: Optional[_PAYLOAD] = None,
         data: Optional[_PAYLOAD] = None,
         *,
         httpauth: Optional[_HTTPAUTH] = None,
@@ -299,7 +366,7 @@ class Reddit:
         :param params: Optional parameters included in request.
         :param data: Optional dict payload included in request.
         :param httpauth: Optional information for authentication.
-        :returns: Response for upstream request to the server.
+        :returns: Response from upstream request to the server.
         """
 
         server = 'www.reddit.com'
@@ -337,7 +404,7 @@ class Reddit:
         self,
         method: Literal['get', 'post'],
         path: str,
-        params: Optional[dict[str, Any]] = None,
+        params: Optional[_PAYLOAD] = None,
         data: Optional[_PAYLOAD] = None,
         *,
         httpauth: Optional[_HTTPAUTH] = None,
@@ -350,7 +417,7 @@ class Reddit:
         :param params: Optional parameters included in request.
         :param data: Optional dict payload included in request.
         :param httpauth: Optional information for authentication.
-        :returns: Response for upstream request to the server.
+        :returns: Response from upstream request to the server.
         """
 
         server = 'www.reddit.com'
@@ -484,7 +551,7 @@ class Reddit:
         # NOCVR
         self,
         subred: str,
-        params: Optional[dict[str, Any]] = None,
+        params: Optional[_PAYLOAD] = None,
     ) -> list[RedditListing]:
         """
         Return the new items within the provided subreddit path.
@@ -500,7 +567,7 @@ class Reddit:
     def latest_block(
         self,
         subred: str,
-        params: Optional[dict[str, Any]] = None,
+        params: Optional[_PAYLOAD] = None,
     ) -> list[RedditListing]:
         """
         Return the new items within the provided subreddit path.
@@ -553,7 +620,7 @@ class Reddit:
     async def latest_async(
         self,
         subred: str,
-        params: Optional[dict[str, Any]] = None,
+        params: Optional[_PAYLOAD] = None,
     ) -> list[RedditListing]:
         """
         Return the new items within the provided subreddit path.

@@ -7,31 +7,64 @@ is permitted, for more information consult the project license file.
 
 
 
+from typing import Annotated
+from typing import Any
 from typing import Optional
 
 from encommon.types import BaseModel
+
+from pydantic import Field
 
 
 
 class BridgeParams(BaseModel, extra='forbid'):
     """
     Process and validate the class configuration parameters.
-
-    :param server: Host or IP address for server connection.
-    :param timeout: Timeout when waiting for server response.
-    :param appid: Application ID within bridge for Maker API.
-    :param token: Token used when authenticating to server.
-    :param ssl_verify: Require valid certificate from server.
-    :param ssl_capem: Optional path to certificate authority.
-    :param data: Keyword arguments passed to Pydantic model.
-        Parameter is picked up by autodoc, please ignore.
     """
 
-    server: str
-    timeout: int = 30
+    server: Annotated[
+        str,
+        Field(...,
+              description='Server address for connection',
+              min_length=1)]
 
-    appid: int
-    token: str
+    timeout: Annotated[
+        int,
+        Field(30,
+              description='Timeout connecting to server',
+              ge=0)]
 
-    ssl_verify: bool = True
-    ssl_capem: Optional[str] = None
+    appid: Annotated[
+        int,
+        Field(...,
+              description='Parameter for the integration',
+              ge=0)]
+
+    token: Annotated[
+        str,
+        Field(...,
+              description='Parameter for the integration',
+              min_length=1)]
+
+    ssl_verify: Annotated[
+        bool,
+        Field(False,
+              description='Verify the ceritifcate valid')]
+
+    ssl_capem: Annotated[
+        Optional[str],
+        Field(None,
+              description='Verify the ceritifcate valid',
+              min_length=1)]
+
+
+    def __init__(
+        self,
+        /,
+        **data: Any,
+    ) -> None:
+        """
+        Initialize instance for class using provided parameters.
+        """
+
+        super().__init__(**data)

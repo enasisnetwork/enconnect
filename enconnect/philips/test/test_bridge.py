@@ -10,6 +10,7 @@ is permitted, for more information consult the project license file.
 from encommon.types import DictStrAny
 from encommon.types import inrepr
 from encommon.types import instr
+from encommon.types import lattrs
 from encommon.utils import load_sample
 from encommon.utils import prep_sample
 from encommon.utils import read_sample
@@ -57,7 +58,7 @@ def test_Bridge(
     """
 
 
-    attrs = list(bridge.__dict__)
+    attrs = lattrs(bridge)
 
     assert attrs == [
         '_Bridge__params',
@@ -75,9 +76,9 @@ def test_Bridge(
         bridge)
 
 
-    assert bridge.params is not None
+    assert bridge.params
 
-    assert bridge.client is not None
+    assert bridge.client
 
 
 
@@ -88,7 +89,7 @@ def test_Bridge_request(
     """
     Perform various tests associated with relevant routines.
 
-    :param social: Class instance for connecting to service.
+    :param bridge: Class instance for connecting to service.
     :param respx_mock: Object for mocking request operation.
     """
 
@@ -133,7 +134,7 @@ def test_Bridge_request(
     expect = prep_sample(
         content=fetched)
 
-    assert sample == expect
+    assert expect == sample
 
 
 
@@ -144,7 +145,7 @@ def test_Bridge_events_block(
     """
     Perform various tests associated with relevant routines.
 
-    :param social: Class instance for connecting to service.
+    :param bridge: Class instance for connecting to service.
     :param respx_mock: Object for mocking request operation.
     """
 
@@ -185,7 +186,7 @@ def test_Bridge_events_block(
     expect = prep_sample(
         content=events)
 
-    assert sample == expect
+    assert expect == sample
 
 
 
@@ -197,7 +198,7 @@ async def test_Bridge_events_async(
     """
     Perform various tests associated with relevant routines.
 
-    :param social: Class instance for connecting to service.
+    :param bridge: Class instance for connecting to service.
     :param respx_mock: Object for mocking request operation.
     """
 
@@ -243,4 +244,4 @@ async def test_Bridge_events_async(
     expect = prep_sample(
         content=events)
 
-    assert sample == expect
+    assert expect == sample
