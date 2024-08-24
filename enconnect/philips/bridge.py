@@ -31,7 +31,7 @@ class Bridge:
     """
     Interact with the cloud service API with various methods.
 
-    :param params: Parameters for instantiating the instance.
+    :param params: Parameters used to instantiate the class.
     """
 
     __params: 'BridgeParams'
