@@ -419,10 +419,8 @@ class Client:
 
         def _receive() -> str:
 
-            recev = socket.recv(1)
-
             return (
-                recev
+                socket.recv(1)
                 .decode('utf-8'))
 
 
