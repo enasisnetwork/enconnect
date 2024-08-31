@@ -7,9 +7,9 @@ is permitted, for more information consult the project license file.
 
 
 
+from .models import RedditListing
 from .params import RedditParams
 from .reddit import Reddit
-from .reddit import RedditListing
 
 
 

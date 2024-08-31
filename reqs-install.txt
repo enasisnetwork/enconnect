@@ -1,2 +1,3 @@
 encommon>=0.16
-httpx
+httpx>=0.27.0
+websockets>=13.0

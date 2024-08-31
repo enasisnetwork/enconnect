@@ -510,7 +510,7 @@ outdated: \
 	@$(VENV_PACKAGE)/bin/pip freeze \
 		-r reqs-package.txt > .reqs-package.txt
 	@diff -B -I '^#' \
-		--color reqs-package.txt \
+		--color reqs-install.txt \
 		.reqs-package.txt || true
 	$(call MAKE_PR1NT,<cD>DONE<c0>)
 

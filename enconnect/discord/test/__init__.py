@@ -7,19 +7,11 @@ is permitted, for more information consult the project license file.
 
 
 
-from pathlib import Path
-
-from .helpers import ByteStreamAsync
-from .helpers import ByteStreamBlock
-
-
-
-SAMPLES = (
-    Path(__file__).parent
-    / 'samples')
+from .helpers import DSCClientSocket
+from .helpers import client_dscsock
 
 
 
 __all__ = [
-    'ByteStreamBlock',
-    'ByteStreamAsync']
+    'DSCClientSocket',
+    'client_dscsock']
