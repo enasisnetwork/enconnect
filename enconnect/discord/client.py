@@ -58,6 +58,7 @@ class Client:
     __socket: Optional[ClientConnection]
     __conned: Event
     __exited: Event
+    __mynick: Optional[tuple[str, str]]
     __resume: Event
 
     __ping: Optional[int]
@@ -88,6 +89,7 @@ class Client:
         self.__socket = None
         self.__conned = Event()
         self.__exited = Event()
+        self.__mynick = None
         self.__resume = Event()
 
         self.__ping = None
@@ -125,6 +127,19 @@ class Client:
         """
 
         return self.__conned.is_set()
+
+
+    @property
+    def nickname(
+        self,
+    ) -> Optional[tuple[str, str]]:
+        """
+        Return the value for the attribute from class instance.
+
+        :returns: Value for the attribute from class instance.
+        """
+
+        return self.__mynick
 
 
     @property
@@ -176,6 +191,7 @@ class Client:
                 self.__socket = None
                 self.__conned.clear()
                 self.__exited.clear()
+                self.__mynick = None
 
                 self.__ping = None
                 self.__path = None
@@ -191,6 +207,7 @@ class Client:
             self.__socket = None
             self.__conned.clear()
             self.__exited.clear()
+            self.__mynick = None
 
             self.__ping = None
             self.__path = None
@@ -296,12 +313,24 @@ class Client:
 
         mqueue = self.__mqueue
 
+        type = event.get('t')
         opcode = event.get('op')
 
         model = ClientEvent
 
         if opcode == 11:
             return None
+
+        if type == 'READY':
+
+            user = getate(
+                event, 'd/user')
+
+            assert user is not None
+
+            self.__mynick = (
+                user['username'],
+                user['id'])
 
         object = model(event)
 

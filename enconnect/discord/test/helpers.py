@@ -75,7 +75,10 @@ RVENTS: list[DictStrAny] = [
      'op': 0,
      'd': {
          'heartbeat_interval': 1000,
-         'session_id': 'mocked'}},
+         'session_id': 'mocked',
+         'user': {
+             'username': 'dscbot',
+             'id': '10101010'}}},
 
     {'op': 7, 'd': None},
 
@@ -84,7 +87,10 @@ RVENTS: list[DictStrAny] = [
      'op': 0,
      'd': {
          'heartbeat_interval': 1000,
-         'session_id': 'mocked'}},
+         'session_id': 'mocked',
+         'user': {
+             'username': 'dscbot',
+             'id': '10101010'}}},
 
     {'t': None,
      's': None,

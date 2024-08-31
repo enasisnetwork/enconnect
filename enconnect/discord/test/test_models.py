@@ -130,7 +130,7 @@ def test_ClientEvent_cover(  # noqa: CFQ001
     assert item.type == 'READY'
     assert item.opcode == 0
     assert item.data
-    assert len(item.data) == 2
+    assert len(item.data) == 3
     assert item.seqno == 1
 
     assert item.kind == 'event'
@@ -140,6 +140,8 @@ def test_ClientEvent_cover(  # noqa: CFQ001
 
     assert not client.canceled
     assert client.connected
+    assert client.nickname == (
+        'dscbot', '10101010')
 
 
     item = mqueue.get()
@@ -160,7 +162,7 @@ def test_ClientEvent_cover(  # noqa: CFQ001
     assert item.type == 'READY'
     assert item.opcode == 0
     assert item.data
-    assert len(item.data) == 2
+    assert len(item.data) == 3
     assert item.seqno == 1
 
     assert item.kind == 'event'
@@ -217,6 +219,7 @@ def test_ClientEvent_cover(  # noqa: CFQ001
 
     assert not client.canceled
     assert not client.connected
+    assert not client.nickname
 
 
     thread.join(10)
