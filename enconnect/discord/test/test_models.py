@@ -179,7 +179,7 @@ def test_ClientEvent_cover(  # noqa: CFQ001
     assert len(item.data) == 4
     assert item.seqno == 2
 
-    assert item.kind == 'direct'
+    assert item.kind == 'privmsg'
     assert item.author == (
         '44444444', 'Author')
     assert item.recipient == (
@@ -196,7 +196,7 @@ def test_ClientEvent_cover(  # noqa: CFQ001
     assert len(item.data) == 5
     assert item.seqno == 3
 
-    assert item.kind == 'channel'
+    assert item.kind == 'chanmsg'
     assert item.author == (
         '44444444', 'Author')
     assert item.recipient == (

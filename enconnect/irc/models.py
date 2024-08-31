@@ -27,12 +27,12 @@ EVENT = compile(
 
 KINDS = Literal[
     'event',
-    'channel',
-    'direct']
+    'chanmsg',
+    'privmsg']
 
 MESSAGE = [
-    'channel',
-    'direct']
+    'chanmsg',
+    'privmsg']
 
 
 
@@ -126,9 +126,9 @@ class ClientEvent(BaseModel, extra='ignore'):
             prefix = params[0][:1]
 
             return (
-                'channel'
+                'chanmsg'
                 if prefix in '#&+!'
-                else 'direct')
+                else 'privmsg')
 
 
         return 'event'

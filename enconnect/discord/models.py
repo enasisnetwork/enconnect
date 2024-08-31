@@ -21,12 +21,12 @@ from pydantic import Field
 
 KINDS = Literal[
     'event',
-    'channel',
-    'direct']
+    'chanmsg',
+    'privmsg']
 
 MESSAGE = [
-    'channel',
-    'direct']
+    'chanmsg',
+    'privmsg']
 
 
 
@@ -120,9 +120,9 @@ class ClientEvent(BaseModel, extra='ignore'):
                 data.get('guild_id'))
 
             return (
-                'channel'
+                'chanmsg'
                 if guild is not None
-                else 'direct')
+                else 'privmsg')
 
 
         return 'event'
