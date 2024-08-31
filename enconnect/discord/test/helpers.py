@@ -80,8 +80,7 @@ RVENTS: list[DictStrAny] = [
              'username': 'dscbot',
              'id': '10101010'}}},
 
-    {'op': 7,
-     'd': None},
+    {'op': 7, 'd': None},
 
     {'t': 'READY',
      's': 1,
