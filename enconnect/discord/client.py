@@ -43,12 +43,6 @@ PING = {
     'op': 1,
     'd': None}
 
-PONG = {
-    't': None,
-    's': None,
-    'op': 11,
-    'd': None}
-
 
 
 class Client:
