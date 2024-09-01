@@ -1,3 +1,24 @@
+Discord Parameters
+==================
+
+.. autopydantic_model:: enconnect.discord.ClientParams
+   :members:
+   :show-inheritance:
+   :noindex:
+
+Discord Client
+==============
+
+.. autoclass:: enconnect.discord.Client
+   :members:
+   :show-inheritance:
+   :noindex:
+
+.. autopydantic_model:: enconnect.discord.ClientEvent
+   :members:
+   :show-inheritance:
+   :noindex:
+
 Instagram Parameters
 ====================
 
@@ -15,6 +36,27 @@ Instagram Client
    :noindex:
 
 .. autopydantic_model:: enconnect.instagram.InstagramMedia
+   :members:
+   :show-inheritance:
+   :noindex:
+
+IRC Parameters
+==============
+
+.. autopydantic_model:: enconnect.irc.ClientParams
+   :members:
+   :show-inheritance:
+   :noindex:
+
+IRC Client
+==========
+
+.. autoclass:: enconnect.irc.Client
+   :members:
+   :show-inheritance:
+   :noindex:
+
+.. autopydantic_model:: enconnect.irc.ClientEvent
    :members:
    :show-inheritance:
    :noindex:
