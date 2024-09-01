@@ -58,6 +58,12 @@ class ClientEvent(BaseModel, extra='ignore'):
         Field(None,
               description='Event or command parameters')]
 
+    original: Annotated[
+        str,
+        Field(...,
+              description='Original received from server',
+              min_length=1)]
+
 
     def __init__(
         self,
@@ -68,7 +74,9 @@ class ClientEvent(BaseModel, extra='ignore'):
         Initialize instance for class using provided parameters.
         """
 
-        data: DictStrAny = {}
+        data: DictStrAny = {
+            'original': event}
+
 
         match = re_match(
             EVENT, event)

@@ -59,6 +59,12 @@ class ClientEvent(BaseModel, extra='ignore'):
               description='Event number within squence',
               ge=0)]
 
+    original: Annotated[
+        DictStrAny,
+        Field(...,
+              description='Original received from server',
+              min_length=1)]
+
 
     def __init__(
         self,
@@ -69,7 +75,8 @@ class ClientEvent(BaseModel, extra='ignore'):
         Initialize instance for class using provided parameters.
         """
 
-        data: DictStrAny = {}
+        data: DictStrAny = {
+            'original': event}
 
 
         type = event.get('t')
@@ -84,7 +91,8 @@ class ClientEvent(BaseModel, extra='ignore'):
         if opcode is not None:
             data['opcode'] = opcode
 
-        if _data is not None:
+        if (isinstance(_data, dict)
+                and len(_data) >= 1):
             data['data'] = _data
 
         if seqno is not None:

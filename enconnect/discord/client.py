@@ -183,6 +183,8 @@ class Client:
 
         try:
 
+            self.__path = None
+            self.__ping = None
             self.__sesid = None
             self.__seqno = None
 
@@ -192,9 +194,6 @@ class Client:
                 self.__conned.clear()
                 self.__exited.clear()
                 self.__mynick = None
-
-                self.__ping = None
-                self.__path = None
 
                 self.__cancel.clear()
 
@@ -248,9 +247,9 @@ class Client:
             receive,
             'd/heartbeat_interval')
 
-        assert ping is not None
-
-        self.__ping = ping / 1000
+        if ping is not None:
+            ping /= 1000
+            self.__ping = ping
 
 
         sesid = getate(
@@ -365,8 +364,7 @@ class Client:
 
         fetch = response.json()
 
-        assert isinstance(
-            fetch, dict)
+        assert isinstance(fetch, dict)
 
         path = fetch['url']
 
@@ -560,8 +558,7 @@ class Client:
 
         loaded = loads(receive)
 
-        assert isinstance(
-            loaded, dict)
+        assert isinstance(loaded, dict)
 
         opcode = loaded.get('op')
         seqno = loaded.get('s')

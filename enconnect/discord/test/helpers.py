@@ -82,15 +82,10 @@ RVENTS: list[DictStrAny] = [
 
     {'op': 7, 'd': None},
 
-    {'t': 'READY',
-     's': 1,
+    {'t': 'RESUMED',
+     's': 2,
      'op': 0,
-     'd': {
-         'heartbeat_interval': 1000,
-         'session_id': 'mocked',
-         'user': {
-             'username': 'dscbot',
-             'id': '10101010'}}},
+     'd': {}},
 
     {'t': None,
      's': None,
