@@ -36,7 +36,8 @@ def test_ClientEvent() -> None:
     assert attrs == [
         'prefix',
         'command',
-        'params']
+        'params',
+        'original']
 
 
     assert inrepr(

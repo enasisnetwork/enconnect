@@ -38,7 +38,8 @@ def test_ClientEvent() -> None:
         'type',
         'opcode',
         'data',
-        'seqno']
+        'seqno',
+        'original']
 
 
     assert inrepr(
@@ -75,7 +76,7 @@ def test_ClientEvent_cover(  # noqa: CFQ001
     events: list[DictStrAny] = [
 
         {'t': 'MESSAGE_CREATE',
-         's': 2,
+         's': 3,
          'op': 0,
          'd': {
              'id': '33330001',
@@ -86,7 +87,7 @@ def test_ClientEvent_cover(  # noqa: CFQ001
              'content': 'Hello person'}},
 
         {'t': 'MESSAGE_CREATE',
-         's': 3,
+         's': 4,
          'op': 0,
          'd': {
              'id': '33330001',
@@ -159,11 +160,10 @@ def test_ClientEvent_cover(  # noqa: CFQ001
 
     item = mqueue.get()
 
-    assert item.type == 'READY'
+    assert item.type == 'RESUMED'
     assert item.opcode == 0
-    assert item.data
-    assert len(item.data) == 3
-    assert item.seqno == 1
+    assert not item.data
+    assert item.seqno == 2
 
     assert item.kind == 'event'
     assert not item.author
@@ -177,7 +177,7 @@ def test_ClientEvent_cover(  # noqa: CFQ001
     assert item.opcode == 0
     assert item.data
     assert len(item.data) == 4
-    assert item.seqno == 2
+    assert item.seqno == 3
 
     assert item.kind == 'privmsg'
     assert item.author == (
@@ -194,7 +194,7 @@ def test_ClientEvent_cover(  # noqa: CFQ001
     assert item.opcode == 0
     assert item.data
     assert len(item.data) == 5
-    assert item.seqno == 3
+    assert item.seqno == 4
 
     assert item.kind == 'chanmsg'
     assert item.author == (
