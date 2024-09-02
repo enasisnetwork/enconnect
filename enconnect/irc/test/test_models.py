@@ -37,7 +37,11 @@ def test_ClientEvent() -> None:
         'prefix',
         'command',
         'params',
-        'original']
+        'original',
+        'kind',
+        'author',
+        'recipient',
+        'message']
 
 
     assert inrepr(

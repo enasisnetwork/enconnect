@@ -183,17 +183,21 @@ class Client:
 
         try:
 
+            self.__mynick = None
+
             self.__path = None
-            self.__ping = None
             self.__sesid = None
             self.__seqno = None
+
+            self.__setpath()
 
             while not self.canceled:
 
                 self.__socket = None
                 self.__conned.clear()
                 self.__exited.clear()
-                self.__mynick = None
+
+                self.__ping = None
 
                 self.__cancel.clear()
 
@@ -227,7 +231,6 @@ class Client:
         resume = self.__resume
 
 
-        self.__setpath()
         self.__connect()
 
         socket = self.__socket
@@ -252,12 +255,7 @@ class Client:
             self.__ping = ping
 
 
-        sesid = getate(
-            receive,
-            'd/session_id')
-
-        if sesid is not None:
-            self.__sesid = sesid
+        self.__identify(intents)
 
 
         thread = Thread(
@@ -268,9 +266,6 @@ class Client:
 
         if PYTEST is True:
             block_sleep(0.5)
-
-
-        self.__identify(intents)
 
 
         def _continue() -> bool:
@@ -317,10 +312,13 @@ class Client:
 
         model = ClientEvent
 
+
         if opcode == 11:
             return None
 
+
         if type == 'READY':
+
 
             user = getate(
                 event, 'd/user')
@@ -330,6 +328,16 @@ class Client:
             self.__mynick = (
                 user['username'],
                 user['id'])
+
+
+            sesid = getate(
+                event,
+                'd/session_id')
+
+            assert sesid is not None
+
+            self.__sesid = sesid
+
 
         object = model(event)
 
@@ -408,9 +416,9 @@ class Client:
         seqno = self.__seqno
 
         data = {
-            'seqno': seqno,
+            'token': token,
             'session_id': sesid,
-            'token': token}
+            'seq': seqno}
 
         self.socket_send({
             'op': 6, 'd': data})
@@ -455,7 +463,7 @@ class Client:
             'op': 2, 'd': data})
 
 
-    def __hbthread(
+    def __hbthread(  # noqa: CFQ004
         self,
     ) -> None:
         """
@@ -466,8 +474,11 @@ class Client:
         resume = self.__resume
         ping = self.__ping
 
-        assert socket is not None
-        assert ping is not None
+        if socket is None:
+            return NCNone
+
+        if ping is None:
+            return None
 
 
         timer = Timer(ping)
