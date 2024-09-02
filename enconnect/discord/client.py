@@ -463,7 +463,7 @@ class Client:
             'op': 2, 'd': data})
 
 
-    def __hbthread(
+    def __hbthread(  # noqa: CFQ004
         self,
     ) -> None:
         """
