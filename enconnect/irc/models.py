@@ -64,6 +64,29 @@ class ClientEvent(BaseModel, extra='ignore'):
               description='Original received from server',
               min_length=1)]
 
+    kind: Annotated[
+        KINDS,
+        Field('event',
+              description='Dynamic field parsed from event')]
+
+    author: Annotated[
+        Optional[str],
+        Field(None,
+              description='Dynamic field parsed from event',
+              min_length=1)]
+
+    recipient: Annotated[
+        Optional[str],
+        Field(None,
+              description='Dynamic field parsed from event',
+              min_length=1)]
+
+    message: Annotated[
+        Optional[str],
+        Field(None,
+              description='Dynamic field parsed from event',
+              min_length=1)]
+
 
     def __init__(
         self,
@@ -112,19 +135,23 @@ class ClientEvent(BaseModel, extra='ignore'):
 
         super().__init__(**data)
 
+        self.__set_kind()
+        self.__set_author()
+        self.__set_recipient()
+        self.__set_message()
 
-    @property
-    def kind(
+
+    def __set_kind(
         self,
-    ) -> KINDS:
+    ) -> None:
         """
-        Return the value for the attribute from class instance.
-
-        :returns: Value for the attribute from class instance.
+        Update the value for the attribute from class instance.
         """
 
         command = self.command
         params = self.params
+
+        kind: KINDS = 'event'
 
 
         if command == 'PRIVMSG':
@@ -133,23 +160,20 @@ class ClientEvent(BaseModel, extra='ignore'):
 
             prefix = params[0][:1]
 
-            return (
+            kind = (
                 'chanmsg'
                 if prefix in '#&+!'
                 else 'privmsg')
 
 
-        return 'event'
+        self.kind = kind
 
 
-    @property
-    def author(
+    def __set_author(
         self,
-    ) -> Optional[str]:
+    ) -> None:
         """
-        Return the value for the attribute from class instance.
-
-        :returns: Value for the attribute from class instance.
+        Update the value for the attribute from class instance.
         """
 
         kind = self.kind
@@ -158,17 +182,14 @@ class ClientEvent(BaseModel, extra='ignore'):
         if kind not in MESSAGE:
             return None
 
-        return prefix
+        self.author = prefix
 
 
-    @property
-    def recipient(
+    def __set_recipient(
         self,
-    ) -> Optional[str]:
+    ) -> None:
         """
-        Return the value for the attribute from class instance.
-
-        :returns: Value for the attribute from class instance.
+        Update the value for the attribute from class instance.
         """
 
         kind = self.kind
@@ -180,17 +201,14 @@ class ClientEvent(BaseModel, extra='ignore'):
 
         split = params.split(' ')
 
-        return split[0]
+        self.recipient = split[0]
 
 
-    @property
-    def message(
+    def __set_message(
         self,
-    ) -> Optional[str]:
+    ) -> None:
         """
-        Return the value for the attribute from class instance.
-
-        :returns: Value for the attribute from class instance.
+        Update the value for the attribute from class instance.
         """
 
         kind = self.kind
@@ -204,4 +222,4 @@ class ClientEvent(BaseModel, extra='ignore'):
             params
             .split(':', maxsplit=1))
 
-        return message[1]
+        self.message = message[1]

@@ -39,7 +39,11 @@ def test_ClientEvent() -> None:
         'opcode',
         'data',
         'seqno',
-        'original']
+        'original',
+        'kind',
+        'author',
+        'recipient',
+        'message']
 
 
     assert inrepr(
