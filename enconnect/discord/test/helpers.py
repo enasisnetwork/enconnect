@@ -115,10 +115,9 @@ def client_dscsock(  # noqa: CFQ004
      .get(
          'https://discord.com'
          '/api/v10/gateway')
-     .mock(
-        Response(
-            status_code=200,
-            content=content)))
+     .mock(Response(
+        status_code=200,
+        content=content)))
 
     (respx_mock
      .post(
