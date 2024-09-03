@@ -129,13 +129,13 @@ def client_ircsock(  # noqa: CFQ004
         events: list[TUBLYTES],
     ) -> Iterator[bytes]:
 
-        for event in events:
+        while True:
 
-            yield from event
+            for event in events:
 
-            block_sleep(0.25)
+                block_sleep(0.25)
 
-        for _ in range(100):
+                yield from event
 
             block_sleep(0.25)
 
