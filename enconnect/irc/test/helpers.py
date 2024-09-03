@@ -139,8 +139,7 @@ def client_ircsock(  # noqa: CFQ004
 
             block_sleep(0.25)
 
-            yield from [
-                b'\r', b'\n']
+            yield from [b'']
 
 
     def _factory(

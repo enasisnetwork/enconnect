@@ -442,16 +442,16 @@ class Client:
 
             buffer.append(lastrd)
 
+            if lastrd == '':
+                exited.set()
+                return None
+
 
             if lastrd == '\n':
 
                 event = _returned()
 
                 buffer = []
-
-                if event == '':
-                    exited.set()
-                    return None
 
                 if event[:5] == 'ERROR':
                     exited.set()
