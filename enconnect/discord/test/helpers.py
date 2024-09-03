@@ -146,13 +146,13 @@ def client_dscsock(  # noqa: CFQ004
         events: list[bytes],
     ) -> Iterator[bytes]:
 
-        for event in events:
+        while True:
 
-            block_sleep(0.25)
+            for event in events:
 
-            yield event
+                block_sleep(0.25)
 
-        for _ in range(100):
+                yield event
 
             block_sleep(0.25)
 
