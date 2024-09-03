@@ -182,7 +182,12 @@ class ClientEvent(BaseModel, extra='ignore'):
         if kind not in MESSAGE:
             return None
 
-        self.author = prefix
+        assert prefix is not None
+
+        author = prefix.split(
+            '!', maxsplit=1)
+
+        self.author = author[0]
 
 
     def __set_recipient(

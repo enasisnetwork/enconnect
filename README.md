@@ -53,7 +53,7 @@ make -s venv-create
 
 1. Create [repository](https://github.com/enasisnetwork/enconnect) release.
 
-1. Build the Python package.<br>
+1. Build the Python package.<br>Be sure no uncommited files in tree.
    ```
    make -s pypackage
    ```

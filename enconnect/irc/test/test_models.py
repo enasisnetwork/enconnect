@@ -165,8 +165,7 @@ def test_ClientEvent_cover(  # noqa: CFQ001
         'ircbot :Hello person')
 
     assert item.kind == 'privmsg'
-    assert item.author == (
-        'nick!user@host')
+    assert item.author == 'nick'
     assert item.recipient == 'ircbot'
     assert item.message == (
         'Hello person')
@@ -181,8 +180,7 @@ def test_ClientEvent_cover(  # noqa: CFQ001
         '# :Hello world')
 
     assert item.kind == 'chanmsg'
-    assert item.author == (
-        'nick!user@host')
+    assert item.author == 'nick'
     assert item.recipient == '#'
     assert item.message == (
         'Hello world')
@@ -197,8 +195,7 @@ def test_ClientEvent_cover(  # noqa: CFQ001
         '#funchat :Hello world')
 
     assert item.kind == 'chanmsg'
-    assert item.author == (
-        'nick!user@host')
+    assert item.author == 'nick'
     assert item.recipient == '#funchat'
     assert item.message == (
         'Hello world')
