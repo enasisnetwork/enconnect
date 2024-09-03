@@ -75,6 +75,7 @@ RVENTS: list[DictStrAny] = [
      'op': 0,
      'd': {
          'heartbeat_interval': 1000,
+         'resume_gateway_url': 'wss://dsc.gg',
          'session_id': 'mocked',
          'user': {
              'username': 'dscbot',
@@ -114,13 +115,16 @@ def client_dscsock(  # noqa: CFQ004
      .get(
          'https://discord.com'
          '/api/v10/gateway')
-     .mock(side_effect=[
-         Response(
-             status_code=200,
-             content=content),
-         Response(
-             status_code=200,
-             content=content)]))
+     .mock(Response(
+         status_code=200,
+         content=content)))
+
+    (respx_mock
+     .post(
+         'https://discord.com'
+         '/api/v10/channels/'
+         '22220001/messages')
+     .mock(Response(200)))
 
 
     socmod = mocker.patch(
@@ -148,6 +152,14 @@ def client_dscsock(  # noqa: CFQ004
 
             yield event
 
+        for _ in range(100):
+
+            block_sleep(0.25)
+
+            yield (
+                dumps({'op': 9})
+                .encode('utf-8'))
+
 
     def _factory(
         rvents: list[DictStrAny],
@@ -172,8 +184,7 @@ def client_dscsock(  # noqa: CFQ004
         rvents: EVENTS = None,
     ) -> SOCKET:
 
-        if rvents is None:
-            rvents = []  # NOCVR
+        rvents = rvents or []
 
         socket = _factory(
             RVENTS + rvents)

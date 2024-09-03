@@ -11,7 +11,6 @@ from json import dumps
 from json import loads
 from queue import Queue
 from threading import Event
-from threading import Thread
 from time import sleep as block_sleep
 from typing import Optional
 from typing import TYPE_CHECKING
@@ -185,6 +184,7 @@ class Client:
 
             self.__mynick = None
 
+            self.__ping = None
             self.__path = None
             self.__sesid = None
             self.__seqno = None
@@ -196,8 +196,6 @@ class Client:
                 self.__socket = None
                 self.__conned.clear()
                 self.__exited.clear()
-
-                self.__ping = None
 
                 self.__cancel.clear()
 
@@ -246,22 +244,23 @@ class Client:
         self.__event(receive)
 
 
-        ping = getate(
+        beat = getate(
             receive,
             'd/heartbeat_interval')
 
-        if ping is not None:
-            ping /= 1000
-            self.__ping = ping
+        if beat is not None:
+            self.__ping = beat / 1000
+
+
+        ping = self.__ping
+
+        if ping is None:  # NOCVR
+            raise ConnectionError
+
+        timer = Timer(ping)
 
 
         self.__identify(intents)
-
-
-        thread = Thread(
-            target=self.__hbthread)
-
-        thread.start()
 
 
         if PYTEST is True:
@@ -280,15 +279,15 @@ class Client:
             receive = (
                 self.socket_recv())
 
-            if receive is None:
-                continue  # NOCVR
+            if receive is not None:
+                self.__event(receive)
 
-            self.__event(receive)
+            if timer.ready():
+                self.socket_ping()
 
 
-        socket.close()
-
-        thread.join()
+        socket.close(
+            4000, 'Reconnecting')
 
 
         if self.__exited.is_set():
@@ -320,6 +319,23 @@ class Client:
         if type == 'READY':
 
 
+            sesid = getate(
+                event,
+                'd/session_id')
+
+            assert sesid is not None
+
+            self.__sesid = sesid
+
+
+            path = getate(
+                event,
+                'd/resume_gateway_url')
+
+            if path is not None:
+                self.__path = path
+
+
             user = getate(
                 event, 'd/user')
 
@@ -328,15 +344,6 @@ class Client:
             self.__mynick = (
                 user['username'],
                 user['id'])
-
-
-            sesid = getate(
-                event,
-                'd/session_id')
-
-            assert sesid is not None
-
-            self.__sesid = sesid
 
 
         object = model(event)
@@ -463,51 +470,6 @@ class Client:
             'op': 2, 'd': data})
 
 
-    def __hbthread(  # noqa: CFQ004
-        self,
-    ) -> None:
-        """
-        Submit the heartbeat based on server provided interval.
-        """
-
-        socket = self.__socket
-        resume = self.__resume
-        ping = self.__ping
-
-        if socket is None:
-            return NCNone
-
-        if ping is None:
-            return None
-
-
-        timer = Timer(ping)
-
-
-        def _pausing() -> bool:
-
-            if not _continue():
-                return False
-
-            return timer.pause()
-
-
-        def _continue() -> bool:
-
-            return (
-                not resume.is_set()
-                and not self.canceled
-                and self.connected)
-
-
-        while _continue():
-
-            self.socket_ping()
-
-            while _pausing():
-                block_sleep(0.25)
-
-
     def socket_ping(
         self,
     ) -> None:
@@ -544,7 +506,7 @@ class Client:
             return None
 
 
-    def socket_recv(
+    def socket_recv(  # noqa: CFQ004
         self,
     ) -> Optional[DictStrAny]:
         """
@@ -560,12 +522,17 @@ class Client:
         if socket is None:
             return NCNone
 
+
         try:
-            receive = socket.recv()
+            receive = socket.recv(1)
+
+        except TimeoutError:
+            return None
 
         except ConnectionClosedOK:
             exited.set()
             return None
+
 
         loaded = loads(receive)
 

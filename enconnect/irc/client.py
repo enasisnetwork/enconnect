@@ -451,6 +451,7 @@ class Client:
 
                 if event == '':
                     exited.set()
+                    return None
 
                 if event[:5] == 'ERROR':
                     exited.set()

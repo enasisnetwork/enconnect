@@ -124,7 +124,7 @@ def test_Client_connect(
 
     client = Client(params)
 
-    client_ircsock([''])
+    client_ircsock()
 
     with raises(ConnectionError):
         client.operate()
@@ -142,7 +142,7 @@ def test_Client_connect(
 
     client = Client(params)
 
-    client_ircsock([''])
+    client_ircsock()
 
 
     with raises(ConnectionError):

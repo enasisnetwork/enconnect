@@ -100,9 +100,7 @@ def test_ClientEvent_cover(  # noqa: CFQ001
              'author': {
                  'id': '44444444',
                  'username': 'Author'},
-             'content': 'Hello world'}},
-
-        {'op': 9, 'd': None}]
+             'content': 'Hello world'}}]
 
 
     params = ClientParams(
@@ -135,7 +133,7 @@ def test_ClientEvent_cover(  # noqa: CFQ001
     assert item.type == 'READY'
     assert item.opcode == 0
     assert item.data
-    assert len(item.data) == 3
+    assert len(item.data) == 4
     assert item.seqno == 1
 
     assert item.kind == 'event'
@@ -177,7 +175,8 @@ def test_ClientEvent_cover(  # noqa: CFQ001
 
     item = mqueue.get()
 
-    assert item.type == 'MESSAGE_CREATE'
+    assert item.type == (
+        'MESSAGE_CREATE')
     assert item.opcode == 0
     assert item.data
     assert len(item.data) == 4
@@ -194,7 +193,8 @@ def test_ClientEvent_cover(  # noqa: CFQ001
 
     item = mqueue.get()
 
-    assert item.type == 'MESSAGE_CREATE'
+    assert item.type == (
+        'MESSAGE_CREATE')
     assert item.opcode == 0
     assert item.data
     assert len(item.data) == 5

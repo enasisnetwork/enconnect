@@ -135,6 +135,13 @@ def client_ircsock(  # noqa: CFQ004
 
             block_sleep(0.25)
 
+        for _ in range(100):
+
+            block_sleep(0.25)
+
+            yield from [
+                b'\r', b'\n']
+
 
     def _factory(
         rvents: list[str],
@@ -158,8 +165,7 @@ def client_ircsock(  # noqa: CFQ004
         rvents: EVENTS = None,
     ) -> SOCKET:
 
-        if rvents is None:
-            rvents = []  # NOCVR
+        rvents = rvents or []
 
         socket = _factory(
             RVENTS + rvents)

@@ -115,8 +115,7 @@ def test_Client_connect(
     :param client_dscsock: Object to mock client connection.
     """
 
-    client_dscsock([
-        {'op': 9, 'd': None}])
+    client_dscsock()
 
 
     with raises(ConnectionError):
