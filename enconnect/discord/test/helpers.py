@@ -74,8 +74,9 @@ RVENTS: list[DictStrAny] = [
      's': 1,
      'op': 0,
      'd': {
-         'heartbeat_interval': 1000,
-         'resume_gateway_url': 'wss://dsc.gg',
+         'heartbeat_interval': 100,
+         'resume_gateway_url': (
+             'wss://resume.dsc.gg'),
          'session_id': 'mocked',
          'user': {
              'username': 'dscbot',
@@ -83,15 +84,20 @@ RVENTS: list[DictStrAny] = [
 
     {'op': 7, 'd': None},
 
-    {'t': 'RESUMED',
-     's': 2,
-     'op': 0,
-     'd': {}},
-
     {'t': None,
      's': None,
-     'op': 11,
-     'd': None}]
+     'op': 10,
+     'd': {
+         'heartbeat_interval': 100,
+         '_trace': ['["gatew...os":0.0}]']}},
+
+    {'t': 'RESUMED',
+     's': 1,
+     'op': 0,
+     'd': {
+         '_trace': ['["gatew...os":23}]}]']}},
+
+    {'op': 11, 'd': None}]
 
 
 
@@ -150,11 +156,11 @@ def client_dscsock(  # noqa: CFQ004
 
             for event in events:
 
-                block_sleep(0.25)
+                block_sleep(0.1)
 
                 yield event
 
-            block_sleep(0.25)
+            block_sleep(0.1)
 
             yield (
                 dumps({'op': 9})

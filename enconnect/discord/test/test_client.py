@@ -126,4 +126,4 @@ def test_Client_connect(
 
     mqueue = client.mqueue
 
-    assert mqueue.qsize() == 4
+    assert mqueue.qsize() == 5
