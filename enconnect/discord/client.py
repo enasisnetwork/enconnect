@@ -29,7 +29,6 @@ from websockets.sync.client import connect
 
 from .models import ClientEvent
 from ..utils import HTTPClient
-from ..utils import PYTEST
 from ..utils.http import _METHODS
 from ..utils.http import _PAYLOAD
 
@@ -263,10 +262,6 @@ class Client:
 
 
         self.__identify(intents)
-
-
-        if PYTEST is True:
-            block_sleep(0.5)
 
 
         def _continue() -> bool:

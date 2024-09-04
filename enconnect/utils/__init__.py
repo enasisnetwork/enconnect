@@ -7,15 +7,9 @@ is permitted, for more information consult the project license file.
 
 
 
-from sys import modules
-
 from .http import HTTPClient
 
 
 
 __all__ = [
     'HTTPClient']
-
-
-
-PYTEST = 'pytest' in modules
