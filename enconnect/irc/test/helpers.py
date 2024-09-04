@@ -69,6 +69,14 @@ RVENTS: list[str] = [
     (':localhost 001 ircbot'
      ' :Welcome to network'),
 
+    (':localhost 376 ircbot '
+     ':End of /MOTD command.'),
+
+    'PING :123456789',
+
+    (':localhost 376 ircbot '
+     ':End of /MOTD command.'),
+
     'PING :123456789']
 
 
@@ -133,11 +141,11 @@ def client_ircsock(  # noqa: CFQ004
 
             for event in events:
 
-                block_sleep(0.25)
+                block_sleep(0.1)
 
                 yield from event
 
-            block_sleep(0.25)
+            block_sleep(0.1)
 
             yield from [b'']
 
@@ -156,6 +164,8 @@ def client_ircsock(  # noqa: CFQ004
 
         socket.recv = Mock(
             side_effect=effect)
+
+        socket.close = Mock()
 
         return socket
 

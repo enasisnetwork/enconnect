@@ -125,7 +125,9 @@ class Client:
         :returns: Value for the attribute from class instance.
         """
 
-        return self.__conned.is_set()
+        return (
+            not self.__exited.is_set()
+            and self.__conned.is_set())
 
 
     @property

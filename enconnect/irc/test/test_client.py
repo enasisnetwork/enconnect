@@ -134,7 +134,7 @@ def test_Client_connect(
 
     mqueue = client.mqueue
 
-    assert mqueue.qsize() == 1
+    assert mqueue.qsize() == 3
 
 
     params.port = 6667
@@ -153,4 +153,4 @@ def test_Client_connect(
 
     mqueue = client.mqueue
 
-    assert mqueue.qsize() == 1
+    assert mqueue.qsize() == 3

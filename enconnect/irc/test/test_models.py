@@ -158,6 +158,32 @@ def test_ClientEvent_cover(  # noqa: CFQ001
 
     item = mqueue.get()
 
+    assert item.prefix == 'localhost'
+    assert item.command == '376'
+    assert item.params == (
+        'ircbot :End of /MOTD command.')
+
+    assert item.kind == 'event'
+    assert not item.author
+    assert not item.recipient
+    assert not item.message
+
+
+    item = mqueue.get()
+
+    assert item.prefix == 'localhost'
+    assert item.command == '376'
+    assert item.params == (
+        'ircbot :End of /MOTD command.')
+
+    assert item.kind == 'event'
+    assert not item.author
+    assert not item.recipient
+    assert not item.message
+
+
+    item = mqueue.get()
+
     assert item.prefix == (
         'nick!user@host')
     assert item.command == 'PRIVMSG'

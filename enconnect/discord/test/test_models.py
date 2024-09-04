@@ -162,10 +162,25 @@ def test_ClientEvent_cover(  # noqa: CFQ001
 
     item = mqueue.get()
 
+    assert not item.type
+    assert item.opcode == 10
+    assert item.data
+    assert len(item.data) == 2
+    assert not item.seqno
+
+    assert item.kind == 'event'
+    assert not item.author
+    assert not item.recipient
+    assert not item.message
+
+
+    item = mqueue.get()
+
     assert item.type == 'RESUMED'
     assert item.opcode == 0
-    assert not item.data
-    assert item.seqno == 2
+    assert item.data
+    assert len(item.data) == 1
+    assert item.seqno == 1
 
     assert item.kind == 'event'
     assert not item.author

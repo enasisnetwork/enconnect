@@ -107,7 +107,9 @@ class Client:
         :returns: Value for the attribute from class instance.
         """
 
-        return self.__conned.is_set()
+        return (
+            not self.__exited.is_set()
+            and self.__conned.is_set())
 
 
     @property
@@ -442,10 +444,6 @@ class Client:
 
             buffer.append(lastrd)
 
-            if lastrd == '':
-                exited.set()
-                return None
-
 
             if lastrd == '\n':
 
@@ -458,3 +456,8 @@ class Client:
 
                 if len(event) >= 1:
                     yield event
+
+
+            if lastrd == '':
+                exited.set()
+                return None
