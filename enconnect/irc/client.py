@@ -18,13 +18,16 @@ from ssl import CERT_REQUIRED
 from ssl import SSLSocket
 from ssl import create_default_context as default
 from threading import Event
+from typing import Callable
 from typing import Iterator
 from typing import Optional
 from typing import TYPE_CHECKING
 
+from encommon.types.strings import NEWLINE
 from encommon.types.strings import SEMPTY
 
 from .models import ClientEvent
+from ..utils import dumlog
 
 if TYPE_CHECKING:
     from .params import ClientParams
@@ -53,6 +56,7 @@ class Client:
     """
 
     __params: 'ClientParams'
+    __logger: Callable[..., None]
 
     __socket: Optional[socket | SSLSocket]
     __conned: Event
@@ -66,12 +70,15 @@ class Client:
     def __init__(
         self,
         params: 'ClientParams',
+        logger: Optional[Callable[..., None]] = None,
     ) -> None:
         """
         Initialize instance for class using provided parameters.
         """
 
         self.__params = params
+        self.__logger = (
+            logger or dumlog)
 
         self.__socket = None
         self.__conned = Event()
@@ -160,7 +167,11 @@ class Client:
         Operate the client and populate queue with the messages.
         """
 
+        logger = self.__logger
+
         try:
+
+            logger(item='initial')
 
             self.__socket = None
             self.__conned.clear()
@@ -168,6 +179,8 @@ class Client:
             self.__mynick = None
 
             self.__cancel.clear()
+
+            logger(item='operate')
 
             self.__operate()
 
@@ -180,6 +193,8 @@ class Client:
 
             self.__cancel.clear()
 
+            logger(item='finish')
+
 
     def __operate(
         self,
@@ -188,11 +203,15 @@ class Client:
         Operate the client and populate queue with the messages.
         """
 
+        logger = self.__logger
+
+
         self.__connect()
 
         socket = self.__socket
 
         assert socket is not None
+
 
         while not self.canceled:
 
@@ -202,7 +221,11 @@ class Client:
             for event in receive:
                 self.__event(event)
 
+
+        logger(item='close')
+
         socket.close()
+
 
         if self.__exited.is_set():
             raise ConnectionError
@@ -218,6 +241,7 @@ class Client:
         :param event: Raw event received from the network peer.
         """
 
+        logger = self.__logger
         mqueue = self.__mqueue
         crrnt = self.__mynick
 
@@ -229,6 +253,8 @@ class Client:
 
         if match is not None:
 
+            logger(item='helo')
+
             crrnt = (
                 match.group('crrnt'))
 
@@ -239,6 +265,8 @@ class Client:
             PING, event)
 
         if match is not None:
+
+            logger(item='ping')
 
             ping = match.group(1)
             pong = f'PONG {ping}'
@@ -274,6 +302,10 @@ class Client:
         """
         Gracefully close the connection with the server socket.
         """
+
+        logger = self.__logger
+
+        logger(item='stop')
 
         if self.connected:
 
@@ -333,6 +365,7 @@ class Client:
         """
 
         params = self.__params
+        logger = self.__logger
 
         server = params.server
         port = params.port
@@ -355,6 +388,8 @@ class Client:
             wrapper = self.__wrapper
             handle = wrapper(handle)
 
+
+        logger(item='connect')
 
         handle.connect(address)
 
@@ -386,9 +421,14 @@ class Client:
         :param send: Content which will be sent through socket.
         """
 
+        logger = self.__logger
         socket = self.__socket
 
         assert socket is not None
+
+        logger(
+            item='transmit',
+            value=send)
 
         transmit = (
             f'{send}\r\n'
@@ -410,12 +450,13 @@ class Client:
         :returns: Content received from the socket connection.
         """
 
+        logger = self.__logger
         exited = self.__exited
         socket = self.__socket
 
         assert socket is not None
 
-        lastrd = SEMPTY
+        recv = SEMPTY
         buffer: list[str] = []
 
 
@@ -426,38 +467,40 @@ class Client:
                 .decode('utf-8'))
 
 
-        def _returned() -> str:
-
-            return (
-                SEMPTY.join(buffer)
-                .strip('\r\n'))
-
-
         while (len(buffer) < 4096
-               and lastrd != '\n'):
+               and recv != NEWLINE):
 
             try:
-                lastrd = _receive()
+
+                recv = _receive()
+
+                buffer.append(recv)
 
             except TimeoutError:
                 break
 
-            buffer.append(lastrd)
 
-
-            if lastrd == '\n':
-
-                event = _returned()
-
-                buffer = []
-
-                if event[:5] == 'ERROR':
-                    exited.set()
-
-                if len(event) >= 1:
-                    yield event
-
-
-            if lastrd == '':
+            if recv == SEMPTY:
                 exited.set()
                 return None
+
+            if recv != NEWLINE:
+                continue
+
+
+            event = (
+                SEMPTY.join(buffer)
+                .strip('\r\n'))
+
+            buffer = []
+
+            if event[:5] == 'ERROR':
+                exited.set()
+
+            if len(event) >= 1:
+
+                logger(
+                    item='receive',
+                    value=event)
+
+                yield event

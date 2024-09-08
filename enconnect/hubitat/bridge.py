@@ -102,10 +102,10 @@ class Bridge:
         token = self.params.token
         client = self.client
 
-        token_key = 'Authorization'
+        tokey = 'Authorization'
         token = f'Bearer {token}'
 
-        headers = {token_key: token}
+        headers = {tokey: token}
 
         location = (
             f'https://{server}/apps'

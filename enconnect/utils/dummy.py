@@ -7,11 +7,15 @@ is permitted, for more information consult the project license file.
 
 
 
-from .dummy import dumlog
-from .http import HTTPClient
+from typing import Any
 
 
 
-__all__ = [
-    'HTTPClient',
-    'dumlog']
+def dumlog(
+    **kwargs: Any,
+) -> None:
+    """
+    Capture and drop messages for would be provided logger.
+
+    :param kwargs: Keyword arguments which would be passed.
+    """

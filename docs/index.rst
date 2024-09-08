@@ -61,6 +61,27 @@ IRC Client
    :show-inheritance:
    :noindex:
 
+Mattermost Parameters
+=====================
+
+.. autopydantic_model:: enconnect.mattermost.ClientParams
+   :members:
+   :show-inheritance:
+   :noindex:
+
+Mattermost Client
+=================
+
+.. autoclass:: enconnect.mattermost.Client
+   :members:
+   :show-inheritance:
+   :noindex:
+
+.. autopydantic_model:: enconnect.mattermost.ClientEvent
+   :members:
+   :show-inheritance:
+   :noindex:
+
 Philips Hue Parameters
 ======================
 

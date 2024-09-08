@@ -7,8 +7,8 @@ is permitted, for more information consult the project license file.
 
 
 
+from json import dumps
 from ssl import SSLContext
-from ssl import SSLSocket
 from time import sleep as block_sleep
 from typing import Iterator
 from typing import Optional
@@ -17,23 +17,27 @@ from typing import overload
 from unittest.mock import MagicMock
 from unittest.mock import Mock
 
+from encommon.types import DictStrAny
+
+from httpx import Response
+
 from pytest import fixture
 
 from pytest_mock import MockerFixture
 
+from respx import MockRouter
 
 
-EVENTS = Optional[list[str]]
+
+EVENTS = Optional[list[DictStrAny]]
 
 SOCKET = tuple[
     SSLContext,
     MagicMock]
 
-TUBLYTES = tuple[bytes, ...]
 
 
-
-class IRCClientSocket(Protocol):
+class MTMClientSocket(Protocol):
     """
     Typing protocol which the developer does not understand.
     """
@@ -64,77 +68,83 @@ class IRCClientSocket(Protocol):
 
 
 
-RVENTS: list[str] = [
+RVENTS: list[DictStrAny] = [
 
-    (':mocked 001 ircbot'
-     ' :Welcome to network'),
+    {'status': 'OK',
+     'seq_reply': 1},
 
-    (':mocked 376 ircbot '
-     ':End of /MOTD command.'),
+    {'event': 'hello',
+     'seq': 0},
 
-    'PING :123456789',
+    {'event': 'status_change',
+     'broadcast': {
+         'user_id': 'f4nf1ok9bj'},
+     'data': {
+         'status': 'online',
+         'user_id': 'f4nf1ok9bj'},
+     'seq': 1},
 
-    (':mocked 376 ircbot '
-     ':End of /MOTD command.'),
+    {'status': 'OK',
+     'seq_reply': 2},
 
-    'PING :123456789']
+    {'status': 'OK',
+     'seq_reply': 3}]
+
+
+
+WHOAMI: DictStrAny = {
+    'id': 'f4nf1ok9bj',
+    'username': 'hal9000'}
 
 
 
 @fixture
-def client_ircsock(  # noqa: CFQ004
+def client_mtmsock(  # noqa: CFQ004
     mocker: MockerFixture,
-) -> IRCClientSocket:
+    respx_mock: MockRouter,
+) -> MTMClientSocket:
     """
     Construct the instance for use in the downstream tests.
 
     :param mocker: Object for mocking the Python routines.
+    :param respx_mock: Object for mocking request operation.
     :returns: Newly constructed instance of related class.
     """
 
-    mckctx = mocker.patch(
-        ('enconnect.irc'
-         '.client.default'),
+    content = dumps(WHOAMI)
+
+    (respx_mock
+     .get(
+         'https://mocked:443'
+         '/api/v4/users/me')
+     .mock(Response(
+         status_code=200,
+         content=content)))
+
+    (respx_mock
+     .post(
+         'https://mocked:443'
+         '/api/v4/posts')
+     .mock(Response(200)))
+
+
+    socmod = mocker.patch(
+        ('enconnect.mattermost'
+         '.client.connect'),
         autospec=True)
-
-    mckmod = mocker.patch(
-        ('enconnect.irc'
-         '.client.socket'),
-        autospec=True)
-
-    secket = (
-        mckctx.return_value)
-
-    secmod = (
-        secket.wrap_socket)
-
-
-    def _split(
-        event: str,
-    ) -> TUBLYTES:
-
-        event += '\r\n'
-
-        split = [
-            x.encode('utf-8')
-            for x in event]
-
-        return tuple(split)
 
 
     def _encode(
-        resps: list[str],
-    ) -> list[TUBLYTES]:
+        resps: list[DictStrAny],
+    ) -> list[bytes]:
 
-        items = [
-            _split(x)
+        return [
+            dumps(x).encode('utf-8')
             for x in resps]
-
-        return items
 
 
     def _delayed(
-        events: list[TUBLYTES],
+        events: list[bytes],
     ) -> Iterator[bytes]:
 
         while True:
@@ -143,22 +153,31 @@ def client_ircsock(  # noqa: CFQ004
 
                 block_sleep(0.1)
 
-                yield from event
+                yield event
 
             block_sleep(0.1)
 
-            yield from [b'']
+            # This event is not using
+            # one that actually exist
+            tneve = {
+                'event': 'discon',
+                'seq': 69420,
+                'error': {
+                    'reason': 'EOF'}}
+
+            yield (
+                dumps(tneve)
+                .encode('utf-8'))
 
 
     def _factory(
-        rvents: list[str],
+        rvents: list[DictStrAny],
     ) -> MagicMock:
 
         effect = _delayed(
             _encode(rvents))
 
-        socket = MagicMock(
-            SSLSocket)
+        socket = MagicMock()
 
         socket.send = Mock()
 
@@ -179,10 +198,9 @@ def client_ircsock(  # noqa: CFQ004
         socket = _factory(
             RVENTS + rvents)
 
-        secmod.return_value = socket
-        mckmod.return_value = socket
+        socmod.return_value = socket
 
-        return (secket, socket)
+        return (socmod, socket)
 
 
     return _fixture

@@ -19,7 +19,7 @@ from pytest import raises
 from ..client import Client
 from ..models import ClientEvent
 from ..params import ClientParams
-from ...fixtures import DSCClientSocket
+from ...fixtures import MTMClientSocket
 
 
 
@@ -29,16 +29,20 @@ def test_ClientEvent() -> None:
     """
 
     event = ClientEvent({
-        'op': 1, 'd': None})
+        'status': 'OK',
+        'seq_reply': 1})
 
 
     attrs = lattrs(event)
 
     assert attrs == [
         'type',
-        'opcode',
         'data',
+        'broadcast',
         'seqno',
+        'status',
+        'error',
+        'seqre',
         'original',
         'kind',
         'author',
@@ -54,7 +58,7 @@ def test_ClientEvent() -> None:
         assert hash(event) > 0
 
     assert instr(
-        'opcode=1 data=None',
+        'type=None data=None',
         event)
 
 
@@ -69,49 +73,52 @@ def test_ClientEvent() -> None:
 
 
 def test_ClientEvent_cover(  # noqa: CFQ001
-    client_dscsock: DSCClientSocket,
+    client_mtmsock: MTMClientSocket,
 ) -> None:
     """
     Perform various tests associated with relevant routines.
 
-    :param client_dscsock: Object to mock client connection.
+    :param client_ircsock: Object to mock client connection.
     """
 
     events: list[DictStrAny] = [
 
-        {'t': 'MESSAGE_CREATE',
-         's': 3,
-         'op': 0,
-         'd': {
-             'id': '33330001',
-             'channel_id': '22220001',
-             'author': {
-                 'id': '44444444',
-                 'username': 'Author'},
-             'content': 'Hello person'}},
+        {'event': 'posted',
+         'seq': 4,
+         'broadcast': {
+             'channel_id': 'nwyxekd4k7'},
+         'data': {
+             'channel_type': 'D',
+             'post': (
+                 '{"user_id":"ietyrmdt5b",'
+                 '"channel_id":"yxenwkd3w2",'
+                 '"message":"Hello person"}'),
+             'sender_name': '@robert'}},
 
-        {'t': 'MESSAGE_CREATE',
-         's': 4,
-         'op': 0,
-         'd': {
-             'id': '33330001',
-             'channel_id': '22220002',
-             'guild_id': '11111111',
-             'author': {
-                 'id': '44444444',
-                 'username': 'Author'},
-             'content': 'Hello world'}}]
+        {'event': 'posted',
+         'seq': 5,
+         'broadcast': {
+             'channel_id': 'nwyxekd4k7'},
+         'data': {
+             'channel_type': 'P',
+             'post': (
+                 '{"user_id":"ietyrmdt5b",'
+                 '"channel_id":"nwyxekd4k7",'
+                 '"message":"Hello world"}'),
+             'sender_name': '@robert'}}]
 
 
     params = ClientParams(
-        token='mocked')
+        server='mocked',
+        token='mocked',
+        teamid='mocked')
 
     client = Client(params)
 
 
     def _operate() -> None:
 
-        client_dscsock(events)
+        client_mtmsock(events)
 
         _raises = ConnectionError
 
@@ -130,11 +137,13 @@ def test_ClientEvent_cover(  # noqa: CFQ001
 
     item = mqueue.get()
 
-    assert item.type == 'READY'
-    assert item.opcode == 0
-    assert item.data
-    assert len(item.data) == 4
-    assert item.seqno == 1
+    assert not item.type
+    assert not item.data
+    assert not item.broadcast
+    assert not item.seqno
+    assert item.status == 'OK'
+    assert not item.error
+    assert item.seqre == 1
 
     assert item.kind == 'event'
     assert not item.author
@@ -144,43 +153,18 @@ def test_ClientEvent_cover(  # noqa: CFQ001
     assert not client.canceled
     assert client.connected
     assert client.nickname == (
-        'dscbot', '10101010')
+        'hal9000', 'f4nf1ok9bj')
 
 
     item = mqueue.get()
 
-    assert not item.type
-    assert item.opcode == 7
+    assert item.type == 'hello'
     assert not item.data
+    assert not item.broadcast
     assert not item.seqno
-
-    assert item.kind == 'event'
-    assert not item.author
-    assert not item.recipient
-    assert not item.message
-
-
-    item = mqueue.get()
-
-    assert not item.type
-    assert item.opcode == 10
-    assert item.data
-    assert len(item.data) == 2
-    assert not item.seqno
-
-    assert item.kind == 'event'
-    assert not item.author
-    assert not item.recipient
-    assert not item.message
-
-
-    item = mqueue.get()
-
-    assert item.type == 'RESUMED'
-    assert item.opcode == 0
-    assert item.data
-    assert len(item.data) == 1
-    assert item.seqno == 1
+    assert not item.status
+    assert not item.error
+    assert not item.seqre
 
     assert item.kind == 'event'
     assert not item.author
@@ -191,54 +175,109 @@ def test_ClientEvent_cover(  # noqa: CFQ001
     item = mqueue.get()
 
     assert item.type == (
-        'MESSAGE_CREATE')
-    assert item.opcode == 0
+        'status_change')
     assert item.data
-    assert len(item.data) == 4
-    assert item.seqno == 3
+    assert item.broadcast
+    assert item.seqno == 1
+    assert not item.status
+    assert not item.error
+    assert not item.seqre
+
+    assert item.kind == 'event'
+    assert not item.author
+    assert not item.recipient
+    assert not item.message
+
+
+    item = mqueue.get()
+
+    assert not item.type
+    assert not item.data
+    assert not item.broadcast
+    assert not item.seqno
+    assert item.status == 'OK'
+    assert not item.error
+    assert item.seqre == 2
+
+    assert item.kind == 'event'
+    assert not item.author
+    assert not item.recipient
+    assert not item.message
+
+
+    item = mqueue.get()
+
+    assert not item.type
+    assert not item.data
+    assert not item.broadcast
+    assert not item.seqno
+    assert item.status == 'OK'
+    assert not item.error
+    assert item.seqre == 3
+
+    assert item.kind == 'event'
+    assert not item.author
+    assert not item.recipient
+    assert not item.message
+
+
+    item = mqueue.get()
+
+    assert item.type == 'posted'
+    assert item.data
+    assert len(item.data) == 3
+    assert item.broadcast
+    assert len(item.broadcast) == 1
+    assert item.seqno == 4
+    assert not item.status
+    assert not item.error
+    assert not item.seqre
 
     assert item.kind == 'privmsg'
     assert item.author == (
-        '44444444', 'Author')
+        'ietyrmdt5b', '@robert')
     assert item.recipient == (
-        (None, '22220001'))
+        'yxenwkd3w2')
     assert item.message == (
         'Hello person')
 
 
     item = mqueue.get()
 
-    assert item.type == (
-        'MESSAGE_CREATE')
-    assert item.opcode == 0
+    assert item.type == 'posted'
     assert item.data
-    assert len(item.data) == 5
-    assert item.seqno == 4
+    assert len(item.data) == 3
+    assert item.broadcast
+    assert len(item.broadcast) == 1
+    assert item.seqno == 5
+    assert not item.status
+    assert not item.error
+    assert not item.seqre
 
     assert item.kind == 'chanmsg'
     assert item.author == (
-        '44444444', 'Author')
+        'ietyrmdt5b', '@robert')
     assert item.recipient == (
-        ('11111111', '22220002'))
+        'nwyxekd4k7')
     assert item.message == (
         'Hello world')
 
 
     item = mqueue.get()
 
-    assert not item.type
-    assert item.opcode == 9
+    assert item.type == 'discon'
     assert not item.data
-    assert not item.seqno
+    assert not item.broadcast
+    assert item.seqno == 69420
+    assert not item.status
+    assert item.error
+    assert len(item.error) == 1
+    assert not item.seqre
 
     assert item.kind == 'event'
     assert not item.author
     assert not item.recipient
     assert not item.message
-
-    assert not client.canceled
-    assert not client.connected
-    assert not client.nickname
 
 
     thread.join(10)

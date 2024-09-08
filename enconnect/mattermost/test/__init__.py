@@ -7,11 +7,11 @@ is permitted, for more information consult the project license file.
 
 
 
-from .dummy import dumlog
-from .http import HTTPClient
+from .helpers import MTMClientSocket
+from .helpers import client_mtmsock
 
 
 
 __all__ = [
-    'HTTPClient',
-    'dumlog']
+    'MTMClientSocket',
+    'client_mtmsock']

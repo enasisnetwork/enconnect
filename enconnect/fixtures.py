@@ -11,6 +11,8 @@ from .discord.test import DSCClientSocket
 from .discord.test import client_dscsock
 from .irc.test import IRCClientSocket
 from .irc.test import client_ircsock
+from .mattermost.test import MTMClientSocket
+from .mattermost.test import client_mtmsock
 
 
 
@@ -18,4 +20,6 @@ __all__ = [
     'IRCClientSocket',
     'client_ircsock',
     'DSCClientSocket',
-    'client_dscsock']
+    'client_dscsock',
+    'MTMClientSocket',
+    'client_mtmsock']

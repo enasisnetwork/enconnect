@@ -210,7 +210,7 @@ class Reddit:
 
 
         token = self.__token
-        token_key = 'Authorization'
+        tokey = 'Authorization'
 
         useragent = self.params.useragent
 
@@ -218,7 +218,7 @@ class Reddit:
             'User-Agent': useragent}
 
         if token is not None:
-            headers[token_key] = token
+            headers[tokey] = token
             server = 'oauth.reddit.com'
 
 
@@ -261,7 +261,7 @@ class Reddit:
 
 
         token = self.__token
-        token_key = 'Authorization'
+        tokey = 'Authorization'
 
         useragent = self.params.useragent
 
@@ -269,7 +269,7 @@ class Reddit:
             'User-Agent': useragent}
 
         if token is not None:
-            headers[token_key] = token
+            headers[tokey] = token
             server = 'oauth.reddit.com'
 
 
