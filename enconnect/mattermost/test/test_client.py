@@ -18,7 +18,7 @@ from pytest import raises
 
 from ..client import Client
 from ..params import ClientParams
-from ...fixtures import IRCClientSocket
+from ...fixtures import MTMClientSocket
 
 
 
@@ -32,11 +32,8 @@ def client() -> Client:
 
     params = ClientParams(
         server='mocked',
-        port=6667,
-        nickname='client',
-        username='client',
-        realname='client',
-        ssl_enable=False)
+        token='mocked',
+        teamid='mocked')
 
     return Client(params)
 
@@ -57,6 +54,7 @@ def test_Client(
     assert attrs == [
         '_Client__params',
         '_Client__logger',
+        '_Client__client',
         '_Client__socket',
         '_Client__conned',
         '_Client__exited',
@@ -108,42 +106,16 @@ def test_Client_cover(
 
 def test_Client_connect(
     client: Client,
-    client_ircsock: IRCClientSocket,
+    client_mtmsock: MTMClientSocket,
 ) -> None:
     """
     Perform various tests associated with relevant routines.
 
     :param client: Class instance for connecting to service.
-    :param client_ircsock: Object to mock client connection.
+    :param client_mtmsock: Object to mock client connection.
     """
 
-    params = client.params
-
-
-    params.port = 6697
-    params.ssl_enable = True
-
-    client = Client(params)
-
-    client_ircsock()
-
-    with raises(ConnectionError):
-        client.operate()
-
-    assert not client.canceled
-    assert not client.connected
-
-    mqueue = client.mqueue
-
-    assert mqueue.qsize() == 3
-
-
-    params.port = 6667
-    params.ssl_enable = False
-
-    client = Client(params)
-
-    client_ircsock()
+    client_mtmsock()
 
 
     with raises(ConnectionError):
@@ -154,4 +126,4 @@ def test_Client_connect(
 
     mqueue = client.mqueue
 
-    assert mqueue.qsize() == 3
+    assert mqueue.qsize() == 6

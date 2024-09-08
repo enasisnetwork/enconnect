@@ -11,15 +11,12 @@ from json import dumps
 from json import loads
 from queue import Queue
 from threading import Event
-from time import sleep as block_sleep
 from typing import Callable
 from typing import Optional
 from typing import TYPE_CHECKING
 
-from encommon.times import Timer
 from encommon.types import DictStrAny
 from encommon.types import NCNone
-from encommon.types import getate
 from encommon.types import sort_dict
 
 from httpx import Response
@@ -39,12 +36,6 @@ if TYPE_CHECKING:
 
 
 
-PING = {
-    'op': 1,
-    'd': None}
-
-
-
 class Client:
     """
     Establish and maintain connection with the chat service.
@@ -60,12 +51,6 @@ class Client:
     __conned: Event
     __exited: Event
     __mynick: Optional[tuple[str, str]]
-    __resume: Event
-
-    __ping: Optional[int]
-    __path: Optional[str]
-    __sesid: Optional[str]
-    __seqno: Optional[int]
 
     __mqueue: Queue[ClientEvent]
     __cancel: Event
@@ -94,12 +79,6 @@ class Client:
         self.__conned = Event()
         self.__exited = Event()
         self.__mynick = None
-        self.__resume = Event()
-
-        self.__ping = None
-        self.__path = None
-        self.__sesid = None
-        self.__seqno = None
 
         self.__mqueue = Queue(
             params.queue_size)
@@ -178,13 +157,9 @@ class Client:
 
     def operate(
         self,
-        *,
-        intents: int = 4609,
     ) -> None:
         """
         Operate the client and populate queue with the messages.
-
-        :param intents: Determine what content will be received.
         """
 
         logger = self.__logger
@@ -193,28 +168,16 @@ class Client:
 
             logger(item='initial')
 
+            self.__socket = None
+            self.__conned.clear()
+            self.__exited.clear()
             self.__mynick = None
 
-            self.__ping = None
-            self.__path = None
-            self.__sesid = None
-            self.__seqno = None
+            self.__cancel.clear()
 
-            self.__setpath()
+            logger(item='operate')
 
-            while not self.canceled:
-
-                logger(item='operate')
-
-                self.__socket = None
-                self.__conned.clear()
-                self.__exited.clear()
-
-                self.__cancel.clear()
-
-                self.__operate(intents)
-
-                block_sleep(1)
+            self.__operate()
 
         finally:
 
@@ -223,9 +186,6 @@ class Client:
             self.__exited.clear()
             self.__mynick = None
 
-            self.__ping = None
-            self.__path = None
-
             self.__cancel.clear()
 
             logger(item='finish')
@@ -233,16 +193,12 @@ class Client:
 
     def __operate(
         self,
-        intents: int,
     ) -> None:
         """
         Operate the client and populate queue with the messages.
-
-        :param intents: Determine what content will be received.
         """
 
         logger = self.__logger
-        resume = self.__resume
 
 
         self.__connect()
@@ -252,41 +208,10 @@ class Client:
         assert socket is not None
 
 
-        receive = (
-            self.socket_recv())
-
-        assert receive is not None
-
-        self.__event(receive)
+        self.__identify()
 
 
-        beat = getate(
-            receive,
-            'd/heartbeat_interval')
-
-        if beat is not None:
-            self.__ping = beat / 1000
-
-
-        ping = self.__ping
-
-        if ping is None:  # NOCVR
-            raise ConnectionError
-
-        timer = Timer(ping)
-
-
-        self.__identify(intents)
-
-
-        def _continue() -> bool:
-
-            return all([
-                not resume.is_set()
-                and not self.canceled])
-
-
-        while _continue():
+        while not self.canceled:
 
             receive = (
                 self.socket_recv())
@@ -294,24 +219,10 @@ class Client:
             if receive is not None:
                 self.__event(receive)
 
-            if timer.pause():
-                continue  # NOCVR
 
-            logger(item='ping')
+        logger(item='close')
 
-            self.socket_send(PING)
-
-
-        code = (
-            4000
-            if resume.is_set()
-            else 1000)
-
-        logger(
-            item='close',
-            code=code)
-
-        socket.close(code)
+        socket.close(1000)
 
 
         if self.__exited.is_set():
@@ -331,46 +242,14 @@ class Client:
         logger = self.__logger
         mqueue = self.__mqueue
 
-        type = event.get('t')
-        opcode = event.get('op')
+        tneve = event.get('event')
 
         model = ClientEvent
 
 
-        if opcode == 11:
-            return None
-
-
-        if type == 'READY':
+        if tneve == 'hello':
 
             logger(item='helo')
-
-
-            sesid = getate(
-                event,
-                'd/session_id')
-
-            assert sesid is not None
-
-            self.__sesid = sesid
-
-
-            path = getate(
-                event,
-                'd/resume_gateway_url')
-
-            if path is not None:
-                self.__path = path
-
-
-            user = getate(
-                event, 'd/user')
-
-            assert user is not None
-
-            self.__mynick = (
-                user['username'],
-                user['id'])
 
 
         object = model(event)
@@ -392,17 +271,59 @@ class Client:
         self.__cancel.set()
 
 
-    def __setpath(
+    def __connect(
         self,
     ) -> None:
         """
-        Collect and store the relevant path for the websockets.
+        Establish the connection with the upstream using socket.
         """
 
+        logger = self.__logger
+
+        params = self.params
+        server = params.server
+
+        logger(item='connect')
+
+        socket = connect(
+            f'wss://{server}/'
+            'api/v4/websocket')
+
+        self.__socket = socket
+
+        self.__conned.set()
+        self.__exited.clear()
+
+
+    def __identify(
+        self,
+    ) -> None:
+        """
+        Identify the client once the connection is established.
+        """
+
+        logger = self.__logger
         request = self.request
 
+        params = self.params
+        token = params.token
+
+        logger(item='identify')
+
+        action = (
+            'authentication'
+            '_challenge')
+
+        data = {'token': token}
+
+        self.socket_send({
+            'seq': 1,
+            'action': action,
+            'data': data})
+
+
         response = request(
-            'get', 'gateway')
+            'get', 'users/me')
 
         (response
          .raise_for_status())
@@ -412,102 +333,13 @@ class Client:
 
         assert isinstance(fetch, dict)
 
-        path = fetch['url']
+        logger(
+            item='whoami',
+            json=dumps(fetch))
 
-
-        self.__path = path
-
-
-    def __connect(
-        self,
-    ) -> None:
-        """
-        Establish the connection with the upstream using socket.
-        """
-
-        logger = self.__logger
-        path = self.__path
-
-        assert path is not None
-
-        logger(item='connect')
-
-        socket = connect(path)
-
-        self.__socket = socket
-
-        self.__conned.set()
-        self.__exited.clear()
-
-
-    def __resumify(
-        self,
-    ) -> None:
-        """
-        Identify the client once the connection is established.
-
-        :param intents: Determine what content will be received.
-        :param client: Value for browser and device properties.
-        """
-
-        logger = self.__logger
-        sesid = self.__sesid
-        seqno = self.__seqno
-
-        params = self.params
-        token = params.token
-
-        data = {
-            'token': token,
-            'session_id': sesid,
-            'seq': seqno}
-
-        logger(item='resumify')
-
-        self.socket_send({
-            'op': 6, 'd': data})
-
-
-    def __identify(
-        self,
-        intents: int,
-        client: str = 'enconnect',
-    ) -> None:
-        """
-        Identify the client once the connection is established.
-
-        :param intents: Determine what content will be received.
-        :param client: Value for browser and device properties.
-        """
-
-        logger = self.__logger
-        resume = self.__resume
-
-        if resume.is_set():
-
-            resume.clear()
-
-            self.__resumify()
-
-            return None
-
-        props = {
-            '$os': 'linux',
-            '$browser': client,
-            '$device': client}
-
-        params = self.params
-        token = params.token
-
-        data = {
-            'intents': intents,
-            'properties': props,
-            'token': token}
-
-        logger(item='identify')
-
-        self.socket_send({
-            'op': 2, 'd': data})
+        self.__mynick = (
+            fetch['username'],
+            fetch['id'])
 
 
     def socket_send(
@@ -552,7 +384,6 @@ class Client:
 
         logger = self.__logger
         exited = self.__exited
-        resume = self.__resume
         socket = self.__socket
 
         if socket is None:
@@ -579,16 +410,9 @@ class Client:
 
         assert isinstance(event, dict)
 
-        opcode = event.get('op')
-        seqno = event.get('s')
+        type = event.get('event')
 
-        if seqno is not None:
-            self.__seqno = seqno
-
-        if opcode == 7:
-            resume.set()
-
-        if opcode == 9:
+        if type == 'discon':
             exited.set()
 
         return sort_dict(event)
@@ -620,18 +444,21 @@ class Client:
 
         logger = self.__logger
         client = self.__client
+        server = self.params.server
+        port = self.params.port
         token = self.params.token
 
+        address = f'{server}:{port}'
         tokey = 'Authorization'
         content = 'application/json'
 
         headers = {
-            tokey: f'Bot {token}',
+            tokey: f'Bearer {token}',
             'Content-Type': content}
 
         location = (
-            'https://discord.com'
-            f'/api/v10/{path}')
+            f'https://{address}'
+            f'/api/v4/{path}')
 
         request = client.request_block
 

@@ -7,11 +7,13 @@ is permitted, for more information consult the project license file.
 
 
 
-from .dummy import dumlog
-from .http import HTTPClient
+from .client import Client
+from .models import ClientEvent
+from .params import ClientParams
 
 
 
 __all__ = [
-    'HTTPClient',
-    'dumlog']
+    'Client',
+    'ClientParams',
+    'ClientEvent']

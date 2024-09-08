@@ -47,7 +47,7 @@ class ClientParams(BaseModel, extra='forbid'):
     queue_size: Annotated[
         int,
         Field(10000,
-              description='Verify the ceritifcate valid',
+              description='Maximum size for queued events',
               ge=1000, le=1000000)]
 
 

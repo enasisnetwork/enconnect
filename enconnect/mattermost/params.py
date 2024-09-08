@@ -9,6 +9,7 @@ is permitted, for more information consult the project license file.
 
 from typing import Annotated
 from typing import Any
+from typing import Optional
 
 from encommon.types import BaseModel
 
@@ -29,42 +30,37 @@ class ClientParams(BaseModel, extra='forbid'):
 
     port: Annotated[
         int,
-        Field(6697,
+        Field(443,
               description='Server address for connection',
               ge=1, le=65535)]
+
+    token: Annotated[
+        str,
+        Field(...,
+              description='Parameter for the integration',
+              min_length=1)]
+
+    teamid: Annotated[
+        str,
+        Field(...,
+              description='Parameter for the integration',
+              min_length=1)]
 
     timeout: Annotated[
         int,
         Field(30,
               description='Timeout connecting to server')]
 
-    nickname: Annotated[
-        str,
-        Field(...,
-              description='Parameter for the integration',
-              min_length=1)]
-
-    username: Annotated[
-        str,
-        Field(...,
-              description='Parameter for the integration',
-              min_length=1)]
-
-    realname: Annotated[
-        str,
-        Field(...,
-              description='Parameter for the integration',
-              min_length=1)]
-
-    ssl_enable: Annotated[
-        bool,
-        Field(True,
-              description='Enable connection encryption')]
-
     ssl_verify: Annotated[
         bool,
         Field(True,
               description='Verify the ceritifcate valid')]
+
+    ssl_capem: Annotated[
+        Optional[str],
+        Field(None,
+              description='Verify the ceritifcate valid',
+              min_length=1)]
 
     queue_size: Annotated[
         int,

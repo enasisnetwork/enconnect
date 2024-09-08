@@ -77,7 +77,7 @@ def test_ClientEvent_cover(  # noqa: CFQ001
 
     events = [
 
-        (':localhost 376 ircbot '
+        (':mocked 376 ircbot '
          ':End of /MOTD command.'),
 
         (':nick!user@host PRIVMSG'
@@ -93,11 +93,11 @@ def test_ClientEvent_cover(  # noqa: CFQ001
          ' NICK :botirc'),
 
         ('ERROR :Closing Link: ircbot'
-         '[localhost] (Quit: ircbot)')]
+         '[mocked] (Quit: ircbot)')]
 
 
     params = ClientParams(
-        server='localhost',
+        server='mocked',
         port=6667,
         nickname='ircbot',
         username='ircbot',
@@ -128,7 +128,7 @@ def test_ClientEvent_cover(  # noqa: CFQ001
 
     item = mqueue.get()
 
-    assert item.prefix == 'localhost'
+    assert item.prefix == 'mocked'
     assert item.command == '001'
     assert item.params == (
         'ircbot :Welcome to network')
@@ -145,7 +145,7 @@ def test_ClientEvent_cover(  # noqa: CFQ001
 
     item = mqueue.get()
 
-    assert item.prefix == 'localhost'
+    assert item.prefix == 'mocked'
     assert item.command == '376'
     assert item.params == (
         'ircbot :End of /MOTD command.')
@@ -158,7 +158,7 @@ def test_ClientEvent_cover(  # noqa: CFQ001
 
     item = mqueue.get()
 
-    assert item.prefix == 'localhost'
+    assert item.prefix == 'mocked'
     assert item.command == '376'
     assert item.params == (
         'ircbot :End of /MOTD command.')
@@ -171,7 +171,7 @@ def test_ClientEvent_cover(  # noqa: CFQ001
 
     item = mqueue.get()
 
-    assert item.prefix == 'localhost'
+    assert item.prefix == 'mocked'
     assert item.command == '376'
     assert item.params == (
         'ircbot :End of /MOTD command.')
@@ -248,7 +248,7 @@ def test_ClientEvent_cover(  # noqa: CFQ001
     assert item.command == 'ERROR'
     assert item.params == (
         ':Closing Link: ircbot'
-        '[localhost] (Quit: ircbot)')
+        '[mocked] (Quit: ircbot)')
 
     assert item.kind == 'event'
     assert not item.author

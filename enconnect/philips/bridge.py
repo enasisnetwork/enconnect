@@ -110,9 +110,9 @@ class Bridge:
         token = self.params.token
         client = self.client
 
-        token_key = 'hue-application-key'
+        tokey = 'hue-application-key'
 
-        headers = {token_key: token}
+        headers = {tokey: token}
 
         location = (
             f'https://{server}'
@@ -144,11 +144,11 @@ class Bridge:
         client = self.client
 
         accept = 'text/event-stream'
-        token_key = 'hue-application-key'
+        tokey = 'hue-application-key'
 
         headers = {
             'Accept': accept,
-            token_key: token}
+            tokey: token}
 
         location = (
             f'https://{server}'
@@ -199,11 +199,11 @@ class Bridge:
         client = self.client
 
         accept = 'text/event-stream'
-        token_key = 'hue-application-key'
+        tokey = 'hue-application-key'
 
         headers = {
             'Accept': accept,
-            token_key: token}
+            tokey: token}
 
         location = (
             f'https://{server}'

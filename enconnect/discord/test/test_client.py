@@ -51,6 +51,7 @@ def test_Client(
 
     assert attrs == [
         '_Client__params',
+        '_Client__logger',
         '_Client__client',
         '_Client__socket',
         '_Client__conned',
@@ -79,6 +80,8 @@ def test_Client(
     assert client.params
 
     assert not client.connected
+
+    assert not client.nickname
 
     assert client.mqueue.qsize() == 0
 

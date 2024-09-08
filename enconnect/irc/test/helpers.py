@@ -66,15 +66,15 @@ class IRCClientSocket(Protocol):
 
 RVENTS: list[str] = [
 
-    (':localhost 001 ircbot'
+    (':mocked 001 ircbot'
      ' :Welcome to network'),
 
-    (':localhost 376 ircbot '
+    (':mocked 376 ircbot '
      ':End of /MOTD command.'),
 
     'PING :123456789',
 
-    (':localhost 376 ircbot '
+    (':mocked 376 ircbot '
      ':End of /MOTD command.'),
 
     'PING :123456789']
