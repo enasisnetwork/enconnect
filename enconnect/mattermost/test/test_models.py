@@ -233,11 +233,34 @@ def test_ClientEvent_cover(  # noqa: CFQ001
     assert not item.error
     assert not item.seqre
 
+    assert item.kind == 'privmsg'
+    assert item.author == (
+        'ietyrmdt5b', '@robert')
+    assert item.recipient == (
+        'yxenwkd3w2')
+    assert item.message == (
+        'Hello person')
+
+
+    item = mqueue.get()
+
+    assert item.type == 'posted'
+    assert item.data
+    assert len(item.data) == 3
+    assert item.broadcast
+    assert len(item.broadcast) == 1
+    assert item.seqno == 5
+    assert not item.status
+    assert not item.error
+    assert not item.seqre
+
     assert item.kind == 'chanmsg'
     assert item.author == (
         'ietyrmdt5b', '@robert')
-    assert item.recipient == 'nwyxekd4k7'
-    assert item.message == 'Hello'
+    assert item.recipient == (
+        'nwyxekd4k7')
+    assert item.message == (
+        'Hello world')
 
 
     item = mqueue.get()

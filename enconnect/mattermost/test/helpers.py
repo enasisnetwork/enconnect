@@ -94,43 +94,7 @@ RVENTS: list[DictStrAny] = [
 
 WHOAMI: DictStrAny = {
     'id': 'f4nf1ok9bj',
-    'create_at': 1725632524305,
-    'update_at': 1725632712874,
-    'delete_at': 0,
-    'username': 'hal9000',
-    'auth_data': '',
-    'auth_service': '',
-    'email': 'hal9000@mocked',
-    'nickname': '',
-    'first_name': 'HAL 9000',
-    'last_name': '',
-    'position': '',
-    'roles': 'system_user system_post_all',
-    'notify_props': {
-        'channel': 'true',
-        'comments': 'never',
-        'desktop': 'mention',
-        'desktop_sound': 'true',
-        'desktop_threads': 'all',
-        'email': 'true',
-        'email_threads': 'all',
-        'first_name': 'false',
-        'mention_keys': '',
-        'push': 'mention',
-        'push_status': 'away',
-        'push_threads': 'all'},
-    'last_password_update': 1725632524305,
-    'last_picture_update': 1725632524661,
-    'locale': 'en',
-    'timezone': {
-        'automaticTimezone': '',
-        'manualTimezone': '',
-        'useAutomaticTimezone': 'true'},
-    'is_bot': True,
-    'bot_description': (
-        "I'm sorry Dave, I'm "
-        "afraid I can't do that"),
-    'disable_welcome_email': False}
+    'username': 'hal9000'}
 
 
 
