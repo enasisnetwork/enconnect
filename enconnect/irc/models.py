@@ -12,11 +12,16 @@ from re import match as re_match
 from typing import Annotated
 from typing import Literal
 from typing import Optional
+from typing import TYPE_CHECKING
 
 from encommon.types import BaseModel
 from encommon.types import DictStrAny
+from encommon.types import NCFalse
 
 from pydantic import Field
+
+if TYPE_CHECKING:
+    from .client import Client
 
 
 
@@ -228,3 +233,26 @@ class ClientEvent(BaseModel, extra='ignore'):
             .split(':', maxsplit=1))
 
         self.message = message[1]
+
+
+    def isme(
+        self,
+        client: 'Client',
+    ) -> bool:
+        """
+        Return the boolean indicating message origin from client.
+
+        :param client: Class instance for connecting to service.
+        :returns: Boolean indicating message origin from client.
+        """
+
+        mynick = client.nickname
+        author = self.author
+
+        if mynick is None:
+            return NCFalse
+
+        if author is None:
+            return False
+
+        return mynick == author

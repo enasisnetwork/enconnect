@@ -62,6 +62,7 @@ class Client:
     __conned: Event
     __exited: Event
     __mynick: Optional[str]
+    __lsnick: Optional[str]
 
     __mqueue: Queue[ClientEvent]
     __cancel: Event
@@ -84,6 +85,7 @@ class Client:
         self.__conned = Event()
         self.__exited = Event()
         self.__mynick = None
+        self.__lsnick = None
 
         self.__mqueue = Queue(
             params.queue_size)
@@ -129,7 +131,7 @@ class Client:
         :returns: Value for the attribute from class instance.
         """
 
-        return self.__mynick
+        return self.__mynick or self.__lsnick
 
 
     @property
@@ -259,6 +261,7 @@ class Client:
                 match.group('crrnt'))
 
             self.__mynick = crrnt
+            self.__lsnick = crrnt
 
 
         match = re_match(
@@ -289,6 +292,7 @@ class Client:
 
             if nick1 == crrnt:
                 self.__mynick = nick2
+                self.__lsnick = nick2
 
 
         object = model(event)

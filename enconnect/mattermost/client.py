@@ -51,6 +51,7 @@ class Client:
     __conned: Event
     __exited: Event
     __mynick: Optional[tuple[str, str]]
+    __lsnick: Optional[tuple[str, str]]
 
     __mqueue: Queue[ClientEvent]
     __cancel: Event
@@ -79,6 +80,7 @@ class Client:
         self.__conned = Event()
         self.__exited = Event()
         self.__mynick = None
+        self.__lsnick = None
 
         self.__mqueue = Queue(
             params.queue_size)
@@ -124,7 +126,7 @@ class Client:
         :returns: Value for the attribute from class instance.
         """
 
-        return self.__mynick
+        return self.__mynick or self.__lsnick
 
 
     @property
@@ -338,6 +340,10 @@ class Client:
             json=dumps(fetch))
 
         self.__mynick = (
+            fetch['username'],
+            fetch['id'])
+
+        self.__lsnick = (
             fetch['username'],
             fetch['id'])
 
