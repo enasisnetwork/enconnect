@@ -60,6 +60,7 @@ class Client:
     __conned: Event
     __exited: Event
     __mynick: Optional[tuple[str, str]]
+    __lsnick: Optional[tuple[str, str]]
     __resume: Event
 
     __ping: Optional[int]
@@ -94,6 +95,7 @@ class Client:
         self.__conned = Event()
         self.__exited = Event()
         self.__mynick = None
+        self.__lsnick = None
         self.__resume = Event()
 
         self.__ping = None
@@ -145,7 +147,7 @@ class Client:
         :returns: Value for the attribute from class instance.
         """
 
-        return self.__mynick
+        return self.__mynick or self.__lsnick
 
 
     @property
@@ -369,6 +371,10 @@ class Client:
             assert user is not None
 
             self.__mynick = (
+                user['username'],
+                user['id'])
+
+            self.__lsnick = (
                 user['username'],
                 user['id'])
 

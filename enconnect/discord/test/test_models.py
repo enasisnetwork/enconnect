@@ -100,6 +100,18 @@ def test_ClientEvent_cover(  # noqa: CFQ001
              'author': {
                  'id': '44444444',
                  'username': 'Author'},
+             'content': 'Hello world'}},
+
+        {'t': 'MESSAGE_CREATE',
+         's': 5,
+         'op': 0,
+         'd': {
+             'id': '33330001',
+             'channel_id': '22220002',
+             'guild_id': '11111111',
+             'author': {
+                 'id': '10101010',
+                 'username': 'dscbot'},
              'content': 'Hello world'}}]
 
 
@@ -140,6 +152,7 @@ def test_ClientEvent_cover(  # noqa: CFQ001
     assert not item.author
     assert not item.recipient
     assert not item.message
+    assert not item.isme(client)
 
     assert not client.canceled
     assert client.connected
@@ -158,6 +171,7 @@ def test_ClientEvent_cover(  # noqa: CFQ001
     assert not item.author
     assert not item.recipient
     assert not item.message
+    assert not item.isme(client)
 
 
     item = mqueue.get()
@@ -172,6 +186,7 @@ def test_ClientEvent_cover(  # noqa: CFQ001
     assert not item.author
     assert not item.recipient
     assert not item.message
+    assert not item.isme(client)
 
 
     item = mqueue.get()
@@ -186,6 +201,7 @@ def test_ClientEvent_cover(  # noqa: CFQ001
     assert not item.author
     assert not item.recipient
     assert not item.message
+    assert not item.isme(client)
 
 
     item = mqueue.get()
@@ -199,11 +215,12 @@ def test_ClientEvent_cover(  # noqa: CFQ001
 
     assert item.kind == 'privmsg'
     assert item.author == (
-        '44444444', 'Author')
+        'Author', '44444444')
     assert item.recipient == (
         (None, '22220001'))
     assert item.message == (
         'Hello person')
+    assert not item.isme(client)
 
 
     item = mqueue.get()
@@ -217,11 +234,31 @@ def test_ClientEvent_cover(  # noqa: CFQ001
 
     assert item.kind == 'chanmsg'
     assert item.author == (
-        '44444444', 'Author')
+        'Author', '44444444')
     assert item.recipient == (
         ('11111111', '22220002'))
     assert item.message == (
         'Hello world')
+    assert not item.isme(client)
+
+
+    item = mqueue.get()
+
+    assert item.type == (
+        'MESSAGE_CREATE')
+    assert item.opcode == 0
+    assert item.data
+    assert len(item.data) == 5
+    assert item.seqno == 5
+
+    assert item.kind == 'chanmsg'
+    assert item.author == (
+        'dscbot', '10101010')
+    assert item.recipient == (
+        ('11111111', '22220002'))
+    assert item.message == (
+        'Hello world')
+    assert item.isme(client)
 
 
     item = mqueue.get()
@@ -235,10 +272,12 @@ def test_ClientEvent_cover(  # noqa: CFQ001
     assert not item.author
     assert not item.recipient
     assert not item.message
+    assert not item.isme(client)
 
     assert not client.canceled
     assert not client.connected
-    assert not client.nickname
+    assert client.nickname == (
+        'dscbot', '10101010')
 
 
     thread.join(10)
