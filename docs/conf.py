@@ -22,7 +22,6 @@ copyright = '2024, Enasis Network'
 author = 'Enasis Network'
 nitpicky = True
 version = VERSION
-always_document_param_types = True
 
 extensions = [
     'sphinx.ext.autodoc',
