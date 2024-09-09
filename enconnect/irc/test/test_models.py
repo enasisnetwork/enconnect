@@ -15,6 +15,7 @@ from encommon.types import lattrs
 
 from pytest import raises
 
+from .helpers import EVENTS
 from ..client import Client
 from ..models import ClientEvent
 from ..params import ClientParams
@@ -75,30 +76,6 @@ def test_ClientEvent_cover(  # noqa: CFQ001
     :param client_ircsock: Object to mock client connection.
     """
 
-    events = [
-
-        (':mocked 376 ircbot '
-         ':End of /MOTD command.'),
-
-        (':nick!user@host PRIVMSG'
-         ' ircbot :Hello person'),
-
-        (':nick!user@host PRIVMSG'
-         ' # :Hello world'),
-
-        (':nick!user@host PRIVMSG'
-         ' #funchat :Hello world'),
-
-        (':ircbot!user@host'
-         ' NICK :botirc'),
-
-        (':botirc!user@host PRIVMSG'
-         ' # :Hello world'),
-
-        ('ERROR :Closing Link: ircbot'
-         '[mocked] (Quit: ircbot)')]
-
-
     params = ClientParams(
         server='mocked',
         port=6667,
@@ -112,7 +89,7 @@ def test_ClientEvent_cover(  # noqa: CFQ001
 
     def _operate() -> None:
 
-        client_ircsock(events)
+        client_ircsock(EVENTS)
 
         _raises = ConnectionError
 
@@ -195,13 +172,13 @@ def test_ClientEvent_cover(  # noqa: CFQ001
         'nick!user@host')
     assert item.command == 'PRIVMSG'
     assert item.params == (
-        'ircbot :Hello person')
+        'ircbot :Hello ircbot')
 
     assert item.kind == 'privmsg'
     assert item.author == 'nick'
     assert item.recipient == 'ircbot'
     assert item.message == (
-        'Hello person')
+        'Hello ircbot')
     assert not item.isme(client)
 
 
@@ -259,13 +236,13 @@ def test_ClientEvent_cover(  # noqa: CFQ001
         'botirc!user@host')
     assert item.command == 'PRIVMSG'
     assert item.params == (
-        '# :Hello world')
+        '# :Hello nick')
 
     assert item.kind == 'chanmsg'
     assert item.author == 'botirc'
     assert item.recipient == '#'
     assert item.message == (
-        'Hello world')
+        'Hello nick')
     assert item.isme(client)
 
 

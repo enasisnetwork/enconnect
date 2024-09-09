@@ -29,42 +29,47 @@ from respx import MockRouter
 
 
 
-EVENTS = Optional[list[DictStrAny]]
+_EVENTS = Optional[list[DictStrAny]]
 
-SOCKET = tuple[
+_SOCKET = tuple[
     SSLContext,
     MagicMock]
 
 
 
-class DSCClientSocket(Protocol):
-    """
-    Typing protocol which the developer does not understand.
-    """
+EVENTS: list[DictStrAny] = [
 
-    @overload
-    def __call__(
-        self,
-        rvents: EVENTS,
-    ) -> SOCKET:
-        ...  # NOCVR
+    {'t': 'MESSAGE_CREATE',
+     's': 3,
+     'op': 0,
+     'd': {
+         'channel_id': 'privid',
+         'author': {
+             'id': 'userid',
+             'username': 'user'},
+         'content': 'Hello dscbot'}},
 
-    @overload
-    def __call__(
-        self,
-    ) -> SOCKET:
-        ...  # NOCVR
+    {'t': 'MESSAGE_CREATE',
+     's': 4,
+     'op': 0,
+     'd': {
+         'channel_id': 'chanid',
+         'guild_id': 'guldid',
+         'author': {
+             'id': 'userid',
+             'username': 'user'},
+         'content': 'Hello world'}},
 
-    def __call__(
-        self,
-        rvents: EVENTS = None,
-    ) -> SOCKET:
-        """
-        Construct the instance for use in the downstream tests.
-
-        :param rvents: Raw events for playback from the server.
-        """
-        ...  # NOCVR
+    {'t': 'MESSAGE_CREATE',
+     's': 5,
+     'op': 0,
+     'd': {
+         'channel_id': 'chanid',
+         'guild_id': 'guldid',
+         'author': {
+             'id': 'dscunq',
+             'username': 'dscbot'},
+         'content': 'Hello user'}}]
 
 
 
@@ -80,7 +85,7 @@ RVENTS: list[DictStrAny] = [
          'session_id': 'mocked',
          'user': {
              'username': 'dscbot',
-             'id': '10101010'}}},
+             'id': 'dscunq'}}},
 
     {'op': 7, 'd': None},
 
@@ -89,15 +94,46 @@ RVENTS: list[DictStrAny] = [
      'op': 10,
      'd': {
          'heartbeat_interval': 100,
-         '_trace': ['["gatew...os":0.0}]']}},
+         '_trace': ['["g....0}]']}},
 
     {'t': 'RESUMED',
      's': 1,
      'op': 0,
      'd': {
-         '_trace': ['["gatew...os":23}]}]']}},
+         '_trace': ['["g...3}]}]']}},
 
     {'op': 11, 'd': None}]
+
+
+
+class DSCClientSocket(Protocol):
+    """
+    Typing protocol which the developer does not understand.
+    """
+
+    @overload
+    def __call__(
+        self,
+        rvents: _EVENTS,
+    ) -> _SOCKET:
+        ...  # NOCVR
+
+    @overload
+    def __call__(
+        self,
+    ) -> _SOCKET:
+        ...  # NOCVR
+
+    def __call__(
+        self,
+        rvents: _EVENTS = None,
+    ) -> _SOCKET:
+        """
+        Construct the instance for use in the downstream tests.
+
+        :param rvents: Raw events for playback from the server.
+        """
+        ...  # NOCVR
 
 
 
@@ -129,7 +165,7 @@ def client_dscsock(  # noqa: CFQ004
      .post(
          'https://discord.com'
          '/api/v10/channels/'
-         '22220001/messages')
+         'privid/messages')
      .mock(Response(200)))
 
 
@@ -187,8 +223,8 @@ def client_dscsock(  # noqa: CFQ004
 
 
     def _fixture(
-        rvents: EVENTS = None,
-    ) -> SOCKET:
+        rvents: _EVENTS = None,
+    ) -> _SOCKET:
 
         rvents = rvents or []
 
