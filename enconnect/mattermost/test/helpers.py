@@ -29,42 +29,51 @@ from respx import MockRouter
 
 
 
-EVENTS = Optional[list[DictStrAny]]
+_EVENTS = Optional[list[DictStrAny]]
 
-SOCKET = tuple[
+_SOCKET = tuple[
     SSLContext,
     MagicMock]
 
 
 
-class MTMClientSocket(Protocol):
-    """
-    Typing protocol which the developer does not understand.
-    """
+EVENTS: list[DictStrAny] = [
 
-    @overload
-    def __call__(
-        self,
-        rvents: EVENTS,
-    ) -> SOCKET:
-        ...  # NOCVR
+    {'event': 'posted',
+     'seq': 4,
+     'broadcast': {
+         'channel_id': 'chanid'},
+     'data': {
+         'channel_type': 'D',
+         'post': (
+             '{"user_id":"userid",'
+             '"channel_id":"privid",'
+             '"message":"Hello mtmbot"}'),
+         'sender_name': '@user'}},
 
-    @overload
-    def __call__(
-        self,
-    ) -> SOCKET:
-        ...  # NOCVR
+    {'event': 'posted',
+     'seq': 5,
+     'broadcast': {
+         'channel_id': 'chanid'},
+     'data': {
+         'channel_type': 'P',
+         'post': (
+             '{"user_id":"userid",'
+             '"channel_id":"chanid",'
+             '"message":"Hello world"}'),
+         'sender_name': '@user'}},
 
-    def __call__(
-        self,
-        rvents: EVENTS = None,
-    ) -> SOCKET:
-        """
-        Construct the instance for use in the downstream tests.
-
-        :param rvents: Raw events for playback from the server.
-        """
-        ...  # NOCVR
+    {'event': 'posted',
+     'seq': 6,
+     'broadcast': {
+         'channel_id': 'chanid'},
+     'data': {
+         'channel_type': 'P',
+         'post': (
+             '{"user_id":"mtmunq",'
+             '"channel_id":"chanid",'
+             '"message":"Hello user"}'),
+         'sender_name': '@mtmbot'}}]
 
 
 
@@ -78,10 +87,10 @@ RVENTS: list[DictStrAny] = [
 
     {'event': 'status_change',
      'broadcast': {
-         'user_id': 'f4nf1ok9bj'},
+         'user_id': 'mtmunq'},
      'data': {
          'status': 'online',
-         'user_id': 'f4nf1ok9bj'},
+         'user_id': 'mtmunq'},
      'seq': 1},
 
     {'status': 'OK',
@@ -93,8 +102,39 @@ RVENTS: list[DictStrAny] = [
 
 
 WHOAMI: DictStrAny = {
-    'id': 'f4nf1ok9bj',
+    'id': 'mtmunq',
     'username': 'mtmbot'}
+
+
+
+class MTMClientSocket(Protocol):
+    """
+    Typing protocol which the developer does not understand.
+    """
+
+    @overload
+    def __call__(
+        self,
+        rvents: _EVENTS,
+    ) -> _SOCKET:
+        ...  # NOCVR
+
+    @overload
+    def __call__(
+        self,
+    ) -> _SOCKET:
+        ...  # NOCVR
+
+    def __call__(
+        self,
+        rvents: _EVENTS = None,
+    ) -> _SOCKET:
+        """
+        Construct the instance for use in the downstream tests.
+
+        :param rvents: Raw events for playback from the server.
+        """
+        ...  # NOCVR
 
 
 
@@ -190,8 +230,8 @@ def client_mtmsock(  # noqa: CFQ004
 
 
     def _fixture(
-        rvents: EVENTS = None,
-    ) -> SOCKET:
+        rvents: _EVENTS = None,
+    ) -> _SOCKET:
 
         rvents = rvents or []
 

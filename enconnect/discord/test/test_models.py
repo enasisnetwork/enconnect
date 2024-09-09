@@ -9,13 +9,13 @@ is permitted, for more information consult the project license file.
 
 from threading import Thread
 
-from encommon.types import DictStrAny
 from encommon.types import inrepr
 from encommon.types import instr
 from encommon.types import lattrs
 
 from pytest import raises
 
+from .helpers import EVENTS
 from ..client import Client
 from ..models import ClientEvent
 from ..params import ClientParams
@@ -77,44 +77,6 @@ def test_ClientEvent_cover(  # noqa: CFQ001
     :param client_dscsock: Object to mock client connection.
     """
 
-    events: list[DictStrAny] = [
-
-        {'t': 'MESSAGE_CREATE',
-         's': 3,
-         'op': 0,
-         'd': {
-             'id': '33330001',
-             'channel_id': '22220001',
-             'author': {
-                 'id': '44444444',
-                 'username': 'Author'},
-             'content': 'Hello person'}},
-
-        {'t': 'MESSAGE_CREATE',
-         's': 4,
-         'op': 0,
-         'd': {
-             'id': '33330001',
-             'channel_id': '22220002',
-             'guild_id': '11111111',
-             'author': {
-                 'id': '44444444',
-                 'username': 'Author'},
-             'content': 'Hello world'}},
-
-        {'t': 'MESSAGE_CREATE',
-         's': 5,
-         'op': 0,
-         'd': {
-             'id': '33330001',
-             'channel_id': '22220002',
-             'guild_id': '11111111',
-             'author': {
-                 'id': '10101010',
-                 'username': 'dscbot'},
-             'content': 'Hello world'}}]
-
-
     params = ClientParams(
         token='mocked')
 
@@ -123,7 +85,7 @@ def test_ClientEvent_cover(  # noqa: CFQ001
 
     def _operate() -> None:
 
-        client_dscsock(events)
+        client_dscsock(EVENTS)
 
         _raises = ConnectionError
 
@@ -157,7 +119,7 @@ def test_ClientEvent_cover(  # noqa: CFQ001
     assert not client.canceled
     assert client.connected
     assert client.nickname == (
-        'dscbot', '10101010')
+        'dscbot', 'dscunq')
 
 
     item = mqueue.get()
@@ -210,16 +172,16 @@ def test_ClientEvent_cover(  # noqa: CFQ001
         'MESSAGE_CREATE')
     assert item.opcode == 0
     assert item.data
-    assert len(item.data) == 4
+    assert len(item.data) == 3
     assert item.seqno == 3
 
     assert item.kind == 'privmsg'
     assert item.author == (
-        'Author', '44444444')
+        'user', 'userid')
     assert item.recipient == (
-        (None, '22220001'))
+        (None, 'privid'))
     assert item.message == (
-        'Hello person')
+        'Hello dscbot')
     assert not item.isme(client)
 
 
@@ -229,14 +191,14 @@ def test_ClientEvent_cover(  # noqa: CFQ001
         'MESSAGE_CREATE')
     assert item.opcode == 0
     assert item.data
-    assert len(item.data) == 5
+    assert len(item.data) == 4
     assert item.seqno == 4
 
     assert item.kind == 'chanmsg'
     assert item.author == (
-        'Author', '44444444')
+        'user', 'userid')
     assert item.recipient == (
-        ('11111111', '22220002'))
+        ('guldid', 'chanid'))
     assert item.message == (
         'Hello world')
     assert not item.isme(client)
@@ -248,16 +210,16 @@ def test_ClientEvent_cover(  # noqa: CFQ001
         'MESSAGE_CREATE')
     assert item.opcode == 0
     assert item.data
-    assert len(item.data) == 5
+    assert len(item.data) == 4
     assert item.seqno == 5
 
     assert item.kind == 'chanmsg'
     assert item.author == (
-        'dscbot', '10101010')
+        'dscbot', 'dscunq')
     assert item.recipient == (
-        ('11111111', '22220002'))
+        ('guldid', 'chanid'))
     assert item.message == (
-        'Hello world')
+        'Hello user')
     assert item.isme(client)
 
 
@@ -277,7 +239,7 @@ def test_ClientEvent_cover(  # noqa: CFQ001
     assert not client.canceled
     assert not client.connected
     assert client.nickname == (
-        'dscbot', '10101010')
+        'dscbot', 'dscunq')
 
 
     thread.join(10)

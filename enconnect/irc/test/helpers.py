@@ -23,44 +23,38 @@ from pytest_mock import MockerFixture
 
 
 
-EVENTS = Optional[list[str]]
+_EVENTS = Optional[list[str]]
 
-SOCKET = tuple[
+_SOCKET = tuple[
     SSLContext,
     MagicMock]
 
-TUBLYTES = tuple[bytes, ...]
+_TUBLYTES = tuple[bytes, ...]
 
 
 
-class IRCClientSocket(Protocol):
-    """
-    Typing protocol which the developer does not understand.
-    """
+EVENTS: list[str] = [
 
-    @overload
-    def __call__(
-        self,
-        rvents: EVENTS,
-    ) -> SOCKET:
-        ...  # NOCVR
+    (':mocked 376 ircbot '
+     ':End of /MOTD command.'),
 
-    @overload
-    def __call__(
-        self,
-    ) -> SOCKET:
-        ...  # NOCVR
+    (':nick!user@host PRIVMSG'
+     ' ircbot :Hello ircbot'),
 
-    def __call__(
-        self,
-        rvents: EVENTS = None,
-    ) -> SOCKET:
-        """
-        Construct the instance for use in the downstream tests.
+    (':nick!user@host PRIVMSG'
+     ' # :Hello world'),
 
-        :param rvents: Raw events for playback from the server.
-        """
-        ...  # NOCVR
+    (':nick!user@host PRIVMSG'
+     ' #funchat :Hello world'),
+
+    (':ircbot!user@host'
+     ' NICK :botirc'),
+
+    (':botirc!user@host PRIVMSG'
+     ' # :Hello nick'),
+
+    ('ERROR :Closing Link: ircbot'
+     '[mocked] (Quit: ircbot)')]
 
 
 
@@ -78,6 +72,37 @@ RVENTS: list[str] = [
      ':End of /MOTD command.'),
 
     'PING :123456789']
+
+
+
+class IRCClientSocket(Protocol):
+    """
+    Typing protocol which the developer does not understand.
+    """
+
+    @overload
+    def __call__(
+        self,
+        rvents: _EVENTS,
+    ) -> _SOCKET:
+        ...  # NOCVR
+
+    @overload
+    def __call__(
+        self,
+    ) -> _SOCKET:
+        ...  # NOCVR
+
+    def __call__(
+        self,
+        rvents: _EVENTS = None,
+    ) -> _SOCKET:
+        """
+        Construct the instance for use in the downstream tests.
+
+        :param rvents: Raw events for playback from the server.
+        """
+        ...  # NOCVR
 
 
 
@@ -111,7 +136,7 @@ def client_ircsock(  # noqa: CFQ004
 
     def _split(
         event: str,
-    ) -> TUBLYTES:
+    ) -> _TUBLYTES:
 
         event += '\r\n'
 
@@ -124,7 +149,7 @@ def client_ircsock(  # noqa: CFQ004
 
     def _encode(
         resps: list[str],
-    ) -> list[TUBLYTES]:
+    ) -> list[_TUBLYTES]:
 
         items = [
             _split(x)
@@ -134,7 +159,7 @@ def client_ircsock(  # noqa: CFQ004
 
 
     def _delayed(
-        events: list[TUBLYTES],
+        events: list[_TUBLYTES],
     ) -> Iterator[bytes]:
 
         while True:
@@ -171,8 +196,8 @@ def client_ircsock(  # noqa: CFQ004
 
 
     def _fixture(
-        rvents: EVENTS = None,
-    ) -> SOCKET:
+        rvents: _EVENTS = None,
+    ) -> _SOCKET:
 
         rvents = rvents or []
 

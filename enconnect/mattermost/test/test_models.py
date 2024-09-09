@@ -9,13 +9,13 @@ is permitted, for more information consult the project license file.
 
 from threading import Thread
 
-from encommon.types import DictStrAny
 from encommon.types import inrepr
 from encommon.types import instr
 from encommon.types import lattrs
 
 from pytest import raises
 
+from .helpers import EVENTS
 from ..client import Client
 from ..models import ClientEvent
 from ..params import ClientParams
@@ -81,45 +81,6 @@ def test_ClientEvent_cover(  # noqa: CFQ001
     :param client_ircsock: Object to mock client connection.
     """
 
-    events: list[DictStrAny] = [
-
-        {'event': 'posted',
-         'seq': 4,
-         'broadcast': {
-             'channel_id': 'nwyxekd4k7'},
-         'data': {
-             'channel_type': 'D',
-             'post': (
-                 '{"user_id":"ietyrmdt5b",'
-                 '"channel_id":"yxenwkd3w2",'
-                 '"message":"Hello person"}'),
-             'sender_name': '@robert'}},
-
-        {'event': 'posted',
-         'seq': 5,
-         'broadcast': {
-             'channel_id': 'nwyxekd4k7'},
-         'data': {
-             'channel_type': 'P',
-             'post': (
-                 '{"user_id":"ietyrmdt5b",'
-                 '"channel_id":"nwyxekd4k7",'
-                 '"message":"Hello world"}'),
-             'sender_name': '@robert'}},
-
-        {'event': 'posted',
-         'seq': 6,
-         'broadcast': {
-             'channel_id': 'nwyxekd4k7'},
-         'data': {
-             'channel_type': 'P',
-             'post': (
-                 '{"user_id":"f4nf1ok9bj",'
-                 '"channel_id":"nwyxekd4k7",'
-                 '"message":"Hello world"}'),
-             'sender_name': '@mtmbot'}}]
-
-
     params = ClientParams(
         server='mocked',
         token='mocked',
@@ -130,7 +91,7 @@ def test_ClientEvent_cover(  # noqa: CFQ001
 
     def _operate() -> None:
 
-        client_mtmsock(events)
+        client_mtmsock(EVENTS)
 
         _raises = ConnectionError
 
@@ -166,7 +127,7 @@ def test_ClientEvent_cover(  # noqa: CFQ001
     assert not client.canceled
     assert client.connected
     assert client.nickname == (
-        'mtmbot', 'f4nf1ok9bj')
+        'mtmbot', 'mtmunq')
 
 
     item = mqueue.get()
@@ -252,11 +213,11 @@ def test_ClientEvent_cover(  # noqa: CFQ001
 
     assert item.kind == 'privmsg'
     assert item.author == (
-        '@robert', 'ietyrmdt5b')
+        '@user', 'userid')
     assert item.recipient == (
-        'yxenwkd3w2')
+        'privid')
     assert item.message == (
-        'Hello person')
+        'Hello mtmbot')
     assert not item.isme(client)
 
 
@@ -274,9 +235,9 @@ def test_ClientEvent_cover(  # noqa: CFQ001
 
     assert item.kind == 'chanmsg'
     assert item.author == (
-        '@robert', 'ietyrmdt5b')
+        '@user', 'userid')
     assert item.recipient == (
-        'nwyxekd4k7')
+        'chanid')
     assert item.message == (
         'Hello world')
     assert not item.isme(client)
@@ -296,11 +257,11 @@ def test_ClientEvent_cover(  # noqa: CFQ001
 
     assert item.kind == 'chanmsg'
     assert item.author == (
-        '@mtmbot', 'f4nf1ok9bj')
+        '@mtmbot', 'mtmunq')
     assert item.recipient == (
-        'nwyxekd4k7')
+        'chanid')
     assert item.message == (
-        'Hello world')
+        'Hello user')
     assert item.isme(client)
 
 
@@ -324,7 +285,7 @@ def test_ClientEvent_cover(  # noqa: CFQ001
     assert not client.canceled
     assert not client.connected
     assert client.nickname == (
-        'mtmbot', 'f4nf1ok9bj')
+        'mtmbot', 'mtmunq')
 
 
     thread.join(10)
