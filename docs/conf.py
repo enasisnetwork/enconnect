@@ -20,13 +20,12 @@ from enconnect import VERSION  # noqa: E402
 project = 'enconnect'
 copyright = '2024, Enasis Network'
 author = 'Enasis Network'
-master_doc = 'index'
 nitpicky = True
 version = VERSION
+always_document_param_types = True
 
 extensions = [
     'sphinx.ext.autodoc',
-    'sphinx_autodoc_typehints',
     'sphinx.ext.doctest',
     'sphinx.ext.intersphinx',
     'sphinx.ext.viewcode',
@@ -38,14 +37,28 @@ always_document_param_types = True
 
 intersphinx_mapping = {
     'encommon': ('https://encommon.readthedocs.io/en/stable', None),
-    'pathlib': ('https://docs.python.org/3', None),
+    'pydantic': ('https://docs.pydantic.dev/latest', None),
     'pytest': ('https://docs.pytest.org/latest', None),
     'python': ('https://docs.python.org/3', None)}
 
 nitpick_ignore = [
+
+    # Seems to be an issue using Pydantic
+    ('py:class', 'Field'),
+    ('py:class', 'FieldInfo'),
+    ('py:class', 'Ge'),
+    ('py:class', 'Le'),
+    ('py:class', 'MinLen'),
+    ('py:class', 'NoneType'),
+
+    # Not sure what causes these warnings
     ('py:class', 'httpx.AsyncClient'),
+    ('py:class', 'httpx.AsyncByteStream'),
     ('py:class', 'httpx.Client'),
     ('py:class', 'httpx.Response'),
-    ('py:class', 'pydantic.main.BaseModel'),
+    ('py:class', 'httpx.SyncByteStream'),
+    ('py:class', 'pytest_mock.plugin.MockerFixture'),
     ('py:class', 'requests.models.Response'),
-    ('py:class', 'requests.sessions.Session')]
+    ('py:class', 'requests.sessions.Session'),
+    ('py:class', 'respx.router.MockRouter'),
+    ('py:class', 'types.Annotated')]
