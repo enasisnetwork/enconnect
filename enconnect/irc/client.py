@@ -295,7 +295,8 @@ class Client:
                 self.__lsnick = nick2
 
 
-        object = model(event)
+        object = model(
+            self, event)
 
         mqueue.put(object)
 

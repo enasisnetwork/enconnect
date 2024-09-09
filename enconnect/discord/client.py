@@ -379,7 +379,8 @@ class Client:
                 user['id'])
 
 
-        object = model(event)
+        object = model(
+            self, event)
 
         mqueue.put(object)
 
