@@ -69,3 +69,5 @@ make -s venv-create
    ```
 
 1. Update [Read the Docs](https://enconnect.readthedocs.io) documentation.
+
+1. Consider running builds on dependent projects.
