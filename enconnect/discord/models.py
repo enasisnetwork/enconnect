@@ -14,7 +14,6 @@ from typing import TYPE_CHECKING
 
 from encommon.types import BaseModel
 from encommon.types import DictStrAny
-from encommon.types import NCFalse
 from encommon.types import NCNone
 
 from pydantic import Field
@@ -75,6 +74,11 @@ class ClientEvent(BaseModel, extra='ignore'):
         Field('event',
               description='Dynamic field parsed from event')]
 
+    isme: Annotated[
+        bool,
+        Field(False,
+              description='Indicates message is from client')]
+
     author: Annotated[
         Optional[tuple[str, str]],
         Field(None,
@@ -97,6 +101,7 @@ class ClientEvent(BaseModel, extra='ignore'):
     def __init__(
         self,
         /,
+        client: 'Client',
         event: DictStrAny,
     ) -> None:
         """
@@ -133,6 +138,7 @@ class ClientEvent(BaseModel, extra='ignore'):
         self.__set_author()
         self.__set_recipient()
         self.__set_message()
+        self.__set_isme(client)
 
 
     def __set_kind(
@@ -242,24 +248,25 @@ class ClientEvent(BaseModel, extra='ignore'):
         self.message = content
 
 
-    def isme(
+    def __set_isme(
         self,
         client: 'Client',
-    ) -> bool:
+    ) -> None:
         """
-        Return the boolean indicating message origin from client.
+        Update the value for the attribute from class instance.
 
         :param client: Class instance for connecting to service.
-        :returns: Boolean indicating message origin from client.
         """
 
         mynick = client.nickname
         author = self.author
 
-        if mynick is None:
-            return NCFalse
+        isme: bool = False
 
-        if author is None:
-            return False
+        if mynick and author:
 
-        return mynick[1] == author[1]
+            mine = mynick[1]
+            them = author[1]
+            isme = mine == them
+
+        self.isme = isme

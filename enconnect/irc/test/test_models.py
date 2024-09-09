@@ -28,8 +28,23 @@ def test_ClientEvent() -> None:
     Perform various tests associated with relevant routines.
     """
 
+    params = ClientParams(
+        server='mocked',
+        port=6667,
+        nickname='ircbot',
+        username='ircbot',
+        realname='ircbot',
+        ssl_enable=False)
+
+    client = Client(params)
+
+
+    _event = (
+        ':server PING'
+        ' :123456789')
+
     event = ClientEvent(
-        ':server PING :123456789')
+        client, _event)
 
 
     attrs = lattrs(event)
@@ -40,6 +55,7 @@ def test_ClientEvent() -> None:
         'params',
         'original',
         'kind',
+        'isme',
         'author',
         'recipient',
         'message']
@@ -58,6 +74,8 @@ def test_ClientEvent() -> None:
 
 
     assert event.kind == 'event'
+
+    assert not event.isme
 
     assert not event.author
 
@@ -114,10 +132,10 @@ def test_ClientEvent_cover(  # noqa: CFQ001
         'ircbot :Welcome to network')
 
     assert item.kind == 'event'
+    assert not item.isme
     assert not item.author
     assert not item.recipient
     assert not item.message
-    assert not item.isme(client)
 
     assert not client.canceled
     assert client.connected
@@ -132,10 +150,10 @@ def test_ClientEvent_cover(  # noqa: CFQ001
         'ircbot :End of /MOTD command.')
 
     assert item.kind == 'event'
+    assert not item.isme
     assert not item.author
     assert not item.recipient
     assert not item.message
-    assert not item.isme(client)
 
 
     item = mqueue.get()
@@ -146,10 +164,10 @@ def test_ClientEvent_cover(  # noqa: CFQ001
         'ircbot :End of /MOTD command.')
 
     assert item.kind == 'event'
+    assert not item.isme
     assert not item.author
     assert not item.recipient
     assert not item.message
-    assert not item.isme(client)
 
 
     item = mqueue.get()
@@ -160,10 +178,10 @@ def test_ClientEvent_cover(  # noqa: CFQ001
         'ircbot :End of /MOTD command.')
 
     assert item.kind == 'event'
+    assert not item.isme
     assert not item.author
     assert not item.recipient
     assert not item.message
-    assert not item.isme(client)
 
 
     item = mqueue.get()
@@ -175,11 +193,11 @@ def test_ClientEvent_cover(  # noqa: CFQ001
         'ircbot :Hello ircbot')
 
     assert item.kind == 'privmsg'
+    assert not item.isme
     assert item.author == 'nick'
     assert item.recipient == 'ircbot'
     assert item.message == (
         'Hello ircbot')
-    assert not item.isme(client)
 
 
     item = mqueue.get()
@@ -191,11 +209,11 @@ def test_ClientEvent_cover(  # noqa: CFQ001
         '# :Hello world')
 
     assert item.kind == 'chanmsg'
+    assert not item.isme
     assert item.author == 'nick'
     assert item.recipient == '#'
     assert item.message == (
         'Hello world')
-    assert not item.isme(client)
 
 
     item = mqueue.get()
@@ -207,11 +225,11 @@ def test_ClientEvent_cover(  # noqa: CFQ001
         '#funchat :Hello world')
 
     assert item.kind == 'chanmsg'
+    assert not item.isme
     assert item.author == 'nick'
     assert item.recipient == '#funchat'
     assert item.message == (
         'Hello world')
-    assert not item.isme(client)
 
 
     item = mqueue.get()
@@ -222,10 +240,10 @@ def test_ClientEvent_cover(  # noqa: CFQ001
     assert item.params == ':botirc'
 
     assert item.kind == 'event'
+    assert not item.isme
     assert not item.author
     assert not item.recipient
     assert not item.message
-    assert not item.isme(client)
 
     assert client.nickname == 'botirc'
 
@@ -239,11 +257,11 @@ def test_ClientEvent_cover(  # noqa: CFQ001
         '# :Hello nick')
 
     assert item.kind == 'chanmsg'
+    assert item.isme
     assert item.author == 'botirc'
     assert item.recipient == '#'
     assert item.message == (
         'Hello nick')
-    assert item.isme(client)
 
 
     item = mqueue.get()
@@ -255,10 +273,10 @@ def test_ClientEvent_cover(  # noqa: CFQ001
         '[mocked] (Quit: ircbot)')
 
     assert item.kind == 'event'
+    assert not item.isme
     assert not item.author
     assert not item.recipient
     assert not item.message
-    assert not item.isme(client)
 
     assert not client.canceled
     assert not client.connected

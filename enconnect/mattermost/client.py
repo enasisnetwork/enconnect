@@ -254,7 +254,8 @@ class Client:
             logger(item='helo')
 
 
-        object = model(event)
+        object = model(
+            self, event)
 
         mqueue.put(object)
 

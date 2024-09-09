@@ -28,8 +28,16 @@ def test_ClientEvent() -> None:
     Perform various tests associated with relevant routines.
     """
 
-    event = ClientEvent({
-        'op': 1, 'd': None})
+    params = ClientParams(
+        token='mocked')
+
+    client = Client(params)
+
+
+    _event = {'op': 1}
+
+    event = ClientEvent(
+        client, _event)
 
 
     attrs = lattrs(event)
@@ -41,6 +49,7 @@ def test_ClientEvent() -> None:
         'seqno',
         'original',
         'kind',
+        'isme',
         'author',
         'recipient',
         'message']
@@ -59,6 +68,8 @@ def test_ClientEvent() -> None:
 
 
     assert event.kind == 'event'
+
+    assert not event.isme
 
     assert not event.author
 
@@ -111,10 +122,10 @@ def test_ClientEvent_cover(  # noqa: CFQ001
     assert item.seqno == 1
 
     assert item.kind == 'event'
+    assert not item.isme
     assert not item.author
     assert not item.recipient
     assert not item.message
-    assert not item.isme(client)
 
     assert not client.canceled
     assert client.connected
@@ -130,10 +141,10 @@ def test_ClientEvent_cover(  # noqa: CFQ001
     assert not item.seqno
 
     assert item.kind == 'event'
+    assert not item.isme
     assert not item.author
     assert not item.recipient
     assert not item.message
-    assert not item.isme(client)
 
 
     item = mqueue.get()
@@ -145,10 +156,10 @@ def test_ClientEvent_cover(  # noqa: CFQ001
     assert not item.seqno
 
     assert item.kind == 'event'
+    assert not item.isme
     assert not item.author
     assert not item.recipient
     assert not item.message
-    assert not item.isme(client)
 
 
     item = mqueue.get()
@@ -160,10 +171,10 @@ def test_ClientEvent_cover(  # noqa: CFQ001
     assert item.seqno == 1
 
     assert item.kind == 'event'
+    assert not item.isme
     assert not item.author
     assert not item.recipient
     assert not item.message
-    assert not item.isme(client)
 
 
     item = mqueue.get()
@@ -176,13 +187,13 @@ def test_ClientEvent_cover(  # noqa: CFQ001
     assert item.seqno == 3
 
     assert item.kind == 'privmsg'
+    assert not item.isme
     assert item.author == (
         'user', 'userid')
     assert item.recipient == (
         (None, 'privid'))
     assert item.message == (
         'Hello dscbot')
-    assert not item.isme(client)
 
 
     item = mqueue.get()
@@ -195,13 +206,13 @@ def test_ClientEvent_cover(  # noqa: CFQ001
     assert item.seqno == 4
 
     assert item.kind == 'chanmsg'
+    assert not item.isme
     assert item.author == (
         'user', 'userid')
     assert item.recipient == (
         ('guldid', 'chanid'))
     assert item.message == (
         'Hello world')
-    assert not item.isme(client)
 
 
     item = mqueue.get()
@@ -214,13 +225,13 @@ def test_ClientEvent_cover(  # noqa: CFQ001
     assert item.seqno == 5
 
     assert item.kind == 'chanmsg'
+    assert item.isme
     assert item.author == (
         'dscbot', 'dscunq')
     assert item.recipient == (
         ('guldid', 'chanid'))
     assert item.message == (
         'Hello user')
-    assert item.isme(client)
 
 
     item = mqueue.get()
@@ -231,10 +242,10 @@ def test_ClientEvent_cover(  # noqa: CFQ001
     assert not item.seqno
 
     assert item.kind == 'event'
+    assert not item.isme
     assert not item.author
     assert not item.recipient
     assert not item.message
-    assert not item.isme(client)
 
     assert not client.canceled
     assert not client.connected
