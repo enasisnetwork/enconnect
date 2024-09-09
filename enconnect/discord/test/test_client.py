@@ -57,6 +57,7 @@ def test_Client(
         '_Client__conned',
         '_Client__exited',
         '_Client__mynick',
+        '_Client__lsnick',
         '_Client__resume',
         '_Client__ping',
         '_Client__path',

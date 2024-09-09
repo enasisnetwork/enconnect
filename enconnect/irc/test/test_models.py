@@ -92,6 +92,9 @@ def test_ClientEvent_cover(  # noqa: CFQ001
         (':ircbot!user@host'
          ' NICK :botirc'),
 
+        (':botirc!user@host PRIVMSG'
+         ' # :Hello world'),
+
         ('ERROR :Closing Link: ircbot'
          '[mocked] (Quit: ircbot)')]
 
@@ -137,6 +140,7 @@ def test_ClientEvent_cover(  # noqa: CFQ001
     assert not item.author
     assert not item.recipient
     assert not item.message
+    assert not item.isme(client)
 
     assert not client.canceled
     assert client.connected
@@ -154,6 +158,7 @@ def test_ClientEvent_cover(  # noqa: CFQ001
     assert not item.author
     assert not item.recipient
     assert not item.message
+    assert not item.isme(client)
 
 
     item = mqueue.get()
@@ -167,6 +172,7 @@ def test_ClientEvent_cover(  # noqa: CFQ001
     assert not item.author
     assert not item.recipient
     assert not item.message
+    assert not item.isme(client)
 
 
     item = mqueue.get()
@@ -180,6 +186,7 @@ def test_ClientEvent_cover(  # noqa: CFQ001
     assert not item.author
     assert not item.recipient
     assert not item.message
+    assert not item.isme(client)
 
 
     item = mqueue.get()
@@ -195,6 +202,7 @@ def test_ClientEvent_cover(  # noqa: CFQ001
     assert item.recipient == 'ircbot'
     assert item.message == (
         'Hello person')
+    assert not item.isme(client)
 
 
     item = mqueue.get()
@@ -210,6 +218,7 @@ def test_ClientEvent_cover(  # noqa: CFQ001
     assert item.recipient == '#'
     assert item.message == (
         'Hello world')
+    assert not item.isme(client)
 
 
     item = mqueue.get()
@@ -225,6 +234,7 @@ def test_ClientEvent_cover(  # noqa: CFQ001
     assert item.recipient == '#funchat'
     assert item.message == (
         'Hello world')
+    assert not item.isme(client)
 
 
     item = mqueue.get()
@@ -238,8 +248,25 @@ def test_ClientEvent_cover(  # noqa: CFQ001
     assert not item.author
     assert not item.recipient
     assert not item.message
+    assert not item.isme(client)
 
     assert client.nickname == 'botirc'
+
+
+    item = mqueue.get()
+
+    assert item.prefix == (
+        'botirc!user@host')
+    assert item.command == 'PRIVMSG'
+    assert item.params == (
+        '# :Hello world')
+
+    assert item.kind == 'chanmsg'
+    assert item.author == 'botirc'
+    assert item.recipient == '#'
+    assert item.message == (
+        'Hello world')
+    assert item.isme(client)
 
 
     item = mqueue.get()
@@ -254,10 +281,11 @@ def test_ClientEvent_cover(  # noqa: CFQ001
     assert not item.author
     assert not item.recipient
     assert not item.message
+    assert not item.isme(client)
 
     assert not client.canceled
     assert not client.connected
-    assert not client.nickname
+    assert client.nickname == 'botirc'
 
 
     thread.join(10)

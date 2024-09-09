@@ -94,7 +94,7 @@ RVENTS: list[DictStrAny] = [
 
 WHOAMI: DictStrAny = {
     'id': 'f4nf1ok9bj',
-    'username': 'hal9000'}
+    'username': 'mtmbot'}
 
 
 

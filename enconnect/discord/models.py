@@ -10,12 +10,17 @@ is permitted, for more information consult the project license file.
 from typing import Annotated
 from typing import Literal
 from typing import Optional
+from typing import TYPE_CHECKING
 
 from encommon.types import BaseModel
 from encommon.types import DictStrAny
+from encommon.types import NCFalse
 from encommon.types import NCNone
 
 from pydantic import Field
+
+if TYPE_CHECKING:
+    from .client import Client
 
 
 
@@ -187,7 +192,7 @@ class ClientEvent(BaseModel, extra='ignore'):
         name = dscuser['username']
 
         self.author = (
-            unique, name)
+            name, unique)
 
 
     def __set_recipient(
@@ -235,3 +240,26 @@ class ClientEvent(BaseModel, extra='ignore'):
             data.get('content'))
 
         self.message = content
+
+
+    def isme(
+        self,
+        client: 'Client',
+    ) -> bool:
+        """
+        Return the boolean indicating message origin from client.
+
+        :param client: Class instance for connecting to service.
+        :returns: Boolean indicating message origin from client.
+        """
+
+        mynick = client.nickname
+        author = self.author
+
+        if mynick is None:
+            return NCFalse
+
+        if author is None:
+            return False
+
+        return mynick[1] == author[1]
