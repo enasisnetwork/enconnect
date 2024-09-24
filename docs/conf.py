@@ -36,28 +36,9 @@ always_document_param_types = True
 
 intersphinx_mapping = {
     'encommon': ('https://encommon.readthedocs.io/en/stable', None),
+    'jinja2': ('https://jinja.palletsprojects.com/en/latest', None),
+    'netaddr': ('https://netaddr.readthedocs.io/en/latest', None),
     'pydantic': ('https://docs.pydantic.dev/latest', None),
     'pytest': ('https://docs.pytest.org/latest', None),
-    'python': ('https://docs.python.org/3', None)}
-
-nitpick_ignore = [
-
-    # Seems to be an issue using Pydantic
-    ('py:class', 'Field'),
-    ('py:class', 'FieldInfo'),
-    ('py:class', 'Ge'),
-    ('py:class', 'Le'),
-    ('py:class', 'MinLen'),
-    ('py:class', 'NoneType'),
-
-    # Not sure what causes these warnings
-    ('py:class', 'httpx.AsyncClient'),
-    ('py:class', 'httpx.AsyncByteStream'),
-    ('py:class', 'httpx.Client'),
-    ('py:class', 'httpx.Response'),
-    ('py:class', 'httpx.SyncByteStream'),
-    ('py:class', 'pytest_mock.plugin.MockerFixture'),
-    ('py:class', 'requests.models.Response'),
-    ('py:class', 'requests.sessions.Session'),
-    ('py:class', 'respx.router.MockRouter'),
-    ('py:class', 'types.Annotated')]
+    'python': ('https://docs.python.org/3', None),
+    'sqlalchemy': ('https://docs.sqlalchemy.org/en/20', None)}
