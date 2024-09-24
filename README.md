@@ -39,8 +39,24 @@ Set up the Python virtual environments expected by the Makefile.
 make -s venv-create
 ```
 
+### Execute the linters and tests
+The comprehensive approach is to use the `check` recipe. This will stop on
+any failure that is encountered.
+```
+make -s check
+```
+However you can run the linters in a non-blocking mode.
+```
+make -s linters-pass
+```
+And finally run the various tests to validate the code and produce coverage
+information found in the `htmlcov` folder in the root of the project.
+```
+make -s pytest
+```
+
 ## Version management
-:warning: Ensure that no changes are pending.
+> :warning: Ensure that no changes are pending.
 
 1. Rebuild the environment.
    ```
