@@ -78,7 +78,7 @@ def test_YouTubeResult() -> None:
 
     assert item.title == 'Validating encommon code'
 
-    assert item.about is not None
+    assert item.about
     assert item.about[:12] == 'Demonstrates'
 
     assert item.channel_title == 'Enasis Network'
@@ -143,7 +143,7 @@ def test_YouTubeVideo() -> None:
 
     assert item.title == 'Validating encommon code'
 
-    assert item.about is not None
+    assert item.about
     assert item.about[:12] == 'Demonstrates'
 
     assert item.thumbnail[:5] == 'https'

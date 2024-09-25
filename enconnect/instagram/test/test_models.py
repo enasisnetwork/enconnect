@@ -77,7 +77,7 @@ def test_InstagramMedia() -> None:
 
     assert item.location[:5] == 'https'
 
-    assert item.permalink is not None
+    assert item.permalink
     assert item.permalink[:5] == 'https'
 
     assert item.thumbnail is None

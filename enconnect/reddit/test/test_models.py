@@ -88,7 +88,7 @@ def test_RedditListing() -> None:
 
     assert item.title[:7] == 'Welcome'
 
-    assert item.selftext is not None
+    assert item.selftext
     assert item.selftext[:5] == 'Hello'
 
     assert item.author == 'enasisnetwork'
