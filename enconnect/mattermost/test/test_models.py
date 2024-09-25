@@ -67,7 +67,7 @@ def test_ClientEvent() -> None:
         event)
 
     with raises(TypeError):
-        assert hash(event) > 0
+        hash(event)
 
     assert instr(
         'type=None data=None',

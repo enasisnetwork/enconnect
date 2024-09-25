@@ -272,13 +272,13 @@ class HTTPClient:
         :returns: Response from upstream request to the server.
         """
 
-        retry = self.retry
-        backoff = self.backoff
-        states = self.states
+        retry = self.__retry
+        backoff = self.__backoff
+        states = self.__states
 
         default = UseClientDefault()
 
-        client = self.client_block
+        client = self.__client_block
         request = client.request
 
 
@@ -331,13 +331,13 @@ class HTTPClient:
         :returns: Response from upstream request to the server.
         """
 
-        retry = self.retry
-        backoff = self.backoff
-        states = self.states
+        retry = self.__retry
+        backoff = self.__backoff
+        states = self.__states
 
         default = UseClientDefault()
 
-        client = self.client_async
+        client = self.__client_async
         request = client.request
 
 
@@ -394,7 +394,7 @@ class HTTPClient:
 
         default = UseClientDefault()
 
-        client = self.client_block
+        client = self.__client_block
         request = client.stream
 
 
@@ -445,7 +445,7 @@ class HTTPClient:
 
         default = UseClientDefault()
 
-        client = self.client_async
+        client = self.__client_async
         request = client.stream
 
 

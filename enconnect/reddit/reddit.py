@@ -108,11 +108,11 @@ class Reddit:
         if self.__token is not None:
             return self.__token
 
-        params = self.params
-        username = params.username
-        password = params.password
-        client = params.client
-        secret = params.secret
+        _params = self.__params
+        username = _params.username
+        password = _params.password
+        client = _params.client
+        secret = _params.secret
 
         request = self.request_block
 
@@ -152,11 +152,11 @@ class Reddit:
             await asyncio.sleep(0)
             return self.__token
 
-        params = self.params
-        username = params.username
-        password = params.password
-        client = params.client
-        secret = params.secret
+        _params = self.__params
+        username = _params.username
+        password = _params.password
+        client = _params.client
+        secret = _params.secret
 
         request = self.request_async
 
@@ -204,7 +204,7 @@ class Reddit:
         """
 
         server = 'www.reddit.com'
-        client = self.client
+        client = self.__client
 
         request = client.request_block
 
@@ -212,10 +212,11 @@ class Reddit:
         token = self.__token
         tokey = 'Authorization'
 
-        useragent = self.params.useragent
+        _params = self.__params
+        agent = _params.useragent
 
         headers = {
-            'User-Agent': useragent}
+            'User-Agent': agent}
 
         if token is not None:
             headers[tokey] = token
@@ -255,7 +256,7 @@ class Reddit:
         """
 
         server = 'www.reddit.com'
-        client = self.client
+        client = self.__client
 
         request = client.request_async
 
@@ -263,10 +264,11 @@ class Reddit:
         token = self.__token
         tokey = 'Authorization'
 
-        useragent = self.params.useragent
+        _params = self.__params
+        agent = _params.useragent
 
         headers = {
-            'User-Agent': useragent}
+            'User-Agent': agent}
 
         if token is not None:
             headers[tokey] = token

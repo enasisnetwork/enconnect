@@ -23,7 +23,7 @@ if TYPE_CHECKING:
 
 class Bridge:
     """
-    Interact with the cloud service API with various methods.
+    Interact with the local service API with various methods.
 
     :param params: Parameters used to instantiate the class.
     """
@@ -97,10 +97,12 @@ class Bridge:
 
         params = dict(params or {})
 
-        server = self.params.server
-        appid = self.params.appid
-        token = self.params.token
-        client = self.client
+        _params = self.__params
+        server = _params.server
+        appid = _params.appid
+        token = _params.token
+
+        client = self.__client
 
         tokey = 'Authorization'
         token = f'Bearer {token}'

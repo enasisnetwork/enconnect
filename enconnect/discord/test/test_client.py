@@ -71,7 +71,8 @@ def test_Client(
         'client.Client object',
         client)
 
-    assert hash(client) > 0
+    assert isinstance(
+        hash(client), int)
 
     assert instr(
         'client.Client object',
