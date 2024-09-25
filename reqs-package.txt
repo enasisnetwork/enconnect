@@ -3,11 +3,13 @@
 respx
 
 pytest
-pytest-asyncio
+
 pytest-clarity
 pytest-cov
-pytest-mock
 pytest-mypy
 pytest-randomly
 pytest-sphinx
 pytest-xdist
+
+pytest-asyncio
+pytest-mock
