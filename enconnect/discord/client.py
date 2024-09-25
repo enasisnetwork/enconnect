@@ -461,8 +461,8 @@ class Client:
         sesid = self.__sesid
         seqno = self.__seqno
 
-        params = self.params
-        token = params.token
+        _params = self.__params
+        token = _params.token
 
         data = {
             'token': token,
@@ -503,8 +503,8 @@ class Client:
             '$browser': client,
             '$device': client}
 
-        params = self.params
-        token = params.token
+        _params = self.__params
+        token = _params.token
 
         data = {
             'intents': intents,
@@ -627,7 +627,9 @@ class Client:
 
         logger = self.__logger
         client = self.__client
-        token = self.params.token
+
+        _params = self.__params
+        token = _params.token
 
         tokey = 'Authorization'
         content = 'application/json'

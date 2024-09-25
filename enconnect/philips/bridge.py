@@ -29,7 +29,7 @@ if TYPE_CHECKING:
 
 class Bridge:
     """
-    Interact with the cloud service API with various methods.
+    Interact with the local service API with various methods.
 
     :param params: Parameters used to instantiate the class.
     """
@@ -106,9 +106,11 @@ class Bridge:
         params = dict(params or {})
         json = dict(json or {})
 
-        server = self.params.server
-        token = self.params.token
-        client = self.client
+        _params = self.__params
+        server = _params.server
+        token = _params.token
+
+        client = self.__client
 
         tokey = 'hue-application-key'
 
@@ -139,9 +141,11 @@ class Bridge:
             This will override the default client instantiated.
         """
 
-        server = self.params.server
-        token = self.params.token
-        client = self.client
+        _params = self.__params
+        server = _params.server
+        token = _params.token
+
+        client = self.__client
 
         accept = 'text/event-stream'
         tokey = 'hue-application-key'
@@ -194,9 +198,11 @@ class Bridge:
             This will override the default client instantiated.
         """
 
-        server = self.params.server
-        token = self.params.token
-        client = self.client
+        _params = self.__params
+        server = _params.server
+        token = _params.token
+
+        client = self.__client
 
         accept = 'text/event-stream'
         tokey = 'hue-application-key'

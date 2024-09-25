@@ -66,7 +66,8 @@ def test_Router(
         'router.Router object',
         router)
 
-    assert hash(router) > 0
+    assert isinstance(
+        hash(router), int)
 
     assert instr(
         'router.Router object',

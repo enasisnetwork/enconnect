@@ -71,7 +71,8 @@ def test_HTTPClient(
         'http.HTTPClient object',
         client)
 
-    assert hash(client) > 0
+    assert isinstance(
+        hash(client), int)
 
     assert instr(
         'http.HTTPClient object',

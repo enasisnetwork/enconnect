@@ -67,7 +67,8 @@ def test_Instagram(
         'instagram.Instagram object',
         social)
 
-    assert hash(social) > 0
+    assert isinstance(
+        hash(social), int)
 
     assert instr(
         'instagram.Instagram object',

@@ -72,7 +72,8 @@ def test_Reddit(
         'reddit.Reddit object',
         social)
 
-    assert hash(social) > 0
+    assert isinstance(
+        hash(social), int)
 
     assert instr(
         'reddit.Reddit object',

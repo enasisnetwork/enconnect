@@ -69,7 +69,8 @@ def test_Bridge(
         'bridge.Bridge object',
         bridge)
 
-    assert hash(bridge) > 0
+    assert isinstance(
+        hash(bridge), int)
 
     assert instr(
         'bridge.Bridge object',

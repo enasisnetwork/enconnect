@@ -23,7 +23,7 @@ if TYPE_CHECKING:
 
 class Router:
     """
-    Interact with the cloud service API with various methods.
+    Interact with the local service API with various methods.
 
     :param params: Parameters used to instantiate the class.
     """
@@ -85,9 +85,9 @@ class Router:
         :returns: Response from upstream request to the server.
         """
 
-        params = self.params
-        username = params.username
-        password = params.password
+        _params = self.__params
+        username = _params.username
+        password = _params.password
 
         payload = {
             'username': username,
@@ -127,8 +127,10 @@ class Router:
         params = dict(params or {})
         json = dict(json or {})
 
-        server = self.params.server
-        client = self.client
+        _params = self.__params
+        server = _params.server
+
+        client = self.__client
 
         location = (
             f'https://{server}/{path}')
@@ -169,7 +171,8 @@ class Router:
         :returns: Response from upstream request to the server.
         """
 
-        site = self.params.site
+        _params = self.__params
+        site = _params.site
 
         path = (
             'proxy/network/api'

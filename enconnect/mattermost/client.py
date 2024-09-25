@@ -283,8 +283,8 @@ class Client:
 
         logger = self.__logger
 
-        params = self.params
-        server = params.server
+        _params = self.__params
+        server = _params.server
 
         logger(item='connect')
 
@@ -308,8 +308,8 @@ class Client:
         logger = self.__logger
         request = self.request
 
-        params = self.params
-        token = params.token
+        _params = self.__params
+        token = _params.token
 
         logger(item='identify')
 
@@ -451,9 +451,11 @@ class Client:
 
         logger = self.__logger
         client = self.__client
-        server = self.params.server
-        port = self.params.port
-        token = self.params.token
+
+        _params = self.__params
+        server = _params.server
+        port = _params.port
+        token = _params.token
 
         address = f'{server}:{port}'
         tokey = 'Authorization'
