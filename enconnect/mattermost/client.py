@@ -15,6 +15,7 @@ from typing import Callable
 from typing import Optional
 from typing import TYPE_CHECKING
 
+from encommon.times import Timer
 from encommon.types import DictStrAny
 from encommon.types import NCNone
 from encommon.types import sort_dict
@@ -33,6 +34,12 @@ from ..utils.http import _PAYLOAD
 
 if TYPE_CHECKING:
     from .params import ClientParams
+
+
+
+PING = {
+    'action': 'ping',
+    'seq': 1}
 
 
 
@@ -210,6 +217,9 @@ class Client:
         assert socket is not None
 
 
+        timer = Timer(30)
+
+
         self.__identify()
 
 
@@ -220,6 +230,13 @@ class Client:
 
             if receive is not None:
                 self.__event(receive)
+
+            if timer.pause():
+                continue  # NOCVR
+
+            logger(item='ping')
+
+            self.socket_send(PING)
 
 
         logger(item='close')
