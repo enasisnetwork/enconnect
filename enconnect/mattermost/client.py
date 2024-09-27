@@ -217,7 +217,8 @@ class Client:
         assert socket is not None
 
 
-        timer = Timer(30)
+        timer = Timer(
+            30, start='min')
 
 
         self.__identify()
