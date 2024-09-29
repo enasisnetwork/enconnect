@@ -284,6 +284,7 @@ class ClientEvent(BaseModel, extra='ignore'):
 
             mine = mynick[1]
             them = author[1]
+
             isme = mine == them
 
         self.isme = isme

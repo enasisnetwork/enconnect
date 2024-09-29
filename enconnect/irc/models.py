@@ -52,8 +52,8 @@ class ClientEvent(BaseModel, extra='ignore'):
               min_length=1)]
 
     command: Annotated[
-        str,
-        Field(...,
+        Optional[str],
+        Field(None,
               description='Code or command for the event',
               min_length=1)]
 
@@ -110,37 +110,40 @@ class ClientEvent(BaseModel, extra='ignore'):
         data: DictStrAny = {
             'original': event}
 
+        operate = (
+            client.params
+            .operate)
+
 
         match = re_match(
             EVENT, event)
 
-        assert match is not None
+        if (operate == 'normal'
+                and match is not None):
 
+            prefix = (
+                match
+                .group('prefix'))
 
-        prefix = (
-            match
-            .group('prefix'))
+            if prefix is not None:
+                data['prefix'] = (
+                    prefix.strip())
 
-        command = (
-            match
-            .group('command'))
+            command = (
+                match
+                .group('command'))
 
-        params = (
-            match
-            .group('params'))
+            if command is not None:
+                data['command'] = (
+                    command.strip())
 
+            params = (
+                match
+                .group('params'))
 
-        if prefix is not None:
-            data['prefix'] = (
-                prefix.strip())
-
-        if command is not None:
-            data['command'] = (
-                command.strip())
-
-        if params is not None:
-            data['params'] = (
-                params.strip())
+            if params is not None:
+                data['params'] = (
+                    params.strip())
 
 
         super().__init__(**data)
@@ -253,13 +256,28 @@ class ClientEvent(BaseModel, extra='ignore'):
 
         mynick = client.nickname
         author = self.author
+        event = self.original
+
+        operate = (
+            client.params
+            .operate)
 
         isme: bool = False
 
-        if mynick and author:
+
+        if operate == 'service':
+
+            prefix = f':{mynick} '
+
+            if event.startswith(prefix):
+                isme = True
+
+
+        elif mynick and author:
 
             mine = mynick
             them = author
+
             isme = mine == them
 
         self.isme = isme

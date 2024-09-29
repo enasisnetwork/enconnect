@@ -58,6 +58,96 @@ EVENTS: list[str] = [
 
 
 
+SVENTS: list[str] = [
+
+    ('SERVER jupiter.invalid 1'
+     ' :U6100-Fhn6OoErmM-0AD IRC Network'),
+
+    (':0AD SID neptune.invalid'
+     ' 2 0PS :IRC Network'),
+
+    ('@s2s-md/tls_cipher='
+     'TLSv1.3-TLS_CHACHA20_POLY1305_SHA256;'
+     's2s-md/creationtime=1727476461'
+     ' :0PS UID enrobie 0'
+     ' 1727476461 enrobie'
+     ' localhost 0PS3FGG02'
+     ' 0 +iwxz * enasis-5DE79E97'
+     ' fwAAAQ== :enrobie'),
+
+    (':0AD MD client 0PS3FGG02'
+     ' creationtime :1727476461'),
+
+    (':0AD MD client'
+     ' 0PS3FGG02 tls_cipher '
+     ':TLSv1.3-TLS_CHACHA20_POLY1305_SHA256'),
+
+    ('@s2s-md/tls_cipher='
+     'TLSv1.3-TLS_CHACHA20_POLY1305_SHA256;'
+     's2s-md/creationtime=1727476468;'
+     's2s-md/operlogin=robert;'
+     's2s-md/operclass=netadmin'
+     ' :0AD UID robert 0'
+     ' 1727508036 robert'
+     ' localhost 0AD1QCV03'
+     ' 0 +iowxz * enasis-5DE79E97'
+     ' AAAAAAAAAAAAAAAAAAAAAQ== :robert'),
+
+    (':0AD MD client 0AD1QCV03'
+     ' operclass :netadmin'),
+
+    (':0AD MD client 0AD1QCV03'
+     ' operlogin :robert'),
+
+    (':0AD MD client 0AD1QCV03'
+     ' creationtime :1727476468'),
+
+    (':0AD MD client'
+     ' 0AD1QCV03 tls_cipher '
+     ':TLSv1.3-TLS_CHACHA20_POLY1305_SHA256'),
+
+    (':42X UID ChatServ 0'
+     ' 1727569796 service'
+     ' services.invalid 42X000009'
+     ' 0 +Sio services.invalid'
+     ' services.invalid * '
+     ':Invitable LLM chatting'),
+
+    ('@msgid=Z48DNGsGfMhR8UwXhAljGz;'
+     'time=2024-09-29T00:29:56.463Z'
+     ' :0AD SJOIN 1727476468'
+     ' #opers +nt :@0AD1QCV03'),
+
+    ('NETINFO 11 1727569796 6100'
+     ' SHA256:b94e96b5d7fbba92fc0a36c2'
+     '667d4d1581a6281ac1440a741d5556f3'
+     ' 0 0 0 :EnasisNET'),
+
+    (':0AD1QCV03 SAJOIN'
+     ' 0PS3FGG02 #funchat'),
+
+    ('@time=2024-09-29T00:53:42.190Z;'
+     'msgid=bdVQ13oQfRcdUnxX2hbb4C;'
+     'unrealircd.org/issued-by='
+     'OPER:robert@jupiter.invalid:robert'
+     ' :0PS SJOIN 1727571222'
+     ' #funchat :0PS3FGG02'),
+
+    ('@unrealircd.org/issued-by='
+     'OPER:robert@jupiter.invalid:robert;'
+     'msgid=bdVQ13oQfRcdUnxX2hbb4C'
+     '-6D9mg3IKCGFgtCeraInDIA;'
+     'time=2024-09-29T00:53:42.190Z'
+     ' :0PS MODE #funchat'
+     ' +nt  1727571222'),
+
+    ('@msgid=mjvxur6dNstbXFajGoPjrU;'
+     'time=2024-09-29T00:53:45.577Z'
+     ' :0AD SJOIN 1727571222'
+     ' #funchat :0AD1QCV03')]
+
+
+
 RVENTS: list[str] = [
 
     (':mocked 001 ircbot'

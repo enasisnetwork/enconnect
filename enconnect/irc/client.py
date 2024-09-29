@@ -131,7 +131,17 @@ class Client:
         :returns: Value for the attribute from class instance.
         """
 
-        return self.__mynick or self.__lsnick
+        params = self.__params
+
+        operate = params.operate
+        serverid = params.serverid
+
+        if operate == 'service':
+            return serverid
+
+        return (
+            self.__mynick
+            or self.__lsnick)
 
 
     @property
@@ -243,25 +253,47 @@ class Client:
         :param event: Raw event received from the network peer.
         """
 
+        params = self.__params
         logger = self.__logger
         mqueue = self.__mqueue
         crrnt = self.__mynick
 
         model = ClientEvent
 
+        operate = params.operate
 
-        match = re_match(
-            HELO, event)
 
-        if match is not None:
+        if operate == 'normal':
 
-            logger(item='helo')
 
-            crrnt = (
-                match.group('crrnt'))
+            match = re_match(
+                HELO, event)
 
-            self.__mynick = crrnt
-            self.__lsnick = crrnt
+            if match is not None:
+
+                crrnt = (
+                    match.group('crrnt'))
+
+                logger(item='helo')
+
+                self.__mynick = crrnt
+                self.__lsnick = crrnt
+
+
+            match = re_match(
+                NICK, event)
+
+            if match is not None:
+
+                nick1 = (
+                    match.group('nick1'))
+
+                nick2 = (
+                    match.group('nick2'))
+
+                if nick1 == crrnt:
+                    self.__mynick = nick2
+                    self.__lsnick = nick2
 
 
         match = re_match(
@@ -269,30 +301,14 @@ class Client:
 
         if match is not None:
 
-            logger(item='ping')
-
             ping = match.group(1)
             pong = f'PONG {ping}'
+
+            logger(item='ping')
 
             self.socket_send(pong)
 
             return None
-
-
-        match = re_match(
-            NICK, event)
-
-        if match is not None:
-
-            nick1 = (
-                match.group('nick1'))
-
-            nick2 = (
-                match.group('nick2'))
-
-            if nick1 == crrnt:
-                self.__mynick = nick2
-                self.__lsnick = nick2
 
 
         object = model(
@@ -374,10 +390,13 @@ class Client:
 
         server = params.server
         port = params.port
+        operate = params.operate
         nick = params.nickname
         user = params.username
         real = params.realname
-
+        passwd = params.password
+        sname = params.servername
+        serverid = params.serverid
         senable = params.ssl_enable
 
         address = (server, port)
@@ -402,12 +421,48 @@ class Client:
         self.__socket = handle
 
 
-        self.socket_send(
-            f'NICK {nick}')
+        if operate == 'normal':
 
-        self.socket_send(
-            f'USER {user} . '
-            f'{nick} :{real}')
+            self.socket_send(
+                f'NICK {nick}')
+
+            self.socket_send(
+                f'USER {user} . '
+                f'{nick} :{real}')
+
+
+        if passwd is not None:
+
+            self.socket_send(
+                f'PASS {passwd}')
+
+
+        if operate == 'service':
+
+            self.socket_send(
+                'PROTOCTL'
+                f' EAUTH={sname}'
+                f' SID={serverid}')
+
+            self.socket_send(
+                'PROTOCTL'
+                ' NOQUIT'
+                ' NICKv2'
+                ' SJOIN'
+                ' SJ3'
+                ' NICKIP'
+                ' TKLEXT'
+                ' TKLEXT2'
+                ' NEXTBANS'
+                ' CLK'
+                ' ESVID'
+                ' MLOCK'
+                ' MTAGS'
+                ' EXTSWHOIS')
+
+            self.socket_send(
+                f'SERVER {sname}'
+                f' 1 :{real}')
 
 
         self.__conned.set()

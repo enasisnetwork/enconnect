@@ -67,6 +67,8 @@ def test_ClientEvent() -> None:
         event)
 
 
+    assert event.original
+
     assert event.kind == 'event'
 
     assert not event.isme

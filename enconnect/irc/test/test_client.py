@@ -147,6 +147,25 @@ def test_Client_connect(
 
     client_ircsock()
 
+    with raises(ConnectionError):
+        client.operate()
+
+    assert not client.canceled
+    assert not client.connected
+
+    mqueue = client.mqueue
+
+    assert mqueue.qsize() == 3
+
+
+    params.operate = 'service'
+    params.port = 6900
+    params.password = 'password'
+    params.ssl_enable = True
+
+    client = Client(params)
+
+    client_ircsock()
 
     with raises(ConnectionError):
         client.operate()

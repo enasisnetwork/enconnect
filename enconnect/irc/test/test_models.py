@@ -16,6 +16,7 @@ from encommon.types import lattrs
 from pytest import raises
 
 from .helpers import EVENTS
+from .helpers import SVENTS
 from ..client import Client
 from ..models import ClientEvent
 from ..params import ClientParams
@@ -73,6 +74,8 @@ def test_ClientEvent() -> None:
         event)
 
 
+    assert event.original
+
     assert event.kind == 'event'
 
     assert not event.isme
@@ -90,6 +93,9 @@ def test_ClientEvent_cover(  # noqa: CFQ001
 ) -> None:
     """
     Perform various tests associated with relevant routines.
+
+    .. note::
+       Duplicative test routine as below but with EVENTS.
 
     :param client_ircsock: Object to mock client connection.
     """
@@ -281,6 +287,81 @@ def test_ClientEvent_cover(  # noqa: CFQ001
     assert not client.canceled
     assert not client.connected
     assert client.nickname == 'botirc'
+
+
+    thread.join(10)
+
+
+    assert mqueue.empty()
+
+
+
+def test_ClientEvent_service(
+    client_ircsock: IRCClientSocket,
+) -> None:
+    """
+    Perform various tests associated with relevant routines.
+
+    .. note::
+       Duplicative test routine as above but with SVENTS.
+
+    :param client_ircsock: Object to mock client connection.
+    """
+
+    sname = 'jupiter.enasis.net'
+    about = 'Network Services'
+
+    params = ClientParams(
+        server='mocked',
+        port=6900,
+        operate='service',
+        servername=sname,
+        password='password',
+        realname=about)
+
+    client = Client(params)
+
+
+    def _operate() -> None:
+
+        client_ircsock(SVENTS)
+
+        _raises = ConnectionError
+
+        with raises(_raises):
+            client.operate()
+
+
+    thread = Thread(
+        target=_operate)
+
+    thread.start()
+
+
+    mqueue = client.mqueue
+
+
+    for count in range(20):
+
+        item = mqueue.get()
+
+        assert not item.prefix
+        assert not item.command
+        assert not item.params
+
+        assert item.kind == 'event'
+
+        assert (
+            not item.isme
+            if count != 13
+            else item.isme)
+
+        assert not item.author
+        assert not item.recipient
+        assert not item.message
+
+
+    assert client.nickname == '42X'
 
 
     thread.join(10)
