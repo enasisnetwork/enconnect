@@ -71,7 +71,7 @@ class ClientParams(BaseModel, extra='forbid'):
 
     servername: Annotated[
         str,
-        Field('ircbot',
+        Field('services.invalid',
               description='Parameter for the integration',
               min_length=1)]
 
