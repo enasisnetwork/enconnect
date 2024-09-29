@@ -69,11 +69,11 @@ SVENTS: list[str] = [
     ('@s2s-md/tls_cipher='
      'TLSv1.3-TLS_CHACHA20_POLY1305_SHA256;'
      's2s-md/creationtime=1727476461'
-     ' :0PS UID enrobie 0'
-     ' 1727476461 enrobie'
+     ' :0PS UID ircbot 0'
+     ' 1727476461 ircbot'
      ' localhost 0PS3FGG02'
-     ' 0 +iwxz * enasis-5DE79E97'
-     ' fwAAAQ== :enrobie'),
+     ' 0 +iwxz * irc-5DE79E97'
+     ' fwAAAQ== :ircbot'),
 
     (':0AD MD client 0PS3FGG02'
      ' creationtime :1727476461'),
@@ -90,7 +90,7 @@ SVENTS: list[str] = [
      ' :0AD UID robert 0'
      ' 1727508036 robert'
      ' localhost 0AD1QCV03'
-     ' 0 +iowxz * enasis-5DE79E97'
+     ' 0 +iowxz * irc-5DE79E97'
      ' AAAAAAAAAAAAAAAAAAAAAQ== :robert'),
 
     (':0AD MD client 0AD1QCV03'

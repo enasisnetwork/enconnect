@@ -47,13 +47,13 @@ class ClientParams(BaseModel, extra='forbid'):
 
     nickname: Annotated[
         str,
-        Field('enrobie',
+        Field('ircbot',
               description='Parameter for the integration',
               min_length=1)]
 
     username: Annotated[
         str,
-        Field('enrobie',
+        Field('ircbot',
               description='Parameter for the integration',
               min_length=1)]
 
@@ -71,7 +71,7 @@ class ClientParams(BaseModel, extra='forbid'):
 
     servername: Annotated[
         str,
-        Field('enrobie',
+        Field('ircbot',
               description='Parameter for the integration',
               min_length=1)]
 
