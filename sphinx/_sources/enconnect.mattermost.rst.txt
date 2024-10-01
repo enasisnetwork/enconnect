@@ -1,0 +1,45 @@
+enconnect.mattermost package
+============================
+
+Subpackages
+-----------
+
+.. toctree::
+   :maxdepth: 4
+
+   enconnect.mattermost.test
+
+Submodules
+----------
+
+enconnect.mattermost.client module
+----------------------------------
+
+.. automodule:: enconnect.mattermost.client
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+enconnect.mattermost.models module
+----------------------------------
+
+.. automodule:: enconnect.mattermost.models
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+enconnect.mattermost.params module
+----------------------------------
+
+.. automodule:: enconnect.mattermost.params
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Module contents
+---------------
+
+.. automodule:: enconnect.mattermost
+   :members:
+   :undoc-members:
+   :show-inheritance:

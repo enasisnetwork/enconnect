@@ -1,0 +1,45 @@
+enconnect.irc package
+=====================
+
+Subpackages
+-----------
+
+.. toctree::
+   :maxdepth: 4
+
+   enconnect.irc.test
+
+Submodules
+----------
+
+enconnect.irc.client module
+---------------------------
+
+.. automodule:: enconnect.irc.client
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+enconnect.irc.models module
+---------------------------
+
+.. automodule:: enconnect.irc.models
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+enconnect.irc.params module
+---------------------------
+
+.. automodule:: enconnect.irc.params
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Module contents
+---------------
+
+.. automodule:: enconnect.irc
+   :members:
+   :undoc-members:
+   :show-inheritance:

@@ -1,0 +1,37 @@
+enconnect.philips package
+=========================
+
+Subpackages
+-----------
+
+.. toctree::
+   :maxdepth: 4
+
+   enconnect.philips.test
+
+Submodules
+----------
+
+enconnect.philips.bridge module
+-------------------------------
+
+.. automodule:: enconnect.philips.bridge
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+enconnect.philips.params module
+-------------------------------
+
+.. automodule:: enconnect.philips.params
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Module contents
+---------------
+
+.. automodule:: enconnect.philips
+   :members:
+   :undoc-members:
+   :show-inheritance:

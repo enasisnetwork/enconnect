@@ -1,0 +1,46 @@
+enconnect package
+=================
+
+Subpackages
+-----------
+
+.. toctree::
+   :maxdepth: 4
+
+   enconnect.discord
+   enconnect.hubitat
+   enconnect.instagram
+   enconnect.irc
+   enconnect.mattermost
+   enconnect.philips
+   enconnect.reddit
+   enconnect.ubiquiti
+   enconnect.utils
+   enconnect.youtube
+
+Submodules
+----------
+
+enconnect.conftest module
+-------------------------
+
+.. automodule:: enconnect.conftest
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+enconnect.fixtures module
+-------------------------
+
+.. automodule:: enconnect.fixtures
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Module contents
+---------------
+
+.. automodule:: enconnect
+   :members:
+   :undoc-members:
+   :show-inheritance:

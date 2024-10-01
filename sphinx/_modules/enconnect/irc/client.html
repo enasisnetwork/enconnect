@@ -1,0 +1,685 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>enconnect.irc.client &mdash; enconnect  documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=19f00094" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/autodoc_pydantic.css" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../../../_static/documentation_options.js?v=5929fcd5"></script>
+        <script src="../../../_static/doctools.js?v=9a2dae69"></script>
+        <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../index.html" class="icon icon-home">
+            enconnect
+          </a>
+              <div class="version">
+                0.17.0
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <!-- Local TOC -->
+              <div class="local-toc"></div>
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">enconnect</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">enconnect.irc.client</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for enconnect.irc.client</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Functions and routines associated with Enasis Network Remote Connect.</span>
+
+<span class="sd">This file is part of Enasis Network software eco-system. Distribution</span>
+<span class="sd">is permitted, for more information consult the project license file.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+
+
+<span class="kn">from</span> <span class="nn">queue</span> <span class="kn">import</span> <span class="n">Queue</span>
+<span class="kn">from</span> <span class="nn">re</span> <span class="kn">import</span> <span class="nb">compile</span>
+<span class="kn">from</span> <span class="nn">re</span> <span class="kn">import</span> <span class="n">match</span> <span class="k">as</span> <span class="n">re_match</span>
+<span class="kn">from</span> <span class="nn">socket</span> <span class="kn">import</span> <span class="n">AF_INET</span>
+<span class="kn">from</span> <span class="nn">socket</span> <span class="kn">import</span> <span class="n">SOCK_STREAM</span>
+<span class="kn">from</span> <span class="nn">socket</span> <span class="kn">import</span> <span class="n">socket</span>
+<span class="kn">from</span> <span class="nn">ssl</span> <span class="kn">import</span> <span class="n">CERT_NONE</span>
+<span class="kn">from</span> <span class="nn">ssl</span> <span class="kn">import</span> <span class="n">CERT_REQUIRED</span>
+<span class="kn">from</span> <span class="nn">ssl</span> <span class="kn">import</span> <span class="n">SSLSocket</span>
+<span class="kn">from</span> <span class="nn">ssl</span> <span class="kn">import</span> <span class="n">create_default_context</span> <span class="k">as</span> <span class="n">default</span>
+<span class="kn">from</span> <span class="nn">threading</span> <span class="kn">import</span> <span class="n">Event</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Callable</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Iterator</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Optional</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">TYPE_CHECKING</span>
+
+<span class="kn">from</span> <span class="nn">encommon.types.strings</span> <span class="kn">import</span> <span class="n">NEWLINE</span>
+<span class="kn">from</span> <span class="nn">encommon.types.strings</span> <span class="kn">import</span> <span class="n">SEMPTY</span>
+
+<span class="kn">from</span> <span class="nn">.models</span> <span class="kn">import</span> <span class="n">ClientEvent</span>
+<span class="kn">from</span> <span class="nn">..utils</span> <span class="kn">import</span> <span class="n">dumlog</span>
+
+<span class="k">if</span> <span class="n">TYPE_CHECKING</span><span class="p">:</span>
+    <span class="kn">from</span> <span class="nn">.params</span> <span class="kn">import</span> <span class="n">ClientParams</span>
+
+
+
+<span class="n">PING</span> <span class="o">=</span> <span class="nb">compile</span><span class="p">(</span>
+    <span class="sa">r</span><span class="s1">&#39;^PING \:(\S+)$&#39;</span><span class="p">)</span>
+
+<span class="n">HELO</span> <span class="o">=</span> <span class="nb">compile</span><span class="p">(</span>
+    <span class="sa">r</span><span class="s1">&#39;^\:\S+\s001\s&#39;</span>
+    <span class="sa">r</span><span class="s1">&#39;(?P&lt;crrnt&gt;\S+)&#39;</span><span class="p">)</span>
+
+<span class="n">NICK</span> <span class="o">=</span> <span class="nb">compile</span><span class="p">(</span>
+    <span class="sa">r</span><span class="s1">&#39;^\:(?P&lt;nick1&gt;[^\!]+)&#39;</span>
+    <span class="sa">r</span><span class="s1">&#39;(\!\S+)?\sNICK\s\:&#39;</span>
+    <span class="sa">r</span><span class="s1">&#39;(?P&lt;nick2&gt;\S+)&#39;</span><span class="p">)</span>
+
+
+
+<div class="viewcode-block" id="Client">
+<a class="viewcode-back" href="../../../index.html#enconnect.irc.client.Client">[docs]</a>
+<span class="k">class</span> <span class="nc">Client</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Establish and maintain connection with the chat service.</span>
+
+<span class="sd">    :param params: Parameters used to instantiate the class.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">__params</span><span class="p">:</span> <span class="s1">&#39;ClientParams&#39;</span>
+    <span class="n">__logger</span><span class="p">:</span> <span class="n">Callable</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="kc">None</span><span class="p">]</span>
+
+    <span class="n">__socket</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">socket</span> <span class="o">|</span> <span class="n">SSLSocket</span><span class="p">]</span>
+    <span class="n">__conned</span><span class="p">:</span> <span class="n">Event</span>
+    <span class="n">__exited</span><span class="p">:</span> <span class="n">Event</span>
+    <span class="n">__mynick</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span>
+    <span class="n">__lsnick</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span>
+
+    <span class="n">__mqueue</span><span class="p">:</span> <span class="n">Queue</span><span class="p">[</span><span class="n">ClientEvent</span><span class="p">]</span>
+    <span class="n">__cancel</span><span class="p">:</span> <span class="n">Event</span>
+
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">params</span><span class="p">:</span> <span class="s1">&#39;ClientParams&#39;</span><span class="p">,</span>
+        <span class="n">logger</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Callable</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="kc">None</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Initialize instance for class using provided parameters.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">__params</span> <span class="o">=</span> <span class="n">params</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__logger</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="n">logger</span> <span class="ow">or</span> <span class="n">dumlog</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">__socket</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__conned</span> <span class="o">=</span> <span class="n">Event</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__exited</span> <span class="o">=</span> <span class="n">Event</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__mynick</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__lsnick</span> <span class="o">=</span> <span class="kc">None</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">__mqueue</span> <span class="o">=</span> <span class="n">Queue</span><span class="p">(</span>
+            <span class="n">params</span><span class="o">.</span><span class="n">queue_size</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">__cancel</span> <span class="o">=</span> <span class="n">Event</span><span class="p">()</span>
+
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">params</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="s1">&#39;ClientParams&#39;</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Return the Pydantic model containing the configuration.</span>
+
+<span class="sd">        :returns: Pydantic model containing the configuration.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__params</span>
+
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">connected</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Return the value for the attribute from class instance.</span>
+
+<span class="sd">        :returns: Value for the attribute from class instance.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">return</span> <span class="p">(</span>
+            <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">__exited</span><span class="o">.</span><span class="n">is_set</span><span class="p">()</span>
+            <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">__conned</span><span class="o">.</span><span class="n">is_set</span><span class="p">())</span>
+
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">nickname</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Return the value for the attribute from class instance.</span>
+
+<span class="sd">        :returns: Value for the attribute from class instance.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="n">params</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__params</span>
+
+        <span class="n">operate</span> <span class="o">=</span> <span class="n">params</span><span class="o">.</span><span class="n">operate</span>
+        <span class="n">serverid</span> <span class="o">=</span> <span class="n">params</span><span class="o">.</span><span class="n">serverid</span>
+
+        <span class="k">if</span> <span class="n">operate</span> <span class="o">==</span> <span class="s1">&#39;service&#39;</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">serverid</span>
+
+        <span class="k">return</span> <span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">__mynick</span>
+            <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">__lsnick</span><span class="p">)</span>
+
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">mqueue</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Queue</span><span class="p">[</span><span class="n">ClientEvent</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Return the value for the attribute from class instance.</span>
+
+<span class="sd">        :returns: Value for the attribute from class instance.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__mqueue</span>
+
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">canceled</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Return the value for the attribute from class instance.</span>
+
+<span class="sd">        :returns: Value for the attribute from class instance.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">return</span> <span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">__cancel</span><span class="o">.</span><span class="n">is_set</span><span class="p">()</span>
+            <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">__exited</span><span class="o">.</span><span class="n">is_set</span><span class="p">())</span>
+
+
+<div class="viewcode-block" id="Client.operate">
+<a class="viewcode-back" href="../../../index.html#enconnect.irc.client.Client.operate">[docs]</a>
+    <span class="k">def</span> <span class="nf">operate</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Operate the client and populate queue with the messages.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="n">logger</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__logger</span>
+
+        <span class="k">try</span><span class="p">:</span>
+
+            <span class="n">logger</span><span class="p">(</span><span class="n">item</span><span class="o">=</span><span class="s1">&#39;initial&#39;</span><span class="p">)</span>
+
+            <span class="bp">self</span><span class="o">.</span><span class="n">__socket</span> <span class="o">=</span> <span class="kc">None</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">__conned</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">__exited</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">__mynick</span> <span class="o">=</span> <span class="kc">None</span>
+
+            <span class="bp">self</span><span class="o">.</span><span class="n">__cancel</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
+
+            <span class="n">logger</span><span class="p">(</span><span class="n">item</span><span class="o">=</span><span class="s1">&#39;operate&#39;</span><span class="p">)</span>
+
+            <span class="bp">self</span><span class="o">.</span><span class="n">__operate</span><span class="p">()</span>
+
+        <span class="k">finally</span><span class="p">:</span>
+
+            <span class="bp">self</span><span class="o">.</span><span class="n">__socket</span> <span class="o">=</span> <span class="kc">None</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">__conned</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">__exited</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">__mynick</span> <span class="o">=</span> <span class="kc">None</span>
+
+            <span class="bp">self</span><span class="o">.</span><span class="n">__cancel</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
+
+            <span class="n">logger</span><span class="p">(</span><span class="n">item</span><span class="o">=</span><span class="s1">&#39;finish&#39;</span><span class="p">)</span></div>
+
+
+
+    <span class="k">def</span> <span class="nf">__operate</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Operate the client and populate queue with the messages.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="n">logger</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__logger</span>
+
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">__connect</span><span class="p">()</span>
+
+        <span class="n">socket</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__socket</span>
+
+        <span class="k">assert</span> <span class="n">socket</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
+
+
+        <span class="k">while</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">canceled</span><span class="p">:</span>
+
+            <span class="n">receive</span> <span class="o">=</span> <span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">socket_recv</span><span class="p">())</span>
+
+            <span class="k">for</span> <span class="n">event</span> <span class="ow">in</span> <span class="n">receive</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">__event</span><span class="p">(</span><span class="n">event</span><span class="p">)</span>
+
+
+        <span class="n">logger</span><span class="p">(</span><span class="n">item</span><span class="o">=</span><span class="s1">&#39;close&#39;</span><span class="p">)</span>
+
+        <span class="n">socket</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">__exited</span><span class="o">.</span><span class="n">is_set</span><span class="p">():</span>
+            <span class="k">raise</span> <span class="ne">ConnectionError</span>
+
+
+    <span class="k">def</span> <span class="nf">__event</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">event</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Operate the client and populate queue with the messages.</span>
+
+<span class="sd">        :param event: Raw event received from the network peer.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="n">params</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__params</span>
+        <span class="n">logger</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__logger</span>
+        <span class="n">mqueue</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__mqueue</span>
+        <span class="n">crrnt</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__mynick</span>
+
+        <span class="n">model</span> <span class="o">=</span> <span class="n">ClientEvent</span>
+
+        <span class="n">operate</span> <span class="o">=</span> <span class="n">params</span><span class="o">.</span><span class="n">operate</span>
+
+
+        <span class="k">if</span> <span class="n">operate</span> <span class="o">==</span> <span class="s1">&#39;normal&#39;</span><span class="p">:</span>
+
+
+            <span class="n">match</span> <span class="o">=</span> <span class="n">re_match</span><span class="p">(</span>
+                <span class="n">HELO</span><span class="p">,</span> <span class="n">event</span><span class="p">)</span>
+
+            <span class="k">if</span> <span class="n">match</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+
+                <span class="n">crrnt</span> <span class="o">=</span> <span class="p">(</span>
+                    <span class="k">match</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="s1">&#39;crrnt&#39;</span><span class="p">))</span>
+
+                <span class="n">logger</span><span class="p">(</span><span class="n">item</span><span class="o">=</span><span class="s1">&#39;helo&#39;</span><span class="p">)</span>
+
+                <span class="bp">self</span><span class="o">.</span><span class="n">__mynick</span> <span class="o">=</span> <span class="n">crrnt</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">__lsnick</span> <span class="o">=</span> <span class="n">crrnt</span>
+
+
+            <span class="n">match</span> <span class="o">=</span> <span class="n">re_match</span><span class="p">(</span>
+                <span class="n">NICK</span><span class="p">,</span> <span class="n">event</span><span class="p">)</span>
+
+            <span class="k">if</span> <span class="n">match</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+
+                <span class="n">nick1</span> <span class="o">=</span> <span class="p">(</span>
+                    <span class="k">match</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="s1">&#39;nick1&#39;</span><span class="p">))</span>
+
+                <span class="n">nick2</span> <span class="o">=</span> <span class="p">(</span>
+                    <span class="k">match</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="s1">&#39;nick2&#39;</span><span class="p">))</span>
+
+                <span class="k">if</span> <span class="n">nick1</span> <span class="o">==</span> <span class="n">crrnt</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">__mynick</span> <span class="o">=</span> <span class="n">nick2</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">__lsnick</span> <span class="o">=</span> <span class="n">nick2</span>
+
+
+        <span class="n">match</span> <span class="o">=</span> <span class="n">re_match</span><span class="p">(</span>
+            <span class="n">PING</span><span class="p">,</span> <span class="n">event</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">match</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+
+            <span class="n">ping</span> <span class="o">=</span> <span class="n">match</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+            <span class="n">pong</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;PONG </span><span class="si">{</span><span class="n">ping</span><span class="si">}</span><span class="s1">&#39;</span>
+
+            <span class="n">logger</span><span class="p">(</span><span class="n">item</span><span class="o">=</span><span class="s1">&#39;ping&#39;</span><span class="p">)</span>
+
+            <span class="bp">self</span><span class="o">.</span><span class="n">socket_send</span><span class="p">(</span><span class="n">pong</span><span class="p">)</span>
+
+            <span class="k">return</span> <span class="kc">None</span>
+
+
+        <span class="nb">object</span> <span class="o">=</span> <span class="n">model</span><span class="p">(</span>
+            <span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">)</span>
+
+        <span class="n">mqueue</span><span class="o">.</span><span class="n">put</span><span class="p">(</span><span class="nb">object</span><span class="p">)</span>
+
+
+<div class="viewcode-block" id="Client.stop">
+<a class="viewcode-back" href="../../../index.html#enconnect.irc.client.Client.stop">[docs]</a>
+    <span class="k">def</span> <span class="nf">stop</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Gracefully close the connection with the server socket.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="n">logger</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__logger</span>
+
+        <span class="n">logger</span><span class="p">(</span><span class="n">item</span><span class="o">=</span><span class="s1">&#39;stop&#39;</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">connected</span><span class="p">:</span>
+
+            <span class="bp">self</span><span class="o">.</span><span class="n">socket_send</span><span class="p">(</span>
+                <span class="s1">&#39;QUIT :Adios&#39;</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">__cancel</span><span class="o">.</span><span class="n">set</span><span class="p">()</span></div>
+
+
+
+    <span class="k">def</span> <span class="nf">__wrapper</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">socket</span><span class="p">:</span> <span class="n">socket</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">SSLSocket</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Construct the object from wrapping SSL context settings.</span>
+
+<span class="sd">        :param socket: Socket instance that will be SSL wrapped.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="n">params</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__params</span>
+
+        <span class="n">server</span> <span class="o">=</span> <span class="n">params</span><span class="o">.</span><span class="n">server</span>
+        <span class="n">verify</span> <span class="o">=</span> <span class="n">params</span><span class="o">.</span><span class="n">ssl_verify</span>
+
+        <span class="n">context</span> <span class="o">=</span> <span class="n">default</span><span class="p">()</span>
+
+
+        <span class="nb">setattr</span><span class="p">(</span>
+            <span class="n">context</span><span class="p">,</span>
+            <span class="s1">&#39;check_hostname&#39;</span><span class="p">,</span>
+            <span class="n">verify</span><span class="p">)</span>
+
+
+        <span class="n">_verify</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="n">CERT_REQUIRED</span>
+            <span class="k">if</span> <span class="n">verify</span> <span class="ow">is</span> <span class="kc">True</span>
+            <span class="k">else</span> <span class="n">CERT_NONE</span><span class="p">)</span>
+
+        <span class="nb">setattr</span><span class="p">(</span>
+            <span class="n">context</span><span class="p">,</span>
+            <span class="s1">&#39;verify_mode&#39;</span><span class="p">,</span>
+            <span class="n">_verify</span><span class="p">)</span>
+
+
+        <span class="n">wrapper</span> <span class="o">=</span> <span class="n">context</span><span class="o">.</span><span class="n">wrap_socket</span>
+
+        <span class="k">return</span> <span class="n">wrapper</span><span class="p">(</span>
+            <span class="n">socket</span><span class="p">,</span>
+            <span class="n">server_hostname</span><span class="o">=</span><span class="n">server</span><span class="p">)</span>
+
+
+    <span class="k">def</span> <span class="nf">__connect</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Establish the connection with the upstream using socket.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="n">params</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__params</span>
+        <span class="n">logger</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__logger</span>
+
+        <span class="n">server</span> <span class="o">=</span> <span class="n">params</span><span class="o">.</span><span class="n">server</span>
+        <span class="n">port</span> <span class="o">=</span> <span class="n">params</span><span class="o">.</span><span class="n">port</span>
+        <span class="n">operate</span> <span class="o">=</span> <span class="n">params</span><span class="o">.</span><span class="n">operate</span>
+        <span class="n">nick</span> <span class="o">=</span> <span class="n">params</span><span class="o">.</span><span class="n">nickname</span>
+        <span class="n">user</span> <span class="o">=</span> <span class="n">params</span><span class="o">.</span><span class="n">username</span>
+        <span class="n">real</span> <span class="o">=</span> <span class="n">params</span><span class="o">.</span><span class="n">realname</span>
+        <span class="n">passwd</span> <span class="o">=</span> <span class="n">params</span><span class="o">.</span><span class="n">password</span>
+        <span class="n">sname</span> <span class="o">=</span> <span class="n">params</span><span class="o">.</span><span class="n">servername</span>
+        <span class="n">serverid</span> <span class="o">=</span> <span class="n">params</span><span class="o">.</span><span class="n">serverid</span>
+        <span class="n">senable</span> <span class="o">=</span> <span class="n">params</span><span class="o">.</span><span class="n">ssl_enable</span>
+
+        <span class="n">address</span> <span class="o">=</span> <span class="p">(</span><span class="n">server</span><span class="p">,</span> <span class="n">port</span><span class="p">)</span>
+
+
+        <span class="n">handle</span> <span class="o">=</span> <span class="n">socket</span><span class="p">(</span>
+            <span class="n">AF_INET</span><span class="p">,</span> <span class="n">SOCK_STREAM</span><span class="p">)</span>
+
+        <span class="n">handle</span><span class="o">.</span><span class="n">settimeout</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+
+
+        <span class="k">if</span> <span class="n">senable</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">:</span>
+            <span class="n">wrapper</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__wrapper</span>
+            <span class="n">handle</span> <span class="o">=</span> <span class="n">wrapper</span><span class="p">(</span><span class="n">handle</span><span class="p">)</span>
+
+
+        <span class="n">logger</span><span class="p">(</span><span class="n">item</span><span class="o">=</span><span class="s1">&#39;connect&#39;</span><span class="p">)</span>
+
+        <span class="n">handle</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">address</span><span class="p">)</span>
+
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">__socket</span> <span class="o">=</span> <span class="n">handle</span>
+
+
+        <span class="k">if</span> <span class="n">operate</span> <span class="o">==</span> <span class="s1">&#39;normal&#39;</span><span class="p">:</span>
+
+            <span class="bp">self</span><span class="o">.</span><span class="n">socket_send</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s1">&#39;NICK </span><span class="si">{</span><span class="n">nick</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+
+            <span class="bp">self</span><span class="o">.</span><span class="n">socket_send</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s1">&#39;USER </span><span class="si">{</span><span class="n">user</span><span class="si">}</span><span class="s1"> . &#39;</span>
+                <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">nick</span><span class="si">}</span><span class="s1"> :</span><span class="si">{</span><span class="n">real</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+
+
+        <span class="k">if</span> <span class="n">passwd</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+
+            <span class="bp">self</span><span class="o">.</span><span class="n">socket_send</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s1">&#39;PASS </span><span class="si">{</span><span class="n">passwd</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+
+
+        <span class="k">if</span> <span class="n">operate</span> <span class="o">==</span> <span class="s1">&#39;service&#39;</span><span class="p">:</span>
+
+            <span class="bp">self</span><span class="o">.</span><span class="n">socket_send</span><span class="p">(</span>
+                <span class="s1">&#39;PROTOCTL&#39;</span>
+                <span class="sa">f</span><span class="s1">&#39; EAUTH=</span><span class="si">{</span><span class="n">sname</span><span class="si">}</span><span class="s1">&#39;</span>
+                <span class="sa">f</span><span class="s1">&#39; SID=</span><span class="si">{</span><span class="n">serverid</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+
+            <span class="bp">self</span><span class="o">.</span><span class="n">socket_send</span><span class="p">(</span>
+                <span class="s1">&#39;PROTOCTL&#39;</span>
+                <span class="s1">&#39; NOQUIT&#39;</span>
+                <span class="s1">&#39; NICKv2&#39;</span>
+                <span class="s1">&#39; SJOIN&#39;</span>
+                <span class="s1">&#39; SJ3&#39;</span>
+                <span class="s1">&#39; NICKIP&#39;</span>
+                <span class="s1">&#39; TKLEXT&#39;</span>
+                <span class="s1">&#39; TKLEXT2&#39;</span>
+                <span class="s1">&#39; NEXTBANS&#39;</span>
+                <span class="s1">&#39; CLK&#39;</span>
+                <span class="s1">&#39; ESVID&#39;</span>
+                <span class="s1">&#39; MLOCK&#39;</span>
+                <span class="s1">&#39; MTAGS&#39;</span>
+                <span class="s1">&#39; EXTSWHOIS&#39;</span><span class="p">)</span>
+
+            <span class="bp">self</span><span class="o">.</span><span class="n">socket_send</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s1">&#39;SERVER </span><span class="si">{</span><span class="n">sname</span><span class="si">}</span><span class="s1">&#39;</span>
+                <span class="sa">f</span><span class="s1">&#39; 1 :</span><span class="si">{</span><span class="n">real</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">__conned</span><span class="o">.</span><span class="n">set</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__exited</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">__mynick</span> <span class="o">=</span> <span class="kc">None</span>
+
+
+<div class="viewcode-block" id="Client.socket_send">
+<a class="viewcode-back" href="../../../index.html#enconnect.irc.client.Client.socket_send">[docs]</a>
+    <span class="k">def</span> <span class="nf">socket_send</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">send</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Transmit provided content through the socket connection.</span>
+
+<span class="sd">        :param send: Content which will be sent through socket.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="n">logger</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__logger</span>
+        <span class="n">socket</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__socket</span>
+
+        <span class="k">assert</span> <span class="n">socket</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
+
+        <span class="n">logger</span><span class="p">(</span>
+            <span class="n">item</span><span class="o">=</span><span class="s1">&#39;transmit&#39;</span><span class="p">,</span>
+            <span class="n">value</span><span class="o">=</span><span class="n">send</span><span class="p">)</span>
+
+        <span class="n">transmit</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">send</span><span class="si">}</span><span class="se">\r\n</span><span class="s1">&#39;</span>
+            <span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s1">&#39;utf-8&#39;</span><span class="p">))</span>
+
+        <span class="n">socket</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="n">transmit</span><span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="Client.socket_recv">
+<a class="viewcode-back" href="../../../index.html#enconnect.irc.client.Client.socket_recv">[docs]</a>
+    <span class="k">def</span> <span class="nf">socket_recv</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Iterator</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Return the content received from the socket connection.</span>
+
+<span class="sd">        .. note::</span>
+<span class="sd">           Method could be further optimized using an internal</span>
+<span class="sd">           buffer within the class after receiving more bytes.</span>
+
+<span class="sd">        :returns: Content received from the socket connection.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="n">logger</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__logger</span>
+        <span class="n">exited</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__exited</span>
+        <span class="n">socket</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__socket</span>
+
+        <span class="k">assert</span> <span class="n">socket</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
+
+        <span class="n">recv</span> <span class="o">=</span> <span class="n">SEMPTY</span>
+        <span class="n">buffer</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+
+
+        <span class="k">def</span> <span class="nf">_receive</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+
+            <span class="k">return</span> <span class="p">(</span>
+                <span class="n">socket</span><span class="o">.</span><span class="n">recv</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+                <span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s1">&#39;utf-8&#39;</span><span class="p">))</span>
+
+
+        <span class="k">while</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">buffer</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">4096</span>
+               <span class="ow">and</span> <span class="n">recv</span> <span class="o">!=</span> <span class="n">NEWLINE</span><span class="p">):</span>
+
+            <span class="k">try</span><span class="p">:</span>
+
+                <span class="n">recv</span> <span class="o">=</span> <span class="n">_receive</span><span class="p">()</span>
+
+                <span class="n">buffer</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">recv</span><span class="p">)</span>
+
+            <span class="k">except</span> <span class="ne">TimeoutError</span><span class="p">:</span>
+                <span class="k">break</span>
+
+
+            <span class="k">if</span> <span class="n">recv</span> <span class="o">==</span> <span class="n">SEMPTY</span><span class="p">:</span>
+                <span class="n">exited</span><span class="o">.</span><span class="n">set</span><span class="p">()</span>
+                <span class="k">return</span> <span class="kc">None</span>
+
+            <span class="k">if</span> <span class="n">recv</span> <span class="o">!=</span> <span class="n">NEWLINE</span><span class="p">:</span>
+                <span class="k">continue</span>
+
+
+            <span class="n">event</span> <span class="o">=</span> <span class="p">(</span>
+                <span class="n">SEMPTY</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">buffer</span><span class="p">)</span>
+                <span class="o">.</span><span class="n">strip</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\r\n</span><span class="s1">&#39;</span><span class="p">))</span>
+
+            <span class="n">buffer</span> <span class="o">=</span> <span class="p">[]</span>
+
+            <span class="k">if</span> <span class="n">event</span><span class="p">[:</span><span class="mi">5</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;ERROR&#39;</span><span class="p">:</span>
+                <span class="n">exited</span><span class="o">.</span><span class="n">set</span><span class="p">()</span>
+
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">event</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="mi">1</span><span class="p">:</span>
+
+                <span class="n">logger</span><span class="p">(</span>
+                    <span class="n">item</span><span class="o">=</span><span class="s1">&#39;receive&#39;</span><span class="p">,</span>
+                    <span class="n">value</span><span class="o">=</span><span class="n">event</span><span class="p">)</span>
+
+                <span class="k">yield</span> <span class="n">event</span></div>
+</div>
+
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, Enasis Network.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

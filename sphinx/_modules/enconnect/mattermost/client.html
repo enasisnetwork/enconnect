@@ -1,0 +1,630 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>enconnect.mattermost.client &mdash; enconnect  documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=19f00094" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/autodoc_pydantic.css" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../../../_static/documentation_options.js?v=5929fcd5"></script>
+        <script src="../../../_static/doctools.js?v=9a2dae69"></script>
+        <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../index.html" class="icon icon-home">
+            enconnect
+          </a>
+              <div class="version">
+                0.17.0
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <!-- Local TOC -->
+              <div class="local-toc"></div>
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">enconnect</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">enconnect.mattermost.client</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for enconnect.mattermost.client</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Functions and routines associated with Enasis Network Remote Connect.</span>
+
+<span class="sd">This file is part of Enasis Network software eco-system. Distribution</span>
+<span class="sd">is permitted, for more information consult the project license file.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+
+
+<span class="kn">from</span> <span class="nn">json</span> <span class="kn">import</span> <span class="n">dumps</span>
+<span class="kn">from</span> <span class="nn">json</span> <span class="kn">import</span> <span class="n">loads</span>
+<span class="kn">from</span> <span class="nn">queue</span> <span class="kn">import</span> <span class="n">Queue</span>
+<span class="kn">from</span> <span class="nn">threading</span> <span class="kn">import</span> <span class="n">Event</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Callable</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Optional</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">TYPE_CHECKING</span>
+
+<span class="kn">from</span> <span class="nn">encommon.times</span> <span class="kn">import</span> <span class="n">Timer</span>
+<span class="kn">from</span> <span class="nn">encommon.types</span> <span class="kn">import</span> <span class="n">DictStrAny</span>
+<span class="kn">from</span> <span class="nn">encommon.types</span> <span class="kn">import</span> <span class="n">NCNone</span>
+<span class="kn">from</span> <span class="nn">encommon.types</span> <span class="kn">import</span> <span class="n">sort_dict</span>
+
+<span class="kn">from</span> <span class="nn">httpx</span> <span class="kn">import</span> <span class="n">Response</span>
+
+<span class="kn">from</span> <span class="nn">websockets.exceptions</span> <span class="kn">import</span> <span class="n">ConnectionClosedOK</span>
+<span class="kn">from</span> <span class="nn">websockets.sync.client</span> <span class="kn">import</span> <span class="n">ClientConnection</span>
+<span class="kn">from</span> <span class="nn">websockets.sync.client</span> <span class="kn">import</span> <span class="n">connect</span>
+
+<span class="kn">from</span> <span class="nn">.models</span> <span class="kn">import</span> <span class="n">ClientEvent</span>
+<span class="kn">from</span> <span class="nn">..utils</span> <span class="kn">import</span> <span class="n">HTTPClient</span>
+<span class="kn">from</span> <span class="nn">..utils</span> <span class="kn">import</span> <span class="n">dumlog</span>
+<span class="kn">from</span> <span class="nn">..utils.http</span> <span class="kn">import</span> <span class="n">_METHODS</span>
+<span class="kn">from</span> <span class="nn">..utils.http</span> <span class="kn">import</span> <span class="n">_PAYLOAD</span>
+
+<span class="k">if</span> <span class="n">TYPE_CHECKING</span><span class="p">:</span>
+    <span class="kn">from</span> <span class="nn">.params</span> <span class="kn">import</span> <span class="n">ClientParams</span>
+
+
+
+<span class="n">PING</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s1">&#39;action&#39;</span><span class="p">:</span> <span class="s1">&#39;ping&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;seq&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">}</span>
+
+
+
+<div class="viewcode-block" id="Client">
+<a class="viewcode-back" href="../../../index.html#enconnect.mattermost.client.Client">[docs]</a>
+<span class="k">class</span> <span class="nc">Client</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Establish and maintain connection with the chat service.</span>
+
+<span class="sd">    :param params: Parameters used to instantiate the class.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">__params</span><span class="p">:</span> <span class="s1">&#39;ClientParams&#39;</span>
+    <span class="n">__logger</span><span class="p">:</span> <span class="n">Callable</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="kc">None</span><span class="p">]</span>
+
+    <span class="n">__client</span><span class="p">:</span> <span class="n">HTTPClient</span>
+    <span class="n">__socket</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">ClientConnection</span><span class="p">]</span>
+    <span class="n">__conned</span><span class="p">:</span> <span class="n">Event</span>
+    <span class="n">__exited</span><span class="p">:</span> <span class="n">Event</span>
+    <span class="n">__mynick</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]]</span>
+    <span class="n">__lsnick</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]]</span>
+
+    <span class="n">__mqueue</span><span class="p">:</span> <span class="n">Queue</span><span class="p">[</span><span class="n">ClientEvent</span><span class="p">]</span>
+    <span class="n">__cancel</span><span class="p">:</span> <span class="n">Event</span>
+
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">params</span><span class="p">:</span> <span class="s1">&#39;ClientParams&#39;</span><span class="p">,</span>
+        <span class="n">logger</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Callable</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="kc">None</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Initialize instance for class using provided parameters.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">__params</span> <span class="o">=</span> <span class="n">params</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__logger</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="n">logger</span> <span class="ow">or</span> <span class="n">dumlog</span><span class="p">)</span>
+
+        <span class="n">client</span> <span class="o">=</span> <span class="n">HTTPClient</span><span class="p">(</span>
+            <span class="n">timeout</span><span class="o">=</span><span class="n">params</span><span class="o">.</span><span class="n">timeout</span><span class="p">,</span>
+            <span class="n">verify</span><span class="o">=</span><span class="n">params</span><span class="o">.</span><span class="n">ssl_verify</span><span class="p">,</span>
+            <span class="n">capem</span><span class="o">=</span><span class="n">params</span><span class="o">.</span><span class="n">ssl_capem</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">__client</span> <span class="o">=</span> <span class="n">client</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__socket</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__conned</span> <span class="o">=</span> <span class="n">Event</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__exited</span> <span class="o">=</span> <span class="n">Event</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__mynick</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__lsnick</span> <span class="o">=</span> <span class="kc">None</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">__mqueue</span> <span class="o">=</span> <span class="n">Queue</span><span class="p">(</span>
+            <span class="n">params</span><span class="o">.</span><span class="n">queue_size</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">__cancel</span> <span class="o">=</span> <span class="n">Event</span><span class="p">()</span>
+
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">params</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="s1">&#39;ClientParams&#39;</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Return the Pydantic model containing the configuration.</span>
+
+<span class="sd">        :returns: Pydantic model containing the configuration.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__params</span>
+
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">connected</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Return the value for the attribute from class instance.</span>
+
+<span class="sd">        :returns: Value for the attribute from class instance.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">return</span> <span class="p">(</span>
+            <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">__exited</span><span class="o">.</span><span class="n">is_set</span><span class="p">()</span>
+            <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">__conned</span><span class="o">.</span><span class="n">is_set</span><span class="p">())</span>
+
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">nickname</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Return the value for the attribute from class instance.</span>
+
+<span class="sd">        :returns: Value for the attribute from class instance.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__mynick</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">__lsnick</span>
+
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">mqueue</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Queue</span><span class="p">[</span><span class="n">ClientEvent</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Return the value for the attribute from class instance.</span>
+
+<span class="sd">        :returns: Value for the attribute from class instance.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__mqueue</span>
+
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">canceled</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Return the value for the attribute from class instance.</span>
+
+<span class="sd">        :returns: Value for the attribute from class instance.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">return</span> <span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">__cancel</span><span class="o">.</span><span class="n">is_set</span><span class="p">()</span>
+            <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">__exited</span><span class="o">.</span><span class="n">is_set</span><span class="p">())</span>
+
+
+<div class="viewcode-block" id="Client.operate">
+<a class="viewcode-back" href="../../../index.html#enconnect.mattermost.client.Client.operate">[docs]</a>
+    <span class="k">def</span> <span class="nf">operate</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Operate the client and populate queue with the messages.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="n">logger</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__logger</span>
+
+        <span class="k">try</span><span class="p">:</span>
+
+            <span class="n">logger</span><span class="p">(</span><span class="n">item</span><span class="o">=</span><span class="s1">&#39;initial&#39;</span><span class="p">)</span>
+
+            <span class="bp">self</span><span class="o">.</span><span class="n">__socket</span> <span class="o">=</span> <span class="kc">None</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">__conned</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">__exited</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">__mynick</span> <span class="o">=</span> <span class="kc">None</span>
+
+            <span class="bp">self</span><span class="o">.</span><span class="n">__cancel</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
+
+            <span class="n">logger</span><span class="p">(</span><span class="n">item</span><span class="o">=</span><span class="s1">&#39;operate&#39;</span><span class="p">)</span>
+
+            <span class="bp">self</span><span class="o">.</span><span class="n">__operate</span><span class="p">()</span>
+
+        <span class="k">finally</span><span class="p">:</span>
+
+            <span class="bp">self</span><span class="o">.</span><span class="n">__socket</span> <span class="o">=</span> <span class="kc">None</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">__conned</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">__exited</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">__mynick</span> <span class="o">=</span> <span class="kc">None</span>
+
+            <span class="bp">self</span><span class="o">.</span><span class="n">__cancel</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
+
+            <span class="n">logger</span><span class="p">(</span><span class="n">item</span><span class="o">=</span><span class="s1">&#39;finish&#39;</span><span class="p">)</span></div>
+
+
+
+    <span class="k">def</span> <span class="nf">__operate</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Operate the client and populate queue with the messages.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="n">logger</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__logger</span>
+
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">__connect</span><span class="p">()</span>
+
+        <span class="n">socket</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__socket</span>
+
+        <span class="k">assert</span> <span class="n">socket</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
+
+
+        <span class="n">timer</span> <span class="o">=</span> <span class="n">Timer</span><span class="p">(</span>
+            <span class="mi">30</span><span class="p">,</span> <span class="n">start</span><span class="o">=</span><span class="s1">&#39;min&#39;</span><span class="p">)</span>
+
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">__identify</span><span class="p">()</span>
+
+
+        <span class="k">while</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">canceled</span><span class="p">:</span>
+
+            <span class="n">receive</span> <span class="o">=</span> <span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">socket_recv</span><span class="p">())</span>
+
+            <span class="k">if</span> <span class="n">receive</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">__event</span><span class="p">(</span><span class="n">receive</span><span class="p">)</span>
+
+            <span class="k">if</span> <span class="n">timer</span><span class="o">.</span><span class="n">pause</span><span class="p">():</span>
+                <span class="k">continue</span>  <span class="c1"># NOCVR</span>
+
+            <span class="n">logger</span><span class="p">(</span><span class="n">item</span><span class="o">=</span><span class="s1">&#39;ping&#39;</span><span class="p">)</span>
+
+            <span class="bp">self</span><span class="o">.</span><span class="n">socket_send</span><span class="p">(</span><span class="n">PING</span><span class="p">)</span>
+
+
+        <span class="n">logger</span><span class="p">(</span><span class="n">item</span><span class="o">=</span><span class="s1">&#39;close&#39;</span><span class="p">)</span>
+
+        <span class="n">socket</span><span class="o">.</span><span class="n">close</span><span class="p">(</span><span class="mi">1000</span><span class="p">)</span>
+
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">__exited</span><span class="o">.</span><span class="n">is_set</span><span class="p">():</span>
+            <span class="k">raise</span> <span class="ne">ConnectionError</span>
+
+
+    <span class="k">def</span> <span class="nf">__event</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">event</span><span class="p">:</span> <span class="n">DictStrAny</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Operate the client and populate queue with the messages.</span>
+
+<span class="sd">        :param event: Raw event received from the network peer.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="n">logger</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__logger</span>
+        <span class="n">mqueue</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__mqueue</span>
+
+        <span class="n">tneve</span> <span class="o">=</span> <span class="n">event</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;event&#39;</span><span class="p">)</span>
+
+        <span class="n">model</span> <span class="o">=</span> <span class="n">ClientEvent</span>
+
+
+        <span class="k">if</span> <span class="n">tneve</span> <span class="o">==</span> <span class="s1">&#39;hello&#39;</span><span class="p">:</span>
+
+            <span class="n">logger</span><span class="p">(</span><span class="n">item</span><span class="o">=</span><span class="s1">&#39;helo&#39;</span><span class="p">)</span>
+
+
+        <span class="nb">object</span> <span class="o">=</span> <span class="n">model</span><span class="p">(</span>
+            <span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">)</span>
+
+        <span class="n">mqueue</span><span class="o">.</span><span class="n">put</span><span class="p">(</span><span class="nb">object</span><span class="p">)</span>
+
+
+<div class="viewcode-block" id="Client.stop">
+<a class="viewcode-back" href="../../../index.html#enconnect.mattermost.client.Client.stop">[docs]</a>
+    <span class="k">def</span> <span class="nf">stop</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Gracefully close the connection with the server socket.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="n">logger</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__logger</span>
+
+        <span class="n">logger</span><span class="p">(</span><span class="n">item</span><span class="o">=</span><span class="s1">&#39;stop&#39;</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">__cancel</span><span class="o">.</span><span class="n">set</span><span class="p">()</span></div>
+
+
+
+    <span class="k">def</span> <span class="nf">__connect</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Establish the connection with the upstream using socket.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="n">logger</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__logger</span>
+
+        <span class="n">_params</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__params</span>
+        <span class="n">server</span> <span class="o">=</span> <span class="n">_params</span><span class="o">.</span><span class="n">server</span>
+
+        <span class="n">logger</span><span class="p">(</span><span class="n">item</span><span class="o">=</span><span class="s1">&#39;connect&#39;</span><span class="p">)</span>
+
+        <span class="n">socket</span> <span class="o">=</span> <span class="n">connect</span><span class="p">(</span>
+            <span class="sa">f</span><span class="s1">&#39;wss://</span><span class="si">{</span><span class="n">server</span><span class="si">}</span><span class="s1">/&#39;</span>
+            <span class="s1">&#39;api/v4/websocket&#39;</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">__socket</span> <span class="o">=</span> <span class="n">socket</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">__conned</span><span class="o">.</span><span class="n">set</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__exited</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
+
+
+    <span class="k">def</span> <span class="nf">__identify</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Identify the client once the connection is established.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="n">logger</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__logger</span>
+        <span class="n">request</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">request</span>
+
+        <span class="n">_params</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__params</span>
+        <span class="n">token</span> <span class="o">=</span> <span class="n">_params</span><span class="o">.</span><span class="n">token</span>
+
+        <span class="n">logger</span><span class="p">(</span><span class="n">item</span><span class="o">=</span><span class="s1">&#39;identify&#39;</span><span class="p">)</span>
+
+        <span class="n">action</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="s1">&#39;authentication&#39;</span>
+            <span class="s1">&#39;_challenge&#39;</span><span class="p">)</span>
+
+        <span class="n">data</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;token&#39;</span><span class="p">:</span> <span class="n">token</span><span class="p">}</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">socket_send</span><span class="p">({</span>
+            <span class="s1">&#39;seq&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+            <span class="s1">&#39;action&#39;</span><span class="p">:</span> <span class="n">action</span><span class="p">,</span>
+            <span class="s1">&#39;data&#39;</span><span class="p">:</span> <span class="n">data</span><span class="p">})</span>
+
+
+        <span class="n">response</span> <span class="o">=</span> <span class="n">request</span><span class="p">(</span>
+            <span class="s1">&#39;get&#39;</span><span class="p">,</span> <span class="s1">&#39;users/me&#39;</span><span class="p">)</span>
+
+        <span class="p">(</span><span class="n">response</span>
+         <span class="o">.</span><span class="n">raise_for_status</span><span class="p">())</span>
+
+
+        <span class="n">fetch</span> <span class="o">=</span> <span class="n">response</span><span class="o">.</span><span class="n">json</span><span class="p">()</span>
+
+        <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">fetch</span><span class="p">,</span> <span class="nb">dict</span><span class="p">)</span>
+
+        <span class="n">logger</span><span class="p">(</span>
+            <span class="n">item</span><span class="o">=</span><span class="s1">&#39;whoami&#39;</span><span class="p">,</span>
+            <span class="n">json</span><span class="o">=</span><span class="n">dumps</span><span class="p">(</span><span class="n">fetch</span><span class="p">))</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">__mynick</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="n">fetch</span><span class="p">[</span><span class="s1">&#39;username&#39;</span><span class="p">],</span>
+            <span class="n">fetch</span><span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">])</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">__lsnick</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="n">fetch</span><span class="p">[</span><span class="s1">&#39;username&#39;</span><span class="p">],</span>
+            <span class="n">fetch</span><span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">])</span>
+
+
+<div class="viewcode-block" id="Client.socket_send">
+<a class="viewcode-back" href="../../../index.html#enconnect.mattermost.client.Client.socket_send">[docs]</a>
+    <span class="k">def</span> <span class="nf">socket_send</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">send</span><span class="p">:</span> <span class="n">DictStrAny</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Transmit provided content through the socket connection.</span>
+
+<span class="sd">        :param send: Content which will be sent through socket.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="n">logger</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__logger</span>
+        <span class="n">exited</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__exited</span>
+        <span class="n">socket</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__socket</span>
+
+        <span class="k">if</span> <span class="n">socket</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">NCNone</span>
+
+        <span class="n">transmit</span> <span class="o">=</span> <span class="n">dumps</span><span class="p">(</span><span class="n">send</span><span class="p">)</span>
+
+        <span class="n">logger</span><span class="p">(</span>
+            <span class="n">item</span><span class="o">=</span><span class="s1">&#39;transmit&#39;</span><span class="p">,</span>
+            <span class="n">value</span><span class="o">=</span><span class="n">transmit</span><span class="p">)</span>
+
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">socket</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="n">transmit</span><span class="p">)</span>
+
+        <span class="k">except</span> <span class="n">ConnectionClosedOK</span><span class="p">:</span>
+            <span class="n">exited</span><span class="o">.</span><span class="n">set</span><span class="p">()</span>
+            <span class="k">return</span> <span class="kc">None</span></div>
+
+
+
+<div class="viewcode-block" id="Client.socket_recv">
+<a class="viewcode-back" href="../../../index.html#enconnect.mattermost.client.Client.socket_recv">[docs]</a>
+    <span class="k">def</span> <span class="nf">socket_recv</span><span class="p">(</span>  <span class="c1"># noqa: CFQ004</span>
+        <span class="bp">self</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">DictStrAny</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Return the content received from the socket connection.</span>
+
+<span class="sd">        :returns: Content received from the socket connection.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="n">logger</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__logger</span>
+        <span class="n">exited</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__exited</span>
+        <span class="n">socket</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__socket</span>
+
+        <span class="k">if</span> <span class="n">socket</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">NCNone</span>
+
+
+        <span class="k">try</span><span class="p">:</span>
+
+            <span class="n">recv</span> <span class="o">=</span> <span class="n">socket</span><span class="o">.</span><span class="n">recv</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+
+            <span class="n">logger</span><span class="p">(</span>
+                <span class="n">item</span><span class="o">=</span><span class="s1">&#39;receive&#39;</span><span class="p">,</span>
+                <span class="n">value</span><span class="o">=</span><span class="n">recv</span><span class="p">)</span>
+
+        <span class="k">except</span> <span class="ne">TimeoutError</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">None</span>
+
+        <span class="k">except</span> <span class="n">ConnectionClosedOK</span><span class="p">:</span>
+            <span class="n">exited</span><span class="o">.</span><span class="n">set</span><span class="p">()</span>
+            <span class="k">return</span> <span class="kc">None</span>
+
+
+        <span class="n">event</span> <span class="o">=</span> <span class="n">loads</span><span class="p">(</span><span class="n">recv</span><span class="p">)</span>
+
+        <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">event</span><span class="p">,</span> <span class="nb">dict</span><span class="p">)</span>
+
+        <span class="nb">type</span> <span class="o">=</span> <span class="n">event</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;event&#39;</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="nb">type</span> <span class="o">==</span> <span class="s1">&#39;discon&#39;</span><span class="p">:</span>
+            <span class="n">exited</span><span class="o">.</span><span class="n">set</span><span class="p">()</span>
+
+        <span class="k">return</span> <span class="n">sort_dict</span><span class="p">(</span><span class="n">event</span><span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="Client.request">
+<a class="viewcode-back" href="../../../index.html#enconnect.mattermost.client.Client.request">[docs]</a>
+    <span class="k">def</span> <span class="nf">request</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">method</span><span class="p">:</span> <span class="n">_METHODS</span><span class="p">,</span>
+        <span class="n">path</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+        <span class="n">params</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">_PAYLOAD</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">json</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">_PAYLOAD</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="o">*</span><span class="p">,</span>
+        <span class="n">timeout</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Response</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Return the response for upstream request to the server.</span>
+
+<span class="sd">        :param method: Method for operation with the API server.</span>
+<span class="sd">        :param path: Path for the location to upstream endpoint.</span>
+<span class="sd">        :param params: Optional parameters included in request.</span>
+<span class="sd">        :param json: Optional JSON payload included in request.</span>
+<span class="sd">        :param timeout: Timeout waiting for the server response.</span>
+<span class="sd">            This will override the default client instantiated.</span>
+<span class="sd">        :returns: Response from upstream request to the server.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="n">params</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">params</span> <span class="ow">or</span> <span class="p">{})</span>
+        <span class="n">json</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">json</span> <span class="ow">or</span> <span class="p">{})</span>
+
+        <span class="n">logger</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__logger</span>
+        <span class="n">client</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__client</span>
+
+        <span class="n">_params</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__params</span>
+        <span class="n">server</span> <span class="o">=</span> <span class="n">_params</span><span class="o">.</span><span class="n">server</span>
+        <span class="n">port</span> <span class="o">=</span> <span class="n">_params</span><span class="o">.</span><span class="n">port</span>
+        <span class="n">token</span> <span class="o">=</span> <span class="n">_params</span><span class="o">.</span><span class="n">token</span>
+
+        <span class="n">address</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">server</span><span class="si">}</span><span class="s1">:</span><span class="si">{</span><span class="n">port</span><span class="si">}</span><span class="s1">&#39;</span>
+        <span class="n">tokey</span> <span class="o">=</span> <span class="s1">&#39;Authorization&#39;</span>
+        <span class="n">content</span> <span class="o">=</span> <span class="s1">&#39;application/json&#39;</span>
+
+        <span class="n">headers</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="n">tokey</span><span class="p">:</span> <span class="sa">f</span><span class="s1">&#39;Bearer </span><span class="si">{</span><span class="n">token</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;Content-Type&#39;</span><span class="p">:</span> <span class="n">content</span><span class="p">}</span>
+
+        <span class="n">location</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="sa">f</span><span class="s1">&#39;https://</span><span class="si">{</span><span class="n">address</span><span class="si">}</span><span class="s1">&#39;</span>
+            <span class="sa">f</span><span class="s1">&#39;/api/v4/</span><span class="si">{</span><span class="n">path</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+
+        <span class="n">request</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">request_block</span>
+
+        <span class="n">logger</span><span class="p">(</span>
+            <span class="n">item</span><span class="o">=</span><span class="s1">&#39;request&#39;</span><span class="p">,</span>
+            <span class="n">method</span><span class="o">=</span><span class="n">method</span><span class="p">,</span>
+            <span class="n">path</span><span class="o">=</span><span class="n">path</span><span class="p">,</span>
+            <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">,</span>
+            <span class="n">json</span><span class="o">=</span><span class="p">(</span>
+                <span class="n">dumps</span><span class="p">(</span><span class="n">json</span><span class="p">)</span>
+                <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">json</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="mi">1</span>
+                <span class="k">else</span> <span class="kc">None</span><span class="p">))</span>
+
+        <span class="k">return</span> <span class="n">request</span><span class="p">(</span>
+            <span class="n">method</span><span class="o">=</span><span class="n">method</span><span class="p">,</span>
+            <span class="n">location</span><span class="o">=</span><span class="n">location</span><span class="p">,</span>
+            <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">,</span>
+            <span class="n">headers</span><span class="o">=</span><span class="n">headers</span><span class="p">,</span>
+            <span class="n">json</span><span class="o">=</span><span class="n">json</span><span class="p">,</span>
+            <span class="n">timeout</span><span class="o">=</span><span class="n">timeout</span><span class="p">)</span></div>
+</div>
+
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, Enasis Network.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

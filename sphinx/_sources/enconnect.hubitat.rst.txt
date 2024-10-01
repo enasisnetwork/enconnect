@@ -1,0 +1,37 @@
+enconnect.hubitat package
+=========================
+
+Subpackages
+-----------
+
+.. toctree::
+   :maxdepth: 4
+
+   enconnect.hubitat.test
+
+Submodules
+----------
+
+enconnect.hubitat.bridge module
+-------------------------------
+
+.. automodule:: enconnect.hubitat.bridge
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+enconnect.hubitat.params module
+-------------------------------
+
+.. automodule:: enconnect.hubitat.params
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Module contents
+---------------
+
+.. automodule:: enconnect.hubitat
+   :members:
+   :undoc-members:
+   :show-inheritance:

@@ -1,0 +1,45 @@
+enconnect.discord package
+=========================
+
+Subpackages
+-----------
+
+.. toctree::
+   :maxdepth: 4
+
+   enconnect.discord.test
+
+Submodules
+----------
+
+enconnect.discord.client module
+-------------------------------
+
+.. automodule:: enconnect.discord.client
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+enconnect.discord.models module
+-------------------------------
+
+.. automodule:: enconnect.discord.models
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+enconnect.discord.params module
+-------------------------------
+
+.. automodule:: enconnect.discord.params
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Module contents
+---------------
+
+.. automodule:: enconnect.discord
+   :members:
+   :undoc-members:
+   :show-inheritance:

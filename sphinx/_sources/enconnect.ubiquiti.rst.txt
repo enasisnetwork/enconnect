@@ -1,0 +1,37 @@
+enconnect.ubiquiti package
+==========================
+
+Subpackages
+-----------
+
+.. toctree::
+   :maxdepth: 4
+
+   enconnect.ubiquiti.test
+
+Submodules
+----------
+
+enconnect.ubiquiti.params module
+--------------------------------
+
+.. automodule:: enconnect.ubiquiti.params
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+enconnect.ubiquiti.router module
+--------------------------------
+
+.. automodule:: enconnect.ubiquiti.router
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Module contents
+---------------
+
+.. automodule:: enconnect.ubiquiti
+   :members:
+   :undoc-members:
+   :show-inheritance:

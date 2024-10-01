@@ -1,0 +1,45 @@
+enconnect.youtube package
+=========================
+
+Subpackages
+-----------
+
+.. toctree::
+   :maxdepth: 4
+
+   enconnect.youtube.test
+
+Submodules
+----------
+
+enconnect.youtube.models module
+-------------------------------
+
+.. automodule:: enconnect.youtube.models
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+enconnect.youtube.params module
+-------------------------------
+
+.. automodule:: enconnect.youtube.params
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+enconnect.youtube.youtube module
+--------------------------------
+
+.. automodule:: enconnect.youtube.youtube
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Module contents
+---------------
+
+.. automodule:: enconnect.youtube
+   :members:
+   :undoc-members:
+   :show-inheritance:

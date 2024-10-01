@@ -1,0 +1,21 @@
+enconnect.ubiquiti.test package
+===============================
+
+Submodules
+----------
+
+enconnect.ubiquiti.test.test\_router module
+-------------------------------------------
+
+.. automodule:: enconnect.ubiquiti.test.test_router
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Module contents
+---------------
+
+.. automodule:: enconnect.ubiquiti.test
+   :members:
+   :undoc-members:
+   :show-inheritance:

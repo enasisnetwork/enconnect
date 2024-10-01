@@ -1,0 +1,45 @@
+enconnect.instagram package
+===========================
+
+Subpackages
+-----------
+
+.. toctree::
+   :maxdepth: 4
+
+   enconnect.instagram.test
+
+Submodules
+----------
+
+enconnect.instagram.instagram module
+------------------------------------
+
+.. automodule:: enconnect.instagram.instagram
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+enconnect.instagram.models module
+---------------------------------
+
+.. automodule:: enconnect.instagram.models
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+enconnect.instagram.params module
+---------------------------------
+
+.. automodule:: enconnect.instagram.params
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Module contents
+---------------
+
+.. automodule:: enconnect.instagram
+   :members:
+   :undoc-members:
+   :show-inheritance:
