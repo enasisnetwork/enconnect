@@ -1,0 +1,136 @@
+>>> make cleanup-pycache
+  ● Removing Python cache files..
+    DONE
+  ● Remove package cache files..
+    DONE
+>>> make cleanup-sphinx
+  ● Removing Sphinx cache files..
+    DONE
+>>> make sphinx
+  ● Building Sphinx documentation..
+Running Sphinx v7.4.7
+loading translations [en]... done
+making output directory... done
+loading intersphinx inventory 'encommon' from https://encommon.readthedocs.io/en/stable/objects.inv...
+loading intersphinx inventory 'jinja2' from https://jinja.palletsprojects.com/en/latest/objects.inv...
+loading intersphinx inventory 'netaddr' from https://netaddr.readthedocs.io/en/latest/objects.inv...
+loading intersphinx inventory 'pydantic' from https://docs.pydantic.dev/latest/objects.inv...
+loading intersphinx inventory 'pytest' from https://docs.pytest.org/latest/objects.inv...
+loading intersphinx inventory 'python' from https://docs.python.org/3/objects.inv...
+loading intersphinx inventory 'sqlalchemy' from https://docs.sqlalchemy.org/en/20/objects.inv...
+intersphinx inventory has moved: https://docs.pytest.org/latest/objects.inv -> https://docs.pytest.org/en/7.4.x/objects.inv
+building [mo]: targets for 0 po files that are out of date
+writing output... 
+building [html]: targets for 23 source files that are out of date
+updating environment: [new config] 23 added, 0 changed, 0 removed
+reading sources... [  4%] enconnect
+reading sources... [  9%] enconnect.discord
+reading sources... [ 13%] enconnect.discord.test
+reading sources... [ 17%] enconnect.hubitat
+reading sources... [ 22%] enconnect.hubitat.test
+reading sources... [ 26%] enconnect.instagram
+reading sources... [ 30%] enconnect.instagram.test
+reading sources... [ 35%] enconnect.irc
+reading sources... [ 39%] enconnect.irc.test
+reading sources... [ 43%] enconnect.mattermost
+reading sources... [ 48%] enconnect.mattermost.test
+reading sources... [ 52%] enconnect.philips
+reading sources... [ 57%] enconnect.philips.test
+reading sources... [ 61%] enconnect.reddit
+reading sources... [ 65%] enconnect.reddit.test
+reading sources... [ 70%] enconnect.ubiquiti
+reading sources... [ 74%] enconnect.ubiquiti.test
+reading sources... [ 78%] enconnect.utils
+reading sources... [ 83%] enconnect.utils.test
+reading sources... [ 87%] enconnect.youtube
+reading sources... [ 91%] enconnect.youtube.test
+reading sources... [ 96%] index
+reading sources... [100%] modules
+
+looking for now-outdated files... none found
+pickling environment... done
+checking consistency... done
+preparing documents... done
+copying assets... 
+copying static files... done
+copying extra files... done
+copying assets: done
+writing output... [  4%] enconnect
+writing output... [  9%] enconnect.discord
+writing output... [ 13%] enconnect.discord.test
+writing output... [ 17%] enconnect.hubitat
+writing output... [ 22%] enconnect.hubitat.test
+writing output... [ 26%] enconnect.instagram
+writing output... [ 30%] enconnect.instagram.test
+writing output... [ 35%] enconnect.irc
+writing output... [ 39%] enconnect.irc.test
+writing output... [ 43%] enconnect.mattermost
+writing output... [ 48%] enconnect.mattermost.test
+writing output... [ 52%] enconnect.philips
+writing output... [ 57%] enconnect.philips.test
+writing output... [ 61%] enconnect.reddit
+writing output... [ 65%] enconnect.reddit.test
+writing output... [ 70%] enconnect.ubiquiti
+writing output... [ 74%] enconnect.ubiquiti.test
+writing output... [ 78%] enconnect.utils
+writing output... [ 83%] enconnect.utils.test
+writing output... [ 87%] enconnect.youtube
+writing output... [ 91%] enconnect.youtube.test
+writing output... [ 96%] index
+writing output... [100%] modules
+
+generating indices... genindex py-modindex done
+highlighting module code... [  2%] enconnect.discord.client
+highlighting module code... [  4%] enconnect.discord.models
+highlighting module code... [  7%] enconnect.discord.params
+highlighting module code... [  9%] enconnect.discord.test.helpers
+highlighting module code... [ 11%] enconnect.discord.test.test_client
+highlighting module code... [ 13%] enconnect.discord.test.test_models
+highlighting module code... [ 15%] enconnect.hubitat.bridge
+highlighting module code... [ 17%] enconnect.hubitat.params
+highlighting module code... [ 20%] enconnect.hubitat.test.test_bridge
+highlighting module code... [ 22%] enconnect.instagram.instagram
+highlighting module code... [ 24%] enconnect.instagram.models
+highlighting module code... [ 26%] enconnect.instagram.params
+highlighting module code... [ 28%] enconnect.instagram.test.test_instagram
+highlighting module code... [ 30%] enconnect.instagram.test.test_models
+highlighting module code... [ 33%] enconnect.irc.client
+highlighting module code... [ 35%] enconnect.irc.models
+highlighting module code... [ 37%] enconnect.irc.params
+highlighting module code... [ 39%] enconnect.irc.test.helpers
+highlighting module code... [ 41%] enconnect.irc.test.test_client
+highlighting module code... [ 43%] enconnect.irc.test.test_models
+highlighting module code... [ 46%] enconnect.mattermost.client
+highlighting module code... [ 48%] enconnect.mattermost.models
+highlighting module code... [ 50%] enconnect.mattermost.params
+highlighting module code... [ 52%] enconnect.mattermost.test.helpers
+highlighting module code... [ 54%] enconnect.mattermost.test.test_client
+highlighting module code... [ 57%] enconnect.mattermost.test.test_models
+highlighting module code... [ 59%] enconnect.philips.bridge
+highlighting module code... [ 61%] enconnect.philips.params
+highlighting module code... [ 63%] enconnect.philips.test.helpers
+highlighting module code... [ 65%] enconnect.philips.test.test_bridge
+highlighting module code... [ 67%] enconnect.reddit.models
+highlighting module code... [ 70%] enconnect.reddit.params
+highlighting module code... [ 72%] enconnect.reddit.reddit
+highlighting module code... [ 74%] enconnect.reddit.test.test_models
+highlighting module code... [ 76%] enconnect.reddit.test.test_reddit
+highlighting module code... [ 78%] enconnect.ubiquiti.params
+highlighting module code... [ 80%] enconnect.ubiquiti.router
+highlighting module code... [ 83%] enconnect.ubiquiti.test.test_router
+highlighting module code... [ 85%] enconnect.utils.dummy
+highlighting module code... [ 87%] enconnect.utils.http
+highlighting module code... [ 89%] enconnect.utils.test.test_http
+highlighting module code... [ 91%] enconnect.youtube.models
+highlighting module code... [ 93%] enconnect.youtube.params
+highlighting module code... [ 96%] enconnect.youtube.test.test_models
+highlighting module code... [ 98%] enconnect.youtube.test.test_youtube
+highlighting module code... [100%] enconnect.youtube.youtube
+
+writing additional pages... search done
+dumping search index in English (code: en)... done
+dumping object inventory... done
+build succeeded, 1130 warnings.
+
+The HTML pages are in sphinx/html.
+    DONE
