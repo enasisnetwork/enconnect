@@ -4,16 +4,24 @@
 
 Functions and classes for connecting to remote services and whatnot.
 
-[![](https://img.shields.io/github/actions/workflow/status/enasisnetwork/enconnect/build.yml?style=flat-square&label=GitHub%20actions)](https://github.com/enasisnetwork/enconnect/actions)<br>
-[![codecov](https://img.shields.io/codecov/c/github/enasisnetwork/enconnect?token=7PGOXKJU0E&style=flat-square&logoColor=FFFFFF&label=Coverage)](https://codecov.io/gh/enasisnetwork/enconnect)<br>
-[![](https://img.shields.io/readthedocs/enconnect?style=flat-square&label=Read%20the%20Docs)](https://enconnect.readthedocs.io)<br>
-[![](https://img.shields.io/pypi/v/enconnect.svg?style=flat-square&label=PyPi%20version)](https://pypi.org/project/enconnect)<br>
-[![](https://img.shields.io/pypi/dm/enconnect?style=flat-square&label=PyPi%20downloads)](https://pypi.org/project/enconnect)
+<a href="https://enasisnetwork.github.io/enconnect/validate/flake8.txt"><img src="https://enasisnetwork.github.io/enconnect/badges/flake8.png"></a><br>
+<a href="https://enasisnetwork.github.io/enconnect/validate/pylint.txt"><img src="https://enasisnetwork.github.io/enconnect/badges/pylint.png"></a><br>
+<a href="https://enasisnetwork.github.io/enconnect/validate/mypy.txt"><img src="https://enasisnetwork.github.io/enconnect/badges/mypy.png"></a><br>
+<a href="https://enasisnetwork.github.io/enconnect/validate/yamllint.txt"><img src="https://enasisnetwork.github.io/enconnect/badges/yamllint.png"></a><br>
+<a href="https://enasisnetwork.github.io/enconnect/validate/pytest.txt"><img src="https://enasisnetwork.github.io/enconnect/badges/pytest.png"></a><br>
+<a href="https://enasisnetwork.github.io/enconnect/validate/coverage.txt"><img src="https://enasisnetwork.github.io/enconnect/badges/coverage.png"></a><br>
+<a href="https://enasisnetwork.github.io/enconnect/validate/sphinx.txt"><img src="https://enasisnetwork.github.io/enconnect/badges/sphinx.png"></a><br>
+<a href="https://pypi.org/project/enconnect"><img src="https://enasisnetwork.github.io/enconnect/badges/pypi.png"></a><br>
 
 ## Documentation
-Documentation is on [Read the Docs](https://enconnect.readthedocs.io).
+Read [project documentation](https://enasisnetwork.github.io/enconnect/sphinx)
+built using the [Sphinx](https://www.sphinx-doc.org/) project.
 Should you venture into the sections below you will be able to use the
-`sphinx` recipe to build documention in the `docs/html` directory.
+`sphinx` recipe to build documention in the `sphinx/html` directory.
+
+## Projects using library
+- [Enasis Network Homie Automate](https://github.com/enasisnetwork/enhomie)
+- [Enasis Network Chatting Robie](https://github.com/enasisnetwork/enrobie)
 
 ## Useful and related links
 - [Instagram API](https://developers.facebook.com/docs/instagram-basic-display-api/reference/media)
@@ -83,7 +91,3 @@ make -s pytest
    ```
    make -s pypi-upload-prod
    ```
-
-1. Update [Read the Docs](https://enconnect.readthedocs.io) documentation.
-
-1. Consider running builds on dependent projects.
