@@ -8,16 +8,15 @@
     DONE
 >>> make sphinx
   ● Building Sphinx documentation..
-Running Sphinx v7.4.7
-loading translations [en]... done
+Running Sphinx v7.3.7
 making output directory... done
-loading intersphinx inventory 'encommon' from https://encommon.readthedocs.io/en/stable/objects.inv...
-loading intersphinx inventory 'jinja2' from https://jinja.palletsprojects.com/en/latest/objects.inv...
-loading intersphinx inventory 'netaddr' from https://netaddr.readthedocs.io/en/latest/objects.inv...
-loading intersphinx inventory 'pydantic' from https://docs.pydantic.dev/latest/objects.inv...
-loading intersphinx inventory 'pytest' from https://docs.pytest.org/latest/objects.inv...
-loading intersphinx inventory 'python' from https://docs.python.org/3/objects.inv...
-loading intersphinx inventory 'sqlalchemy' from https://docs.sqlalchemy.org/en/20/objects.inv...
+loading intersphinx inventory from https://encommon.readthedocs.io/en/stable/objects.inv...
+loading intersphinx inventory from https://jinja.palletsprojects.com/en/latest/objects.inv...
+loading intersphinx inventory from https://netaddr.readthedocs.io/en/latest/objects.inv...
+loading intersphinx inventory from https://docs.pydantic.dev/latest/objects.inv...
+loading intersphinx inventory from https://docs.pytest.org/latest/objects.inv...
+loading intersphinx inventory from https://docs.python.org/3/objects.inv...
+loading intersphinx inventory from https://docs.sqlalchemy.org/en/20/objects.inv...
 intersphinx inventory has moved: https://docs.pytest.org/latest/objects.inv -> https://docs.pytest.org/en/7.4.x/objects.inv
 building [mo]: targets for 0 po files that are out of date
 writing output... 
@@ -51,10 +50,9 @@ looking for now-outdated files... none found
 pickling environment... done
 checking consistency... done
 preparing documents... done
-copying assets... 
-copying static files... done
+copying assets... copying static files... done
 copying extra files... done
-copying assets: done
+done
 writing output... [  4%] enconnect
 writing output... [  9%] enconnect.discord
 writing output... [ 13%] enconnect.discord.test
@@ -130,7 +128,31 @@ highlighting module code... [100%] enconnect.youtube.youtube
 writing additional pages... search done
 dumping search index in English (code: en)... done
 dumping object inventory... done
-build succeeded, 1130 warnings.
+postprocess html... [  4%] /home/runner/work/enconnect/enconnect/main/sphinx/html/enconnect.html
+postprocess html... [  9%] /home/runner/work/enconnect/enconnect/main/sphinx/html/enconnect.discord.html
+postprocess html... [ 13%] /home/runner/work/enconnect/enconnect/main/sphinx/html/enconnect.discord.test.html
+postprocess html... [ 17%] /home/runner/work/enconnect/enconnect/main/sphinx/html/enconnect.hubitat.html
+postprocess html... [ 22%] /home/runner/work/enconnect/enconnect/main/sphinx/html/enconnect.hubitat.test.html
+postprocess html... [ 26%] /home/runner/work/enconnect/enconnect/main/sphinx/html/enconnect.instagram.html
+postprocess html... [ 30%] /home/runner/work/enconnect/enconnect/main/sphinx/html/enconnect.instagram.test.html
+postprocess html... [ 35%] /home/runner/work/enconnect/enconnect/main/sphinx/html/enconnect.irc.html
+postprocess html... [ 39%] /home/runner/work/enconnect/enconnect/main/sphinx/html/enconnect.irc.test.html
+postprocess html... [ 43%] /home/runner/work/enconnect/enconnect/main/sphinx/html/enconnect.mattermost.html
+postprocess html... [ 48%] /home/runner/work/enconnect/enconnect/main/sphinx/html/enconnect.mattermost.test.html
+postprocess html... [ 52%] /home/runner/work/enconnect/enconnect/main/sphinx/html/enconnect.philips.html
+postprocess html... [ 57%] /home/runner/work/enconnect/enconnect/main/sphinx/html/enconnect.philips.test.html
+postprocess html... [ 61%] /home/runner/work/enconnect/enconnect/main/sphinx/html/enconnect.reddit.html
+postprocess html... [ 65%] /home/runner/work/enconnect/enconnect/main/sphinx/html/enconnect.reddit.test.html
+postprocess html... [ 70%] /home/runner/work/enconnect/enconnect/main/sphinx/html/enconnect.ubiquiti.html
+postprocess html... [ 74%] /home/runner/work/enconnect/enconnect/main/sphinx/html/enconnect.ubiquiti.test.html
+postprocess html... [ 78%] /home/runner/work/enconnect/enconnect/main/sphinx/html/enconnect.utils.html
+postprocess html... [ 83%] /home/runner/work/enconnect/enconnect/main/sphinx/html/enconnect.utils.test.html
+postprocess html... [ 87%] /home/runner/work/enconnect/enconnect/main/sphinx/html/enconnect.youtube.html
+postprocess html... [ 91%] /home/runner/work/enconnect/enconnect/main/sphinx/html/enconnect.youtube.test.html
+postprocess html... [ 96%] /home/runner/work/enconnect/enconnect/main/sphinx/html/index.html
+postprocess html... [100%] /home/runner/work/enconnect/enconnect/main/sphinx/html/modules.html
+
+build succeeded, 115 warnings.
 
 The HTML pages are in sphinx/html.
     DONE
