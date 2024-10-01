@@ -152,7 +152,7 @@ postprocess html... [ 91%] /home/runner/work/enconnect/enconnect/main/sphinx/htm
 postprocess html... [ 96%] /home/runner/work/enconnect/enconnect/main/sphinx/html/index.html
 postprocess html... [100%] /home/runner/work/enconnect/enconnect/main/sphinx/html/modules.html
 
-build succeeded, 115 warnings.
+build succeeded, 163 warnings.
 
 The HTML pages are in sphinx/html.
     DONE
