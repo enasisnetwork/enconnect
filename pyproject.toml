@@ -21,6 +21,13 @@ dynamic = ["version", "dependencies"]
 
 
 
+[project.urls]
+
+Source = "https://github.com/enasisnetwork/enconnect"
+Documentation = "https://enasisnetwork.github.io/enconnect/sphinx"
+
+
+
 [tool.setuptools.dynamic]
 
 version.attr = "enconnect.__version__"
