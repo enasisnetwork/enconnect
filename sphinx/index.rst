@@ -1,5 +1,8 @@
+Enasis Network Remote Connect
+=============================
+
 Discord Parameters
-==================
+------------------
 
 .. autopydantic_model:: enconnect.discord.ClientParams
    :members:
@@ -7,7 +10,7 @@ Discord Parameters
    :noindex:
 
 Discord Client
-==============
+--------------
 
 .. autoclass:: enconnect.discord.Client
    :members:
@@ -20,7 +23,7 @@ Discord Client
    :noindex:
 
 Instagram Parameters
-====================
+--------------------
 
 .. autopydantic_model:: enconnect.instagram.InstagramParams
    :members:
@@ -28,7 +31,7 @@ Instagram Parameters
    :noindex:
 
 Instagram Client
-================
+----------------
 
 .. autoclass:: enconnect.instagram.Instagram
    :members:
@@ -41,7 +44,7 @@ Instagram Client
    :noindex:
 
 IRC Parameters
-==============
+--------------
 
 .. autopydantic_model:: enconnect.irc.ClientParams
    :members:
@@ -49,7 +52,7 @@ IRC Parameters
    :noindex:
 
 IRC Client
-==========
+----------
 
 .. autoclass:: enconnect.irc.Client
    :members:
@@ -62,7 +65,7 @@ IRC Client
    :noindex:
 
 Mattermost Parameters
-=====================
+---------------------
 
 .. autopydantic_model:: enconnect.mattermost.ClientParams
    :members:
@@ -70,7 +73,7 @@ Mattermost Parameters
    :noindex:
 
 Mattermost Client
-=================
+-----------------
 
 .. autoclass:: enconnect.mattermost.Client
    :members:
@@ -83,7 +86,7 @@ Mattermost Client
    :noindex:
 
 Philips Hue Parameters
-======================
+----------------------
 
 .. autopydantic_model:: enconnect.philips.BridgeParams
    :members:
@@ -91,7 +94,7 @@ Philips Hue Parameters
    :noindex:
 
 Philips Hue Client
-==================
+------------------
 
 .. autoclass:: enconnect.philips.Bridge
    :members:
@@ -99,7 +102,7 @@ Philips Hue Client
    :noindex:
 
 Hubitat Elevation Parameters
-============================
+----------------------------
 
 .. autopydantic_model:: enconnect.hubitat.BridgeParams
    :members:
@@ -107,7 +110,7 @@ Hubitat Elevation Parameters
    :noindex:
 
 Hubitat Elevation Client
-========================
+------------------------
 
 .. autoclass:: enconnect.hubitat.Bridge
    :members:
@@ -115,7 +118,7 @@ Hubitat Elevation Client
    :noindex:
 
 Reddit Parameters
-=================
+-----------------
 
 .. autopydantic_model:: enconnect.reddit.RedditParams
    :members:
@@ -123,7 +126,7 @@ Reddit Parameters
    :noindex:
 
 Reddit Client
-=============
+-------------
 
 .. autoclass:: enconnect.reddit.Reddit
    :members:
@@ -136,7 +139,7 @@ Reddit Client
    :noindex:
 
 Ubiquiti Router Parameters
-==========================
+--------------------------
 
 .. autopydantic_model:: enconnect.ubiquiti.RouterParams
    :members:
@@ -144,7 +147,7 @@ Ubiquiti Router Parameters
    :noindex:
 
 Ubiquiti Router Client
-======================
+----------------------
 
 .. autoclass:: enconnect.ubiquiti.Router
    :members:
@@ -152,7 +155,7 @@ Ubiquiti Router Client
    :noindex:
 
 YouTube Parameters
-==================
+------------------
 
 .. autopydantic_model:: enconnect.youtube.YouTubeParams
    :members:
@@ -160,7 +163,7 @@ YouTube Parameters
    :noindex:
 
 YouTube Client
-==============
+--------------
 
 .. autoclass:: enconnect.youtube.YouTube
    :members:
@@ -173,7 +176,7 @@ YouTube Client
    :noindex:
 
 Low Level Utilities
-===================
+-------------------
 
 .. autoclass:: enconnect.utils.HTTPClient
    :members:
