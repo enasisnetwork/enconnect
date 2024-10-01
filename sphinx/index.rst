@@ -1,8 +1,8 @@
 Enasis Network Remote Connect
 =============================
 
-Configuration Container
------------------------
+Discord Parameters
+------------------
 
 .. autopydantic_model:: enconnect.discord.ClientParams
    :members:
