@@ -9,6 +9,8 @@ is permitted, for more information consult the project license file.
 
 from typing import Annotated
 from typing import Any
+from typing import Literal
+from typing import Optional
 
 from encommon.types import BaseModel
 
@@ -38,22 +40,45 @@ class ClientParams(BaseModel, extra='forbid'):
         Field(30,
               description='Timeout connecting to server')]
 
+    operate: Annotated[
+        Literal['normal', 'service'],
+        Field('normal',
+              description='Method for server connection')]
+
     nickname: Annotated[
         str,
-        Field(...,
+        Field('ircbot',
               description='Parameter for the integration',
               min_length=1)]
 
     username: Annotated[
         str,
-        Field(...,
+        Field('ircbot',
               description='Parameter for the integration',
               min_length=1)]
 
     realname: Annotated[
         str,
-        Field(...,
+        Field('Chatting Robie',
               description='Parameter for the integration',
+              min_length=1)]
+
+    password: Annotated[
+        Optional[str],
+        Field(None,
+              description='Parameter for the integration',
+              min_length=1)]
+
+    servername: Annotated[
+        str,
+        Field('services.invalid',
+              description='Parameter for the integration',
+              min_length=1)]
+
+    serverid: Annotated[
+        str,
+        Field('42X',
+              description='Unique identifier for services',
               min_length=1)]
 
     ssl_enable: Annotated[
