@@ -7,6 +7,7 @@ Functions and classes for connecting to remote services and whatnot.
 <a href="https://pypi.org/project/enconnect"><img src="https://enasisnetwork.github.io/enconnect/badges/pypi.png"></a><br>
 <a href="https://enasisnetwork.github.io/enconnect/validate/flake8.txt"><img src="https://enasisnetwork.github.io/enconnect/badges/flake8.png"></a><br>
 <a href="https://enasisnetwork.github.io/enconnect/validate/pylint.txt"><img src="https://enasisnetwork.github.io/enconnect/badges/pylint.png"></a><br>
+<a href="https://enasisnetwork.github.io/enconnect/validate/ruff.txt"><img src="https://enasisnetwork.github.io/enconnect/badges/ruff.png"></a><br>
 <a href="https://enasisnetwork.github.io/enconnect/validate/mypy.txt"><img src="https://enasisnetwork.github.io/enconnect/badges/mypy.png"></a><br>
 <a href="https://enasisnetwork.github.io/enconnect/validate/yamllint.txt"><img src="https://enasisnetwork.github.io/enconnect/badges/yamllint.png"></a><br>
 <a href="https://enasisnetwork.github.io/enconnect/validate/pytest.txt"><img src="https://enasisnetwork.github.io/enconnect/badges/pytest.png"></a><br>
