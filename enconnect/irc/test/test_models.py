@@ -8,6 +8,7 @@ is permitted, for more information consult the project license file.
 
 
 from threading import Thread
+from time import sleep as block_sleep
 
 from encommon.types import inrepr
 from encommon.types import instr
@@ -283,6 +284,8 @@ def test_ClientEvent_cover(  # noqa: CFQ001
     assert not item.author
     assert not item.recipient
     assert not item.message
+
+    block_sleep(1)
 
     assert not client.canceled
     assert not client.connected
