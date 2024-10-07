@@ -170,36 +170,37 @@
 </span><span id="line-25">    <span class="n">timeout</span><span class="p">:</span> <span class="n">Annotated</span><span class="p">[</span>
 </span><span id="line-26">        <span class="nb">int</span><span class="p">,</span>
 </span><span id="line-27">        <span class="n">Field</span><span class="p">(</span><span class="mi">30</span><span class="p">,</span>
-</span><span id="line-28">              <span class="n">description</span><span class="o">=</span><span class="s1">&#39;Timeout connecting to server&#39;</span><span class="p">)]</span>
-</span><span id="line-29">
-</span><span id="line-30">    <span class="n">token</span><span class="p">:</span> <span class="n">Annotated</span><span class="p">[</span>
-</span><span id="line-31">        <span class="nb">str</span><span class="p">,</span>
-</span><span id="line-32">        <span class="n">Field</span><span class="p">(</span><span class="o">...</span><span class="p">,</span>
-</span><span id="line-33">              <span class="n">description</span><span class="o">=</span><span class="s1">&#39;Parameter for the integration&#39;</span><span class="p">,</span>
-</span><span id="line-34">              <span class="n">min_length</span><span class="o">=</span><span class="mi">1</span><span class="p">)]</span>
-</span><span id="line-35">
-</span><span id="line-36">    <span class="n">ssl_verify</span><span class="p">:</span> <span class="n">Annotated</span><span class="p">[</span>
-</span><span id="line-37">        <span class="nb">bool</span><span class="p">,</span>
-</span><span id="line-38">        <span class="n">Field</span><span class="p">(</span><span class="kc">True</span><span class="p">,</span>
-</span><span id="line-39">              <span class="n">description</span><span class="o">=</span><span class="s1">&#39;Verify the ceritifcate valid&#39;</span><span class="p">)]</span>
-</span><span id="line-40">
-</span><span id="line-41">    <span class="n">ssl_capem</span><span class="p">:</span> <span class="n">Annotated</span><span class="p">[</span>
-</span><span id="line-42">        <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span>
-</span><span id="line-43">        <span class="n">Field</span><span class="p">(</span><span class="kc">None</span><span class="p">,</span>
-</span><span id="line-44">              <span class="n">description</span><span class="o">=</span><span class="s1">&#39;Verify the ceritifcate valid&#39;</span><span class="p">,</span>
-</span><span id="line-45">              <span class="n">min_length</span><span class="o">=</span><span class="mi">1</span><span class="p">)]</span>
-</span><span id="line-46">
+</span><span id="line-28">              <span class="n">description</span><span class="o">=</span><span class="s1">&#39;Timeout connecting to server&#39;</span><span class="p">,</span>
+</span><span id="line-29">              <span class="n">ge</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">le</span><span class="o">=</span><span class="mi">300</span><span class="p">)]</span>
+</span><span id="line-30">
+</span><span id="line-31">    <span class="n">token</span><span class="p">:</span> <span class="n">Annotated</span><span class="p">[</span>
+</span><span id="line-32">        <span class="nb">str</span><span class="p">,</span>
+</span><span id="line-33">        <span class="n">Field</span><span class="p">(</span><span class="o">...</span><span class="p">,</span>
+</span><span id="line-34">              <span class="n">description</span><span class="o">=</span><span class="s1">&#39;Parameter for the integration&#39;</span><span class="p">,</span>
+</span><span id="line-35">              <span class="n">min_length</span><span class="o">=</span><span class="mi">1</span><span class="p">)]</span>
+</span><span id="line-36">
+</span><span id="line-37">    <span class="n">ssl_verify</span><span class="p">:</span> <span class="n">Annotated</span><span class="p">[</span>
+</span><span id="line-38">        <span class="nb">bool</span><span class="p">,</span>
+</span><span id="line-39">        <span class="n">Field</span><span class="p">(</span><span class="kc">True</span><span class="p">,</span>
+</span><span id="line-40">              <span class="n">description</span><span class="o">=</span><span class="s1">&#39;Verify the ceritifcate valid&#39;</span><span class="p">)]</span>
+</span><span id="line-41">
+</span><span id="line-42">    <span class="n">ssl_capem</span><span class="p">:</span> <span class="n">Annotated</span><span class="p">[</span>
+</span><span id="line-43">        <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span>
+</span><span id="line-44">        <span class="n">Field</span><span class="p">(</span><span class="kc">None</span><span class="p">,</span>
+</span><span id="line-45">              <span class="n">description</span><span class="o">=</span><span class="s1">&#39;Verify the ceritifcate valid&#39;</span><span class="p">,</span>
+</span><span id="line-46">              <span class="n">min_length</span><span class="o">=</span><span class="mi">1</span><span class="p">)]</span>
 </span><span id="line-47">
-</span><span id="line-48">    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
-</span><span id="line-49">        <span class="bp">self</span><span class="p">,</span>
-</span><span id="line-50">        <span class="o">/</span><span class="p">,</span>
-</span><span id="line-51">        <span class="o">**</span><span class="n">data</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
-</span><span id="line-52">    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-</span><span id="line-53"><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-</span><span id="line-54"><span class="sd">        Initialize instance for class using provided parameters.</span>
-</span><span id="line-55"><span class="sd">        &quot;&quot;&quot;</span>
-</span><span id="line-56">
-</span><span id="line-57">        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">**</span><span class="n">data</span><span class="p">)</span></div>
+</span><span id="line-48">
+</span><span id="line-49">    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+</span><span id="line-50">        <span class="bp">self</span><span class="p">,</span>
+</span><span id="line-51">        <span class="o">/</span><span class="p">,</span>
+</span><span id="line-52">        <span class="o">**</span><span class="n">data</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
+</span><span id="line-53">    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+</span><span id="line-54"><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="line-55"><span class="sd">        Initialize instance for class using provided parameters.</span>
+</span><span id="line-56"><span class="sd">        &quot;&quot;&quot;</span>
+</span><span id="line-57">
+</span><span id="line-58">        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">**</span><span class="n">data</span><span class="p">)</span></div>
 
 </span></code></pre></div>
     </div></div>
