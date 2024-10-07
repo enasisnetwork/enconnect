@@ -151,374 +151,377 @@
 </span><span id="line-8">
 </span><span id="line-9">
 </span><span id="line-10"><span class="kn">from</span> <span class="nn">threading</span> <span class="kn">import</span> <span class="n">Thread</span>
-</span><span id="line-11">
-</span><span id="line-12"><span class="kn">from</span> <span class="nn">encommon.types</span> <span class="kn">import</span> <span class="n">inrepr</span>
-</span><span id="line-13"><span class="kn">from</span> <span class="nn">encommon.types</span> <span class="kn">import</span> <span class="n">instr</span>
-</span><span id="line-14"><span class="kn">from</span> <span class="nn">encommon.types</span> <span class="kn">import</span> <span class="n">lattrs</span>
-</span><span id="line-15">
-</span><span id="line-16"><span class="kn">from</span> <span class="nn">pytest</span> <span class="kn">import</span> <span class="n">raises</span>
-</span><span id="line-17">
-</span><span id="line-18"><span class="kn">from</span> <span class="nn">.helpers</span> <span class="kn">import</span> <span class="n">EVENTS</span>
-</span><span id="line-19"><span class="kn">from</span> <span class="nn">.helpers</span> <span class="kn">import</span> <span class="n">SVENTS</span>
-</span><span id="line-20"><span class="kn">from</span> <span class="nn">..client</span> <span class="kn">import</span> <span class="n">Client</span>
-</span><span id="line-21"><span class="kn">from</span> <span class="nn">..models</span> <span class="kn">import</span> <span class="n">ClientEvent</span>
-</span><span id="line-22"><span class="kn">from</span> <span class="nn">..params</span> <span class="kn">import</span> <span class="n">ClientParams</span>
-</span><span id="line-23"><span class="kn">from</span> <span class="nn">...fixtures</span> <span class="kn">import</span> <span class="n">IRCClientSocket</span>
-</span><span id="line-24">
+</span><span id="line-11"><span class="kn">from</span> <span class="nn">time</span> <span class="kn">import</span> <span class="n">sleep</span> <span class="k">as</span> <span class="n">block_sleep</span>
+</span><span id="line-12">
+</span><span id="line-13"><span class="kn">from</span> <span class="nn">encommon.types</span> <span class="kn">import</span> <span class="n">inrepr</span>
+</span><span id="line-14"><span class="kn">from</span> <span class="nn">encommon.types</span> <span class="kn">import</span> <span class="n">instr</span>
+</span><span id="line-15"><span class="kn">from</span> <span class="nn">encommon.types</span> <span class="kn">import</span> <span class="n">lattrs</span>
+</span><span id="line-16">
+</span><span id="line-17"><span class="kn">from</span> <span class="nn">pytest</span> <span class="kn">import</span> <span class="n">raises</span>
+</span><span id="line-18">
+</span><span id="line-19"><span class="kn">from</span> <span class="nn">.helpers</span> <span class="kn">import</span> <span class="n">EVENTS</span>
+</span><span id="line-20"><span class="kn">from</span> <span class="nn">.helpers</span> <span class="kn">import</span> <span class="n">SVENTS</span>
+</span><span id="line-21"><span class="kn">from</span> <span class="nn">..client</span> <span class="kn">import</span> <span class="n">Client</span>
+</span><span id="line-22"><span class="kn">from</span> <span class="nn">..models</span> <span class="kn">import</span> <span class="n">ClientEvent</span>
+</span><span id="line-23"><span class="kn">from</span> <span class="nn">..params</span> <span class="kn">import</span> <span class="n">ClientParams</span>
+</span><span id="line-24"><span class="kn">from</span> <span class="nn">...fixtures</span> <span class="kn">import</span> <span class="n">IRCClientSocket</span>
 </span><span id="line-25">
 </span><span id="line-26">
+</span><span id="line-27">
 <div class="viewcode-block" id="test_ClientEvent">
 <a class="viewcode-back" href="../../../../enconnect.irc.test.html#enconnect.irc.test.test_models.test_ClientEvent">[docs]</a>
-</span><span id="line-27"><span class="k">def</span> <span class="nf">test_ClientEvent</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-</span><span id="line-28"><span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-</span><span id="line-29"><span class="sd">    Perform various tests associated with relevant routines.</span>
-</span><span id="line-30"><span class="sd">    &quot;&quot;&quot;</span>
-</span><span id="line-31">
-</span><span id="line-32">    <span class="n">params</span> <span class="o">=</span> <span class="n">ClientParams</span><span class="p">(</span>
-</span><span id="line-33">        <span class="n">server</span><span class="o">=</span><span class="s1">&#39;mocked&#39;</span><span class="p">,</span>
-</span><span id="line-34">        <span class="n">port</span><span class="o">=</span><span class="mi">6667</span><span class="p">,</span>
-</span><span id="line-35">        <span class="n">nickname</span><span class="o">=</span><span class="s1">&#39;ircbot&#39;</span><span class="p">,</span>
-</span><span id="line-36">        <span class="n">username</span><span class="o">=</span><span class="s1">&#39;ircbot&#39;</span><span class="p">,</span>
-</span><span id="line-37">        <span class="n">realname</span><span class="o">=</span><span class="s1">&#39;ircbot&#39;</span><span class="p">,</span>
-</span><span id="line-38">        <span class="n">ssl_enable</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-</span><span id="line-39">
-</span><span id="line-40">    <span class="n">client</span> <span class="o">=</span> <span class="n">Client</span><span class="p">(</span><span class="n">params</span><span class="p">)</span>
-</span><span id="line-41">
+</span><span id="line-28"><span class="k">def</span> <span class="nf">test_ClientEvent</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+</span><span id="line-29"><span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="line-30"><span class="sd">    Perform various tests associated with relevant routines.</span>
+</span><span id="line-31"><span class="sd">    &quot;&quot;&quot;</span>
+</span><span id="line-32">
+</span><span id="line-33">    <span class="n">params</span> <span class="o">=</span> <span class="n">ClientParams</span><span class="p">(</span>
+</span><span id="line-34">        <span class="n">server</span><span class="o">=</span><span class="s1">&#39;mocked&#39;</span><span class="p">,</span>
+</span><span id="line-35">        <span class="n">port</span><span class="o">=</span><span class="mi">6667</span><span class="p">,</span>
+</span><span id="line-36">        <span class="n">nickname</span><span class="o">=</span><span class="s1">&#39;ircbot&#39;</span><span class="p">,</span>
+</span><span id="line-37">        <span class="n">username</span><span class="o">=</span><span class="s1">&#39;ircbot&#39;</span><span class="p">,</span>
+</span><span id="line-38">        <span class="n">realname</span><span class="o">=</span><span class="s1">&#39;ircbot&#39;</span><span class="p">,</span>
+</span><span id="line-39">        <span class="n">ssl_enable</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</span><span id="line-40">
+</span><span id="line-41">    <span class="n">client</span> <span class="o">=</span> <span class="n">Client</span><span class="p">(</span><span class="n">params</span><span class="p">)</span>
 </span><span id="line-42">
-</span><span id="line-43">    <span class="n">_event</span> <span class="o">=</span> <span class="p">(</span>
-</span><span id="line-44">        <span class="s1">&#39;:server PING&#39;</span>
-</span><span id="line-45">        <span class="s1">&#39; :123456789&#39;</span><span class="p">)</span>
-</span><span id="line-46">
-</span><span id="line-47">    <span class="n">event</span> <span class="o">=</span> <span class="n">ClientEvent</span><span class="p">(</span>
-</span><span id="line-48">        <span class="n">client</span><span class="p">,</span> <span class="n">_event</span><span class="p">)</span>
-</span><span id="line-49">
+</span><span id="line-43">
+</span><span id="line-44">    <span class="n">_event</span> <span class="o">=</span> <span class="p">(</span>
+</span><span id="line-45">        <span class="s1">&#39;:server PING&#39;</span>
+</span><span id="line-46">        <span class="s1">&#39; :123456789&#39;</span><span class="p">)</span>
+</span><span id="line-47">
+</span><span id="line-48">    <span class="n">event</span> <span class="o">=</span> <span class="n">ClientEvent</span><span class="p">(</span>
+</span><span id="line-49">        <span class="n">client</span><span class="p">,</span> <span class="n">_event</span><span class="p">)</span>
 </span><span id="line-50">
-</span><span id="line-51">    <span class="n">attrs</span> <span class="o">=</span> <span class="n">lattrs</span><span class="p">(</span><span class="n">event</span><span class="p">)</span>
-</span><span id="line-52">
-</span><span id="line-53">    <span class="k">assert</span> <span class="n">attrs</span> <span class="o">==</span> <span class="p">[</span>
-</span><span id="line-54">        <span class="s1">&#39;prefix&#39;</span><span class="p">,</span>
-</span><span id="line-55">        <span class="s1">&#39;command&#39;</span><span class="p">,</span>
-</span><span id="line-56">        <span class="s1">&#39;params&#39;</span><span class="p">,</span>
-</span><span id="line-57">        <span class="s1">&#39;original&#39;</span><span class="p">,</span>
-</span><span id="line-58">        <span class="s1">&#39;kind&#39;</span><span class="p">,</span>
-</span><span id="line-59">        <span class="s1">&#39;isme&#39;</span><span class="p">,</span>
-</span><span id="line-60">        <span class="s1">&#39;author&#39;</span><span class="p">,</span>
-</span><span id="line-61">        <span class="s1">&#39;recipient&#39;</span><span class="p">,</span>
-</span><span id="line-62">        <span class="s1">&#39;message&#39;</span><span class="p">]</span>
-</span><span id="line-63">
+</span><span id="line-51">
+</span><span id="line-52">    <span class="n">attrs</span> <span class="o">=</span> <span class="n">lattrs</span><span class="p">(</span><span class="n">event</span><span class="p">)</span>
+</span><span id="line-53">
+</span><span id="line-54">    <span class="k">assert</span> <span class="n">attrs</span> <span class="o">==</span> <span class="p">[</span>
+</span><span id="line-55">        <span class="s1">&#39;prefix&#39;</span><span class="p">,</span>
+</span><span id="line-56">        <span class="s1">&#39;command&#39;</span><span class="p">,</span>
+</span><span id="line-57">        <span class="s1">&#39;params&#39;</span><span class="p">,</span>
+</span><span id="line-58">        <span class="s1">&#39;original&#39;</span><span class="p">,</span>
+</span><span id="line-59">        <span class="s1">&#39;kind&#39;</span><span class="p">,</span>
+</span><span id="line-60">        <span class="s1">&#39;isme&#39;</span><span class="p">,</span>
+</span><span id="line-61">        <span class="s1">&#39;author&#39;</span><span class="p">,</span>
+</span><span id="line-62">        <span class="s1">&#39;recipient&#39;</span><span class="p">,</span>
+</span><span id="line-63">        <span class="s1">&#39;message&#39;</span><span class="p">]</span>
 </span><span id="line-64">
-</span><span id="line-65">    <span class="k">assert</span> <span class="n">inrepr</span><span class="p">(</span>
-</span><span id="line-66">        <span class="s1">&#39;ClientEvent(prefix&#39;</span><span class="p">,</span>
-</span><span id="line-67">        <span class="n">event</span><span class="p">)</span>
-</span><span id="line-68">
-</span><span id="line-69">    <span class="k">with</span> <span class="n">raises</span><span class="p">(</span><span class="ne">TypeError</span><span class="p">):</span>
-</span><span id="line-70">        <span class="nb">hash</span><span class="p">(</span><span class="n">event</span><span class="p">)</span>
-</span><span id="line-71">
-</span><span id="line-72">    <span class="k">assert</span> <span class="n">instr</span><span class="p">(</span>
-</span><span id="line-73">        <span class="s2">&quot;prefix=&#39;server&#39;&quot;</span><span class="p">,</span>
-</span><span id="line-74">        <span class="n">event</span><span class="p">)</span>
-</span><span id="line-75">
+</span><span id="line-65">
+</span><span id="line-66">    <span class="k">assert</span> <span class="n">inrepr</span><span class="p">(</span>
+</span><span id="line-67">        <span class="s1">&#39;ClientEvent(prefix&#39;</span><span class="p">,</span>
+</span><span id="line-68">        <span class="n">event</span><span class="p">)</span>
+</span><span id="line-69">
+</span><span id="line-70">    <span class="k">with</span> <span class="n">raises</span><span class="p">(</span><span class="ne">TypeError</span><span class="p">):</span>
+</span><span id="line-71">        <span class="nb">hash</span><span class="p">(</span><span class="n">event</span><span class="p">)</span>
+</span><span id="line-72">
+</span><span id="line-73">    <span class="k">assert</span> <span class="n">instr</span><span class="p">(</span>
+</span><span id="line-74">        <span class="s2">&quot;prefix=&#39;server&#39;&quot;</span><span class="p">,</span>
+</span><span id="line-75">        <span class="n">event</span><span class="p">)</span>
 </span><span id="line-76">
-</span><span id="line-77">    <span class="k">assert</span> <span class="n">event</span><span class="o">.</span><span class="n">original</span>
-</span><span id="line-78">
-</span><span id="line-79">    <span class="k">assert</span> <span class="n">event</span><span class="o">.</span><span class="n">kind</span> <span class="o">==</span> <span class="s1">&#39;event&#39;</span>
-</span><span id="line-80">
-</span><span id="line-81">    <span class="k">assert</span> <span class="ow">not</span> <span class="n">event</span><span class="o">.</span><span class="n">isme</span>
-</span><span id="line-82">
-</span><span id="line-83">    <span class="k">assert</span> <span class="ow">not</span> <span class="n">event</span><span class="o">.</span><span class="n">author</span>
-</span><span id="line-84">
-</span><span id="line-85">    <span class="k">assert</span> <span class="ow">not</span> <span class="n">event</span><span class="o">.</span><span class="n">recipient</span>
-</span><span id="line-86">
-</span><span id="line-87">    <span class="k">assert</span> <span class="ow">not</span> <span class="n">event</span><span class="o">.</span><span class="n">message</span></div>
+</span><span id="line-77">
+</span><span id="line-78">    <span class="k">assert</span> <span class="n">event</span><span class="o">.</span><span class="n">original</span>
+</span><span id="line-79">
+</span><span id="line-80">    <span class="k">assert</span> <span class="n">event</span><span class="o">.</span><span class="n">kind</span> <span class="o">==</span> <span class="s1">&#39;event&#39;</span>
+</span><span id="line-81">
+</span><span id="line-82">    <span class="k">assert</span> <span class="ow">not</span> <span class="n">event</span><span class="o">.</span><span class="n">isme</span>
+</span><span id="line-83">
+</span><span id="line-84">    <span class="k">assert</span> <span class="ow">not</span> <span class="n">event</span><span class="o">.</span><span class="n">author</span>
+</span><span id="line-85">
+</span><span id="line-86">    <span class="k">assert</span> <span class="ow">not</span> <span class="n">event</span><span class="o">.</span><span class="n">recipient</span>
+</span><span id="line-87">
+</span><span id="line-88">    <span class="k">assert</span> <span class="ow">not</span> <span class="n">event</span><span class="o">.</span><span class="n">message</span></div>
 
-</span><span id="line-88">
 </span><span id="line-89">
 </span><span id="line-90">
+</span><span id="line-91">
 <div class="viewcode-block" id="test_ClientEvent_cover">
 <a class="viewcode-back" href="../../../../enconnect.irc.test.html#enconnect.irc.test.test_models.test_ClientEvent_cover">[docs]</a>
-</span><span id="line-91"><span class="k">def</span> <span class="nf">test_ClientEvent_cover</span><span class="p">(</span>  <span class="c1"># noqa: CFQ001</span>
-</span><span id="line-92">    <span class="n">client_ircsock</span><span class="p">:</span> <span class="n">IRCClientSocket</span><span class="p">,</span>
-</span><span id="line-93"><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-</span><span id="line-94"><span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-</span><span id="line-95"><span class="sd">    Perform various tests associated with relevant routines.</span>
-</span><span id="line-96">
-</span><span id="line-97"><span class="sd">    .. note::</span>
-</span><span id="line-98"><span class="sd">       Duplicative test routine as below but with EVENTS.</span>
-</span><span id="line-99">
-</span><span id="line-100"><span class="sd">    :param client_ircsock: Object to mock client connection.</span>
-</span><span id="line-101"><span class="sd">    &quot;&quot;&quot;</span>
-</span><span id="line-102">
-</span><span id="line-103">    <span class="n">params</span> <span class="o">=</span> <span class="n">ClientParams</span><span class="p">(</span>
-</span><span id="line-104">        <span class="n">server</span><span class="o">=</span><span class="s1">&#39;mocked&#39;</span><span class="p">,</span>
-</span><span id="line-105">        <span class="n">port</span><span class="o">=</span><span class="mi">6667</span><span class="p">,</span>
-</span><span id="line-106">        <span class="n">nickname</span><span class="o">=</span><span class="s1">&#39;ircbot&#39;</span><span class="p">,</span>
-</span><span id="line-107">        <span class="n">username</span><span class="o">=</span><span class="s1">&#39;ircbot&#39;</span><span class="p">,</span>
-</span><span id="line-108">        <span class="n">realname</span><span class="o">=</span><span class="s1">&#39;ircbot&#39;</span><span class="p">,</span>
-</span><span id="line-109">        <span class="n">ssl_enable</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-</span><span id="line-110">
-</span><span id="line-111">    <span class="n">client</span> <span class="o">=</span> <span class="n">Client</span><span class="p">(</span><span class="n">params</span><span class="p">)</span>
-</span><span id="line-112">
+</span><span id="line-92"><span class="k">def</span> <span class="nf">test_ClientEvent_cover</span><span class="p">(</span>  <span class="c1"># noqa: CFQ001</span>
+</span><span id="line-93">    <span class="n">client_ircsock</span><span class="p">:</span> <span class="n">IRCClientSocket</span><span class="p">,</span>
+</span><span id="line-94"><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+</span><span id="line-95"><span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="line-96"><span class="sd">    Perform various tests associated with relevant routines.</span>
+</span><span id="line-97">
+</span><span id="line-98"><span class="sd">    .. note::</span>
+</span><span id="line-99"><span class="sd">       Duplicative test routine as below but with EVENTS.</span>
+</span><span id="line-100">
+</span><span id="line-101"><span class="sd">    :param client_ircsock: Object to mock client connection.</span>
+</span><span id="line-102"><span class="sd">    &quot;&quot;&quot;</span>
+</span><span id="line-103">
+</span><span id="line-104">    <span class="n">params</span> <span class="o">=</span> <span class="n">ClientParams</span><span class="p">(</span>
+</span><span id="line-105">        <span class="n">server</span><span class="o">=</span><span class="s1">&#39;mocked&#39;</span><span class="p">,</span>
+</span><span id="line-106">        <span class="n">port</span><span class="o">=</span><span class="mi">6667</span><span class="p">,</span>
+</span><span id="line-107">        <span class="n">nickname</span><span class="o">=</span><span class="s1">&#39;ircbot&#39;</span><span class="p">,</span>
+</span><span id="line-108">        <span class="n">username</span><span class="o">=</span><span class="s1">&#39;ircbot&#39;</span><span class="p">,</span>
+</span><span id="line-109">        <span class="n">realname</span><span class="o">=</span><span class="s1">&#39;ircbot&#39;</span><span class="p">,</span>
+</span><span id="line-110">        <span class="n">ssl_enable</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</span><span id="line-111">
+</span><span id="line-112">    <span class="n">client</span> <span class="o">=</span> <span class="n">Client</span><span class="p">(</span><span class="n">params</span><span class="p">)</span>
 </span><span id="line-113">
-</span><span id="line-114">    <span class="k">def</span> <span class="nf">_operate</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-</span><span id="line-115">
-</span><span id="line-116">        <span class="n">client_ircsock</span><span class="p">(</span><span class="n">EVENTS</span><span class="p">)</span>
-</span><span id="line-117">
-</span><span id="line-118">        <span class="n">_raises</span> <span class="o">=</span> <span class="ne">ConnectionError</span>
-</span><span id="line-119">
-</span><span id="line-120">        <span class="k">with</span> <span class="n">raises</span><span class="p">(</span><span class="n">_raises</span><span class="p">):</span>
-</span><span id="line-121">            <span class="n">client</span><span class="o">.</span><span class="n">operate</span><span class="p">()</span>
-</span><span id="line-122">
+</span><span id="line-114">
+</span><span id="line-115">    <span class="k">def</span> <span class="nf">_operate</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+</span><span id="line-116">
+</span><span id="line-117">        <span class="n">client_ircsock</span><span class="p">(</span><span class="n">EVENTS</span><span class="p">)</span>
+</span><span id="line-118">
+</span><span id="line-119">        <span class="n">_raises</span> <span class="o">=</span> <span class="ne">ConnectionError</span>
+</span><span id="line-120">
+</span><span id="line-121">        <span class="k">with</span> <span class="n">raises</span><span class="p">(</span><span class="n">_raises</span><span class="p">):</span>
+</span><span id="line-122">            <span class="n">client</span><span class="o">.</span><span class="n">operate</span><span class="p">()</span>
 </span><span id="line-123">
-</span><span id="line-124">    <span class="n">thread</span> <span class="o">=</span> <span class="n">Thread</span><span class="p">(</span>
-</span><span id="line-125">        <span class="n">target</span><span class="o">=</span><span class="n">_operate</span><span class="p">)</span>
-</span><span id="line-126">
-</span><span id="line-127">    <span class="n">thread</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
-</span><span id="line-128">
+</span><span id="line-124">
+</span><span id="line-125">    <span class="n">thread</span> <span class="o">=</span> <span class="n">Thread</span><span class="p">(</span>
+</span><span id="line-126">        <span class="n">target</span><span class="o">=</span><span class="n">_operate</span><span class="p">)</span>
+</span><span id="line-127">
+</span><span id="line-128">    <span class="n">thread</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
 </span><span id="line-129">
-</span><span id="line-130">    <span class="n">mqueue</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">mqueue</span>
-</span><span id="line-131">
+</span><span id="line-130">
+</span><span id="line-131">    <span class="n">mqueue</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">mqueue</span>
 </span><span id="line-132">
-</span><span id="line-133">    <span class="n">item</span> <span class="o">=</span> <span class="n">mqueue</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>
-</span><span id="line-134">
-</span><span id="line-135">    <span class="k">assert</span> <span class="n">item</span><span class="o">.</span><span class="n">prefix</span> <span class="o">==</span> <span class="s1">&#39;mocked&#39;</span>
-</span><span id="line-136">    <span class="k">assert</span> <span class="n">item</span><span class="o">.</span><span class="n">command</span> <span class="o">==</span> <span class="s1">&#39;001&#39;</span>
-</span><span id="line-137">    <span class="k">assert</span> <span class="n">item</span><span class="o">.</span><span class="n">params</span> <span class="o">==</span> <span class="p">(</span>
-</span><span id="line-138">        <span class="s1">&#39;ircbot :Welcome to network&#39;</span><span class="p">)</span>
-</span><span id="line-139">
-</span><span id="line-140">    <span class="k">assert</span> <span class="n">item</span><span class="o">.</span><span class="n">kind</span> <span class="o">==</span> <span class="s1">&#39;event&#39;</span>
-</span><span id="line-141">    <span class="k">assert</span> <span class="ow">not</span> <span class="n">item</span><span class="o">.</span><span class="n">isme</span>
-</span><span id="line-142">    <span class="k">assert</span> <span class="ow">not</span> <span class="n">item</span><span class="o">.</span><span class="n">author</span>
-</span><span id="line-143">    <span class="k">assert</span> <span class="ow">not</span> <span class="n">item</span><span class="o">.</span><span class="n">recipient</span>
-</span><span id="line-144">    <span class="k">assert</span> <span class="ow">not</span> <span class="n">item</span><span class="o">.</span><span class="n">message</span>
-</span><span id="line-145">
-</span><span id="line-146">    <span class="k">assert</span> <span class="ow">not</span> <span class="n">client</span><span class="o">.</span><span class="n">canceled</span>
-</span><span id="line-147">    <span class="k">assert</span> <span class="n">client</span><span class="o">.</span><span class="n">connected</span>
-</span><span id="line-148">    <span class="k">assert</span> <span class="n">client</span><span class="o">.</span><span class="n">nickname</span> <span class="o">==</span> <span class="s1">&#39;ircbot&#39;</span>
-</span><span id="line-149">
+</span><span id="line-133">
+</span><span id="line-134">    <span class="n">item</span> <span class="o">=</span> <span class="n">mqueue</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>
+</span><span id="line-135">
+</span><span id="line-136">    <span class="k">assert</span> <span class="n">item</span><span class="o">.</span><span class="n">prefix</span> <span class="o">==</span> <span class="s1">&#39;mocked&#39;</span>
+</span><span id="line-137">    <span class="k">assert</span> <span class="n">item</span><span class="o">.</span><span class="n">command</span> <span class="o">==</span> <span class="s1">&#39;001&#39;</span>
+</span><span id="line-138">    <span class="k">assert</span> <span class="n">item</span><span class="o">.</span><span class="n">params</span> <span class="o">==</span> <span class="p">(</span>
+</span><span id="line-139">        <span class="s1">&#39;ircbot :Welcome to network&#39;</span><span class="p">)</span>
+</span><span id="line-140">
+</span><span id="line-141">    <span class="k">assert</span> <span class="n">item</span><span class="o">.</span><span class="n">kind</span> <span class="o">==</span> <span class="s1">&#39;event&#39;</span>
+</span><span id="line-142">    <span class="k">assert</span> <span class="ow">not</span> <span class="n">item</span><span class="o">.</span><span class="n">isme</span>
+</span><span id="line-143">    <span class="k">assert</span> <span class="ow">not</span> <span class="n">item</span><span class="o">.</span><span class="n">author</span>
+</span><span id="line-144">    <span class="k">assert</span> <span class="ow">not</span> <span class="n">item</span><span class="o">.</span><span class="n">recipient</span>
+</span><span id="line-145">    <span class="k">assert</span> <span class="ow">not</span> <span class="n">item</span><span class="o">.</span><span class="n">message</span>
+</span><span id="line-146">
+</span><span id="line-147">    <span class="k">assert</span> <span class="ow">not</span> <span class="n">client</span><span class="o">.</span><span class="n">canceled</span>
+</span><span id="line-148">    <span class="k">assert</span> <span class="n">client</span><span class="o">.</span><span class="n">connected</span>
+</span><span id="line-149">    <span class="k">assert</span> <span class="n">client</span><span class="o">.</span><span class="n">nickname</span> <span class="o">==</span> <span class="s1">&#39;ircbot&#39;</span>
 </span><span id="line-150">
-</span><span id="line-151">    <span class="n">item</span> <span class="o">=</span> <span class="n">mqueue</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>
-</span><span id="line-152">
-</span><span id="line-153">    <span class="k">assert</span> <span class="n">item</span><span class="o">.</span><span class="n">prefix</span> <span class="o">==</span> <span class="s1">&#39;mocked&#39;</span>
-</span><span id="line-154">    <span class="k">assert</span> <span class="n">item</span><span class="o">.</span><span class="n">command</span> <span class="o">==</span> <span class="s1">&#39;376&#39;</span>
-</span><span id="line-155">    <span class="k">assert</span> <span class="n">item</span><span class="o">.</span><span class="n">params</span> <span class="o">==</span> <span class="p">(</span>
-</span><span id="line-156">        <span class="s1">&#39;ircbot :End of /MOTD command.&#39;</span><span class="p">)</span>
-</span><span id="line-157">
-</span><span id="line-158">    <span class="k">assert</span> <span class="n">item</span><span class="o">.</span><span class="n">kind</span> <span class="o">==</span> <span class="s1">&#39;event&#39;</span>
-</span><span id="line-159">    <span class="k">assert</span> <span class="ow">not</span> <span class="n">item</span><span class="o">.</span><span class="n">isme</span>
-</span><span id="line-160">    <span class="k">assert</span> <span class="ow">not</span> <span class="n">item</span><span class="o">.</span><span class="n">author</span>
-</span><span id="line-161">    <span class="k">assert</span> <span class="ow">not</span> <span class="n">item</span><span class="o">.</span><span class="n">recipient</span>
-</span><span id="line-162">    <span class="k">assert</span> <span class="ow">not</span> <span class="n">item</span><span class="o">.</span><span class="n">message</span>
-</span><span id="line-163">
+</span><span id="line-151">
+</span><span id="line-152">    <span class="n">item</span> <span class="o">=</span> <span class="n">mqueue</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>
+</span><span id="line-153">
+</span><span id="line-154">    <span class="k">assert</span> <span class="n">item</span><span class="o">.</span><span class="n">prefix</span> <span class="o">==</span> <span class="s1">&#39;mocked&#39;</span>
+</span><span id="line-155">    <span class="k">assert</span> <span class="n">item</span><span class="o">.</span><span class="n">command</span> <span class="o">==</span> <span class="s1">&#39;376&#39;</span>
+</span><span id="line-156">    <span class="k">assert</span> <span class="n">item</span><span class="o">.</span><span class="n">params</span> <span class="o">==</span> <span class="p">(</span>
+</span><span id="line-157">        <span class="s1">&#39;ircbot :End of /MOTD command.&#39;</span><span class="p">)</span>
+</span><span id="line-158">
+</span><span id="line-159">    <span class="k">assert</span> <span class="n">item</span><span class="o">.</span><span class="n">kind</span> <span class="o">==</span> <span class="s1">&#39;event&#39;</span>
+</span><span id="line-160">    <span class="k">assert</span> <span class="ow">not</span> <span class="n">item</span><span class="o">.</span><span class="n">isme</span>
+</span><span id="line-161">    <span class="k">assert</span> <span class="ow">not</span> <span class="n">item</span><span class="o">.</span><span class="n">author</span>
+</span><span id="line-162">    <span class="k">assert</span> <span class="ow">not</span> <span class="n">item</span><span class="o">.</span><span class="n">recipient</span>
+</span><span id="line-163">    <span class="k">assert</span> <span class="ow">not</span> <span class="n">item</span><span class="o">.</span><span class="n">message</span>
 </span><span id="line-164">
-</span><span id="line-165">    <span class="n">item</span> <span class="o">=</span> <span class="n">mqueue</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>
-</span><span id="line-166">
-</span><span id="line-167">    <span class="k">assert</span> <span class="n">item</span><span class="o">.</span><span class="n">prefix</span> <span class="o">==</span> <span class="s1">&#39;mocked&#39;</span>
-</span><span id="line-168">    <span class="k">assert</span> <span class="n">item</span><span class="o">.</span><span class="n">command</span> <span class="o">==</span> <span class="s1">&#39;376&#39;</span>
-</span><span id="line-169">    <span class="k">assert</span> <span class="n">item</span><span class="o">.</span><span class="n">params</span> <span class="o">==</span> <span class="p">(</span>
-</span><span id="line-170">        <span class="s1">&#39;ircbot :End of /MOTD command.&#39;</span><span class="p">)</span>
-</span><span id="line-171">
-</span><span id="line-172">    <span class="k">assert</span> <span class="n">item</span><span class="o">.</span><span class="n">kind</span> <span class="o">==</span> <span class="s1">&#39;event&#39;</span>
-</span><span id="line-173">    <span class="k">assert</span> <span class="ow">not</span> <span class="n">item</span><span class="o">.</span><span class="n">isme</span>
-</span><span id="line-174">    <span class="k">assert</span> <span class="ow">not</span> <span class="n">item</span><span class="o">.</span><span class="n">author</span>
-</span><span id="line-175">    <span class="k">assert</span> <span class="ow">not</span> <span class="n">item</span><span class="o">.</span><span class="n">recipient</span>
-</span><span id="line-176">    <span class="k">assert</span> <span class="ow">not</span> <span class="n">item</span><span class="o">.</span><span class="n">message</span>
-</span><span id="line-177">
+</span><span id="line-165">
+</span><span id="line-166">    <span class="n">item</span> <span class="o">=</span> <span class="n">mqueue</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>
+</span><span id="line-167">
+</span><span id="line-168">    <span class="k">assert</span> <span class="n">item</span><span class="o">.</span><span class="n">prefix</span> <span class="o">==</span> <span class="s1">&#39;mocked&#39;</span>
+</span><span id="line-169">    <span class="k">assert</span> <span class="n">item</span><span class="o">.</span><span class="n">command</span> <span class="o">==</span> <span class="s1">&#39;376&#39;</span>
+</span><span id="line-170">    <span class="k">assert</span> <span class="n">item</span><span class="o">.</span><span class="n">params</span> <span class="o">==</span> <span class="p">(</span>
+</span><span id="line-171">        <span class="s1">&#39;ircbot :End of /MOTD command.&#39;</span><span class="p">)</span>
+</span><span id="line-172">
+</span><span id="line-173">    <span class="k">assert</span> <span class="n">item</span><span class="o">.</span><span class="n">kind</span> <span class="o">==</span> <span class="s1">&#39;event&#39;</span>
+</span><span id="line-174">    <span class="k">assert</span> <span class="ow">not</span> <span class="n">item</span><span class="o">.</span><span class="n">isme</span>
+</span><span id="line-175">    <span class="k">assert</span> <span class="ow">not</span> <span class="n">item</span><span class="o">.</span><span class="n">author</span>
+</span><span id="line-176">    <span class="k">assert</span> <span class="ow">not</span> <span class="n">item</span><span class="o">.</span><span class="n">recipient</span>
+</span><span id="line-177">    <span class="k">assert</span> <span class="ow">not</span> <span class="n">item</span><span class="o">.</span><span class="n">message</span>
 </span><span id="line-178">
-</span><span id="line-179">    <span class="n">item</span> <span class="o">=</span> <span class="n">mqueue</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>
-</span><span id="line-180">
-</span><span id="line-181">    <span class="k">assert</span> <span class="n">item</span><span class="o">.</span><span class="n">prefix</span> <span class="o">==</span> <span class="s1">&#39;mocked&#39;</span>
-</span><span id="line-182">    <span class="k">assert</span> <span class="n">item</span><span class="o">.</span><span class="n">command</span> <span class="o">==</span> <span class="s1">&#39;376&#39;</span>
-</span><span id="line-183">    <span class="k">assert</span> <span class="n">item</span><span class="o">.</span><span class="n">params</span> <span class="o">==</span> <span class="p">(</span>
-</span><span id="line-184">        <span class="s1">&#39;ircbot :End of /MOTD command.&#39;</span><span class="p">)</span>
-</span><span id="line-185">
-</span><span id="line-186">    <span class="k">assert</span> <span class="n">item</span><span class="o">.</span><span class="n">kind</span> <span class="o">==</span> <span class="s1">&#39;event&#39;</span>
-</span><span id="line-187">    <span class="k">assert</span> <span class="ow">not</span> <span class="n">item</span><span class="o">.</span><span class="n">isme</span>
-</span><span id="line-188">    <span class="k">assert</span> <span class="ow">not</span> <span class="n">item</span><span class="o">.</span><span class="n">author</span>
-</span><span id="line-189">    <span class="k">assert</span> <span class="ow">not</span> <span class="n">item</span><span class="o">.</span><span class="n">recipient</span>
-</span><span id="line-190">    <span class="k">assert</span> <span class="ow">not</span> <span class="n">item</span><span class="o">.</span><span class="n">message</span>
-</span><span id="line-191">
+</span><span id="line-179">
+</span><span id="line-180">    <span class="n">item</span> <span class="o">=</span> <span class="n">mqueue</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>
+</span><span id="line-181">
+</span><span id="line-182">    <span class="k">assert</span> <span class="n">item</span><span class="o">.</span><span class="n">prefix</span> <span class="o">==</span> <span class="s1">&#39;mocked&#39;</span>
+</span><span id="line-183">    <span class="k">assert</span> <span class="n">item</span><span class="o">.</span><span class="n">command</span> <span class="o">==</span> <span class="s1">&#39;376&#39;</span>
+</span><span id="line-184">    <span class="k">assert</span> <span class="n">item</span><span class="o">.</span><span class="n">params</span> <span class="o">==</span> <span class="p">(</span>
+</span><span id="line-185">        <span class="s1">&#39;ircbot :End of /MOTD command.&#39;</span><span class="p">)</span>
+</span><span id="line-186">
+</span><span id="line-187">    <span class="k">assert</span> <span class="n">item</span><span class="o">.</span><span class="n">kind</span> <span class="o">==</span> <span class="s1">&#39;event&#39;</span>
+</span><span id="line-188">    <span class="k">assert</span> <span class="ow">not</span> <span class="n">item</span><span class="o">.</span><span class="n">isme</span>
+</span><span id="line-189">    <span class="k">assert</span> <span class="ow">not</span> <span class="n">item</span><span class="o">.</span><span class="n">author</span>
+</span><span id="line-190">    <span class="k">assert</span> <span class="ow">not</span> <span class="n">item</span><span class="o">.</span><span class="n">recipient</span>
+</span><span id="line-191">    <span class="k">assert</span> <span class="ow">not</span> <span class="n">item</span><span class="o">.</span><span class="n">message</span>
 </span><span id="line-192">
-</span><span id="line-193">    <span class="n">item</span> <span class="o">=</span> <span class="n">mqueue</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>
-</span><span id="line-194">
-</span><span id="line-195">    <span class="k">assert</span> <span class="n">item</span><span class="o">.</span><span class="n">prefix</span> <span class="o">==</span> <span class="p">(</span>
-</span><span id="line-196">        <span class="s1">&#39;nick!user@host&#39;</span><span class="p">)</span>
-</span><span id="line-197">    <span class="k">assert</span> <span class="n">item</span><span class="o">.</span><span class="n">command</span> <span class="o">==</span> <span class="s1">&#39;PRIVMSG&#39;</span>
-</span><span id="line-198">    <span class="k">assert</span> <span class="n">item</span><span class="o">.</span><span class="n">params</span> <span class="o">==</span> <span class="p">(</span>
-</span><span id="line-199">        <span class="s1">&#39;ircbot :Hello ircbot&#39;</span><span class="p">)</span>
-</span><span id="line-200">
-</span><span id="line-201">    <span class="k">assert</span> <span class="n">item</span><span class="o">.</span><span class="n">kind</span> <span class="o">==</span> <span class="s1">&#39;privmsg&#39;</span>
-</span><span id="line-202">    <span class="k">assert</span> <span class="ow">not</span> <span class="n">item</span><span class="o">.</span><span class="n">isme</span>
-</span><span id="line-203">    <span class="k">assert</span> <span class="n">item</span><span class="o">.</span><span class="n">author</span> <span class="o">==</span> <span class="s1">&#39;nick&#39;</span>
-</span><span id="line-204">    <span class="k">assert</span> <span class="n">item</span><span class="o">.</span><span class="n">recipient</span> <span class="o">==</span> <span class="s1">&#39;ircbot&#39;</span>
-</span><span id="line-205">    <span class="k">assert</span> <span class="n">item</span><span class="o">.</span><span class="n">message</span> <span class="o">==</span> <span class="p">(</span>
-</span><span id="line-206">        <span class="s1">&#39;Hello ircbot&#39;</span><span class="p">)</span>
-</span><span id="line-207">
+</span><span id="line-193">
+</span><span id="line-194">    <span class="n">item</span> <span class="o">=</span> <span class="n">mqueue</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>
+</span><span id="line-195">
+</span><span id="line-196">    <span class="k">assert</span> <span class="n">item</span><span class="o">.</span><span class="n">prefix</span> <span class="o">==</span> <span class="p">(</span>
+</span><span id="line-197">        <span class="s1">&#39;nick!user@host&#39;</span><span class="p">)</span>
+</span><span id="line-198">    <span class="k">assert</span> <span class="n">item</span><span class="o">.</span><span class="n">command</span> <span class="o">==</span> <span class="s1">&#39;PRIVMSG&#39;</span>
+</span><span id="line-199">    <span class="k">assert</span> <span class="n">item</span><span class="o">.</span><span class="n">params</span> <span class="o">==</span> <span class="p">(</span>
+</span><span id="line-200">        <span class="s1">&#39;ircbot :Hello ircbot&#39;</span><span class="p">)</span>
+</span><span id="line-201">
+</span><span id="line-202">    <span class="k">assert</span> <span class="n">item</span><span class="o">.</span><span class="n">kind</span> <span class="o">==</span> <span class="s1">&#39;privmsg&#39;</span>
+</span><span id="line-203">    <span class="k">assert</span> <span class="ow">not</span> <span class="n">item</span><span class="o">.</span><span class="n">isme</span>
+</span><span id="line-204">    <span class="k">assert</span> <span class="n">item</span><span class="o">.</span><span class="n">author</span> <span class="o">==</span> <span class="s1">&#39;nick&#39;</span>
+</span><span id="line-205">    <span class="k">assert</span> <span class="n">item</span><span class="o">.</span><span class="n">recipient</span> <span class="o">==</span> <span class="s1">&#39;ircbot&#39;</span>
+</span><span id="line-206">    <span class="k">assert</span> <span class="n">item</span><span class="o">.</span><span class="n">message</span> <span class="o">==</span> <span class="p">(</span>
+</span><span id="line-207">        <span class="s1">&#39;Hello ircbot&#39;</span><span class="p">)</span>
 </span><span id="line-208">
-</span><span id="line-209">    <span class="n">item</span> <span class="o">=</span> <span class="n">mqueue</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>
-</span><span id="line-210">
-</span><span id="line-211">    <span class="k">assert</span> <span class="n">item</span><span class="o">.</span><span class="n">prefix</span> <span class="o">==</span> <span class="p">(</span>
-</span><span id="line-212">        <span class="s1">&#39;nick!user@host&#39;</span><span class="p">)</span>
-</span><span id="line-213">    <span class="k">assert</span> <span class="n">item</span><span class="o">.</span><span class="n">command</span> <span class="o">==</span> <span class="s1">&#39;PRIVMSG&#39;</span>
-</span><span id="line-214">    <span class="k">assert</span> <span class="n">item</span><span class="o">.</span><span class="n">params</span> <span class="o">==</span> <span class="p">(</span>
-</span><span id="line-215">        <span class="s1">&#39;# :Hello world&#39;</span><span class="p">)</span>
-</span><span id="line-216">
-</span><span id="line-217">    <span class="k">assert</span> <span class="n">item</span><span class="o">.</span><span class="n">kind</span> <span class="o">==</span> <span class="s1">&#39;chanmsg&#39;</span>
-</span><span id="line-218">    <span class="k">assert</span> <span class="ow">not</span> <span class="n">item</span><span class="o">.</span><span class="n">isme</span>
-</span><span id="line-219">    <span class="k">assert</span> <span class="n">item</span><span class="o">.</span><span class="n">author</span> <span class="o">==</span> <span class="s1">&#39;nick&#39;</span>
-</span><span id="line-220">    <span class="k">assert</span> <span class="n">item</span><span class="o">.</span><span class="n">recipient</span> <span class="o">==</span> <span class="s1">&#39;#&#39;</span>
-</span><span id="line-221">    <span class="k">assert</span> <span class="n">item</span><span class="o">.</span><span class="n">message</span> <span class="o">==</span> <span class="p">(</span>
-</span><span id="line-222">        <span class="s1">&#39;Hello world&#39;</span><span class="p">)</span>
-</span><span id="line-223">
+</span><span id="line-209">
+</span><span id="line-210">    <span class="n">item</span> <span class="o">=</span> <span class="n">mqueue</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>
+</span><span id="line-211">
+</span><span id="line-212">    <span class="k">assert</span> <span class="n">item</span><span class="o">.</span><span class="n">prefix</span> <span class="o">==</span> <span class="p">(</span>
+</span><span id="line-213">        <span class="s1">&#39;nick!user@host&#39;</span><span class="p">)</span>
+</span><span id="line-214">    <span class="k">assert</span> <span class="n">item</span><span class="o">.</span><span class="n">command</span> <span class="o">==</span> <span class="s1">&#39;PRIVMSG&#39;</span>
+</span><span id="line-215">    <span class="k">assert</span> <span class="n">item</span><span class="o">.</span><span class="n">params</span> <span class="o">==</span> <span class="p">(</span>
+</span><span id="line-216">        <span class="s1">&#39;# :Hello world&#39;</span><span class="p">)</span>
+</span><span id="line-217">
+</span><span id="line-218">    <span class="k">assert</span> <span class="n">item</span><span class="o">.</span><span class="n">kind</span> <span class="o">==</span> <span class="s1">&#39;chanmsg&#39;</span>
+</span><span id="line-219">    <span class="k">assert</span> <span class="ow">not</span> <span class="n">item</span><span class="o">.</span><span class="n">isme</span>
+</span><span id="line-220">    <span class="k">assert</span> <span class="n">item</span><span class="o">.</span><span class="n">author</span> <span class="o">==</span> <span class="s1">&#39;nick&#39;</span>
+</span><span id="line-221">    <span class="k">assert</span> <span class="n">item</span><span class="o">.</span><span class="n">recipient</span> <span class="o">==</span> <span class="s1">&#39;#&#39;</span>
+</span><span id="line-222">    <span class="k">assert</span> <span class="n">item</span><span class="o">.</span><span class="n">message</span> <span class="o">==</span> <span class="p">(</span>
+</span><span id="line-223">        <span class="s1">&#39;Hello world&#39;</span><span class="p">)</span>
 </span><span id="line-224">
-</span><span id="line-225">    <span class="n">item</span> <span class="o">=</span> <span class="n">mqueue</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>
-</span><span id="line-226">
-</span><span id="line-227">    <span class="k">assert</span> <span class="n">item</span><span class="o">.</span><span class="n">prefix</span> <span class="o">==</span> <span class="p">(</span>
-</span><span id="line-228">        <span class="s1">&#39;nick!user@host&#39;</span><span class="p">)</span>
-</span><span id="line-229">    <span class="k">assert</span> <span class="n">item</span><span class="o">.</span><span class="n">command</span> <span class="o">==</span> <span class="s1">&#39;PRIVMSG&#39;</span>
-</span><span id="line-230">    <span class="k">assert</span> <span class="n">item</span><span class="o">.</span><span class="n">params</span> <span class="o">==</span> <span class="p">(</span>
-</span><span id="line-231">        <span class="s1">&#39;#funchat :Hello world&#39;</span><span class="p">)</span>
-</span><span id="line-232">
-</span><span id="line-233">    <span class="k">assert</span> <span class="n">item</span><span class="o">.</span><span class="n">kind</span> <span class="o">==</span> <span class="s1">&#39;chanmsg&#39;</span>
-</span><span id="line-234">    <span class="k">assert</span> <span class="ow">not</span> <span class="n">item</span><span class="o">.</span><span class="n">isme</span>
-</span><span id="line-235">    <span class="k">assert</span> <span class="n">item</span><span class="o">.</span><span class="n">author</span> <span class="o">==</span> <span class="s1">&#39;nick&#39;</span>
-</span><span id="line-236">    <span class="k">assert</span> <span class="n">item</span><span class="o">.</span><span class="n">recipient</span> <span class="o">==</span> <span class="s1">&#39;#funchat&#39;</span>
-</span><span id="line-237">    <span class="k">assert</span> <span class="n">item</span><span class="o">.</span><span class="n">message</span> <span class="o">==</span> <span class="p">(</span>
-</span><span id="line-238">        <span class="s1">&#39;Hello world&#39;</span><span class="p">)</span>
-</span><span id="line-239">
+</span><span id="line-225">
+</span><span id="line-226">    <span class="n">item</span> <span class="o">=</span> <span class="n">mqueue</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>
+</span><span id="line-227">
+</span><span id="line-228">    <span class="k">assert</span> <span class="n">item</span><span class="o">.</span><span class="n">prefix</span> <span class="o">==</span> <span class="p">(</span>
+</span><span id="line-229">        <span class="s1">&#39;nick!user@host&#39;</span><span class="p">)</span>
+</span><span id="line-230">    <span class="k">assert</span> <span class="n">item</span><span class="o">.</span><span class="n">command</span> <span class="o">==</span> <span class="s1">&#39;PRIVMSG&#39;</span>
+</span><span id="line-231">    <span class="k">assert</span> <span class="n">item</span><span class="o">.</span><span class="n">params</span> <span class="o">==</span> <span class="p">(</span>
+</span><span id="line-232">        <span class="s1">&#39;#funchat :Hello world&#39;</span><span class="p">)</span>
+</span><span id="line-233">
+</span><span id="line-234">    <span class="k">assert</span> <span class="n">item</span><span class="o">.</span><span class="n">kind</span> <span class="o">==</span> <span class="s1">&#39;chanmsg&#39;</span>
+</span><span id="line-235">    <span class="k">assert</span> <span class="ow">not</span> <span class="n">item</span><span class="o">.</span><span class="n">isme</span>
+</span><span id="line-236">    <span class="k">assert</span> <span class="n">item</span><span class="o">.</span><span class="n">author</span> <span class="o">==</span> <span class="s1">&#39;nick&#39;</span>
+</span><span id="line-237">    <span class="k">assert</span> <span class="n">item</span><span class="o">.</span><span class="n">recipient</span> <span class="o">==</span> <span class="s1">&#39;#funchat&#39;</span>
+</span><span id="line-238">    <span class="k">assert</span> <span class="n">item</span><span class="o">.</span><span class="n">message</span> <span class="o">==</span> <span class="p">(</span>
+</span><span id="line-239">        <span class="s1">&#39;Hello world&#39;</span><span class="p">)</span>
 </span><span id="line-240">
-</span><span id="line-241">    <span class="n">item</span> <span class="o">=</span> <span class="n">mqueue</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>
-</span><span id="line-242">
-</span><span id="line-243">    <span class="k">assert</span> <span class="n">item</span><span class="o">.</span><span class="n">prefix</span> <span class="o">==</span> <span class="p">(</span>
-</span><span id="line-244">        <span class="s1">&#39;ircbot!user@host&#39;</span><span class="p">)</span>
-</span><span id="line-245">    <span class="k">assert</span> <span class="n">item</span><span class="o">.</span><span class="n">command</span> <span class="o">==</span> <span class="s1">&#39;NICK&#39;</span>
-</span><span id="line-246">    <span class="k">assert</span> <span class="n">item</span><span class="o">.</span><span class="n">params</span> <span class="o">==</span> <span class="s1">&#39;:botirc&#39;</span>
-</span><span id="line-247">
-</span><span id="line-248">    <span class="k">assert</span> <span class="n">item</span><span class="o">.</span><span class="n">kind</span> <span class="o">==</span> <span class="s1">&#39;event&#39;</span>
-</span><span id="line-249">    <span class="k">assert</span> <span class="ow">not</span> <span class="n">item</span><span class="o">.</span><span class="n">isme</span>
-</span><span id="line-250">    <span class="k">assert</span> <span class="ow">not</span> <span class="n">item</span><span class="o">.</span><span class="n">author</span>
-</span><span id="line-251">    <span class="k">assert</span> <span class="ow">not</span> <span class="n">item</span><span class="o">.</span><span class="n">recipient</span>
-</span><span id="line-252">    <span class="k">assert</span> <span class="ow">not</span> <span class="n">item</span><span class="o">.</span><span class="n">message</span>
-</span><span id="line-253">
-</span><span id="line-254">    <span class="k">assert</span> <span class="n">client</span><span class="o">.</span><span class="n">nickname</span> <span class="o">==</span> <span class="s1">&#39;botirc&#39;</span>
-</span><span id="line-255">
+</span><span id="line-241">
+</span><span id="line-242">    <span class="n">item</span> <span class="o">=</span> <span class="n">mqueue</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>
+</span><span id="line-243">
+</span><span id="line-244">    <span class="k">assert</span> <span class="n">item</span><span class="o">.</span><span class="n">prefix</span> <span class="o">==</span> <span class="p">(</span>
+</span><span id="line-245">        <span class="s1">&#39;ircbot!user@host&#39;</span><span class="p">)</span>
+</span><span id="line-246">    <span class="k">assert</span> <span class="n">item</span><span class="o">.</span><span class="n">command</span> <span class="o">==</span> <span class="s1">&#39;NICK&#39;</span>
+</span><span id="line-247">    <span class="k">assert</span> <span class="n">item</span><span class="o">.</span><span class="n">params</span> <span class="o">==</span> <span class="s1">&#39;:botirc&#39;</span>
+</span><span id="line-248">
+</span><span id="line-249">    <span class="k">assert</span> <span class="n">item</span><span class="o">.</span><span class="n">kind</span> <span class="o">==</span> <span class="s1">&#39;event&#39;</span>
+</span><span id="line-250">    <span class="k">assert</span> <span class="ow">not</span> <span class="n">item</span><span class="o">.</span><span class="n">isme</span>
+</span><span id="line-251">    <span class="k">assert</span> <span class="ow">not</span> <span class="n">item</span><span class="o">.</span><span class="n">author</span>
+</span><span id="line-252">    <span class="k">assert</span> <span class="ow">not</span> <span class="n">item</span><span class="o">.</span><span class="n">recipient</span>
+</span><span id="line-253">    <span class="k">assert</span> <span class="ow">not</span> <span class="n">item</span><span class="o">.</span><span class="n">message</span>
+</span><span id="line-254">
+</span><span id="line-255">    <span class="k">assert</span> <span class="n">client</span><span class="o">.</span><span class="n">nickname</span> <span class="o">==</span> <span class="s1">&#39;botirc&#39;</span>
 </span><span id="line-256">
-</span><span id="line-257">    <span class="n">item</span> <span class="o">=</span> <span class="n">mqueue</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>
-</span><span id="line-258">
-</span><span id="line-259">    <span class="k">assert</span> <span class="n">item</span><span class="o">.</span><span class="n">prefix</span> <span class="o">==</span> <span class="p">(</span>
-</span><span id="line-260">        <span class="s1">&#39;botirc!user@host&#39;</span><span class="p">)</span>
-</span><span id="line-261">    <span class="k">assert</span> <span class="n">item</span><span class="o">.</span><span class="n">command</span> <span class="o">==</span> <span class="s1">&#39;PRIVMSG&#39;</span>
-</span><span id="line-262">    <span class="k">assert</span> <span class="n">item</span><span class="o">.</span><span class="n">params</span> <span class="o">==</span> <span class="p">(</span>
-</span><span id="line-263">        <span class="s1">&#39;# :Hello nick&#39;</span><span class="p">)</span>
-</span><span id="line-264">
-</span><span id="line-265">    <span class="k">assert</span> <span class="n">item</span><span class="o">.</span><span class="n">kind</span> <span class="o">==</span> <span class="s1">&#39;chanmsg&#39;</span>
-</span><span id="line-266">    <span class="k">assert</span> <span class="n">item</span><span class="o">.</span><span class="n">isme</span>
-</span><span id="line-267">    <span class="k">assert</span> <span class="n">item</span><span class="o">.</span><span class="n">author</span> <span class="o">==</span> <span class="s1">&#39;botirc&#39;</span>
-</span><span id="line-268">    <span class="k">assert</span> <span class="n">item</span><span class="o">.</span><span class="n">recipient</span> <span class="o">==</span> <span class="s1">&#39;#&#39;</span>
-</span><span id="line-269">    <span class="k">assert</span> <span class="n">item</span><span class="o">.</span><span class="n">message</span> <span class="o">==</span> <span class="p">(</span>
-</span><span id="line-270">        <span class="s1">&#39;Hello nick&#39;</span><span class="p">)</span>
-</span><span id="line-271">
+</span><span id="line-257">
+</span><span id="line-258">    <span class="n">item</span> <span class="o">=</span> <span class="n">mqueue</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>
+</span><span id="line-259">
+</span><span id="line-260">    <span class="k">assert</span> <span class="n">item</span><span class="o">.</span><span class="n">prefix</span> <span class="o">==</span> <span class="p">(</span>
+</span><span id="line-261">        <span class="s1">&#39;botirc!user@host&#39;</span><span class="p">)</span>
+</span><span id="line-262">    <span class="k">assert</span> <span class="n">item</span><span class="o">.</span><span class="n">command</span> <span class="o">==</span> <span class="s1">&#39;PRIVMSG&#39;</span>
+</span><span id="line-263">    <span class="k">assert</span> <span class="n">item</span><span class="o">.</span><span class="n">params</span> <span class="o">==</span> <span class="p">(</span>
+</span><span id="line-264">        <span class="s1">&#39;# :Hello nick&#39;</span><span class="p">)</span>
+</span><span id="line-265">
+</span><span id="line-266">    <span class="k">assert</span> <span class="n">item</span><span class="o">.</span><span class="n">kind</span> <span class="o">==</span> <span class="s1">&#39;chanmsg&#39;</span>
+</span><span id="line-267">    <span class="k">assert</span> <span class="n">item</span><span class="o">.</span><span class="n">isme</span>
+</span><span id="line-268">    <span class="k">assert</span> <span class="n">item</span><span class="o">.</span><span class="n">author</span> <span class="o">==</span> <span class="s1">&#39;botirc&#39;</span>
+</span><span id="line-269">    <span class="k">assert</span> <span class="n">item</span><span class="o">.</span><span class="n">recipient</span> <span class="o">==</span> <span class="s1">&#39;#&#39;</span>
+</span><span id="line-270">    <span class="k">assert</span> <span class="n">item</span><span class="o">.</span><span class="n">message</span> <span class="o">==</span> <span class="p">(</span>
+</span><span id="line-271">        <span class="s1">&#39;Hello nick&#39;</span><span class="p">)</span>
 </span><span id="line-272">
-</span><span id="line-273">    <span class="n">item</span> <span class="o">=</span> <span class="n">mqueue</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>
-</span><span id="line-274">
-</span><span id="line-275">    <span class="k">assert</span> <span class="ow">not</span> <span class="n">item</span><span class="o">.</span><span class="n">prefix</span>
-</span><span id="line-276">    <span class="k">assert</span> <span class="n">item</span><span class="o">.</span><span class="n">command</span> <span class="o">==</span> <span class="s1">&#39;ERROR&#39;</span>
-</span><span id="line-277">    <span class="k">assert</span> <span class="n">item</span><span class="o">.</span><span class="n">params</span> <span class="o">==</span> <span class="p">(</span>
-</span><span id="line-278">        <span class="s1">&#39;:Closing Link: ircbot&#39;</span>
-</span><span id="line-279">        <span class="s1">&#39;[mocked] (Quit: ircbot)&#39;</span><span class="p">)</span>
-</span><span id="line-280">
-</span><span id="line-281">    <span class="k">assert</span> <span class="n">item</span><span class="o">.</span><span class="n">kind</span> <span class="o">==</span> <span class="s1">&#39;event&#39;</span>
-</span><span id="line-282">    <span class="k">assert</span> <span class="ow">not</span> <span class="n">item</span><span class="o">.</span><span class="n">isme</span>
-</span><span id="line-283">    <span class="k">assert</span> <span class="ow">not</span> <span class="n">item</span><span class="o">.</span><span class="n">author</span>
-</span><span id="line-284">    <span class="k">assert</span> <span class="ow">not</span> <span class="n">item</span><span class="o">.</span><span class="n">recipient</span>
-</span><span id="line-285">    <span class="k">assert</span> <span class="ow">not</span> <span class="n">item</span><span class="o">.</span><span class="n">message</span>
-</span><span id="line-286">
-</span><span id="line-287">    <span class="k">assert</span> <span class="ow">not</span> <span class="n">client</span><span class="o">.</span><span class="n">canceled</span>
-</span><span id="line-288">    <span class="k">assert</span> <span class="ow">not</span> <span class="n">client</span><span class="o">.</span><span class="n">connected</span>
-</span><span id="line-289">    <span class="k">assert</span> <span class="n">client</span><span class="o">.</span><span class="n">nickname</span> <span class="o">==</span> <span class="s1">&#39;botirc&#39;</span>
-</span><span id="line-290">
-</span><span id="line-291">
-</span><span id="line-292">    <span class="n">thread</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+</span><span id="line-273">
+</span><span id="line-274">    <span class="n">item</span> <span class="o">=</span> <span class="n">mqueue</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>
+</span><span id="line-275">
+</span><span id="line-276">    <span class="k">assert</span> <span class="ow">not</span> <span class="n">item</span><span class="o">.</span><span class="n">prefix</span>
+</span><span id="line-277">    <span class="k">assert</span> <span class="n">item</span><span class="o">.</span><span class="n">command</span> <span class="o">==</span> <span class="s1">&#39;ERROR&#39;</span>
+</span><span id="line-278">    <span class="k">assert</span> <span class="n">item</span><span class="o">.</span><span class="n">params</span> <span class="o">==</span> <span class="p">(</span>
+</span><span id="line-279">        <span class="s1">&#39;:Closing Link: ircbot&#39;</span>
+</span><span id="line-280">        <span class="s1">&#39;[mocked] (Quit: ircbot)&#39;</span><span class="p">)</span>
+</span><span id="line-281">
+</span><span id="line-282">    <span class="k">assert</span> <span class="n">item</span><span class="o">.</span><span class="n">kind</span> <span class="o">==</span> <span class="s1">&#39;event&#39;</span>
+</span><span id="line-283">    <span class="k">assert</span> <span class="ow">not</span> <span class="n">item</span><span class="o">.</span><span class="n">isme</span>
+</span><span id="line-284">    <span class="k">assert</span> <span class="ow">not</span> <span class="n">item</span><span class="o">.</span><span class="n">author</span>
+</span><span id="line-285">    <span class="k">assert</span> <span class="ow">not</span> <span class="n">item</span><span class="o">.</span><span class="n">recipient</span>
+</span><span id="line-286">    <span class="k">assert</span> <span class="ow">not</span> <span class="n">item</span><span class="o">.</span><span class="n">message</span>
+</span><span id="line-287">
+</span><span id="line-288">    <span class="n">block_sleep</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+</span><span id="line-289">
+</span><span id="line-290">    <span class="k">assert</span> <span class="ow">not</span> <span class="n">client</span><span class="o">.</span><span class="n">canceled</span>
+</span><span id="line-291">    <span class="k">assert</span> <span class="ow">not</span> <span class="n">client</span><span class="o">.</span><span class="n">connected</span>
+</span><span id="line-292">    <span class="k">assert</span> <span class="n">client</span><span class="o">.</span><span class="n">nickname</span> <span class="o">==</span> <span class="s1">&#39;botirc&#39;</span>
 </span><span id="line-293">
 </span><span id="line-294">
-</span><span id="line-295">    <span class="k">assert</span> <span class="n">mqueue</span><span class="o">.</span><span class="n">empty</span><span class="p">()</span></div>
-
+</span><span id="line-295">    <span class="n">thread</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
 </span><span id="line-296">
 </span><span id="line-297">
-</span><span id="line-298">
+</span><span id="line-298">    <span class="k">assert</span> <span class="n">mqueue</span><span class="o">.</span><span class="n">empty</span><span class="p">()</span></div>
+
+</span><span id="line-299">
+</span><span id="line-300">
+</span><span id="line-301">
 <div class="viewcode-block" id="test_ClientEvent_service">
 <a class="viewcode-back" href="../../../../enconnect.irc.test.html#enconnect.irc.test.test_models.test_ClientEvent_service">[docs]</a>
-</span><span id="line-299"><span class="k">def</span> <span class="nf">test_ClientEvent_service</span><span class="p">(</span>
-</span><span id="line-300">    <span class="n">client_ircsock</span><span class="p">:</span> <span class="n">IRCClientSocket</span><span class="p">,</span>
-</span><span id="line-301"><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-</span><span id="line-302"><span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-</span><span id="line-303"><span class="sd">    Perform various tests associated with relevant routines.</span>
-</span><span id="line-304">
-</span><span id="line-305"><span class="sd">    .. note::</span>
-</span><span id="line-306"><span class="sd">       Duplicative test routine as above but with SVENTS.</span>
+</span><span id="line-302"><span class="k">def</span> <span class="nf">test_ClientEvent_service</span><span class="p">(</span>
+</span><span id="line-303">    <span class="n">client_ircsock</span><span class="p">:</span> <span class="n">IRCClientSocket</span><span class="p">,</span>
+</span><span id="line-304"><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+</span><span id="line-305"><span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="line-306"><span class="sd">    Perform various tests associated with relevant routines.</span>
 </span><span id="line-307">
-</span><span id="line-308"><span class="sd">    :param client_ircsock: Object to mock client connection.</span>
-</span><span id="line-309"><span class="sd">    &quot;&quot;&quot;</span>
+</span><span id="line-308"><span class="sd">    .. note::</span>
+</span><span id="line-309"><span class="sd">       Duplicative test routine as above but with SVENTS.</span>
 </span><span id="line-310">
-</span><span id="line-311">    <span class="n">sname</span> <span class="o">=</span> <span class="s1">&#39;jupiter.enasis.net&#39;</span>
-</span><span id="line-312">    <span class="n">about</span> <span class="o">=</span> <span class="s1">&#39;Network Services&#39;</span>
+</span><span id="line-311"><span class="sd">    :param client_ircsock: Object to mock client connection.</span>
+</span><span id="line-312"><span class="sd">    &quot;&quot;&quot;</span>
 </span><span id="line-313">
-</span><span id="line-314">    <span class="n">params</span> <span class="o">=</span> <span class="n">ClientParams</span><span class="p">(</span>
-</span><span id="line-315">        <span class="n">server</span><span class="o">=</span><span class="s1">&#39;mocked&#39;</span><span class="p">,</span>
-</span><span id="line-316">        <span class="n">port</span><span class="o">=</span><span class="mi">6900</span><span class="p">,</span>
-</span><span id="line-317">        <span class="n">operate</span><span class="o">=</span><span class="s1">&#39;service&#39;</span><span class="p">,</span>
-</span><span id="line-318">        <span class="n">servername</span><span class="o">=</span><span class="n">sname</span><span class="p">,</span>
-</span><span id="line-319">        <span class="n">password</span><span class="o">=</span><span class="s1">&#39;password&#39;</span><span class="p">,</span>
-</span><span id="line-320">        <span class="n">realname</span><span class="o">=</span><span class="n">about</span><span class="p">)</span>
-</span><span id="line-321">
-</span><span id="line-322">    <span class="n">client</span> <span class="o">=</span> <span class="n">Client</span><span class="p">(</span><span class="n">params</span><span class="p">)</span>
-</span><span id="line-323">
+</span><span id="line-314">    <span class="n">sname</span> <span class="o">=</span> <span class="s1">&#39;jupiter.enasis.net&#39;</span>
+</span><span id="line-315">    <span class="n">about</span> <span class="o">=</span> <span class="s1">&#39;Network Services&#39;</span>
+</span><span id="line-316">
+</span><span id="line-317">    <span class="n">params</span> <span class="o">=</span> <span class="n">ClientParams</span><span class="p">(</span>
+</span><span id="line-318">        <span class="n">server</span><span class="o">=</span><span class="s1">&#39;mocked&#39;</span><span class="p">,</span>
+</span><span id="line-319">        <span class="n">port</span><span class="o">=</span><span class="mi">6900</span><span class="p">,</span>
+</span><span id="line-320">        <span class="n">operate</span><span class="o">=</span><span class="s1">&#39;service&#39;</span><span class="p">,</span>
+</span><span id="line-321">        <span class="n">servername</span><span class="o">=</span><span class="n">sname</span><span class="p">,</span>
+</span><span id="line-322">        <span class="n">password</span><span class="o">=</span><span class="s1">&#39;password&#39;</span><span class="p">,</span>
+</span><span id="line-323">        <span class="n">realname</span><span class="o">=</span><span class="n">about</span><span class="p">)</span>
 </span><span id="line-324">
-</span><span id="line-325">    <span class="k">def</span> <span class="nf">_operate</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+</span><span id="line-325">    <span class="n">client</span> <span class="o">=</span> <span class="n">Client</span><span class="p">(</span><span class="n">params</span><span class="p">)</span>
 </span><span id="line-326">
-</span><span id="line-327">        <span class="n">client_ircsock</span><span class="p">(</span><span class="n">SVENTS</span><span class="p">)</span>
-</span><span id="line-328">
-</span><span id="line-329">        <span class="n">_raises</span> <span class="o">=</span> <span class="ne">ConnectionError</span>
-</span><span id="line-330">
-</span><span id="line-331">        <span class="k">with</span> <span class="n">raises</span><span class="p">(</span><span class="n">_raises</span><span class="p">):</span>
-</span><span id="line-332">            <span class="n">client</span><span class="o">.</span><span class="n">operate</span><span class="p">()</span>
+</span><span id="line-327">
+</span><span id="line-328">    <span class="k">def</span> <span class="nf">_operate</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+</span><span id="line-329">
+</span><span id="line-330">        <span class="n">client_ircsock</span><span class="p">(</span><span class="n">SVENTS</span><span class="p">)</span>
+</span><span id="line-331">
+</span><span id="line-332">        <span class="n">_raises</span> <span class="o">=</span> <span class="ne">ConnectionError</span>
 </span><span id="line-333">
-</span><span id="line-334">
-</span><span id="line-335">    <span class="n">thread</span> <span class="o">=</span> <span class="n">Thread</span><span class="p">(</span>
-</span><span id="line-336">        <span class="n">target</span><span class="o">=</span><span class="n">_operate</span><span class="p">)</span>
+</span><span id="line-334">        <span class="k">with</span> <span class="n">raises</span><span class="p">(</span><span class="n">_raises</span><span class="p">):</span>
+</span><span id="line-335">            <span class="n">client</span><span class="o">.</span><span class="n">operate</span><span class="p">()</span>
+</span><span id="line-336">
 </span><span id="line-337">
-</span><span id="line-338">    <span class="n">thread</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
-</span><span id="line-339">
+</span><span id="line-338">    <span class="n">thread</span> <span class="o">=</span> <span class="n">Thread</span><span class="p">(</span>
+</span><span id="line-339">        <span class="n">target</span><span class="o">=</span><span class="n">_operate</span><span class="p">)</span>
 </span><span id="line-340">
-</span><span id="line-341">    <span class="n">mqueue</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">mqueue</span>
+</span><span id="line-341">    <span class="n">thread</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
 </span><span id="line-342">
 </span><span id="line-343">
-</span><span id="line-344">    <span class="k">for</span> <span class="n">count</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">20</span><span class="p">):</span>
+</span><span id="line-344">    <span class="n">mqueue</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">mqueue</span>
 </span><span id="line-345">
-</span><span id="line-346">        <span class="n">item</span> <span class="o">=</span> <span class="n">mqueue</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>
-</span><span id="line-347">
-</span><span id="line-348">        <span class="k">assert</span> <span class="ow">not</span> <span class="n">item</span><span class="o">.</span><span class="n">prefix</span>
-</span><span id="line-349">        <span class="k">assert</span> <span class="ow">not</span> <span class="n">item</span><span class="o">.</span><span class="n">command</span>
-</span><span id="line-350">        <span class="k">assert</span> <span class="ow">not</span> <span class="n">item</span><span class="o">.</span><span class="n">params</span>
-</span><span id="line-351">
-</span><span id="line-352">        <span class="k">assert</span> <span class="n">item</span><span class="o">.</span><span class="n">kind</span> <span class="o">==</span> <span class="s1">&#39;event&#39;</span>
-</span><span id="line-353">
-</span><span id="line-354">        <span class="k">assert</span> <span class="p">(</span>
-</span><span id="line-355">            <span class="ow">not</span> <span class="n">item</span><span class="o">.</span><span class="n">isme</span>
-</span><span id="line-356">            <span class="k">if</span> <span class="n">count</span> <span class="o">!=</span> <span class="mi">13</span>
-</span><span id="line-357">            <span class="k">else</span> <span class="n">item</span><span class="o">.</span><span class="n">isme</span><span class="p">)</span>
-</span><span id="line-358">
-</span><span id="line-359">        <span class="k">assert</span> <span class="ow">not</span> <span class="n">item</span><span class="o">.</span><span class="n">author</span>
-</span><span id="line-360">        <span class="k">assert</span> <span class="ow">not</span> <span class="n">item</span><span class="o">.</span><span class="n">recipient</span>
-</span><span id="line-361">        <span class="k">assert</span> <span class="ow">not</span> <span class="n">item</span><span class="o">.</span><span class="n">message</span>
-</span><span id="line-362">
-</span><span id="line-363">
-</span><span id="line-364">    <span class="k">assert</span> <span class="n">client</span><span class="o">.</span><span class="n">nickname</span> <span class="o">==</span> <span class="s1">&#39;42X&#39;</span>
+</span><span id="line-346">
+</span><span id="line-347">    <span class="k">for</span> <span class="n">count</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">20</span><span class="p">):</span>
+</span><span id="line-348">
+</span><span id="line-349">        <span class="n">item</span> <span class="o">=</span> <span class="n">mqueue</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>
+</span><span id="line-350">
+</span><span id="line-351">        <span class="k">assert</span> <span class="ow">not</span> <span class="n">item</span><span class="o">.</span><span class="n">prefix</span>
+</span><span id="line-352">        <span class="k">assert</span> <span class="ow">not</span> <span class="n">item</span><span class="o">.</span><span class="n">command</span>
+</span><span id="line-353">        <span class="k">assert</span> <span class="ow">not</span> <span class="n">item</span><span class="o">.</span><span class="n">params</span>
+</span><span id="line-354">
+</span><span id="line-355">        <span class="k">assert</span> <span class="n">item</span><span class="o">.</span><span class="n">kind</span> <span class="o">==</span> <span class="s1">&#39;event&#39;</span>
+</span><span id="line-356">
+</span><span id="line-357">        <span class="k">assert</span> <span class="p">(</span>
+</span><span id="line-358">            <span class="ow">not</span> <span class="n">item</span><span class="o">.</span><span class="n">isme</span>
+</span><span id="line-359">            <span class="k">if</span> <span class="n">count</span> <span class="o">!=</span> <span class="mi">13</span>
+</span><span id="line-360">            <span class="k">else</span> <span class="n">item</span><span class="o">.</span><span class="n">isme</span><span class="p">)</span>
+</span><span id="line-361">
+</span><span id="line-362">        <span class="k">assert</span> <span class="ow">not</span> <span class="n">item</span><span class="o">.</span><span class="n">author</span>
+</span><span id="line-363">        <span class="k">assert</span> <span class="ow">not</span> <span class="n">item</span><span class="o">.</span><span class="n">recipient</span>
+</span><span id="line-364">        <span class="k">assert</span> <span class="ow">not</span> <span class="n">item</span><span class="o">.</span><span class="n">message</span>
 </span><span id="line-365">
 </span><span id="line-366">
-</span><span id="line-367">    <span class="n">thread</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+</span><span id="line-367">    <span class="k">assert</span> <span class="n">client</span><span class="o">.</span><span class="n">nickname</span> <span class="o">==</span> <span class="s1">&#39;42X&#39;</span>
 </span><span id="line-368">
 </span><span id="line-369">
-</span><span id="line-370">    <span class="k">assert</span> <span class="n">mqueue</span><span class="o">.</span><span class="n">empty</span><span class="p">()</span></div>
+</span><span id="line-370">    <span class="n">thread</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+</span><span id="line-371">
+</span><span id="line-372">
+</span><span id="line-373">    <span class="k">assert</span> <span class="n">mqueue</span><span class="o">.</span><span class="n">empty</span><span class="p">()</span></div>
 
 </span></code></pre></div>
     </div></div>
