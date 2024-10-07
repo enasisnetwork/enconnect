@@ -31,7 +31,8 @@ class RouterParams(BaseModel, extra='forbid'):
     timeout: Annotated[
         int,
         Field(30,
-              description='Timeout connecting to server')]
+              description='Timeout connecting to server',
+              ge=1, le=300)]
 
     username: Annotated[
         str,

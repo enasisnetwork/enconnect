@@ -32,7 +32,7 @@ class BridgeParams(BaseModel, extra='forbid'):
         int,
         Field(30,
               description='Timeout connecting to server',
-              ge=0)]
+              ge=1, le=300)]
 
     appid: Annotated[
         int,
