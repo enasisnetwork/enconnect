@@ -7,6 +7,7 @@ is permitted, for more information consult the project license file.
 
 
 
+from codecs import getincrementaldecoder as getdecoder
 from queue import Queue
 from re import compile
 from re import match as re_match
@@ -516,51 +517,64 @@ class Client:
 
         assert socket is not None
 
-        recv = SEMPTY
-        buffer: list[str] = []
+        buffer = bytearray()
+
+        decoder = getdecoder('utf-8')()
+
+        bempty = (
+            SEMPTY
+            .encode('utf-8'))
+
+        bewline = (
+            NEWLINE
+            .encode('utf-8'))
 
 
-        def _receive() -> str:
+        def _receive() -> bytes:
 
-            return (
-                socket.recv(1)
-                .decode('utf-8'))
+            return socket.recv(4096)
 
 
-        while (len(buffer) < 4096
-               and recv != NEWLINE):
+        while True:
 
             try:
 
                 recv = _receive()
 
-                buffer.append(recv)
+                if recv == bempty:
+                    exited.set()
+                    break
+
+                buffer.extend(recv)
 
             except TimeoutError:
                 break
 
 
-            if recv == SEMPTY:
-                exited.set()
-                return None
+            while True:
 
-            if recv != NEWLINE:
-                continue
+                index = (
+                    buffer.find(bewline))
 
+                if index == -1:
+                    break
 
-            event = (
-                SEMPTY.join(buffer)
-                .strip('\r\n'))
+                line = buffer[:index + 1]
 
-            buffer = []
+                del buffer[:index + 1]
 
-            if event[:5] == 'ERROR':
-                exited.set()
+                event = (
+                    decoder.decode(
+                        line, False)
+                    .strip('\r\n'))
 
-            if len(event) >= 1:
+                if event[:5] == 'ERROR':
+                    exited.set()
 
-                logger(
-                    item='receive',
-                    value=event)
+                if len(event) >= 1:
 
-                yield event
+                    logger(
+                        item='receive',
+                        value=event)
+
+                    yield event
