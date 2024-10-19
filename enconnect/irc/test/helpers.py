@@ -53,8 +53,8 @@ EVENTS: list[str] = [
     (':botirc!user@host PRIVMSG'
      ' # :Hello nick'),
 
-    ('ERROR :Closing Link: ircbot'
-     '[mocked] (Quit: ircbot)')]
+    ('ERROR :Closing Link: botirc'
+     '[mocked] (Quit: botirc)')]
 
 
 

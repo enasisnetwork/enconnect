@@ -16,6 +16,7 @@ from typing import TYPE_CHECKING
 
 from encommon.types import BaseModel
 from encommon.types import DictStrAny
+from encommon.types import NCTrue
 
 from pydantic import Field
 
@@ -279,5 +280,19 @@ class ClientEvent(BaseModel, extra='ignore'):
             them = author
 
             isme = mine == them
+
+
+        elif operate == 'normal':
+
+            prefix = f':{mynick}!'
+
+            if event.startswith(prefix):
+                isme = NCTrue
+
+            prefix = f':{mynick} '
+
+            if event.startswith(prefix):
+                isme = NCTrue
+
 
         self.isme = isme
