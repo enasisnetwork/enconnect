@@ -276,8 +276,8 @@ def test_ClientEvent_cover(  # noqa: CFQ001
     assert not item.prefix
     assert item.command == 'ERROR'
     assert item.params == (
-        ':Closing Link: ircbot'
-        '[mocked] (Quit: ircbot)')
+        ':Closing Link: botirc'
+        '[mocked] (Quit: botirc)')
 
     assert item.kind == 'event'
     assert not item.isme
