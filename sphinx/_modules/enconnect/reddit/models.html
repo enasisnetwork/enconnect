@@ -156,170 +156,205 @@
 </span><span id="line-13">
 </span><span id="line-14"><span class="kn">from</span> <span class="nn">encommon.types</span> <span class="kn">import</span> <span class="n">BaseModel</span>
 </span><span id="line-15"><span class="kn">from</span> <span class="nn">encommon.types</span> <span class="kn">import</span> <span class="n">getate</span>
-</span><span id="line-16">
-</span><span id="line-17"><span class="kn">from</span> <span class="nn">pydantic</span> <span class="kn">import</span> <span class="n">Field</span>
-</span><span id="line-18">
+</span><span id="line-16"><span class="kn">from</span> <span class="nn">encommon.types</span> <span class="kn">import</span> <span class="n">sort_dict</span>
+</span><span id="line-17">
+</span><span id="line-18"><span class="kn">from</span> <span class="nn">pydantic</span> <span class="kn">import</span> <span class="n">Field</span>
 </span><span id="line-19">
 </span><span id="line-20">
-</span><span id="line-21"><span class="n">LISTING_VALUE</span> <span class="o">=</span> <span class="p">{</span>
-</span><span id="line-22">    <span class="s1">&#39;created_utc&#39;</span><span class="p">:</span> <span class="s1">&#39;created&#39;</span><span class="p">,</span>
-</span><span id="line-23">    <span class="s1">&#39;ups&#39;</span><span class="p">:</span> <span class="s1">&#39;vote_ups&#39;</span><span class="p">,</span>
-</span><span id="line-24">    <span class="s1">&#39;downs&#39;</span><span class="p">:</span> <span class="s1">&#39;vote_downs&#39;</span><span class="p">,</span>
-</span><span id="line-25">    <span class="s1">&#39;url_overridden_by_dest&#39;</span><span class="p">:</span> <span class="s1">&#39;url_dest&#39;</span><span class="p">,</span>
-</span><span id="line-26">    <span class="s1">&#39;media_metadata&#39;</span><span class="p">:</span> <span class="s1">&#39;medias&#39;</span><span class="p">}</span>
-</span><span id="line-27">
+</span><span id="line-21">
+</span><span id="line-22"><span class="n">LISTING_VALUE</span> <span class="o">=</span> <span class="p">{</span>
+</span><span id="line-23">    <span class="s1">&#39;created_utc&#39;</span><span class="p">:</span> <span class="s1">&#39;created&#39;</span><span class="p">,</span>
+</span><span id="line-24">    <span class="s1">&#39;ups&#39;</span><span class="p">:</span> <span class="s1">&#39;vote_ups&#39;</span><span class="p">,</span>
+</span><span id="line-25">    <span class="s1">&#39;downs&#39;</span><span class="p">:</span> <span class="s1">&#39;vote_downs&#39;</span><span class="p">,</span>
+</span><span id="line-26">    <span class="s1">&#39;url_overridden_by_dest&#39;</span><span class="p">:</span> <span class="s1">&#39;url_dest&#39;</span><span class="p">,</span>
+</span><span id="line-27">    <span class="s1">&#39;media_metadata&#39;</span><span class="p">:</span> <span class="s1">&#39;medias&#39;</span><span class="p">}</span>
 </span><span id="line-28">
 </span><span id="line-29">
+</span><span id="line-30">
 <div class="viewcode-block" id="RedditListing">
 <a class="viewcode-back" href="../../../index.html#enconnect.reddit.models.RedditListing">[docs]</a>
-</span><span id="line-30"><span class="k">class</span> <span class="nc">RedditListing</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">,</span> <span class="n">extra</span><span class="o">=</span><span class="s1">&#39;ignore&#39;</span><span class="p">):</span>
-</span><span id="line-31"><span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-</span><span id="line-32"><span class="sd">    Contains information returned from the upstream response.</span>
-</span><span id="line-33"><span class="sd">    &quot;&quot;&quot;</span>
-</span><span id="line-34">
-</span><span id="line-35">    <span class="n">name</span><span class="p">:</span> <span class="n">Annotated</span><span class="p">[</span>
-</span><span id="line-36">        <span class="nb">str</span><span class="p">,</span>
-</span><span id="line-37">        <span class="n">Field</span><span class="p">(</span><span class="o">...</span><span class="p">,</span>
-</span><span id="line-38">              <span class="n">description</span><span class="o">=</span><span class="s1">&#39;Value from the server response&#39;</span><span class="p">)]</span>
-</span><span id="line-39">
-</span><span id="line-40">    <span class="nb">id</span><span class="p">:</span> <span class="n">Annotated</span><span class="p">[</span>
-</span><span id="line-41">        <span class="nb">str</span><span class="p">,</span>
-</span><span id="line-42">        <span class="n">Field</span><span class="p">(</span><span class="o">...</span><span class="p">,</span>
-</span><span id="line-43">              <span class="n">description</span><span class="o">=</span><span class="s1">&#39;Value from the server response&#39;</span><span class="p">)]</span>
-</span><span id="line-44">
-</span><span id="line-45">    <span class="n">created</span><span class="p">:</span> <span class="n">Annotated</span><span class="p">[</span>
-</span><span id="line-46">        <span class="nb">int</span><span class="p">,</span>
-</span><span id="line-47">        <span class="n">Field</span><span class="p">(</span><span class="o">...</span><span class="p">,</span>
-</span><span id="line-48">              <span class="n">description</span><span class="o">=</span><span class="s1">&#39;Value from the server response&#39;</span><span class="p">)]</span>
-</span><span id="line-49">
-</span><span id="line-50">    <span class="n">title</span><span class="p">:</span> <span class="n">Annotated</span><span class="p">[</span>
-</span><span id="line-51">        <span class="nb">str</span><span class="p">,</span>
-</span><span id="line-52">        <span class="n">Field</span><span class="p">(</span><span class="o">...</span><span class="p">,</span>
-</span><span id="line-53">              <span class="n">description</span><span class="o">=</span><span class="s1">&#39;Value from the server response&#39;</span><span class="p">)]</span>
-</span><span id="line-54">
-</span><span id="line-55">    <span class="n">selftext</span><span class="p">:</span> <span class="n">Annotated</span><span class="p">[</span>
-</span><span id="line-56">        <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span>
-</span><span id="line-57">        <span class="n">Field</span><span class="p">(</span><span class="kc">None</span><span class="p">,</span>
-</span><span id="line-58">              <span class="n">description</span><span class="o">=</span><span class="s1">&#39;Value from the server response&#39;</span><span class="p">)]</span>
-</span><span id="line-59">
-</span><span id="line-60">    <span class="n">author</span><span class="p">:</span> <span class="n">Annotated</span><span class="p">[</span>
-</span><span id="line-61">        <span class="nb">str</span><span class="p">,</span>
-</span><span id="line-62">        <span class="n">Field</span><span class="p">(</span><span class="o">...</span><span class="p">,</span>
-</span><span id="line-63">              <span class="n">description</span><span class="o">=</span><span class="s1">&#39;Value from the server response&#39;</span><span class="p">)]</span>
-</span><span id="line-64">
-</span><span id="line-65">    <span class="n">url</span><span class="p">:</span> <span class="n">Annotated</span><span class="p">[</span>
-</span><span id="line-66">        <span class="nb">str</span><span class="p">,</span>
-</span><span id="line-67">        <span class="n">Field</span><span class="p">(</span><span class="o">...</span><span class="p">,</span>
-</span><span id="line-68">              <span class="n">description</span><span class="o">=</span><span class="s1">&#39;Value from the server response&#39;</span><span class="p">)]</span>
-</span><span id="line-69">
-</span><span id="line-70">    <span class="n">permalink</span><span class="p">:</span> <span class="n">Annotated</span><span class="p">[</span>
-</span><span id="line-71">        <span class="nb">str</span><span class="p">,</span>
-</span><span id="line-72">        <span class="n">Field</span><span class="p">(</span><span class="o">...</span><span class="p">,</span>
-</span><span id="line-73">              <span class="n">description</span><span class="o">=</span><span class="s1">&#39;Value from the server response&#39;</span><span class="p">)]</span>
-</span><span id="line-74">
-</span><span id="line-75">    <span class="n">thumbnail</span><span class="p">:</span> <span class="n">Annotated</span><span class="p">[</span>
-</span><span id="line-76">        <span class="nb">str</span><span class="p">,</span>
-</span><span id="line-77">        <span class="n">Field</span><span class="p">(</span><span class="o">...</span><span class="p">,</span>
-</span><span id="line-78">              <span class="n">description</span><span class="o">=</span><span class="s1">&#39;Value from the server response&#39;</span><span class="p">)]</span>
-</span><span id="line-79">
-</span><span id="line-80">    <span class="n">url_dest</span><span class="p">:</span> <span class="n">Annotated</span><span class="p">[</span>
-</span><span id="line-81">        <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span>
-</span><span id="line-82">        <span class="n">Field</span><span class="p">(</span><span class="kc">None</span><span class="p">,</span>
-</span><span id="line-83">              <span class="n">description</span><span class="o">=</span><span class="s1">&#39;Value from the server response&#39;</span><span class="p">)]</span>
-</span><span id="line-84">
-</span><span id="line-85">    <span class="n">domain</span><span class="p">:</span> <span class="n">Annotated</span><span class="p">[</span>
-</span><span id="line-86">        <span class="nb">str</span><span class="p">,</span>
-</span><span id="line-87">        <span class="n">Field</span><span class="p">(</span><span class="o">...</span><span class="p">,</span>
-</span><span id="line-88">              <span class="n">description</span><span class="o">=</span><span class="s1">&#39;Value from the server response&#39;</span><span class="p">)]</span>
-</span><span id="line-89">
-</span><span id="line-90">    <span class="n">medias</span><span class="p">:</span> <span class="n">Annotated</span><span class="p">[</span>
-</span><span id="line-91">        <span class="n">Optional</span><span class="p">[</span><span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]],</span>
-</span><span id="line-92">        <span class="n">Field</span><span class="p">(</span><span class="kc">None</span><span class="p">,</span>
-</span><span id="line-93">              <span class="n">description</span><span class="o">=</span><span class="s1">&#39;Value from the server response&#39;</span><span class="p">)]</span>
-</span><span id="line-94">
-</span><span id="line-95">    <span class="n">pinned</span><span class="p">:</span> <span class="n">Annotated</span><span class="p">[</span>
-</span><span id="line-96">        <span class="nb">bool</span><span class="p">,</span>
-</span><span id="line-97">        <span class="n">Field</span><span class="p">(</span><span class="o">...</span><span class="p">,</span>
-</span><span id="line-98">              <span class="n">description</span><span class="o">=</span><span class="s1">&#39;Value from the server response&#39;</span><span class="p">)]</span>
-</span><span id="line-99">
-</span><span id="line-100">    <span class="n">edited</span><span class="p">:</span> <span class="n">Annotated</span><span class="p">[</span>
-</span><span id="line-101">        <span class="nb">bool</span> <span class="o">|</span> <span class="nb">float</span><span class="p">,</span>
-</span><span id="line-102">        <span class="n">Field</span><span class="p">(</span><span class="o">...</span><span class="p">,</span>
-</span><span id="line-103">              <span class="n">description</span><span class="o">=</span><span class="s1">&#39;Value from the server response&#39;</span><span class="p">)]</span>
-</span><span id="line-104">
-</span><span id="line-105">    <span class="n">stickied</span><span class="p">:</span> <span class="n">Annotated</span><span class="p">[</span>
-</span><span id="line-106">        <span class="nb">bool</span><span class="p">,</span>
-</span><span id="line-107">        <span class="n">Field</span><span class="p">(</span><span class="o">...</span><span class="p">,</span>
-</span><span id="line-108">              <span class="n">description</span><span class="o">=</span><span class="s1">&#39;Value from the server response&#39;</span><span class="p">)]</span>
-</span><span id="line-109">
-</span><span id="line-110">    <span class="n">archived</span><span class="p">:</span> <span class="n">Annotated</span><span class="p">[</span>
-</span><span id="line-111">        <span class="nb">bool</span><span class="p">,</span>
-</span><span id="line-112">        <span class="n">Field</span><span class="p">(</span><span class="o">...</span><span class="p">,</span>
-</span><span id="line-113">              <span class="n">description</span><span class="o">=</span><span class="s1">&#39;Value from the server response&#39;</span><span class="p">)]</span>
-</span><span id="line-114">
-</span><span id="line-115">    <span class="n">vote_downs</span><span class="p">:</span> <span class="n">Annotated</span><span class="p">[</span>
-</span><span id="line-116">        <span class="nb">int</span><span class="p">,</span>
-</span><span id="line-117">        <span class="n">Field</span><span class="p">(</span><span class="o">...</span><span class="p">,</span>
-</span><span id="line-118">              <span class="n">description</span><span class="o">=</span><span class="s1">&#39;Value from the server response&#39;</span><span class="p">)]</span>
-</span><span id="line-119">
-</span><span id="line-120">    <span class="n">vote_ups</span><span class="p">:</span> <span class="n">Annotated</span><span class="p">[</span>
-</span><span id="line-121">        <span class="nb">int</span><span class="p">,</span>
-</span><span id="line-122">        <span class="n">Field</span><span class="p">(</span><span class="o">...</span><span class="p">,</span>
-</span><span id="line-123">              <span class="n">description</span><span class="o">=</span><span class="s1">&#39;Value from the server response&#39;</span><span class="p">)]</span>
-</span><span id="line-124">
-</span><span id="line-125">    <span class="n">score</span><span class="p">:</span> <span class="n">Annotated</span><span class="p">[</span>
-</span><span id="line-126">        <span class="nb">int</span><span class="p">,</span>
-</span><span id="line-127">        <span class="n">Field</span><span class="p">(</span><span class="o">...</span><span class="p">,</span>
-</span><span id="line-128">              <span class="n">description</span><span class="o">=</span><span class="s1">&#39;Value from the server response&#39;</span><span class="p">)]</span>
-</span><span id="line-129">
+</span><span id="line-31"><span class="k">class</span> <span class="nc">RedditListing</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">,</span> <span class="n">extra</span><span class="o">=</span><span class="s1">&#39;ignore&#39;</span><span class="p">):</span>
+</span><span id="line-32"><span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="line-33"><span class="sd">    Contains information returned from the upstream response.</span>
+</span><span id="line-34"><span class="sd">    &quot;&quot;&quot;</span>
+</span><span id="line-35">
+</span><span id="line-36">    <span class="n">name</span><span class="p">:</span> <span class="n">Annotated</span><span class="p">[</span>
+</span><span id="line-37">        <span class="nb">str</span><span class="p">,</span>
+</span><span id="line-38">        <span class="n">Field</span><span class="p">(</span><span class="o">...</span><span class="p">,</span>
+</span><span id="line-39">              <span class="n">description</span><span class="o">=</span><span class="s1">&#39;Value from the server response&#39;</span><span class="p">)]</span>
+</span><span id="line-40">
+</span><span id="line-41">    <span class="nb">id</span><span class="p">:</span> <span class="n">Annotated</span><span class="p">[</span>
+</span><span id="line-42">        <span class="nb">str</span><span class="p">,</span>
+</span><span id="line-43">        <span class="n">Field</span><span class="p">(</span><span class="o">...</span><span class="p">,</span>
+</span><span id="line-44">              <span class="n">description</span><span class="o">=</span><span class="s1">&#39;Value from the server response&#39;</span><span class="p">)]</span>
+</span><span id="line-45">
+</span><span id="line-46">    <span class="n">created</span><span class="p">:</span> <span class="n">Annotated</span><span class="p">[</span>
+</span><span id="line-47">        <span class="nb">int</span><span class="p">,</span>
+</span><span id="line-48">        <span class="n">Field</span><span class="p">(</span><span class="o">...</span><span class="p">,</span>
+</span><span id="line-49">              <span class="n">description</span><span class="o">=</span><span class="s1">&#39;Value from the server response&#39;</span><span class="p">)]</span>
+</span><span id="line-50">
+</span><span id="line-51">    <span class="n">title</span><span class="p">:</span> <span class="n">Annotated</span><span class="p">[</span>
+</span><span id="line-52">        <span class="nb">str</span><span class="p">,</span>
+</span><span id="line-53">        <span class="n">Field</span><span class="p">(</span><span class="o">...</span><span class="p">,</span>
+</span><span id="line-54">              <span class="n">description</span><span class="o">=</span><span class="s1">&#39;Value from the server response&#39;</span><span class="p">)]</span>
+</span><span id="line-55">
+</span><span id="line-56">    <span class="n">selftext</span><span class="p">:</span> <span class="n">Annotated</span><span class="p">[</span>
+</span><span id="line-57">        <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span>
+</span><span id="line-58">        <span class="n">Field</span><span class="p">(</span><span class="kc">None</span><span class="p">,</span>
+</span><span id="line-59">              <span class="n">description</span><span class="o">=</span><span class="s1">&#39;Value from the server response&#39;</span><span class="p">)]</span>
+</span><span id="line-60">
+</span><span id="line-61">    <span class="n">author</span><span class="p">:</span> <span class="n">Annotated</span><span class="p">[</span>
+</span><span id="line-62">        <span class="nb">str</span><span class="p">,</span>
+</span><span id="line-63">        <span class="n">Field</span><span class="p">(</span><span class="o">...</span><span class="p">,</span>
+</span><span id="line-64">              <span class="n">description</span><span class="o">=</span><span class="s1">&#39;Value from the server response&#39;</span><span class="p">)]</span>
+</span><span id="line-65">
+</span><span id="line-66">    <span class="n">url</span><span class="p">:</span> <span class="n">Annotated</span><span class="p">[</span>
+</span><span id="line-67">        <span class="nb">str</span><span class="p">,</span>
+</span><span id="line-68">        <span class="n">Field</span><span class="p">(</span><span class="o">...</span><span class="p">,</span>
+</span><span id="line-69">              <span class="n">description</span><span class="o">=</span><span class="s1">&#39;Value from the server response&#39;</span><span class="p">)]</span>
+</span><span id="line-70">
+</span><span id="line-71">    <span class="n">permalink</span><span class="p">:</span> <span class="n">Annotated</span><span class="p">[</span>
+</span><span id="line-72">        <span class="nb">str</span><span class="p">,</span>
+</span><span id="line-73">        <span class="n">Field</span><span class="p">(</span><span class="o">...</span><span class="p">,</span>
+</span><span id="line-74">              <span class="n">description</span><span class="o">=</span><span class="s1">&#39;Value from the server response&#39;</span><span class="p">)]</span>
+</span><span id="line-75">
+</span><span id="line-76">    <span class="n">thumbnail</span><span class="p">:</span> <span class="n">Annotated</span><span class="p">[</span>
+</span><span id="line-77">        <span class="nb">str</span><span class="p">,</span>
+</span><span id="line-78">        <span class="n">Field</span><span class="p">(</span><span class="o">...</span><span class="p">,</span>
+</span><span id="line-79">              <span class="n">description</span><span class="o">=</span><span class="s1">&#39;Value from the server response&#39;</span><span class="p">)]</span>
+</span><span id="line-80">
+</span><span id="line-81">    <span class="n">url_dest</span><span class="p">:</span> <span class="n">Annotated</span><span class="p">[</span>
+</span><span id="line-82">        <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span>
+</span><span id="line-83">        <span class="n">Field</span><span class="p">(</span><span class="kc">None</span><span class="p">,</span>
+</span><span id="line-84">              <span class="n">description</span><span class="o">=</span><span class="s1">&#39;Value from the server response&#39;</span><span class="p">)]</span>
+</span><span id="line-85">
+</span><span id="line-86">    <span class="n">domain</span><span class="p">:</span> <span class="n">Annotated</span><span class="p">[</span>
+</span><span id="line-87">        <span class="nb">str</span><span class="p">,</span>
+</span><span id="line-88">        <span class="n">Field</span><span class="p">(</span><span class="o">...</span><span class="p">,</span>
+</span><span id="line-89">              <span class="n">description</span><span class="o">=</span><span class="s1">&#39;Value from the server response&#39;</span><span class="p">)]</span>
+</span><span id="line-90">
+</span><span id="line-91">    <span class="n">medias</span><span class="p">:</span> <span class="n">Annotated</span><span class="p">[</span>
+</span><span id="line-92">        <span class="n">Optional</span><span class="p">[</span><span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]],</span>
+</span><span id="line-93">        <span class="n">Field</span><span class="p">(</span><span class="kc">None</span><span class="p">,</span>
+</span><span id="line-94">              <span class="n">description</span><span class="o">=</span><span class="s1">&#39;Value from the server response&#39;</span><span class="p">)]</span>
+</span><span id="line-95">
+</span><span id="line-96">    <span class="n">pinned</span><span class="p">:</span> <span class="n">Annotated</span><span class="p">[</span>
+</span><span id="line-97">        <span class="nb">bool</span><span class="p">,</span>
+</span><span id="line-98">        <span class="n">Field</span><span class="p">(</span><span class="o">...</span><span class="p">,</span>
+</span><span id="line-99">              <span class="n">description</span><span class="o">=</span><span class="s1">&#39;Value from the server response&#39;</span><span class="p">)]</span>
+</span><span id="line-100">
+</span><span id="line-101">    <span class="n">edited</span><span class="p">:</span> <span class="n">Annotated</span><span class="p">[</span>
+</span><span id="line-102">        <span class="nb">bool</span> <span class="o">|</span> <span class="nb">float</span><span class="p">,</span>
+</span><span id="line-103">        <span class="n">Field</span><span class="p">(</span><span class="o">...</span><span class="p">,</span>
+</span><span id="line-104">              <span class="n">description</span><span class="o">=</span><span class="s1">&#39;Value from the server response&#39;</span><span class="p">)]</span>
+</span><span id="line-105">
+</span><span id="line-106">    <span class="n">stickied</span><span class="p">:</span> <span class="n">Annotated</span><span class="p">[</span>
+</span><span id="line-107">        <span class="nb">bool</span><span class="p">,</span>
+</span><span id="line-108">        <span class="n">Field</span><span class="p">(</span><span class="o">...</span><span class="p">,</span>
+</span><span id="line-109">              <span class="n">description</span><span class="o">=</span><span class="s1">&#39;Value from the server response&#39;</span><span class="p">)]</span>
+</span><span id="line-110">
+</span><span id="line-111">    <span class="n">archived</span><span class="p">:</span> <span class="n">Annotated</span><span class="p">[</span>
+</span><span id="line-112">        <span class="nb">bool</span><span class="p">,</span>
+</span><span id="line-113">        <span class="n">Field</span><span class="p">(</span><span class="o">...</span><span class="p">,</span>
+</span><span id="line-114">              <span class="n">description</span><span class="o">=</span><span class="s1">&#39;Value from the server response&#39;</span><span class="p">)]</span>
+</span><span id="line-115">
+</span><span id="line-116">    <span class="n">vote_downs</span><span class="p">:</span> <span class="n">Annotated</span><span class="p">[</span>
+</span><span id="line-117">        <span class="nb">int</span><span class="p">,</span>
+</span><span id="line-118">        <span class="n">Field</span><span class="p">(</span><span class="o">...</span><span class="p">,</span>
+</span><span id="line-119">              <span class="n">description</span><span class="o">=</span><span class="s1">&#39;Value from the server response&#39;</span><span class="p">)]</span>
+</span><span id="line-120">
+</span><span id="line-121">    <span class="n">vote_ups</span><span class="p">:</span> <span class="n">Annotated</span><span class="p">[</span>
+</span><span id="line-122">        <span class="nb">int</span><span class="p">,</span>
+</span><span id="line-123">        <span class="n">Field</span><span class="p">(</span><span class="o">...</span><span class="p">,</span>
+</span><span id="line-124">              <span class="n">description</span><span class="o">=</span><span class="s1">&#39;Value from the server response&#39;</span><span class="p">)]</span>
+</span><span id="line-125">
+</span><span id="line-126">    <span class="n">score</span><span class="p">:</span> <span class="n">Annotated</span><span class="p">[</span>
+</span><span id="line-127">        <span class="nb">int</span><span class="p">,</span>
+</span><span id="line-128">        <span class="n">Field</span><span class="p">(</span><span class="o">...</span><span class="p">,</span>
+</span><span id="line-129">              <span class="n">description</span><span class="o">=</span><span class="s1">&#39;Value from the server response&#39;</span><span class="p">)]</span>
 </span><span id="line-130">
-</span><span id="line-131">    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
-</span><span id="line-132">        <span class="bp">self</span><span class="p">,</span>
-</span><span id="line-133">        <span class="o">/</span><span class="p">,</span>
-</span><span id="line-134">        <span class="o">**</span><span class="n">data</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
-</span><span id="line-135">    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-</span><span id="line-136"><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-</span><span id="line-137"><span class="sd">        Initialize instance for class using provided parameters.</span>
-</span><span id="line-138"><span class="sd">        &quot;&quot;&quot;</span>
-</span><span id="line-139">
-</span><span id="line-140">        <span class="n">items</span> <span class="o">=</span> <span class="n">LISTING_VALUE</span><span class="o">.</span><span class="n">items</span><span class="p">()</span>
-</span><span id="line-141">
-</span><span id="line-142">        <span class="k">for</span> <span class="n">old</span><span class="p">,</span> <span class="n">new</span> <span class="ow">in</span> <span class="n">items</span><span class="p">:</span>
-</span><span id="line-143">
-</span><span id="line-144">            <span class="n">value</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">old</span><span class="p">)</span>
-</span><span id="line-145">
-</span><span id="line-146">            <span class="k">if</span> <span class="n">value</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-</span><span id="line-147">                <span class="k">continue</span>
-</span><span id="line-148">
-</span><span id="line-149">            <span class="n">data</span><span class="p">[</span><span class="n">new</span><span class="p">]</span> <span class="o">=</span> <span class="n">value</span>
-</span><span id="line-150">
+</span><span id="line-131">
+</span><span id="line-132">    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+</span><span id="line-133">        <span class="bp">self</span><span class="p">,</span>
+</span><span id="line-134">        <span class="o">/</span><span class="p">,</span>
+</span><span id="line-135">        <span class="o">**</span><span class="n">data</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
+</span><span id="line-136">    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+</span><span id="line-137"><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="line-138"><span class="sd">        Initialize instance for class using provided parameters.</span>
+</span><span id="line-139"><span class="sd">        &quot;&quot;&quot;</span>
+</span><span id="line-140">
+</span><span id="line-141">        <span class="n">items</span> <span class="o">=</span> <span class="n">LISTING_VALUE</span><span class="o">.</span><span class="n">items</span><span class="p">()</span>
+</span><span id="line-142">
+</span><span id="line-143">        <span class="k">for</span> <span class="n">old</span><span class="p">,</span> <span class="n">new</span> <span class="ow">in</span> <span class="n">items</span><span class="p">:</span>
+</span><span id="line-144">
+</span><span id="line-145">            <span class="n">value</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">old</span><span class="p">)</span>
+</span><span id="line-146">
+</span><span id="line-147">            <span class="k">if</span> <span class="n">value</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+</span><span id="line-148">                <span class="k">continue</span>
+</span><span id="line-149">
+</span><span id="line-150">            <span class="n">data</span><span class="p">[</span><span class="n">new</span><span class="p">]</span> <span class="o">=</span> <span class="n">value</span>
 </span><span id="line-151">
-</span><span id="line-152">        <span class="n">data</span> <span class="o">=</span> <span class="p">{</span>
-</span><span id="line-153">            <span class="n">k</span><span class="p">:</span> <span class="n">v</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span>
-</span><span id="line-154">            <span class="n">data</span><span class="o">.</span><span class="n">items</span><span class="p">()</span>
-</span><span id="line-155">            <span class="k">if</span> <span class="n">v</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">]}</span>
-</span><span id="line-156">
+</span><span id="line-152">
+</span><span id="line-153">        <span class="n">data</span> <span class="o">=</span> <span class="p">{</span>
+</span><span id="line-154">            <span class="n">k</span><span class="p">:</span> <span class="n">v</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span>
+</span><span id="line-155">            <span class="n">data</span><span class="o">.</span><span class="n">items</span><span class="p">()</span>
+</span><span id="line-156">            <span class="k">if</span> <span class="n">v</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">]}</span>
 </span><span id="line-157">
-</span><span id="line-158">        <span class="k">if</span> <span class="n">data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;medias&#39;</span><span class="p">):</span>
-</span><span id="line-159">
-</span><span id="line-160">            <span class="n">images</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
-</span><span id="line-161">
-</span><span id="line-162">            <span class="n">items</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;medias&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">items</span><span class="p">()</span>
-</span><span id="line-163">
-</span><span id="line-164">            <span class="k">for</span> <span class="n">_</span><span class="p">,</span> <span class="n">media</span> <span class="ow">in</span> <span class="n">items</span><span class="p">:</span>
+</span><span id="line-158">
+</span><span id="line-159">        <span class="k">if</span> <span class="n">data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;medias&#39;</span><span class="p">):</span>
+</span><span id="line-160">
+</span><span id="line-161">            <span class="n">images</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+</span><span id="line-162">
+</span><span id="line-163">            <span class="n">medias</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;medias&#39;</span><span class="p">]</span>
+</span><span id="line-164">
 </span><span id="line-165">
-</span><span id="line-166">                <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">media</span><span class="p">,</span> <span class="nb">dict</span><span class="p">)</span>
-</span><span id="line-167">
-</span><span id="line-168">                <span class="n">image</span> <span class="o">=</span> <span class="n">getate</span><span class="p">(</span><span class="n">media</span><span class="p">,</span> <span class="s1">&#39;s/u&#39;</span><span class="p">)</span>
+</span><span id="line-166">            <span class="n">gitems</span> <span class="o">=</span> <span class="n">getate</span><span class="p">(</span>
+</span><span id="line-167">                <span class="n">data</span><span class="p">,</span>
+</span><span id="line-168">                <span class="s1">&#39;gallery_data/items&#39;</span><span class="p">)</span>
 </span><span id="line-169">
-</span><span id="line-170">                <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">image</span><span class="p">,</span> <span class="nb">str</span><span class="p">)</span>
-</span><span id="line-171">
-</span><span id="line-172">                <span class="n">images</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">image</span><span class="p">)</span>
-</span><span id="line-173">
-</span><span id="line-174">            <span class="n">data</span><span class="p">[</span><span class="s1">&#39;medias&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">images</span>
-</span><span id="line-175">
-</span><span id="line-176">
-</span><span id="line-177">        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">**</span><span class="n">data</span><span class="p">)</span></div>
+</span><span id="line-170">
+</span><span id="line-171">            <span class="k">if</span> <span class="n">gitems</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+</span><span id="line-172">
+</span><span id="line-173">                <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">gitems</span><span class="p">:</span>
+</span><span id="line-174">
+</span><span id="line-175">                    <span class="n">_unique</span> <span class="o">=</span> <span class="n">item</span><span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">]</span>
+</span><span id="line-176">                    <span class="n">_media</span> <span class="o">=</span> <span class="n">item</span><span class="p">[</span><span class="s1">&#39;media_id&#39;</span><span class="p">]</span>
+</span><span id="line-177">
+</span><span id="line-178">                    <span class="k">if</span> <span class="n">_media</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">medias</span><span class="p">:</span>
+</span><span id="line-179">                        <span class="k">continue</span>  <span class="c1"># NOCVR</span>
+</span><span id="line-180">
+</span><span id="line-181">                    <span class="n">media</span> <span class="o">=</span> <span class="n">medias</span><span class="p">[</span><span class="n">_media</span><span class="p">]</span>
+</span><span id="line-182">
+</span><span id="line-183">                    <span class="n">medias</span><span class="p">[</span><span class="n">_unique</span><span class="p">]</span> <span class="o">=</span> <span class="n">media</span>
+</span><span id="line-184">
+</span><span id="line-185">                    <span class="k">del</span> <span class="n">medias</span><span class="p">[</span><span class="n">_media</span><span class="p">]</span>
+</span><span id="line-186">
+</span><span id="line-187">
+</span><span id="line-188">            <span class="n">mitems</span> <span class="o">=</span> <span class="p">(</span>
+</span><span id="line-189">                <span class="n">sort_dict</span><span class="p">(</span><span class="n">medias</span><span class="p">)</span>
+</span><span id="line-190">                <span class="o">.</span><span class="n">items</span><span class="p">())</span>
+</span><span id="line-191">
+</span><span id="line-192">
+</span><span id="line-193">            <span class="k">for</span> <span class="n">_</span><span class="p">,</span> <span class="n">media</span> <span class="ow">in</span> <span class="n">mitems</span><span class="p">:</span>
+</span><span id="line-194">
+</span><span id="line-195">                <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span>
+</span><span id="line-196">                    <span class="n">media</span><span class="p">,</span> <span class="nb">dict</span><span class="p">)</span>
+</span><span id="line-197">
+</span><span id="line-198">                <span class="n">image</span> <span class="o">=</span> <span class="n">getate</span><span class="p">(</span>
+</span><span id="line-199">                    <span class="n">media</span><span class="p">,</span> <span class="s1">&#39;s/u&#39;</span><span class="p">)</span>
+</span><span id="line-200">
+</span><span id="line-201">                <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span>
+</span><span id="line-202">                    <span class="n">image</span><span class="p">,</span> <span class="nb">str</span><span class="p">)</span>
+</span><span id="line-203">
+</span><span id="line-204">                <span class="n">images</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">image</span><span class="p">)</span>
+</span><span id="line-205">
+</span><span id="line-206">
+</span><span id="line-207">            <span class="n">data</span><span class="p">[</span><span class="s1">&#39;medias&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">images</span>
+</span><span id="line-208">
+</span><span id="line-209">
+</span><span id="line-210">
+</span><span id="line-211">
+</span><span id="line-212">        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">**</span><span class="n">data</span><span class="p">)</span></div>
 
 </span></code></pre></div>
     </div></div>
