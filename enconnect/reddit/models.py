@@ -13,6 +13,7 @@ from typing import Optional
 
 from encommon.types import BaseModel
 from encommon.types import getate
+from encommon.types import sort_dict
 
 from pydantic import Field
 
@@ -159,19 +160,53 @@ class RedditListing(BaseModel, extra='ignore'):
 
             images: list[str] = []
 
-            items = data['medias'].items()
+            medias = data['medias']
 
-            for _, media in items:
 
-                assert isinstance(media, dict)
+            gitems = getate(
+                data,
+                'gallery_data/items')
 
-                image = getate(media, 's/u')
 
-                assert isinstance(image, str)
+            if gitems is not None:
+
+                for item in gitems:
+
+                    _unique = item['id']
+                    _media = item['media_id']
+
+                    if _media not in medias:
+                        continue  # NOCVR
+
+                    media = medias[_media]
+
+                    medias[_unique] = media
+
+                    del medias[_media]
+
+
+            mitems = (
+                sort_dict(medias)
+                .items())
+
+
+            for _, media in mitems:
+
+                assert isinstance(
+                    media, dict)
+
+                image = getate(
+                    media, 's/u')
+
+                assert isinstance(
+                    image, str)
 
                 images.append(image)
 
+
             data['medias'] = images
+
+
 
 
         super().__init__(**data)
