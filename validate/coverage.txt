@@ -46,7 +46,7 @@ enconnect/philips/test/__init__.py               5      0   100%
 enconnect/philips/test/helpers.py               30      0   100%
 enconnect/philips/test/test_bridge.py           68      0   100%
 enconnect/reddit/__init__.py                     4      0   100%
-enconnect/reddit/models.py                      45      0   100%
+enconnect/reddit/models.py                      56      0   100%
 enconnect/reddit/params.py                      16      0   100%
 enconnect/reddit/reddit.py                     158      0   100%
 enconnect/reddit/test/__init__.py                2      0   100%
@@ -70,4 +70,4 @@ enconnect/youtube/test/test_models.py           51      0   100%
 enconnect/youtube/test/test_youtube.py          70      0   100%
 enconnect/youtube/youtube.py                   102      0   100%
 ----------------------------------------------------------------
-TOTAL                                         3210      0   100%
+TOTAL                                         3221      0   100%
