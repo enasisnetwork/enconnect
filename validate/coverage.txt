@@ -59,7 +59,7 @@ enconnect/ubiquiti/test/__init__.py              2      0   100%
 enconnect/ubiquiti/test/test_router.py          39      0   100%
 enconnect/utils/__init__.py                      3      0   100%
 enconnect/utils/dummy.py                         2      0   100%
-enconnect/utils/http.py                        123      0   100%
+enconnect/utils/http.py                        124      0   100%
 enconnect/utils/test/__init__.py                 0      0   100%
 enconnect/utils/test/test_http.py               87      0   100%
 enconnect/youtube/__init__.py                    5      0   100%
@@ -70,4 +70,4 @@ enconnect/youtube/test/test_models.py           51      0   100%
 enconnect/youtube/test/test_youtube.py          70      0   100%
 enconnect/youtube/youtube.py                   102      0   100%
 ----------------------------------------------------------------
-TOTAL                                         3221      0   100%
+TOTAL                                         3222      0   100%
