@@ -9,6 +9,7 @@ is permitted, for more information consult the project license file.
 
 import asyncio
 from copy import deepcopy
+from ssl import SSLContext
 from time import sleep
 from typing import AsyncIterator
 from typing import Iterator
@@ -21,7 +22,6 @@ from httpx import AsyncClient
 from httpx import Client as BlockClient
 from httpx import Response
 from httpx._client import UseClientDefault
-from httpx._types import VerifyTypes
 
 
 
@@ -37,6 +37,8 @@ _HTTPAUTH = tuple[str, str]
 _HEADERS = dict[str, str]
 
 _PAYLOAD = DictStrAny
+
+_VERIFY = SSLContext | str | bool
 
 
 
@@ -56,7 +58,7 @@ class HTTPClient:
 
     __timeout: int
     __headers: Optional[_HEADERS]
-    __verify: VerifyTypes
+    __verify: _VERIFY
     __capem: Optional[str]
     __httpauth: Optional[_HTTPAUTH]
     __retry: int
@@ -71,7 +73,7 @@ class HTTPClient:
         self,
         timeout: int = 30,
         headers: Optional[_HEADERS] = None,
-        verify: VerifyTypes = True,
+        verify: _VERIFY = True,
         capem: Optional[str] = None,
         httpauth: Optional[_HTTPAUTH] = None,
         retry: int = 3,
@@ -158,7 +160,7 @@ class HTTPClient:
     @property
     def verify(
         self,
-    ) -> VerifyTypes:
+    ) -> _VERIFY:
         """
         Return the value for the attribute from class instance.
 
