@@ -15,7 +15,7 @@
     <title>enconnect.hubitat.bridge | enconnect  documentation</title>
     <meta property="og:title" content="enconnect.hubitat.bridge | enconnect  documentation" />
     <meta name="twitter:title" content="enconnect.hubitat.bridge | enconnect  documentation" />
-      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=8d216cef" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=e72c8e07" />
       <link rel="stylesheet" type="text/css" href="../../../_static/theme.css?v=42baaae4" />
       <link rel="stylesheet" type="text/css" href="../../../_static/autodoc_pydantic.css" />
         <link rel="search" title="Search" href="../../../search.html" />
@@ -150,23 +150,23 @@
 </span><span id="line-7">
 </span><span id="line-8">
 </span><span id="line-9">
-</span><span id="line-10"><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Optional</span>
-</span><span id="line-11"><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">TYPE_CHECKING</span>
+</span><span id="line-10"><span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Optional</span>
+</span><span id="line-11"><span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">TYPE_CHECKING</span>
 </span><span id="line-12">
-</span><span id="line-13"><span class="kn">from</span> <span class="nn">httpx</span> <span class="kn">import</span> <span class="n">Response</span>
+</span><span id="line-13"><span class="kn">from</span><span class="w"> </span><span class="nn">httpx</span><span class="w"> </span><span class="kn">import</span> <span class="n">Response</span>
 </span><span id="line-14">
-</span><span id="line-15"><span class="kn">from</span> <span class="nn">..utils</span> <span class="kn">import</span> <span class="n">HTTPClient</span>
-</span><span id="line-16"><span class="kn">from</span> <span class="nn">..utils.http</span> <span class="kn">import</span> <span class="n">_METHODS</span>
-</span><span id="line-17"><span class="kn">from</span> <span class="nn">..utils.http</span> <span class="kn">import</span> <span class="n">_PAYLOAD</span>
+</span><span id="line-15"><span class="kn">from</span><span class="w"> </span><span class="nn">..utils</span><span class="w"> </span><span class="kn">import</span> <span class="n">HTTPClient</span>
+</span><span id="line-16"><span class="kn">from</span><span class="w"> </span><span class="nn">..utils.http</span><span class="w"> </span><span class="kn">import</span> <span class="n">_METHODS</span>
+</span><span id="line-17"><span class="kn">from</span><span class="w"> </span><span class="nn">..utils.http</span><span class="w"> </span><span class="kn">import</span> <span class="n">_PAYLOAD</span>
 </span><span id="line-18">
 </span><span id="line-19"><span class="k">if</span> <span class="n">TYPE_CHECKING</span><span class="p">:</span>
-</span><span id="line-20">    <span class="kn">from</span> <span class="nn">.params</span> <span class="kn">import</span> <span class="n">BridgeParams</span>
+</span><span id="line-20">    <span class="kn">from</span><span class="w"> </span><span class="nn">.params</span><span class="w"> </span><span class="kn">import</span> <span class="n">BridgeParams</span>
 </span><span id="line-21">
 </span><span id="line-22">
 </span><span id="line-23">
 <div class="viewcode-block" id="Bridge">
 <a class="viewcode-back" href="../../../index.html#enconnect.hubitat.bridge.Bridge">[docs]</a>
-</span><span id="line-24"><span class="k">class</span> <span class="nc">Bridge</span><span class="p">:</span>
+</span><span id="line-24"><span class="k">class</span><span class="w"> </span><span class="nc">Bridge</span><span class="p">:</span>
 </span><span id="line-25"><span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 </span><span id="line-26"><span class="sd">    Interact with the local service API with various methods.</span>
 </span><span id="line-27">
@@ -177,7 +177,7 @@
 </span><span id="line-32">    <span class="n">__client</span><span class="p">:</span> <span class="n">HTTPClient</span>
 </span><span id="line-33">
 </span><span id="line-34">
-</span><span id="line-35">    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+</span><span id="line-35">    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span>
 </span><span id="line-36">        <span class="bp">self</span><span class="p">,</span>
 </span><span id="line-37">        <span class="n">params</span><span class="p">:</span> <span class="s1">&#39;BridgeParams&#39;</span><span class="p">,</span>
 </span><span id="line-38">    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
@@ -196,7 +196,7 @@
 </span><span id="line-51">
 </span><span id="line-52">
 </span><span id="line-53">    <span class="nd">@property</span>
-</span><span id="line-54">    <span class="k">def</span> <span class="nf">params</span><span class="p">(</span>
+</span><span id="line-54">    <span class="k">def</span><span class="w"> </span><span class="nf">params</span><span class="p">(</span>
 </span><span id="line-55">        <span class="bp">self</span><span class="p">,</span>
 </span><span id="line-56">    <span class="p">)</span> <span class="o">-&gt;</span> <span class="s1">&#39;BridgeParams&#39;</span><span class="p">:</span>
 </span><span id="line-57"><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
@@ -209,7 +209,7 @@
 </span><span id="line-64">
 </span><span id="line-65">
 </span><span id="line-66">    <span class="nd">@property</span>
-</span><span id="line-67">    <span class="k">def</span> <span class="nf">client</span><span class="p">(</span>
+</span><span id="line-67">    <span class="k">def</span><span class="w"> </span><span class="nf">client</span><span class="p">(</span>
 </span><span id="line-68">        <span class="bp">self</span><span class="p">,</span>
 </span><span id="line-69">    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">HTTPClient</span><span class="p">:</span>
 </span><span id="line-70"><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
@@ -223,7 +223,7 @@
 </span><span id="line-78">
 <div class="viewcode-block" id="Bridge.request">
 <a class="viewcode-back" href="../../../index.html#enconnect.hubitat.bridge.Bridge.request">[docs]</a>
-</span><span id="line-79">    <span class="k">def</span> <span class="nf">request</span><span class="p">(</span>
+</span><span id="line-79">    <span class="k">def</span><span class="w"> </span><span class="nf">request</span><span class="p">(</span>
 </span><span id="line-80">        <span class="bp">self</span><span class="p">,</span>
 </span><span id="line-81">        <span class="n">method</span><span class="p">:</span> <span class="n">_METHODS</span><span class="p">,</span>
 </span><span id="line-82">        <span class="n">path</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>

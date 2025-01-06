@@ -15,7 +15,7 @@
     <title>enconnect.reddit.reddit | enconnect  documentation</title>
     <meta property="og:title" content="enconnect.reddit.reddit | enconnect  documentation" />
     <meta name="twitter:title" content="enconnect.reddit.reddit | enconnect  documentation" />
-      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=8d216cef" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=e72c8e07" />
       <link rel="stylesheet" type="text/css" href="../../../_static/theme.css?v=42baaae4" />
       <link rel="stylesheet" type="text/css" href="../../../_static/autodoc_pydantic.css" />
         <link rel="search" title="Search" href="../../../search.html" />
@@ -150,26 +150,26 @@
 </span><span id="line-7">
 </span><span id="line-8">
 </span><span id="line-9">
-</span><span id="line-10"><span class="kn">import</span> <span class="nn">asyncio</span>
-</span><span id="line-11"><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Literal</span>
-</span><span id="line-12"><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Optional</span>
-</span><span id="line-13"><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">TYPE_CHECKING</span>
+</span><span id="line-10"><span class="kn">import</span><span class="w"> </span><span class="nn">asyncio</span>
+</span><span id="line-11"><span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Literal</span>
+</span><span id="line-12"><span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Optional</span>
+</span><span id="line-13"><span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">TYPE_CHECKING</span>
 </span><span id="line-14">
-</span><span id="line-15"><span class="kn">from</span> <span class="nn">httpx</span> <span class="kn">import</span> <span class="n">Response</span>
+</span><span id="line-15"><span class="kn">from</span><span class="w"> </span><span class="nn">httpx</span><span class="w"> </span><span class="kn">import</span> <span class="n">Response</span>
 </span><span id="line-16">
-</span><span id="line-17"><span class="kn">from</span> <span class="nn">.models</span> <span class="kn">import</span> <span class="n">RedditListing</span>
-</span><span id="line-18"><span class="kn">from</span> <span class="nn">..utils</span> <span class="kn">import</span> <span class="n">HTTPClient</span>
-</span><span id="line-19"><span class="kn">from</span> <span class="nn">..utils.http</span> <span class="kn">import</span> <span class="n">_HTTPAUTH</span>
-</span><span id="line-20"><span class="kn">from</span> <span class="nn">..utils.http</span> <span class="kn">import</span> <span class="n">_PAYLOAD</span>
+</span><span id="line-17"><span class="kn">from</span><span class="w"> </span><span class="nn">.models</span><span class="w"> </span><span class="kn">import</span> <span class="n">RedditListing</span>
+</span><span id="line-18"><span class="kn">from</span><span class="w"> </span><span class="nn">..utils</span><span class="w"> </span><span class="kn">import</span> <span class="n">HTTPClient</span>
+</span><span id="line-19"><span class="kn">from</span><span class="w"> </span><span class="nn">..utils.http</span><span class="w"> </span><span class="kn">import</span> <span class="n">_HTTPAUTH</span>
+</span><span id="line-20"><span class="kn">from</span><span class="w"> </span><span class="nn">..utils.http</span><span class="w"> </span><span class="kn">import</span> <span class="n">_PAYLOAD</span>
 </span><span id="line-21">
 </span><span id="line-22"><span class="k">if</span> <span class="n">TYPE_CHECKING</span><span class="p">:</span>
-</span><span id="line-23">    <span class="kn">from</span> <span class="nn">.params</span> <span class="kn">import</span> <span class="n">RedditParams</span>
+</span><span id="line-23">    <span class="kn">from</span><span class="w"> </span><span class="nn">.params</span><span class="w"> </span><span class="kn">import</span> <span class="n">RedditParams</span>
 </span><span id="line-24">
 </span><span id="line-25">
 </span><span id="line-26">
 <div class="viewcode-block" id="Reddit">
 <a class="viewcode-back" href="../../../index.html#enconnect.reddit.reddit.Reddit">[docs]</a>
-</span><span id="line-27"><span class="k">class</span> <span class="nc">Reddit</span><span class="p">:</span>
+</span><span id="line-27"><span class="k">class</span><span class="w"> </span><span class="nc">Reddit</span><span class="p">:</span>
 </span><span id="line-28"><span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 </span><span id="line-29"><span class="sd">    Interact with the cloud service API with various methods.</span>
 </span><span id="line-30">
@@ -182,7 +182,7 @@
 </span><span id="line-37">    <span class="n">__token</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span>
 </span><span id="line-38">
 </span><span id="line-39">
-</span><span id="line-40">    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+</span><span id="line-40">    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span>
 </span><span id="line-41">        <span class="bp">self</span><span class="p">,</span>
 </span><span id="line-42">        <span class="n">params</span><span class="p">:</span> <span class="s1">&#39;RedditParams&#39;</span><span class="p">,</span>
 </span><span id="line-43">    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
@@ -203,7 +203,7 @@
 </span><span id="line-58">
 </span><span id="line-59">
 </span><span id="line-60">    <span class="nd">@property</span>
-</span><span id="line-61">    <span class="k">def</span> <span class="nf">params</span><span class="p">(</span>
+</span><span id="line-61">    <span class="k">def</span><span class="w"> </span><span class="nf">params</span><span class="p">(</span>
 </span><span id="line-62">        <span class="bp">self</span><span class="p">,</span>
 </span><span id="line-63">    <span class="p">)</span> <span class="o">-&gt;</span> <span class="s1">&#39;RedditParams&#39;</span><span class="p">:</span>
 </span><span id="line-64"><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
@@ -216,7 +216,7 @@
 </span><span id="line-71">
 </span><span id="line-72">
 </span><span id="line-73">    <span class="nd">@property</span>
-</span><span id="line-74">    <span class="k">def</span> <span class="nf">client</span><span class="p">(</span>
+</span><span id="line-74">    <span class="k">def</span><span class="w"> </span><span class="nf">client</span><span class="p">(</span>
 </span><span id="line-75">        <span class="bp">self</span><span class="p">,</span>
 </span><span id="line-76">    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">HTTPClient</span><span class="p">:</span>
 </span><span id="line-77"><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
@@ -229,7 +229,7 @@
 </span><span id="line-84">
 </span><span id="line-85">
 </span><span id="line-86">    <span class="nd">@property</span>
-</span><span id="line-87">    <span class="k">def</span> <span class="nf">token</span><span class="p">(</span>
+</span><span id="line-87">    <span class="k">def</span><span class="w"> </span><span class="nf">token</span><span class="p">(</span>
 </span><span id="line-88">        <span class="bp">self</span><span class="p">,</span>
 </span><span id="line-89">    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
 </span><span id="line-90"><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
@@ -243,7 +243,7 @@
 </span><span id="line-98">
 <div class="viewcode-block" id="Reddit.request_token_block">
 <a class="viewcode-back" href="../../../index.html#enconnect.reddit.reddit.Reddit.request_token_block">[docs]</a>
-</span><span id="line-99">    <span class="k">def</span> <span class="nf">request_token_block</span><span class="p">(</span>
+</span><span id="line-99">    <span class="k">def</span><span class="w"> </span><span class="nf">request_token_block</span><span class="p">(</span>
 </span><span id="line-100">        <span class="bp">self</span><span class="p">,</span>
 </span><span id="line-101">    <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
 </span><span id="line-102"><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
@@ -289,7 +289,7 @@
 </span><span id="line-141">
 <div class="viewcode-block" id="Reddit.request_token_async">
 <a class="viewcode-back" href="../../../index.html#enconnect.reddit.reddit.Reddit.request_token_async">[docs]</a>
-</span><span id="line-142">    <span class="k">async</span> <span class="k">def</span> <span class="nf">request_token_async</span><span class="p">(</span>
+</span><span id="line-142">    <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">request_token_async</span><span class="p">(</span>
 </span><span id="line-143">        <span class="bp">self</span><span class="p">,</span>
 </span><span id="line-144">    <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
 </span><span id="line-145"><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
@@ -336,7 +336,7 @@
 </span><span id="line-185">
 <div class="viewcode-block" id="Reddit.request_block">
 <a class="viewcode-back" href="../../../index.html#enconnect.reddit.reddit.Reddit.request_block">[docs]</a>
-</span><span id="line-186">    <span class="k">def</span> <span class="nf">request_block</span><span class="p">(</span>
+</span><span id="line-186">    <span class="k">def</span><span class="w"> </span><span class="nf">request_block</span><span class="p">(</span>
 </span><span id="line-187">        <span class="bp">self</span><span class="p">,</span>
 </span><span id="line-188">        <span class="n">method</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="s1">&#39;get&#39;</span><span class="p">,</span> <span class="s1">&#39;post&#39;</span><span class="p">],</span>
 </span><span id="line-189">        <span class="n">path</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
@@ -391,7 +391,7 @@
 </span><span id="line-237">
 <div class="viewcode-block" id="Reddit.request_async">
 <a class="viewcode-back" href="../../../index.html#enconnect.reddit.reddit.Reddit.request_async">[docs]</a>
-</span><span id="line-238">    <span class="k">async</span> <span class="k">def</span> <span class="nf">request_async</span><span class="p">(</span>
+</span><span id="line-238">    <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">request_async</span><span class="p">(</span>
 </span><span id="line-239">        <span class="bp">self</span><span class="p">,</span>
 </span><span id="line-240">        <span class="n">method</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="s1">&#39;get&#39;</span><span class="p">,</span> <span class="s1">&#39;post&#39;</span><span class="p">],</span>
 </span><span id="line-241">        <span class="n">path</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
@@ -446,7 +446,7 @@
 </span><span id="line-289">
 <div class="viewcode-block" id="Reddit.listing_block">
 <a class="viewcode-back" href="../../../index.html#enconnect.reddit.reddit.Reddit.listing_block">[docs]</a>
-</span><span id="line-290">    <span class="k">def</span> <span class="nf">listing_block</span><span class="p">(</span>
+</span><span id="line-290">    <span class="k">def</span><span class="w"> </span><span class="nf">listing_block</span><span class="p">(</span>
 </span><span id="line-291">        <span class="bp">self</span><span class="p">,</span>
 </span><span id="line-292">        <span class="n">unique</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
 </span><span id="line-293">    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">RedditListing</span><span class="p">:</span>
@@ -463,7 +463,7 @@
 </span><span id="line-304">            <span class="bp">self</span><span class="o">.</span><span class="n">request_token_block</span><span class="p">()</span>
 </span><span id="line-305">
 </span><span id="line-306">
-</span><span id="line-307">        <span class="k">def</span> <span class="nf">_request</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">Response</span><span class="p">:</span>
+</span><span id="line-307">        <span class="k">def</span><span class="w"> </span><span class="nf">_request</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">Response</span><span class="p">:</span>
 </span><span id="line-308">
 </span><span id="line-309">            <span class="k">return</span> <span class="n">request</span><span class="p">(</span>
 </span><span id="line-310">                <span class="n">method</span><span class="o">=</span><span class="s1">&#39;get&#39;</span><span class="p">,</span>
@@ -497,7 +497,7 @@
 </span><span id="line-337">
 <div class="viewcode-block" id="Reddit.listing_async">
 <a class="viewcode-back" href="../../../index.html#enconnect.reddit.reddit.Reddit.listing_async">[docs]</a>
-</span><span id="line-338">    <span class="k">async</span> <span class="k">def</span> <span class="nf">listing_async</span><span class="p">(</span>
+</span><span id="line-338">    <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">listing_async</span><span class="p">(</span>
 </span><span id="line-339">        <span class="bp">self</span><span class="p">,</span>
 </span><span id="line-340">        <span class="n">unique</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
 </span><span id="line-341">    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">RedditListing</span><span class="p">:</span>
@@ -514,7 +514,7 @@
 </span><span id="line-352">            <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">request_token_async</span><span class="p">()</span>
 </span><span id="line-353">
 </span><span id="line-354">
-</span><span id="line-355">        <span class="k">async</span> <span class="k">def</span> <span class="nf">_request</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">Response</span><span class="p">:</span>
+</span><span id="line-355">        <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">_request</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">Response</span><span class="p">:</span>
 </span><span id="line-356">
 </span><span id="line-357">            <span class="k">return</span> <span class="k">await</span> <span class="n">request</span><span class="p">(</span>
 </span><span id="line-358">                <span class="n">method</span><span class="o">=</span><span class="s1">&#39;get&#39;</span><span class="p">,</span>
@@ -548,7 +548,7 @@
 </span><span id="line-385">
 <div class="viewcode-block" id="Reddit.latest">
 <a class="viewcode-back" href="../../../index.html#enconnect.reddit.reddit.Reddit.latest">[docs]</a>
-</span><span id="line-386">    <span class="k">def</span> <span class="nf">latest</span><span class="p">(</span>
+</span><span id="line-386">    <span class="k">def</span><span class="w"> </span><span class="nf">latest</span><span class="p">(</span>
 </span><span id="line-387">        <span class="c1"># NOCVR</span>
 </span><span id="line-388">        <span class="bp">self</span><span class="p">,</span>
 </span><span id="line-389">        <span class="n">subred</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
@@ -568,7 +568,7 @@
 </span><span id="line-402">
 <div class="viewcode-block" id="Reddit.latest_block">
 <a class="viewcode-back" href="../../../index.html#enconnect.reddit.reddit.Reddit.latest_block">[docs]</a>
-</span><span id="line-403">    <span class="k">def</span> <span class="nf">latest_block</span><span class="p">(</span>
+</span><span id="line-403">    <span class="k">def</span><span class="w"> </span><span class="nf">latest_block</span><span class="p">(</span>
 </span><span id="line-404">        <span class="bp">self</span><span class="p">,</span>
 </span><span id="line-405">        <span class="n">subred</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
 </span><span id="line-406">        <span class="n">params</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">_PAYLOAD</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
@@ -589,7 +589,7 @@
 </span><span id="line-421">            <span class="bp">self</span><span class="o">.</span><span class="n">request_token_block</span><span class="p">()</span>
 </span><span id="line-422">
 </span><span id="line-423">
-</span><span id="line-424">        <span class="k">def</span> <span class="nf">_request</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">Response</span><span class="p">:</span>
+</span><span id="line-424">        <span class="k">def</span><span class="w"> </span><span class="nf">_request</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">Response</span><span class="p">:</span>
 </span><span id="line-425">
 </span><span id="line-426">            <span class="k">return</span> <span class="n">request</span><span class="p">(</span>
 </span><span id="line-427">                <span class="n">method</span><span class="o">=</span><span class="s1">&#39;get&#39;</span><span class="p">,</span>
@@ -624,7 +624,7 @@
 </span><span id="line-455">
 <div class="viewcode-block" id="Reddit.latest_async">
 <a class="viewcode-back" href="../../../index.html#enconnect.reddit.reddit.Reddit.latest_async">[docs]</a>
-</span><span id="line-456">    <span class="k">async</span> <span class="k">def</span> <span class="nf">latest_async</span><span class="p">(</span>
+</span><span id="line-456">    <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">latest_async</span><span class="p">(</span>
 </span><span id="line-457">        <span class="bp">self</span><span class="p">,</span>
 </span><span id="line-458">        <span class="n">subred</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
 </span><span id="line-459">        <span class="n">params</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">_PAYLOAD</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
@@ -645,7 +645,7 @@
 </span><span id="line-474">            <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">request_token_async</span><span class="p">()</span>
 </span><span id="line-475">
 </span><span id="line-476">
-</span><span id="line-477">        <span class="k">async</span> <span class="k">def</span> <span class="nf">_request</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">Response</span><span class="p">:</span>
+</span><span id="line-477">        <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">_request</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">Response</span><span class="p">:</span>
 </span><span id="line-478">
 </span><span id="line-479">            <span class="k">return</span> <span class="k">await</span> <span class="n">request</span><span class="p">(</span>
 </span><span id="line-480">                <span class="n">method</span><span class="o">=</span><span class="s1">&#39;get&#39;</span><span class="p">,</span>

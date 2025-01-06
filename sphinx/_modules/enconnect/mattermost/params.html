@@ -15,7 +15,7 @@
     <title>enconnect.mattermost.params | enconnect  documentation</title>
     <meta property="og:title" content="enconnect.mattermost.params | enconnect  documentation" />
     <meta name="twitter:title" content="enconnect.mattermost.params | enconnect  documentation" />
-      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=8d216cef" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=e72c8e07" />
       <link rel="stylesheet" type="text/css" href="../../../_static/theme.css?v=42baaae4" />
       <link rel="stylesheet" type="text/css" href="../../../_static/autodoc_pydantic.css" />
         <link rel="search" title="Search" href="../../../search.html" />
@@ -150,19 +150,19 @@
 </span><span id="line-7">
 </span><span id="line-8">
 </span><span id="line-9">
-</span><span id="line-10"><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Annotated</span>
-</span><span id="line-11"><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span>
-</span><span id="line-12"><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Optional</span>
+</span><span id="line-10"><span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Annotated</span>
+</span><span id="line-11"><span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Any</span>
+</span><span id="line-12"><span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Optional</span>
 </span><span id="line-13">
-</span><span id="line-14"><span class="kn">from</span> <span class="nn">encommon.types</span> <span class="kn">import</span> <span class="n">BaseModel</span>
+</span><span id="line-14"><span class="kn">from</span><span class="w"> </span><span class="nn">encommon.types</span><span class="w"> </span><span class="kn">import</span> <span class="n">BaseModel</span>
 </span><span id="line-15">
-</span><span id="line-16"><span class="kn">from</span> <span class="nn">pydantic</span> <span class="kn">import</span> <span class="n">Field</span>
+</span><span id="line-16"><span class="kn">from</span><span class="w"> </span><span class="nn">pydantic</span><span class="w"> </span><span class="kn">import</span> <span class="n">Field</span>
 </span><span id="line-17">
 </span><span id="line-18">
 </span><span id="line-19">
 <div class="viewcode-block" id="ClientParams">
 <a class="viewcode-back" href="../../../index.html#enconnect.mattermost.params.ClientParams">[docs]</a>
-</span><span id="line-20"><span class="k">class</span> <span class="nc">ClientParams</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">,</span> <span class="n">extra</span><span class="o">=</span><span class="s1">&#39;forbid&#39;</span><span class="p">):</span>
+</span><span id="line-20"><span class="k">class</span><span class="w"> </span><span class="nc">ClientParams</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">,</span> <span class="n">extra</span><span class="o">=</span><span class="s1">&#39;forbid&#39;</span><span class="p">):</span>
 </span><span id="line-21"><span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 </span><span id="line-22"><span class="sd">    Process and validate the class configuration parameters.</span>
 </span><span id="line-23"><span class="sd">    &quot;&quot;&quot;</span>
@@ -215,7 +215,7 @@
 </span><span id="line-70">              <span class="n">ge</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span> <span class="n">le</span><span class="o">=</span><span class="mi">1000000</span><span class="p">)]</span>
 </span><span id="line-71">
 </span><span id="line-72">
-</span><span id="line-73">    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+</span><span id="line-73">    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span>
 </span><span id="line-74">        <span class="bp">self</span><span class="p">,</span>
 </span><span id="line-75">        <span class="o">/</span><span class="p">,</span>
 </span><span id="line-76">        <span class="o">**</span><span class="n">data</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>

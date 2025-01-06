@@ -15,7 +15,7 @@
     <title>enconnect.mattermost.test.test_models | enconnect  documentation</title>
     <meta property="og:title" content="enconnect.mattermost.test.test_models | enconnect  documentation" />
     <meta name="twitter:title" content="enconnect.mattermost.test.test_models | enconnect  documentation" />
-      <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css?v=8d216cef" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css?v=e72c8e07" />
       <link rel="stylesheet" type="text/css" href="../../../../_static/theme.css?v=42baaae4" />
       <link rel="stylesheet" type="text/css" href="../../../../_static/autodoc_pydantic.css" />
         <link rel="search" title="Search" href="../../../../search.html" />
@@ -150,25 +150,25 @@
 </span><span id="line-7">
 </span><span id="line-8">
 </span><span id="line-9">
-</span><span id="line-10"><span class="kn">from</span> <span class="nn">threading</span> <span class="kn">import</span> <span class="n">Thread</span>
+</span><span id="line-10"><span class="kn">from</span><span class="w"> </span><span class="nn">threading</span><span class="w"> </span><span class="kn">import</span> <span class="n">Thread</span>
 </span><span id="line-11">
-</span><span id="line-12"><span class="kn">from</span> <span class="nn">encommon.types</span> <span class="kn">import</span> <span class="n">inrepr</span>
-</span><span id="line-13"><span class="kn">from</span> <span class="nn">encommon.types</span> <span class="kn">import</span> <span class="n">instr</span>
-</span><span id="line-14"><span class="kn">from</span> <span class="nn">encommon.types</span> <span class="kn">import</span> <span class="n">lattrs</span>
+</span><span id="line-12"><span class="kn">from</span><span class="w"> </span><span class="nn">encommon.types</span><span class="w"> </span><span class="kn">import</span> <span class="n">inrepr</span>
+</span><span id="line-13"><span class="kn">from</span><span class="w"> </span><span class="nn">encommon.types</span><span class="w"> </span><span class="kn">import</span> <span class="n">instr</span>
+</span><span id="line-14"><span class="kn">from</span><span class="w"> </span><span class="nn">encommon.types</span><span class="w"> </span><span class="kn">import</span> <span class="n">lattrs</span>
 </span><span id="line-15">
-</span><span id="line-16"><span class="kn">from</span> <span class="nn">pytest</span> <span class="kn">import</span> <span class="n">raises</span>
+</span><span id="line-16"><span class="kn">from</span><span class="w"> </span><span class="nn">pytest</span><span class="w"> </span><span class="kn">import</span> <span class="n">raises</span>
 </span><span id="line-17">
-</span><span id="line-18"><span class="kn">from</span> <span class="nn">.helpers</span> <span class="kn">import</span> <span class="n">EVENTS</span>
-</span><span id="line-19"><span class="kn">from</span> <span class="nn">..client</span> <span class="kn">import</span> <span class="n">Client</span>
-</span><span id="line-20"><span class="kn">from</span> <span class="nn">..models</span> <span class="kn">import</span> <span class="n">ClientEvent</span>
-</span><span id="line-21"><span class="kn">from</span> <span class="nn">..params</span> <span class="kn">import</span> <span class="n">ClientParams</span>
-</span><span id="line-22"><span class="kn">from</span> <span class="nn">...fixtures</span> <span class="kn">import</span> <span class="n">MTMClientSocket</span>
+</span><span id="line-18"><span class="kn">from</span><span class="w"> </span><span class="nn">.helpers</span><span class="w"> </span><span class="kn">import</span> <span class="n">EVENTS</span>
+</span><span id="line-19"><span class="kn">from</span><span class="w"> </span><span class="nn">..client</span><span class="w"> </span><span class="kn">import</span> <span class="n">Client</span>
+</span><span id="line-20"><span class="kn">from</span><span class="w"> </span><span class="nn">..models</span><span class="w"> </span><span class="kn">import</span> <span class="n">ClientEvent</span>
+</span><span id="line-21"><span class="kn">from</span><span class="w"> </span><span class="nn">..params</span><span class="w"> </span><span class="kn">import</span> <span class="n">ClientParams</span>
+</span><span id="line-22"><span class="kn">from</span><span class="w"> </span><span class="nn">...fixtures</span><span class="w"> </span><span class="kn">import</span> <span class="n">MTMClientSocket</span>
 </span><span id="line-23">
 </span><span id="line-24">
 </span><span id="line-25">
 <div class="viewcode-block" id="test_ClientEvent">
 <a class="viewcode-back" href="../../../../enconnect.mattermost.test.html#enconnect.mattermost.test.test_models.test_ClientEvent">[docs]</a>
-</span><span id="line-26"><span class="k">def</span> <span class="nf">test_ClientEvent</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+</span><span id="line-26"><span class="k">def</span><span class="w"> </span><span class="nf">test_ClientEvent</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 </span><span id="line-27"><span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 </span><span id="line-28"><span class="sd">    Perform various tests associated with relevant routines.</span>
 </span><span id="line-29"><span class="sd">    &quot;&quot;&quot;</span>
@@ -236,7 +236,7 @@
 </span><span id="line-90">
 <div class="viewcode-block" id="test_ClientEvent_cover">
 <a class="viewcode-back" href="../../../../enconnect.mattermost.test.html#enconnect.mattermost.test.test_models.test_ClientEvent_cover">[docs]</a>
-</span><span id="line-91"><span class="k">def</span> <span class="nf">test_ClientEvent_cover</span><span class="p">(</span>  <span class="c1"># noqa: CFQ001</span>
+</span><span id="line-91"><span class="k">def</span><span class="w"> </span><span class="nf">test_ClientEvent_cover</span><span class="p">(</span>  <span class="c1"># noqa: CFQ001</span>
 </span><span id="line-92">    <span class="n">client_mtmsock</span><span class="p">:</span> <span class="n">MTMClientSocket</span><span class="p">,</span>
 </span><span id="line-93"><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 </span><span id="line-94"><span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
@@ -253,7 +253,7 @@
 </span><span id="line-105">    <span class="n">client</span> <span class="o">=</span> <span class="n">Client</span><span class="p">(</span><span class="n">params</span><span class="p">)</span>
 </span><span id="line-106">
 </span><span id="line-107">
-</span><span id="line-108">    <span class="k">def</span> <span class="nf">_operate</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+</span><span id="line-108">    <span class="k">def</span><span class="w"> </span><span class="nf">_operate</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 </span><span id="line-109">
 </span><span id="line-110">        <span class="n">client_mtmsock</span><span class="p">(</span><span class="n">EVENTS</span><span class="p">)</span>
 </span><span id="line-111">

@@ -15,7 +15,7 @@
     <title>enconnect.irc.test.test_client | enconnect  documentation</title>
     <meta property="og:title" content="enconnect.irc.test.test_client | enconnect  documentation" />
     <meta name="twitter:title" content="enconnect.irc.test.test_client | enconnect  documentation" />
-      <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css?v=8d216cef" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css?v=e72c8e07" />
       <link rel="stylesheet" type="text/css" href="../../../../_static/theme.css?v=42baaae4" />
       <link rel="stylesheet" type="text/css" href="../../../../_static/autodoc_pydantic.css" />
         <link rel="search" title="Search" href="../../../../search.html" />
@@ -150,25 +150,25 @@
 </span><span id="line-7">
 </span><span id="line-8">
 </span><span id="line-9">
-</span><span id="line-10"><span class="kn">from</span> <span class="nn">unittest.mock</span> <span class="kn">import</span> <span class="n">Mock</span>
+</span><span id="line-10"><span class="kn">from</span><span class="w"> </span><span class="nn">unittest.mock</span><span class="w"> </span><span class="kn">import</span> <span class="n">Mock</span>
 </span><span id="line-11">
-</span><span id="line-12"><span class="kn">from</span> <span class="nn">encommon.types</span> <span class="kn">import</span> <span class="n">inrepr</span>
-</span><span id="line-13"><span class="kn">from</span> <span class="nn">encommon.types</span> <span class="kn">import</span> <span class="n">instr</span>
-</span><span id="line-14"><span class="kn">from</span> <span class="nn">encommon.types</span> <span class="kn">import</span> <span class="n">lattrs</span>
+</span><span id="line-12"><span class="kn">from</span><span class="w"> </span><span class="nn">encommon.types</span><span class="w"> </span><span class="kn">import</span> <span class="n">inrepr</span>
+</span><span id="line-13"><span class="kn">from</span><span class="w"> </span><span class="nn">encommon.types</span><span class="w"> </span><span class="kn">import</span> <span class="n">instr</span>
+</span><span id="line-14"><span class="kn">from</span><span class="w"> </span><span class="nn">encommon.types</span><span class="w"> </span><span class="kn">import</span> <span class="n">lattrs</span>
 </span><span id="line-15">
-</span><span id="line-16"><span class="kn">from</span> <span class="nn">pytest</span> <span class="kn">import</span> <span class="n">fixture</span>
-</span><span id="line-17"><span class="kn">from</span> <span class="nn">pytest</span> <span class="kn">import</span> <span class="n">raises</span>
+</span><span id="line-16"><span class="kn">from</span><span class="w"> </span><span class="nn">pytest</span><span class="w"> </span><span class="kn">import</span> <span class="n">fixture</span>
+</span><span id="line-17"><span class="kn">from</span><span class="w"> </span><span class="nn">pytest</span><span class="w"> </span><span class="kn">import</span> <span class="n">raises</span>
 </span><span id="line-18">
-</span><span id="line-19"><span class="kn">from</span> <span class="nn">..client</span> <span class="kn">import</span> <span class="n">Client</span>
-</span><span id="line-20"><span class="kn">from</span> <span class="nn">..params</span> <span class="kn">import</span> <span class="n">ClientParams</span>
-</span><span id="line-21"><span class="kn">from</span> <span class="nn">...fixtures</span> <span class="kn">import</span> <span class="n">IRCClientSocket</span>
+</span><span id="line-19"><span class="kn">from</span><span class="w"> </span><span class="nn">..client</span><span class="w"> </span><span class="kn">import</span> <span class="n">Client</span>
+</span><span id="line-20"><span class="kn">from</span><span class="w"> </span><span class="nn">..params</span><span class="w"> </span><span class="kn">import</span> <span class="n">ClientParams</span>
+</span><span id="line-21"><span class="kn">from</span><span class="w"> </span><span class="nn">...fixtures</span><span class="w"> </span><span class="kn">import</span> <span class="n">IRCClientSocket</span>
 </span><span id="line-22">
 </span><span id="line-23">
 </span><span id="line-24">
 <div class="viewcode-block" id="client">
 <a class="viewcode-back" href="../../../../enconnect.irc.test.html#enconnect.irc.test.test_client.client">[docs]</a>
 </span><span id="line-25"><span class="nd">@fixture</span>
-</span><span id="line-26"><span class="k">def</span> <span class="nf">client</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">Client</span><span class="p">:</span>
+</span><span id="line-26"><span class="k">def</span><span class="w"> </span><span class="nf">client</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">Client</span><span class="p">:</span>
 </span><span id="line-27"><span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 </span><span id="line-28"><span class="sd">    Construct the instance for use in the downstream tests.</span>
 </span><span id="line-29">
@@ -190,7 +190,7 @@
 </span><span id="line-44">
 <div class="viewcode-block" id="test_Client">
 <a class="viewcode-back" href="../../../../enconnect.irc.test.html#enconnect.irc.test.test_client.test_Client">[docs]</a>
-</span><span id="line-45"><span class="k">def</span> <span class="nf">test_Client</span><span class="p">(</span>
+</span><span id="line-45"><span class="k">def</span><span class="w"> </span><span class="nf">test_Client</span><span class="p">(</span>
 </span><span id="line-46">    <span class="n">client</span><span class="p">:</span> <span class="n">Client</span><span class="p">,</span>
 </span><span id="line-47"><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 </span><span id="line-48"><span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
@@ -241,7 +241,7 @@
 </span><span id="line-92">
 <div class="viewcode-block" id="test_Client_cover">
 <a class="viewcode-back" href="../../../../enconnect.irc.test.html#enconnect.irc.test.test_client.test_Client_cover">[docs]</a>
-</span><span id="line-93"><span class="k">def</span> <span class="nf">test_Client_cover</span><span class="p">(</span>
+</span><span id="line-93"><span class="k">def</span><span class="w"> </span><span class="nf">test_Client_cover</span><span class="p">(</span>
 </span><span id="line-94">    <span class="n">client</span><span class="p">:</span> <span class="n">Client</span><span class="p">,</span>
 </span><span id="line-95"><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 </span><span id="line-96"><span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
@@ -262,7 +262,7 @@
 </span><span id="line-110">
 <div class="viewcode-block" id="test_Client_connect">
 <a class="viewcode-back" href="../../../../enconnect.irc.test.html#enconnect.irc.test.test_client.test_Client_connect">[docs]</a>
-</span><span id="line-111"><span class="k">def</span> <span class="nf">test_Client_connect</span><span class="p">(</span>
+</span><span id="line-111"><span class="k">def</span><span class="w"> </span><span class="nf">test_Client_connect</span><span class="p">(</span>
 </span><span id="line-112">    <span class="n">client</span><span class="p">:</span> <span class="n">Client</span><span class="p">,</span>
 </span><span id="line-113">    <span class="n">client_ircsock</span><span class="p">:</span> <span class="n">IRCClientSocket</span><span class="p">,</span>
 </span><span id="line-114"><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>

@@ -15,7 +15,7 @@
     <title>enconnect.discord.client | enconnect  documentation</title>
     <meta property="og:title" content="enconnect.discord.client | enconnect  documentation" />
     <meta name="twitter:title" content="enconnect.discord.client | enconnect  documentation" />
-      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=8d216cef" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=e72c8e07" />
       <link rel="stylesheet" type="text/css" href="../../../_static/theme.css?v=42baaae4" />
       <link rel="stylesheet" type="text/css" href="../../../_static/autodoc_pydantic.css" />
         <link rel="search" title="Search" href="../../../search.html" />
@@ -150,35 +150,35 @@
 </span><span id="line-7">
 </span><span id="line-8">
 </span><span id="line-9">
-</span><span id="line-10"><span class="kn">from</span> <span class="nn">json</span> <span class="kn">import</span> <span class="n">dumps</span>
-</span><span id="line-11"><span class="kn">from</span> <span class="nn">json</span> <span class="kn">import</span> <span class="n">loads</span>
-</span><span id="line-12"><span class="kn">from</span> <span class="nn">queue</span> <span class="kn">import</span> <span class="n">Queue</span>
-</span><span id="line-13"><span class="kn">from</span> <span class="nn">threading</span> <span class="kn">import</span> <span class="n">Event</span>
-</span><span id="line-14"><span class="kn">from</span> <span class="nn">time</span> <span class="kn">import</span> <span class="n">sleep</span> <span class="k">as</span> <span class="n">block_sleep</span>
-</span><span id="line-15"><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Callable</span>
-</span><span id="line-16"><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Optional</span>
-</span><span id="line-17"><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">TYPE_CHECKING</span>
+</span><span id="line-10"><span class="kn">from</span><span class="w"> </span><span class="nn">json</span><span class="w"> </span><span class="kn">import</span> <span class="n">dumps</span>
+</span><span id="line-11"><span class="kn">from</span><span class="w"> </span><span class="nn">json</span><span class="w"> </span><span class="kn">import</span> <span class="n">loads</span>
+</span><span id="line-12"><span class="kn">from</span><span class="w"> </span><span class="nn">queue</span><span class="w"> </span><span class="kn">import</span> <span class="n">Queue</span>
+</span><span id="line-13"><span class="kn">from</span><span class="w"> </span><span class="nn">threading</span><span class="w"> </span><span class="kn">import</span> <span class="n">Event</span>
+</span><span id="line-14"><span class="kn">from</span><span class="w"> </span><span class="nn">time</span><span class="w"> </span><span class="kn">import</span> <span class="n">sleep</span> <span class="k">as</span> <span class="n">block_sleep</span>
+</span><span id="line-15"><span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Callable</span>
+</span><span id="line-16"><span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Optional</span>
+</span><span id="line-17"><span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">TYPE_CHECKING</span>
 </span><span id="line-18">
-</span><span id="line-19"><span class="kn">from</span> <span class="nn">encommon.times</span> <span class="kn">import</span> <span class="n">Timer</span>
-</span><span id="line-20"><span class="kn">from</span> <span class="nn">encommon.types</span> <span class="kn">import</span> <span class="n">DictStrAny</span>
-</span><span id="line-21"><span class="kn">from</span> <span class="nn">encommon.types</span> <span class="kn">import</span> <span class="n">NCNone</span>
-</span><span id="line-22"><span class="kn">from</span> <span class="nn">encommon.types</span> <span class="kn">import</span> <span class="n">getate</span>
-</span><span id="line-23"><span class="kn">from</span> <span class="nn">encommon.types</span> <span class="kn">import</span> <span class="n">sort_dict</span>
+</span><span id="line-19"><span class="kn">from</span><span class="w"> </span><span class="nn">encommon.times</span><span class="w"> </span><span class="kn">import</span> <span class="n">Timer</span>
+</span><span id="line-20"><span class="kn">from</span><span class="w"> </span><span class="nn">encommon.types</span><span class="w"> </span><span class="kn">import</span> <span class="n">DictStrAny</span>
+</span><span id="line-21"><span class="kn">from</span><span class="w"> </span><span class="nn">encommon.types</span><span class="w"> </span><span class="kn">import</span> <span class="n">NCNone</span>
+</span><span id="line-22"><span class="kn">from</span><span class="w"> </span><span class="nn">encommon.types</span><span class="w"> </span><span class="kn">import</span> <span class="n">getate</span>
+</span><span id="line-23"><span class="kn">from</span><span class="w"> </span><span class="nn">encommon.types</span><span class="w"> </span><span class="kn">import</span> <span class="n">sort_dict</span>
 </span><span id="line-24">
-</span><span id="line-25"><span class="kn">from</span> <span class="nn">httpx</span> <span class="kn">import</span> <span class="n">Response</span>
+</span><span id="line-25"><span class="kn">from</span><span class="w"> </span><span class="nn">httpx</span><span class="w"> </span><span class="kn">import</span> <span class="n">Response</span>
 </span><span id="line-26">
-</span><span id="line-27"><span class="kn">from</span> <span class="nn">websockets.exceptions</span> <span class="kn">import</span> <span class="n">ConnectionClosedOK</span>
-</span><span id="line-28"><span class="kn">from</span> <span class="nn">websockets.sync.client</span> <span class="kn">import</span> <span class="n">ClientConnection</span>
-</span><span id="line-29"><span class="kn">from</span> <span class="nn">websockets.sync.client</span> <span class="kn">import</span> <span class="n">connect</span>
+</span><span id="line-27"><span class="kn">from</span><span class="w"> </span><span class="nn">websockets.exceptions</span><span class="w"> </span><span class="kn">import</span> <span class="n">ConnectionClosedOK</span>
+</span><span id="line-28"><span class="kn">from</span><span class="w"> </span><span class="nn">websockets.sync.client</span><span class="w"> </span><span class="kn">import</span> <span class="n">ClientConnection</span>
+</span><span id="line-29"><span class="kn">from</span><span class="w"> </span><span class="nn">websockets.sync.client</span><span class="w"> </span><span class="kn">import</span> <span class="n">connect</span>
 </span><span id="line-30">
-</span><span id="line-31"><span class="kn">from</span> <span class="nn">.models</span> <span class="kn">import</span> <span class="n">ClientEvent</span>
-</span><span id="line-32"><span class="kn">from</span> <span class="nn">..utils</span> <span class="kn">import</span> <span class="n">HTTPClient</span>
-</span><span id="line-33"><span class="kn">from</span> <span class="nn">..utils</span> <span class="kn">import</span> <span class="n">dumlog</span>
-</span><span id="line-34"><span class="kn">from</span> <span class="nn">..utils.http</span> <span class="kn">import</span> <span class="n">_METHODS</span>
-</span><span id="line-35"><span class="kn">from</span> <span class="nn">..utils.http</span> <span class="kn">import</span> <span class="n">_PAYLOAD</span>
+</span><span id="line-31"><span class="kn">from</span><span class="w"> </span><span class="nn">.models</span><span class="w"> </span><span class="kn">import</span> <span class="n">ClientEvent</span>
+</span><span id="line-32"><span class="kn">from</span><span class="w"> </span><span class="nn">..utils</span><span class="w"> </span><span class="kn">import</span> <span class="n">HTTPClient</span>
+</span><span id="line-33"><span class="kn">from</span><span class="w"> </span><span class="nn">..utils</span><span class="w"> </span><span class="kn">import</span> <span class="n">dumlog</span>
+</span><span id="line-34"><span class="kn">from</span><span class="w"> </span><span class="nn">..utils.http</span><span class="w"> </span><span class="kn">import</span> <span class="n">_METHODS</span>
+</span><span id="line-35"><span class="kn">from</span><span class="w"> </span><span class="nn">..utils.http</span><span class="w"> </span><span class="kn">import</span> <span class="n">_PAYLOAD</span>
 </span><span id="line-36">
 </span><span id="line-37"><span class="k">if</span> <span class="n">TYPE_CHECKING</span><span class="p">:</span>
-</span><span id="line-38">    <span class="kn">from</span> <span class="nn">.params</span> <span class="kn">import</span> <span class="n">ClientParams</span>
+</span><span id="line-38">    <span class="kn">from</span><span class="w"> </span><span class="nn">.params</span><span class="w"> </span><span class="kn">import</span> <span class="n">ClientParams</span>
 </span><span id="line-39">
 </span><span id="line-40">
 </span><span id="line-41">
@@ -190,7 +190,7 @@
 </span><span id="line-47">
 <div class="viewcode-block" id="Client">
 <a class="viewcode-back" href="../../../index.html#enconnect.discord.client.Client">[docs]</a>
-</span><span id="line-48"><span class="k">class</span> <span class="nc">Client</span><span class="p">:</span>
+</span><span id="line-48"><span class="k">class</span><span class="w"> </span><span class="nc">Client</span><span class="p">:</span>
 </span><span id="line-49"><span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 </span><span id="line-50"><span class="sd">    Establish and maintain connection with the chat service.</span>
 </span><span id="line-51">
@@ -217,7 +217,7 @@
 </span><span id="line-72">    <span class="n">__cancel</span><span class="p">:</span> <span class="n">Event</span>
 </span><span id="line-73">
 </span><span id="line-74">
-</span><span id="line-75">    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+</span><span id="line-75">    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span>
 </span><span id="line-76">        <span class="bp">self</span><span class="p">,</span>
 </span><span id="line-77">        <span class="n">params</span><span class="p">:</span> <span class="s1">&#39;ClientParams&#39;</span><span class="p">,</span>
 </span><span id="line-78">        <span class="n">logger</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Callable</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="kc">None</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
@@ -255,7 +255,7 @@
 </span><span id="line-110">
 </span><span id="line-111">
 </span><span id="line-112">    <span class="nd">@property</span>
-</span><span id="line-113">    <span class="k">def</span> <span class="nf">params</span><span class="p">(</span>
+</span><span id="line-113">    <span class="k">def</span><span class="w"> </span><span class="nf">params</span><span class="p">(</span>
 </span><span id="line-114">        <span class="bp">self</span><span class="p">,</span>
 </span><span id="line-115">    <span class="p">)</span> <span class="o">-&gt;</span> <span class="s1">&#39;ClientParams&#39;</span><span class="p">:</span>
 </span><span id="line-116"><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
@@ -268,7 +268,7 @@
 </span><span id="line-123">
 </span><span id="line-124">
 </span><span id="line-125">    <span class="nd">@property</span>
-</span><span id="line-126">    <span class="k">def</span> <span class="nf">connected</span><span class="p">(</span>
+</span><span id="line-126">    <span class="k">def</span><span class="w"> </span><span class="nf">connected</span><span class="p">(</span>
 </span><span id="line-127">        <span class="bp">self</span><span class="p">,</span>
 </span><span id="line-128">    <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
 </span><span id="line-129"><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
@@ -283,7 +283,7 @@
 </span><span id="line-138">
 </span><span id="line-139">
 </span><span id="line-140">    <span class="nd">@property</span>
-</span><span id="line-141">    <span class="k">def</span> <span class="nf">nickname</span><span class="p">(</span>
+</span><span id="line-141">    <span class="k">def</span><span class="w"> </span><span class="nf">nickname</span><span class="p">(</span>
 </span><span id="line-142">        <span class="bp">self</span><span class="p">,</span>
 </span><span id="line-143">    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]]:</span>
 </span><span id="line-144"><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
@@ -296,7 +296,7 @@
 </span><span id="line-151">
 </span><span id="line-152">
 </span><span id="line-153">    <span class="nd">@property</span>
-</span><span id="line-154">    <span class="k">def</span> <span class="nf">mqueue</span><span class="p">(</span>
+</span><span id="line-154">    <span class="k">def</span><span class="w"> </span><span class="nf">mqueue</span><span class="p">(</span>
 </span><span id="line-155">        <span class="bp">self</span><span class="p">,</span>
 </span><span id="line-156">    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Queue</span><span class="p">[</span><span class="n">ClientEvent</span><span class="p">]:</span>
 </span><span id="line-157"><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
@@ -309,7 +309,7 @@
 </span><span id="line-164">
 </span><span id="line-165">
 </span><span id="line-166">    <span class="nd">@property</span>
-</span><span id="line-167">    <span class="k">def</span> <span class="nf">canceled</span><span class="p">(</span>
+</span><span id="line-167">    <span class="k">def</span><span class="w"> </span><span class="nf">canceled</span><span class="p">(</span>
 </span><span id="line-168">        <span class="bp">self</span><span class="p">,</span>
 </span><span id="line-169">    <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
 </span><span id="line-170"><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
@@ -325,7 +325,7 @@
 </span><span id="line-180">
 <div class="viewcode-block" id="Client.operate">
 <a class="viewcode-back" href="../../../index.html#enconnect.discord.client.Client.operate">[docs]</a>
-</span><span id="line-181">    <span class="k">def</span> <span class="nf">operate</span><span class="p">(</span>
+</span><span id="line-181">    <span class="k">def</span><span class="w"> </span><span class="nf">operate</span><span class="p">(</span>
 </span><span id="line-182">        <span class="bp">self</span><span class="p">,</span>
 </span><span id="line-183">        <span class="o">*</span><span class="p">,</span>
 </span><span id="line-184">        <span class="n">intents</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">4609</span><span class="p">,</span>
@@ -381,7 +381,7 @@
 
 </span><span id="line-234">
 </span><span id="line-235">
-</span><span id="line-236">    <span class="k">def</span> <span class="nf">__operate</span><span class="p">(</span>
+</span><span id="line-236">    <span class="k">def</span><span class="w"> </span><span class="nf">__operate</span><span class="p">(</span>
 </span><span id="line-237">        <span class="bp">self</span><span class="p">,</span>
 </span><span id="line-238">        <span class="n">intents</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
 </span><span id="line-239">    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
@@ -429,7 +429,7 @@
 </span><span id="line-281">        <span class="bp">self</span><span class="o">.</span><span class="n">__identify</span><span class="p">(</span><span class="n">intents</span><span class="p">)</span>
 </span><span id="line-282">
 </span><span id="line-283">
-</span><span id="line-284">        <span class="k">def</span> <span class="nf">_continue</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+</span><span id="line-284">        <span class="k">def</span><span class="w"> </span><span class="nf">_continue</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
 </span><span id="line-285">
 </span><span id="line-286">            <span class="k">return</span> <span class="nb">all</span><span class="p">([</span>
 </span><span id="line-287">                <span class="ow">not</span> <span class="n">resume</span><span class="o">.</span><span class="n">is_set</span><span class="p">()</span>
@@ -468,7 +468,7 @@
 </span><span id="line-320">            <span class="k">raise</span> <span class="ne">ConnectionError</span>
 </span><span id="line-321">
 </span><span id="line-322">
-</span><span id="line-323">    <span class="k">def</span> <span class="nf">__event</span><span class="p">(</span>
+</span><span id="line-323">    <span class="k">def</span><span class="w"> </span><span class="nf">__event</span><span class="p">(</span>
 </span><span id="line-324">        <span class="bp">self</span><span class="p">,</span>
 </span><span id="line-325">        <span class="n">event</span><span class="p">:</span> <span class="n">DictStrAny</span><span class="p">,</span>
 </span><span id="line-326">    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
@@ -535,7 +535,7 @@
 </span><span id="line-387">
 <div class="viewcode-block" id="Client.stop">
 <a class="viewcode-back" href="../../../index.html#enconnect.discord.client.Client.stop">[docs]</a>
-</span><span id="line-388">    <span class="k">def</span> <span class="nf">stop</span><span class="p">(</span>
+</span><span id="line-388">    <span class="k">def</span><span class="w"> </span><span class="nf">stop</span><span class="p">(</span>
 </span><span id="line-389">        <span class="bp">self</span><span class="p">,</span>
 </span><span id="line-390">    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 </span><span id="line-391"><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
@@ -550,7 +550,7 @@
 
 </span><span id="line-400">
 </span><span id="line-401">
-</span><span id="line-402">    <span class="k">def</span> <span class="nf">__setpath</span><span class="p">(</span>
+</span><span id="line-402">    <span class="k">def</span><span class="w"> </span><span class="nf">__setpath</span><span class="p">(</span>
 </span><span id="line-403">        <span class="bp">self</span><span class="p">,</span>
 </span><span id="line-404">    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 </span><span id="line-405"><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
@@ -576,7 +576,7 @@
 </span><span id="line-425">        <span class="bp">self</span><span class="o">.</span><span class="n">__path</span> <span class="o">=</span> <span class="n">path</span>
 </span><span id="line-426">
 </span><span id="line-427">
-</span><span id="line-428">    <span class="k">def</span> <span class="nf">__connect</span><span class="p">(</span>
+</span><span id="line-428">    <span class="k">def</span><span class="w"> </span><span class="nf">__connect</span><span class="p">(</span>
 </span><span id="line-429">        <span class="bp">self</span><span class="p">,</span>
 </span><span id="line-430">    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 </span><span id="line-431"><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
@@ -598,7 +598,7 @@
 </span><span id="line-447">        <span class="bp">self</span><span class="o">.</span><span class="n">__exited</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
 </span><span id="line-448">
 </span><span id="line-449">
-</span><span id="line-450">    <span class="k">def</span> <span class="nf">__resumify</span><span class="p">(</span>
+</span><span id="line-450">    <span class="k">def</span><span class="w"> </span><span class="nf">__resumify</span><span class="p">(</span>
 </span><span id="line-451">        <span class="bp">self</span><span class="p">,</span>
 </span><span id="line-452">    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 </span><span id="line-453"><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
@@ -626,7 +626,7 @@
 </span><span id="line-475">            <span class="s1">&#39;op&#39;</span><span class="p">:</span> <span class="mi">6</span><span class="p">,</span> <span class="s1">&#39;d&#39;</span><span class="p">:</span> <span class="n">data</span><span class="p">})</span>
 </span><span id="line-476">
 </span><span id="line-477">
-</span><span id="line-478">    <span class="k">def</span> <span class="nf">__identify</span><span class="p">(</span>
+</span><span id="line-478">    <span class="k">def</span><span class="w"> </span><span class="nf">__identify</span><span class="p">(</span>
 </span><span id="line-479">        <span class="bp">self</span><span class="p">,</span>
 </span><span id="line-480">        <span class="n">intents</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
 </span><span id="line-481">        <span class="n">client</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;enconnect&#39;</span><span class="p">,</span>
@@ -670,7 +670,7 @@
 </span><span id="line-519">
 <div class="viewcode-block" id="Client.socket_send">
 <a class="viewcode-back" href="../../../index.html#enconnect.discord.client.Client.socket_send">[docs]</a>
-</span><span id="line-520">    <span class="k">def</span> <span class="nf">socket_send</span><span class="p">(</span>
+</span><span id="line-520">    <span class="k">def</span><span class="w"> </span><span class="nf">socket_send</span><span class="p">(</span>
 </span><span id="line-521">        <span class="bp">self</span><span class="p">,</span>
 </span><span id="line-522">        <span class="n">send</span><span class="p">:</span> <span class="n">DictStrAny</span><span class="p">,</span>
 </span><span id="line-523">    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
@@ -704,7 +704,7 @@
 </span><span id="line-550">
 <div class="viewcode-block" id="Client.socket_recv">
 <a class="viewcode-back" href="../../../index.html#enconnect.discord.client.Client.socket_recv">[docs]</a>
-</span><span id="line-551">    <span class="k">def</span> <span class="nf">socket_recv</span><span class="p">(</span>  <span class="c1"># noqa: CFQ004</span>
+</span><span id="line-551">    <span class="k">def</span><span class="w"> </span><span class="nf">socket_recv</span><span class="p">(</span>  <span class="c1"># noqa: CFQ004</span>
 </span><span id="line-552">        <span class="bp">self</span><span class="p">,</span>
 </span><span id="line-553">    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">DictStrAny</span><span class="p">]:</span>
 </span><span id="line-554"><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
@@ -760,7 +760,7 @@
 </span><span id="line-603">
 <div class="viewcode-block" id="Client.request">
 <a class="viewcode-back" href="../../../index.html#enconnect.discord.client.Client.request">[docs]</a>
-</span><span id="line-604">    <span class="k">def</span> <span class="nf">request</span><span class="p">(</span>
+</span><span id="line-604">    <span class="k">def</span><span class="w"> </span><span class="nf">request</span><span class="p">(</span>
 </span><span id="line-605">        <span class="bp">self</span><span class="p">,</span>
 </span><span id="line-606">        <span class="n">method</span><span class="p">:</span> <span class="n">_METHODS</span><span class="p">,</span>
 </span><span id="line-607">        <span class="n">path</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>

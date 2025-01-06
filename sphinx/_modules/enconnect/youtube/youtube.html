@@ -15,7 +15,7 @@
     <title>enconnect.youtube.youtube | enconnect  documentation</title>
     <meta property="og:title" content="enconnect.youtube.youtube | enconnect  documentation" />
     <meta name="twitter:title" content="enconnect.youtube.youtube | enconnect  documentation" />
-      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=8d216cef" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=e72c8e07" />
       <link rel="stylesheet" type="text/css" href="../../../_static/theme.css?v=42baaae4" />
       <link rel="stylesheet" type="text/css" href="../../../_static/autodoc_pydantic.css" />
         <link rel="search" title="Search" href="../../../search.html" />
@@ -150,21 +150,21 @@
 </span><span id="line-7">
 </span><span id="line-8">
 </span><span id="line-9">
-</span><span id="line-10"><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Literal</span>
-</span><span id="line-11"><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Optional</span>
-</span><span id="line-12"><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">TYPE_CHECKING</span>
-</span><span id="line-13"><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">get_args</span>
+</span><span id="line-10"><span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Literal</span>
+</span><span id="line-11"><span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Optional</span>
+</span><span id="line-12"><span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">TYPE_CHECKING</span>
+</span><span id="line-13"><span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">get_args</span>
 </span><span id="line-14">
-</span><span id="line-15"><span class="kn">from</span> <span class="nn">httpx</span> <span class="kn">import</span> <span class="n">Response</span>
+</span><span id="line-15"><span class="kn">from</span><span class="w"> </span><span class="nn">httpx</span><span class="w"> </span><span class="kn">import</span> <span class="n">Response</span>
 </span><span id="line-16">
-</span><span id="line-17"><span class="kn">from</span> <span class="nn">.models</span> <span class="kn">import</span> <span class="n">RESULT_KINDS</span>
-</span><span id="line-18"><span class="kn">from</span> <span class="nn">.models</span> <span class="kn">import</span> <span class="n">YouTubeResult</span>
-</span><span id="line-19"><span class="kn">from</span> <span class="nn">.models</span> <span class="kn">import</span> <span class="n">YouTubeVideo</span>
-</span><span id="line-20"><span class="kn">from</span> <span class="nn">..utils</span> <span class="kn">import</span> <span class="n">HTTPClient</span>
-</span><span id="line-21"><span class="kn">from</span> <span class="nn">..utils.http</span> <span class="kn">import</span> <span class="n">_PAYLOAD</span>
+</span><span id="line-17"><span class="kn">from</span><span class="w"> </span><span class="nn">.models</span><span class="w"> </span><span class="kn">import</span> <span class="n">RESULT_KINDS</span>
+</span><span id="line-18"><span class="kn">from</span><span class="w"> </span><span class="nn">.models</span><span class="w"> </span><span class="kn">import</span> <span class="n">YouTubeResult</span>
+</span><span id="line-19"><span class="kn">from</span><span class="w"> </span><span class="nn">.models</span><span class="w"> </span><span class="kn">import</span> <span class="n">YouTubeVideo</span>
+</span><span id="line-20"><span class="kn">from</span><span class="w"> </span><span class="nn">..utils</span><span class="w"> </span><span class="kn">import</span> <span class="n">HTTPClient</span>
+</span><span id="line-21"><span class="kn">from</span><span class="w"> </span><span class="nn">..utils.http</span><span class="w"> </span><span class="kn">import</span> <span class="n">_PAYLOAD</span>
 </span><span id="line-22">
 </span><span id="line-23"><span class="k">if</span> <span class="n">TYPE_CHECKING</span><span class="p">:</span>
-</span><span id="line-24">    <span class="kn">from</span> <span class="nn">.params</span> <span class="kn">import</span> <span class="n">YouTubeParams</span>
+</span><span id="line-24">    <span class="kn">from</span><span class="w"> </span><span class="nn">.params</span><span class="w"> </span><span class="kn">import</span> <span class="n">YouTubeParams</span>
 </span><span id="line-25">
 </span><span id="line-26">
 </span><span id="line-27">
@@ -176,7 +176,7 @@
 </span><span id="line-33">
 <div class="viewcode-block" id="YouTube">
 <a class="viewcode-back" href="../../../index.html#enconnect.youtube.youtube.YouTube">[docs]</a>
-</span><span id="line-34"><span class="k">class</span> <span class="nc">YouTube</span><span class="p">:</span>
+</span><span id="line-34"><span class="k">class</span><span class="w"> </span><span class="nc">YouTube</span><span class="p">:</span>
 </span><span id="line-35"><span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 </span><span id="line-36"><span class="sd">    Interact with the cloud service API with various methods.</span>
 </span><span id="line-37">
@@ -187,7 +187,7 @@
 </span><span id="line-42">    <span class="n">__client</span><span class="p">:</span> <span class="n">HTTPClient</span>
 </span><span id="line-43">
 </span><span id="line-44">
-</span><span id="line-45">    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+</span><span id="line-45">    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span>
 </span><span id="line-46">        <span class="bp">self</span><span class="p">,</span>
 </span><span id="line-47">        <span class="n">params</span><span class="p">:</span> <span class="s1">&#39;YouTubeParams&#39;</span><span class="p">,</span>
 </span><span id="line-48">    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
@@ -206,7 +206,7 @@
 </span><span id="line-61">
 </span><span id="line-62">
 </span><span id="line-63">    <span class="nd">@property</span>
-</span><span id="line-64">    <span class="k">def</span> <span class="nf">params</span><span class="p">(</span>
+</span><span id="line-64">    <span class="k">def</span><span class="w"> </span><span class="nf">params</span><span class="p">(</span>
 </span><span id="line-65">        <span class="bp">self</span><span class="p">,</span>
 </span><span id="line-66">    <span class="p">)</span> <span class="o">-&gt;</span> <span class="s1">&#39;YouTubeParams&#39;</span><span class="p">:</span>
 </span><span id="line-67"><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
@@ -219,7 +219,7 @@
 </span><span id="line-74">
 </span><span id="line-75">
 </span><span id="line-76">    <span class="nd">@property</span>
-</span><span id="line-77">    <span class="k">def</span> <span class="nf">client</span><span class="p">(</span>
+</span><span id="line-77">    <span class="k">def</span><span class="w"> </span><span class="nf">client</span><span class="p">(</span>
 </span><span id="line-78">        <span class="bp">self</span><span class="p">,</span>
 </span><span id="line-79">    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">HTTPClient</span><span class="p">:</span>
 </span><span id="line-80"><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
@@ -233,7 +233,7 @@
 </span><span id="line-88">
 <div class="viewcode-block" id="YouTube.request_block">
 <a class="viewcode-back" href="../../../index.html#enconnect.youtube.youtube.YouTube.request_block">[docs]</a>
-</span><span id="line-89">    <span class="k">def</span> <span class="nf">request_block</span><span class="p">(</span>
+</span><span id="line-89">    <span class="k">def</span><span class="w"> </span><span class="nf">request_block</span><span class="p">(</span>
 </span><span id="line-90">        <span class="bp">self</span><span class="p">,</span>
 </span><span id="line-91">        <span class="n">method</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="s1">&#39;get&#39;</span><span class="p">],</span>
 </span><span id="line-92">        <span class="n">path</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
@@ -271,7 +271,7 @@
 </span><span id="line-123">
 <div class="viewcode-block" id="YouTube.request_async">
 <a class="viewcode-back" href="../../../index.html#enconnect.youtube.youtube.YouTube.request_async">[docs]</a>
-</span><span id="line-124">    <span class="k">async</span> <span class="k">def</span> <span class="nf">request_async</span><span class="p">(</span>
+</span><span id="line-124">    <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">request_async</span><span class="p">(</span>
 </span><span id="line-125">        <span class="bp">self</span><span class="p">,</span>
 </span><span id="line-126">        <span class="n">method</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="s1">&#39;get&#39;</span><span class="p">],</span>
 </span><span id="line-127">        <span class="n">path</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
@@ -309,7 +309,7 @@
 </span><span id="line-158">
 <div class="viewcode-block" id="YouTube.search">
 <a class="viewcode-back" href="../../../index.html#enconnect.youtube.youtube.YouTube.search">[docs]</a>
-</span><span id="line-159">    <span class="k">def</span> <span class="nf">search</span><span class="p">(</span>
+</span><span id="line-159">    <span class="k">def</span><span class="w"> </span><span class="nf">search</span><span class="p">(</span>
 </span><span id="line-160">        <span class="c1"># NOCVR</span>
 </span><span id="line-161">        <span class="bp">self</span><span class="p">,</span>
 </span><span id="line-162">        <span class="n">params</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">_PAYLOAD</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
@@ -327,7 +327,7 @@
 </span><span id="line-173">
 <div class="viewcode-block" id="YouTube.search_block">
 <a class="viewcode-back" href="../../../index.html#enconnect.youtube.youtube.YouTube.search_block">[docs]</a>
-</span><span id="line-174">    <span class="k">def</span> <span class="nf">search_block</span><span class="p">(</span>
+</span><span id="line-174">    <span class="k">def</span><span class="w"> </span><span class="nf">search_block</span><span class="p">(</span>
 </span><span id="line-175">        <span class="bp">self</span><span class="p">,</span>
 </span><span id="line-176">        <span class="n">params</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">_PAYLOAD</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
 </span><span id="line-177">    <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="n">YouTubeResult</span><span class="p">]:</span>
@@ -373,7 +373,7 @@
 </span><span id="line-216">
 <div class="viewcode-block" id="YouTube.search_async">
 <a class="viewcode-back" href="../../../index.html#enconnect.youtube.youtube.YouTube.search_async">[docs]</a>
-</span><span id="line-217">    <span class="k">async</span> <span class="k">def</span> <span class="nf">search_async</span><span class="p">(</span>
+</span><span id="line-217">    <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">search_async</span><span class="p">(</span>
 </span><span id="line-218">        <span class="bp">self</span><span class="p">,</span>
 </span><span id="line-219">        <span class="n">params</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">_PAYLOAD</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
 </span><span id="line-220">    <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="n">YouTubeResult</span><span class="p">]:</span>
@@ -419,7 +419,7 @@
 </span><span id="line-259">
 <div class="viewcode-block" id="YouTube.videos">
 <a class="viewcode-back" href="../../../index.html#enconnect.youtube.youtube.YouTube.videos">[docs]</a>
-</span><span id="line-260">    <span class="k">def</span> <span class="nf">videos</span><span class="p">(</span>
+</span><span id="line-260">    <span class="k">def</span><span class="w"> </span><span class="nf">videos</span><span class="p">(</span>
 </span><span id="line-261">        <span class="c1"># NOCVR</span>
 </span><span id="line-262">        <span class="bp">self</span><span class="p">,</span>
 </span><span id="line-263">        <span class="n">params</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">_PAYLOAD</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
@@ -437,7 +437,7 @@
 </span><span id="line-274">
 <div class="viewcode-block" id="YouTube.videos_block">
 <a class="viewcode-back" href="../../../index.html#enconnect.youtube.youtube.YouTube.videos_block">[docs]</a>
-</span><span id="line-275">    <span class="k">def</span> <span class="nf">videos_block</span><span class="p">(</span>
+</span><span id="line-275">    <span class="k">def</span><span class="w"> </span><span class="nf">videos_block</span><span class="p">(</span>
 </span><span id="line-276">        <span class="bp">self</span><span class="p">,</span>
 </span><span id="line-277">        <span class="n">params</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">_PAYLOAD</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
 </span><span id="line-278">    <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="n">YouTubeVideo</span><span class="p">]:</span>
@@ -481,7 +481,7 @@
 </span><span id="line-315">
 <div class="viewcode-block" id="YouTube.videos_async">
 <a class="viewcode-back" href="../../../index.html#enconnect.youtube.youtube.YouTube.videos_async">[docs]</a>
-</span><span id="line-316">    <span class="k">async</span> <span class="k">def</span> <span class="nf">videos_async</span><span class="p">(</span>
+</span><span id="line-316">    <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">videos_async</span><span class="p">(</span>
 </span><span id="line-317">        <span class="bp">self</span><span class="p">,</span>
 </span><span id="line-318">        <span class="n">params</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">_PAYLOAD</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
 </span><span id="line-319">    <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="n">YouTubeVideo</span><span class="p">]:</span>
@@ -525,7 +525,7 @@
 </span><span id="line-356">
 <div class="viewcode-block" id="YouTube.video_block">
 <a class="viewcode-back" href="../../../index.html#enconnect.youtube.youtube.YouTube.video_block">[docs]</a>
-</span><span id="line-357">    <span class="k">def</span> <span class="nf">video_block</span><span class="p">(</span>
+</span><span id="line-357">    <span class="k">def</span><span class="w"> </span><span class="nf">video_block</span><span class="p">(</span>
 </span><span id="line-358">        <span class="bp">self</span><span class="p">,</span>
 </span><span id="line-359">        <span class="n">unique</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
 </span><span id="line-360">    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">YouTubeVideo</span><span class="p">:</span>
@@ -545,7 +545,7 @@
 </span><span id="line-373">
 <div class="viewcode-block" id="YouTube.video_async">
 <a class="viewcode-back" href="../../../index.html#enconnect.youtube.youtube.YouTube.video_async">[docs]</a>
-</span><span id="line-374">    <span class="k">async</span> <span class="k">def</span> <span class="nf">video_async</span><span class="p">(</span>
+</span><span id="line-374">    <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">video_async</span><span class="p">(</span>
 </span><span id="line-375">        <span class="bp">self</span><span class="p">,</span>
 </span><span id="line-376">        <span class="n">unique</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
 </span><span id="line-377">    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">YouTubeVideo</span><span class="p">:</span>

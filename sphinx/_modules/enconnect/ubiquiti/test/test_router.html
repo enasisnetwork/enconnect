@@ -15,7 +15,7 @@
     <title>enconnect.ubiquiti.test.test_router | enconnect  documentation</title>
     <meta property="og:title" content="enconnect.ubiquiti.test.test_router | enconnect  documentation" />
     <meta name="twitter:title" content="enconnect.ubiquiti.test.test_router | enconnect  documentation" />
-      <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css?v=8d216cef" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css?v=e72c8e07" />
       <link rel="stylesheet" type="text/css" href="../../../../_static/theme.css?v=42baaae4" />
       <link rel="stylesheet" type="text/css" href="../../../../_static/autodoc_pydantic.css" />
         <link rel="search" title="Search" href="../../../../search.html" />
@@ -150,31 +150,31 @@
 </span><span id="line-7">
 </span><span id="line-8">
 </span><span id="line-9">
-</span><span id="line-10"><span class="kn">from</span> <span class="nn">encommon.types</span> <span class="kn">import</span> <span class="n">inrepr</span>
-</span><span id="line-11"><span class="kn">from</span> <span class="nn">encommon.types</span> <span class="kn">import</span> <span class="n">instr</span>
-</span><span id="line-12"><span class="kn">from</span> <span class="nn">encommon.types</span> <span class="kn">import</span> <span class="n">lattrs</span>
-</span><span id="line-13"><span class="kn">from</span> <span class="nn">encommon.utils</span> <span class="kn">import</span> <span class="n">load_sample</span>
-</span><span id="line-14"><span class="kn">from</span> <span class="nn">encommon.utils</span> <span class="kn">import</span> <span class="n">prep_sample</span>
-</span><span id="line-15"><span class="kn">from</span> <span class="nn">encommon.utils</span> <span class="kn">import</span> <span class="n">read_sample</span>
-</span><span id="line-16"><span class="kn">from</span> <span class="nn">encommon.utils</span> <span class="kn">import</span> <span class="n">read_text</span>
-</span><span id="line-17"><span class="kn">from</span> <span class="nn">encommon.utils.sample</span> <span class="kn">import</span> <span class="n">ENPYRWS</span>
+</span><span id="line-10"><span class="kn">from</span><span class="w"> </span><span class="nn">encommon.types</span><span class="w"> </span><span class="kn">import</span> <span class="n">inrepr</span>
+</span><span id="line-11"><span class="kn">from</span><span class="w"> </span><span class="nn">encommon.types</span><span class="w"> </span><span class="kn">import</span> <span class="n">instr</span>
+</span><span id="line-12"><span class="kn">from</span><span class="w"> </span><span class="nn">encommon.types</span><span class="w"> </span><span class="kn">import</span> <span class="n">lattrs</span>
+</span><span id="line-13"><span class="kn">from</span><span class="w"> </span><span class="nn">encommon.utils</span><span class="w"> </span><span class="kn">import</span> <span class="n">load_sample</span>
+</span><span id="line-14"><span class="kn">from</span><span class="w"> </span><span class="nn">encommon.utils</span><span class="w"> </span><span class="kn">import</span> <span class="n">prep_sample</span>
+</span><span id="line-15"><span class="kn">from</span><span class="w"> </span><span class="nn">encommon.utils</span><span class="w"> </span><span class="kn">import</span> <span class="n">read_sample</span>
+</span><span id="line-16"><span class="kn">from</span><span class="w"> </span><span class="nn">encommon.utils</span><span class="w"> </span><span class="kn">import</span> <span class="n">read_text</span>
+</span><span id="line-17"><span class="kn">from</span><span class="w"> </span><span class="nn">encommon.utils.sample</span><span class="w"> </span><span class="kn">import</span> <span class="n">ENPYRWS</span>
 </span><span id="line-18">
-</span><span id="line-19"><span class="kn">from</span> <span class="nn">httpx</span> <span class="kn">import</span> <span class="n">Response</span>
+</span><span id="line-19"><span class="kn">from</span><span class="w"> </span><span class="nn">httpx</span><span class="w"> </span><span class="kn">import</span> <span class="n">Response</span>
 </span><span id="line-20">
-</span><span id="line-21"><span class="kn">from</span> <span class="nn">pytest</span> <span class="kn">import</span> <span class="n">fixture</span>
+</span><span id="line-21"><span class="kn">from</span><span class="w"> </span><span class="nn">pytest</span><span class="w"> </span><span class="kn">import</span> <span class="n">fixture</span>
 </span><span id="line-22">
-</span><span id="line-23"><span class="kn">from</span> <span class="nn">respx</span> <span class="kn">import</span> <span class="n">MockRouter</span>
+</span><span id="line-23"><span class="kn">from</span><span class="w"> </span><span class="nn">respx</span><span class="w"> </span><span class="kn">import</span> <span class="n">MockRouter</span>
 </span><span id="line-24">
-</span><span id="line-25"><span class="kn">from</span> <span class="nn">.</span> <span class="kn">import</span> <span class="n">SAMPLES</span>
-</span><span id="line-26"><span class="kn">from</span> <span class="nn">..params</span> <span class="kn">import</span> <span class="n">RouterParams</span>
-</span><span id="line-27"><span class="kn">from</span> <span class="nn">..router</span> <span class="kn">import</span> <span class="n">Router</span>
+</span><span id="line-25"><span class="kn">from</span><span class="w"> </span><span class="nn">.</span><span class="w"> </span><span class="kn">import</span> <span class="n">SAMPLES</span>
+</span><span id="line-26"><span class="kn">from</span><span class="w"> </span><span class="nn">..params</span><span class="w"> </span><span class="kn">import</span> <span class="n">RouterParams</span>
+</span><span id="line-27"><span class="kn">from</span><span class="w"> </span><span class="nn">..router</span><span class="w"> </span><span class="kn">import</span> <span class="n">Router</span>
 </span><span id="line-28">
 </span><span id="line-29">
 </span><span id="line-30">
 <div class="viewcode-block" id="router">
 <a class="viewcode-back" href="../../../../enconnect.ubiquiti.test.html#enconnect.ubiquiti.test.test_router.router">[docs]</a>
 </span><span id="line-31"><span class="nd">@fixture</span>
-</span><span id="line-32"><span class="k">def</span> <span class="nf">router</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">Router</span><span class="p">:</span>
+</span><span id="line-32"><span class="k">def</span><span class="w"> </span><span class="nf">router</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">Router</span><span class="p">:</span>
 </span><span id="line-33"><span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 </span><span id="line-34"><span class="sd">    Construct the instance for use in the downstream tests.</span>
 </span><span id="line-35">
@@ -193,7 +193,7 @@
 </span><span id="line-47">
 <div class="viewcode-block" id="test_Router">
 <a class="viewcode-back" href="../../../../enconnect.ubiquiti.test.html#enconnect.ubiquiti.test.test_router.test_Router">[docs]</a>
-</span><span id="line-48"><span class="k">def</span> <span class="nf">test_Router</span><span class="p">(</span>
+</span><span id="line-48"><span class="k">def</span><span class="w"> </span><span class="nf">test_Router</span><span class="p">(</span>
 </span><span id="line-49">    <span class="n">router</span><span class="p">:</span> <span class="n">Router</span><span class="p">,</span>
 </span><span id="line-50"><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 </span><span id="line-51"><span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
@@ -231,7 +231,7 @@
 </span><span id="line-82">
 <div class="viewcode-block" id="test_Router_request">
 <a class="viewcode-back" href="../../../../enconnect.ubiquiti.test.html#enconnect.ubiquiti.test.test_router.test_Router_request">[docs]</a>
-</span><span id="line-83"><span class="k">def</span> <span class="nf">test_Router_request</span><span class="p">(</span>
+</span><span id="line-83"><span class="k">def</span><span class="w"> </span><span class="nf">test_Router_request</span><span class="p">(</span>
 </span><span id="line-84">    <span class="n">router</span><span class="p">:</span> <span class="n">Router</span><span class="p">,</span>
 </span><span id="line-85">    <span class="n">respx_mock</span><span class="p">:</span> <span class="n">MockRouter</span><span class="p">,</span>
 </span><span id="line-86"><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>

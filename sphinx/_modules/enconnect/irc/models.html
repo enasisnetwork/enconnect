@@ -15,7 +15,7 @@
     <title>enconnect.irc.models | enconnect  documentation</title>
     <meta property="og:title" content="enconnect.irc.models | enconnect  documentation" />
     <meta name="twitter:title" content="enconnect.irc.models | enconnect  documentation" />
-      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=8d216cef" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=e72c8e07" />
       <link rel="stylesheet" type="text/css" href="../../../_static/theme.css?v=42baaae4" />
       <link rel="stylesheet" type="text/css" href="../../../_static/autodoc_pydantic.css" />
         <link rel="search" title="Search" href="../../../search.html" />
@@ -150,21 +150,21 @@
 </span><span id="line-7">
 </span><span id="line-8">
 </span><span id="line-9">
-</span><span id="line-10"><span class="kn">from</span> <span class="nn">re</span> <span class="kn">import</span> <span class="nb">compile</span>
-</span><span id="line-11"><span class="kn">from</span> <span class="nn">re</span> <span class="kn">import</span> <span class="n">match</span> <span class="k">as</span> <span class="n">re_match</span>
-</span><span id="line-12"><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Annotated</span>
-</span><span id="line-13"><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Literal</span>
-</span><span id="line-14"><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Optional</span>
-</span><span id="line-15"><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">TYPE_CHECKING</span>
+</span><span id="line-10"><span class="kn">from</span><span class="w"> </span><span class="nn">re</span><span class="w"> </span><span class="kn">import</span> <span class="nb">compile</span>
+</span><span id="line-11"><span class="kn">from</span><span class="w"> </span><span class="nn">re</span><span class="w"> </span><span class="kn">import</span> <span class="n">match</span> <span class="k">as</span> <span class="n">re_match</span>
+</span><span id="line-12"><span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Annotated</span>
+</span><span id="line-13"><span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Literal</span>
+</span><span id="line-14"><span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Optional</span>
+</span><span id="line-15"><span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">TYPE_CHECKING</span>
 </span><span id="line-16">
-</span><span id="line-17"><span class="kn">from</span> <span class="nn">encommon.types</span> <span class="kn">import</span> <span class="n">BaseModel</span>
-</span><span id="line-18"><span class="kn">from</span> <span class="nn">encommon.types</span> <span class="kn">import</span> <span class="n">DictStrAny</span>
-</span><span id="line-19"><span class="kn">from</span> <span class="nn">encommon.types</span> <span class="kn">import</span> <span class="n">NCTrue</span>
+</span><span id="line-17"><span class="kn">from</span><span class="w"> </span><span class="nn">encommon.types</span><span class="w"> </span><span class="kn">import</span> <span class="n">BaseModel</span>
+</span><span id="line-18"><span class="kn">from</span><span class="w"> </span><span class="nn">encommon.types</span><span class="w"> </span><span class="kn">import</span> <span class="n">DictStrAny</span>
+</span><span id="line-19"><span class="kn">from</span><span class="w"> </span><span class="nn">encommon.types</span><span class="w"> </span><span class="kn">import</span> <span class="n">NCTrue</span>
 </span><span id="line-20">
-</span><span id="line-21"><span class="kn">from</span> <span class="nn">pydantic</span> <span class="kn">import</span> <span class="n">Field</span>
+</span><span id="line-21"><span class="kn">from</span><span class="w"> </span><span class="nn">pydantic</span><span class="w"> </span><span class="kn">import</span> <span class="n">Field</span>
 </span><span id="line-22">
 </span><span id="line-23"><span class="k">if</span> <span class="n">TYPE_CHECKING</span><span class="p">:</span>
-</span><span id="line-24">    <span class="kn">from</span> <span class="nn">.client</span> <span class="kn">import</span> <span class="n">Client</span>
+</span><span id="line-24">    <span class="kn">from</span><span class="w"> </span><span class="nn">.client</span><span class="w"> </span><span class="kn">import</span> <span class="n">Client</span>
 </span><span id="line-25">
 </span><span id="line-26">
 </span><span id="line-27">
@@ -186,7 +186,7 @@
 </span><span id="line-43">
 <div class="viewcode-block" id="ClientEvent">
 <a class="viewcode-back" href="../../../index.html#enconnect.irc.models.ClientEvent">[docs]</a>
-</span><span id="line-44"><span class="k">class</span> <span class="nc">ClientEvent</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">,</span> <span class="n">extra</span><span class="o">=</span><span class="s1">&#39;ignore&#39;</span><span class="p">):</span>
+</span><span id="line-44"><span class="k">class</span><span class="w"> </span><span class="nc">ClientEvent</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">,</span> <span class="n">extra</span><span class="o">=</span><span class="s1">&#39;ignore&#39;</span><span class="p">):</span>
 </span><span id="line-45"><span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 </span><span id="line-46"><span class="sd">    Contains information returned from the upstream server.</span>
 </span><span id="line-47"><span class="sd">    &quot;&quot;&quot;</span>
@@ -243,7 +243,7 @@
 </span><span id="line-98">              <span class="n">min_length</span><span class="o">=</span><span class="mi">1</span><span class="p">)]</span>
 </span><span id="line-99">
 </span><span id="line-100">
-</span><span id="line-101">    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+</span><span id="line-101">    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span>
 </span><span id="line-102">        <span class="bp">self</span><span class="p">,</span>
 </span><span id="line-103">        <span class="o">/</span><span class="p">,</span>
 </span><span id="line-104">        <span class="n">client</span><span class="p">:</span> <span class="s1">&#39;Client&#39;</span><span class="p">,</span>
@@ -301,7 +301,7 @@
 </span><span id="line-156">        <span class="bp">self</span><span class="o">.</span><span class="n">__set_isme</span><span class="p">(</span><span class="n">client</span><span class="p">)</span>
 </span><span id="line-157">
 </span><span id="line-158">
-</span><span id="line-159">    <span class="k">def</span> <span class="nf">__set_kind</span><span class="p">(</span>
+</span><span id="line-159">    <span class="k">def</span><span class="w"> </span><span class="nf">__set_kind</span><span class="p">(</span>
 </span><span id="line-160">        <span class="bp">self</span><span class="p">,</span>
 </span><span id="line-161">    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 </span><span id="line-162"><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
@@ -329,7 +329,7 @@
 </span><span id="line-184">        <span class="bp">self</span><span class="o">.</span><span class="n">kind</span> <span class="o">=</span> <span class="n">kind</span>
 </span><span id="line-185">
 </span><span id="line-186">
-</span><span id="line-187">    <span class="k">def</span> <span class="nf">__set_author</span><span class="p">(</span>
+</span><span id="line-187">    <span class="k">def</span><span class="w"> </span><span class="nf">__set_author</span><span class="p">(</span>
 </span><span id="line-188">        <span class="bp">self</span><span class="p">,</span>
 </span><span id="line-189">    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 </span><span id="line-190"><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
@@ -350,7 +350,7 @@
 </span><span id="line-205">        <span class="bp">self</span><span class="o">.</span><span class="n">author</span> <span class="o">=</span> <span class="n">author</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
 </span><span id="line-206">
 </span><span id="line-207">
-</span><span id="line-208">    <span class="k">def</span> <span class="nf">__set_recipient</span><span class="p">(</span>
+</span><span id="line-208">    <span class="k">def</span><span class="w"> </span><span class="nf">__set_recipient</span><span class="p">(</span>
 </span><span id="line-209">        <span class="bp">self</span><span class="p">,</span>
 </span><span id="line-210">    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 </span><span id="line-211"><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
@@ -369,7 +369,7 @@
 </span><span id="line-224">        <span class="bp">self</span><span class="o">.</span><span class="n">recipient</span> <span class="o">=</span> <span class="n">split</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
 </span><span id="line-225">
 </span><span id="line-226">
-</span><span id="line-227">    <span class="k">def</span> <span class="nf">__set_message</span><span class="p">(</span>
+</span><span id="line-227">    <span class="k">def</span><span class="w"> </span><span class="nf">__set_message</span><span class="p">(</span>
 </span><span id="line-228">        <span class="bp">self</span><span class="p">,</span>
 </span><span id="line-229">    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 </span><span id="line-230"><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
@@ -390,7 +390,7 @@
 </span><span id="line-245">        <span class="bp">self</span><span class="o">.</span><span class="n">message</span> <span class="o">=</span> <span class="n">message</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
 </span><span id="line-246">
 </span><span id="line-247">
-</span><span id="line-248">    <span class="k">def</span> <span class="nf">__set_isme</span><span class="p">(</span>
+</span><span id="line-248">    <span class="k">def</span><span class="w"> </span><span class="nf">__set_isme</span><span class="p">(</span>
 </span><span id="line-249">        <span class="bp">self</span><span class="p">,</span>
 </span><span id="line-250">        <span class="n">client</span><span class="p">:</span> <span class="s1">&#39;Client&#39;</span><span class="p">,</span>
 </span><span id="line-251">    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
