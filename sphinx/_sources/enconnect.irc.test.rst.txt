@@ -9,29 +9,29 @@ enconnect.irc.test.helpers module
 
 .. automodule:: enconnect.irc.test.helpers
    :members:
-   :undoc-members:
    :show-inheritance:
+   :undoc-members:
 
 enconnect.irc.test.test\_client module
 --------------------------------------
 
 .. automodule:: enconnect.irc.test.test_client
    :members:
-   :undoc-members:
    :show-inheritance:
+   :undoc-members:
 
 enconnect.irc.test.test\_models module
 --------------------------------------
 
 .. automodule:: enconnect.irc.test.test_models
    :members:
-   :undoc-members:
    :show-inheritance:
+   :undoc-members:
 
 Module contents
 ---------------
 
 .. automodule:: enconnect.irc.test
    :members:
-   :undoc-members:
    :show-inheritance:
+   :undoc-members:

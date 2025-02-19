@@ -17,21 +17,21 @@ enconnect.philips.bridge module
 
 .. automodule:: enconnect.philips.bridge
    :members:
-   :undoc-members:
    :show-inheritance:
+   :undoc-members:
 
 enconnect.philips.params module
 -------------------------------
 
 .. automodule:: enconnect.philips.params
    :members:
-   :undoc-members:
    :show-inheritance:
+   :undoc-members:
 
 Module contents
 ---------------
 
 .. automodule:: enconnect.philips
    :members:
-   :undoc-members:
    :show-inheritance:
+   :undoc-members:

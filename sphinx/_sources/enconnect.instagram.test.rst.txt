@@ -9,21 +9,21 @@ enconnect.instagram.test.test\_instagram module
 
 .. automodule:: enconnect.instagram.test.test_instagram
    :members:
-   :undoc-members:
    :show-inheritance:
+   :undoc-members:
 
 enconnect.instagram.test.test\_models module
 --------------------------------------------
 
 .. automodule:: enconnect.instagram.test.test_models
    :members:
-   :undoc-members:
    :show-inheritance:
+   :undoc-members:
 
 Module contents
 ---------------
 
 .. automodule:: enconnect.instagram.test
    :members:
-   :undoc-members:
    :show-inheritance:
+   :undoc-members:

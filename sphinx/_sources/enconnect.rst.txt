@@ -26,21 +26,21 @@ enconnect.conftest module
 
 .. automodule:: enconnect.conftest
    :members:
-   :undoc-members:
    :show-inheritance:
+   :undoc-members:
 
 enconnect.fixtures module
 -------------------------
 
 .. automodule:: enconnect.fixtures
    :members:
-   :undoc-members:
    :show-inheritance:
+   :undoc-members:
 
 Module contents
 ---------------
 
 .. automodule:: enconnect
    :members:
-   :undoc-members:
    :show-inheritance:
+   :undoc-members:

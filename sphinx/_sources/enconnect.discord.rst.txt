@@ -17,29 +17,29 @@ enconnect.discord.client module
 
 .. automodule:: enconnect.discord.client
    :members:
-   :undoc-members:
    :show-inheritance:
+   :undoc-members:
 
 enconnect.discord.models module
 -------------------------------
 
 .. automodule:: enconnect.discord.models
    :members:
-   :undoc-members:
    :show-inheritance:
+   :undoc-members:
 
 enconnect.discord.params module
 -------------------------------
 
 .. automodule:: enconnect.discord.params
    :members:
-   :undoc-members:
    :show-inheritance:
+   :undoc-members:
 
 Module contents
 ---------------
 
 .. automodule:: enconnect.discord
    :members:
-   :undoc-members:
    :show-inheritance:
+   :undoc-members:

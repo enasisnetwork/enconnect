@@ -17,29 +17,29 @@ enconnect.irc.client module
 
 .. automodule:: enconnect.irc.client
    :members:
-   :undoc-members:
    :show-inheritance:
+   :undoc-members:
 
 enconnect.irc.models module
 ---------------------------
 
 .. automodule:: enconnect.irc.models
    :members:
-   :undoc-members:
    :show-inheritance:
+   :undoc-members:
 
 enconnect.irc.params module
 ---------------------------
 
 .. automodule:: enconnect.irc.params
    :members:
-   :undoc-members:
    :show-inheritance:
+   :undoc-members:
 
 Module contents
 ---------------
 
 .. automodule:: enconnect.irc
    :members:
-   :undoc-members:
    :show-inheritance:
+   :undoc-members:

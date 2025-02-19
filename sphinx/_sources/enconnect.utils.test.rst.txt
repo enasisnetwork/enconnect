@@ -9,13 +9,13 @@ enconnect.utils.test.test\_http module
 
 .. automodule:: enconnect.utils.test.test_http
    :members:
-   :undoc-members:
    :show-inheritance:
+   :undoc-members:
 
 Module contents
 ---------------
 
 .. automodule:: enconnect.utils.test
    :members:
-   :undoc-members:
    :show-inheritance:
+   :undoc-members:

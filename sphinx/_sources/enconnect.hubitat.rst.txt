@@ -17,21 +17,21 @@ enconnect.hubitat.bridge module
 
 .. automodule:: enconnect.hubitat.bridge
    :members:
-   :undoc-members:
    :show-inheritance:
+   :undoc-members:
 
 enconnect.hubitat.params module
 -------------------------------
 
 .. automodule:: enconnect.hubitat.params
    :members:
-   :undoc-members:
    :show-inheritance:
+   :undoc-members:
 
 Module contents
 ---------------
 
 .. automodule:: enconnect.hubitat
    :members:
-   :undoc-members:
    :show-inheritance:
+   :undoc-members:

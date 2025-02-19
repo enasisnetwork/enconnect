@@ -9,21 +9,21 @@ enconnect.reddit.test.test\_models module
 
 .. automodule:: enconnect.reddit.test.test_models
    :members:
-   :undoc-members:
    :show-inheritance:
+   :undoc-members:
 
 enconnect.reddit.test.test\_reddit module
 -----------------------------------------
 
 .. automodule:: enconnect.reddit.test.test_reddit
    :members:
-   :undoc-members:
    :show-inheritance:
+   :undoc-members:
 
 Module contents
 ---------------
 
 .. automodule:: enconnect.reddit.test
    :members:
-   :undoc-members:
    :show-inheritance:
+   :undoc-members:

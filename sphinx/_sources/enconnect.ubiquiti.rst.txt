@@ -17,21 +17,21 @@ enconnect.ubiquiti.params module
 
 .. automodule:: enconnect.ubiquiti.params
    :members:
-   :undoc-members:
    :show-inheritance:
+   :undoc-members:
 
 enconnect.ubiquiti.router module
 --------------------------------
 
 .. automodule:: enconnect.ubiquiti.router
    :members:
-   :undoc-members:
    :show-inheritance:
+   :undoc-members:
 
 Module contents
 ---------------
 
 .. automodule:: enconnect.ubiquiti
    :members:
-   :undoc-members:
    :show-inheritance:
+   :undoc-members:

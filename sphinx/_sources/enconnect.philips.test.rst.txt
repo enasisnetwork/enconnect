@@ -9,21 +9,21 @@ enconnect.philips.test.helpers module
 
 .. automodule:: enconnect.philips.test.helpers
    :members:
-   :undoc-members:
    :show-inheritance:
+   :undoc-members:
 
 enconnect.philips.test.test\_bridge module
 ------------------------------------------
 
 .. automodule:: enconnect.philips.test.test_bridge
    :members:
-   :undoc-members:
    :show-inheritance:
+   :undoc-members:
 
 Module contents
 ---------------
 
 .. automodule:: enconnect.philips.test
    :members:
-   :undoc-members:
    :show-inheritance:
+   :undoc-members:

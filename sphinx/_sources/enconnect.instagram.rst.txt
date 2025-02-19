@@ -17,29 +17,29 @@ enconnect.instagram.instagram module
 
 .. automodule:: enconnect.instagram.instagram
    :members:
-   :undoc-members:
    :show-inheritance:
+   :undoc-members:
 
 enconnect.instagram.models module
 ---------------------------------
 
 .. automodule:: enconnect.instagram.models
    :members:
-   :undoc-members:
    :show-inheritance:
+   :undoc-members:
 
 enconnect.instagram.params module
 ---------------------------------
 
 .. automodule:: enconnect.instagram.params
    :members:
-   :undoc-members:
    :show-inheritance:
+   :undoc-members:
 
 Module contents
 ---------------
 
 .. automodule:: enconnect.instagram
    :members:
-   :undoc-members:
    :show-inheritance:
+   :undoc-members:

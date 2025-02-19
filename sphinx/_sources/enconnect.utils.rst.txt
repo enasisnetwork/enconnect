@@ -17,21 +17,21 @@ enconnect.utils.dummy module
 
 .. automodule:: enconnect.utils.dummy
    :members:
-   :undoc-members:
    :show-inheritance:
+   :undoc-members:
 
 enconnect.utils.http module
 ---------------------------
 
 .. automodule:: enconnect.utils.http
    :members:
-   :undoc-members:
    :show-inheritance:
+   :undoc-members:
 
 Module contents
 ---------------
 
 .. automodule:: enconnect.utils
    :members:
-   :undoc-members:
    :show-inheritance:
+   :undoc-members:

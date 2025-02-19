@@ -17,29 +17,29 @@ enconnect.mattermost.client module
 
 .. automodule:: enconnect.mattermost.client
    :members:
-   :undoc-members:
    :show-inheritance:
+   :undoc-members:
 
 enconnect.mattermost.models module
 ----------------------------------
 
 .. automodule:: enconnect.mattermost.models
    :members:
-   :undoc-members:
    :show-inheritance:
+   :undoc-members:
 
 enconnect.mattermost.params module
 ----------------------------------
 
 .. automodule:: enconnect.mattermost.params
    :members:
-   :undoc-members:
    :show-inheritance:
+   :undoc-members:
 
 Module contents
 ---------------
 
 .. automodule:: enconnect.mattermost
    :members:
-   :undoc-members:
    :show-inheritance:
+   :undoc-members:

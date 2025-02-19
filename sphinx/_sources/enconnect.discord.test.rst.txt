@@ -9,29 +9,29 @@ enconnect.discord.test.helpers module
 
 .. automodule:: enconnect.discord.test.helpers
    :members:
-   :undoc-members:
    :show-inheritance:
+   :undoc-members:
 
 enconnect.discord.test.test\_client module
 ------------------------------------------
 
 .. automodule:: enconnect.discord.test.test_client
    :members:
-   :undoc-members:
    :show-inheritance:
+   :undoc-members:
 
 enconnect.discord.test.test\_models module
 ------------------------------------------
 
 .. automodule:: enconnect.discord.test.test_models
    :members:
-   :undoc-members:
    :show-inheritance:
+   :undoc-members:
 
 Module contents
 ---------------
 
 .. automodule:: enconnect.discord.test
    :members:
-   :undoc-members:
    :show-inheritance:
+   :undoc-members:
