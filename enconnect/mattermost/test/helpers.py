@@ -101,7 +101,7 @@ RVENTS: list[DictStrAny] = [
 
 
 
-WHOAMI: DictStrAny = {
+WHOME: DictStrAny = {
     'id': 'mtmunq',
     'username': 'mtmbot'}
 
@@ -151,7 +151,7 @@ def client_mtmsock(  # noqa: CFQ004
     :returns: Newly constructed instance of related class.
     """
 
-    content = dumps(WHOAMI)
+    content = dumps(WHOME)
 
     (respx_mock
      .get(

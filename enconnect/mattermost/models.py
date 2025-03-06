@@ -8,6 +8,9 @@ is permitted, for more information consult the project license file.
 
 
 from json import loads
+from re import IGNORECASE
+from re import escape as re_escape
+from re import search as re_search
 from typing import Annotated
 from typing import Literal
 from typing import Optional
@@ -97,6 +100,17 @@ class ClientEvent(BaseModel, extra='ignore'):
         Field(False,
               description='Indicates message is from client')]
 
+    hasme: Annotated[
+        bool,
+        Field(False,
+              description='Indicates message mentions client')]
+
+    whome: Annotated[
+        Optional[tuple[str, str]],
+        Field(None,
+              description='Current nickname of when received',
+              min_length=1)]
+
     author: Annotated[
         Optional[tuple[str, str]],
         Field(None,
@@ -169,6 +183,8 @@ class ClientEvent(BaseModel, extra='ignore'):
         self.__set_recipient()
         self.__set_message()
         self.__set_isme(client)
+        self.__set_hasme(client)
+        self.__set_whome(client)
 
 
     def __set_kind(
@@ -217,7 +233,9 @@ class ClientEvent(BaseModel, extra='ignore'):
         post = loads(data['post'])
 
         unique = post['user_id']
-        name = data['sender_name']
+        name = (
+            data['sender_name']
+            .lstrip('@'))
 
         self.author = (
             name, unique)
@@ -288,3 +306,47 @@ class ClientEvent(BaseModel, extra='ignore'):
             isme = mine == them
 
         self.isme = isme
+
+
+    def __set_hasme(
+        self,
+        client: 'Client',
+    ) -> None:
+        """
+        Update the value for the attribute from class instance.
+
+        :param client: Class instance for connecting to service.
+        """
+
+        mynick = client.nickname
+        message = self.message
+
+        if mynick is None:
+            return None
+
+        if message is None:
+            return None
+
+        needle = re_escape(mynick[0])
+        pattern = rf'\b@?{needle}\b'
+
+        results = bool(
+            re_search(
+                pattern,
+                message,
+                IGNORECASE))
+
+        self.hasme = results
+
+
+    def __set_whome(
+        self,
+        client: 'Client',
+    ) -> None:
+        """
+        Update the value for the attribute from class instance.
+
+        :param client: Class instance for connecting to service.
+        """
+
+        self.whome = client.nickname
