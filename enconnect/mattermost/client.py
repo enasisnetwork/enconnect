@@ -355,15 +355,17 @@ class Client:
         assert isinstance(fetch, dict)
 
         logger(
-            item='whoami',
+            item='whome',
             json=dumps(fetch))
 
         self.__mynick = (
-            fetch['username'],
+            (fetch['username']
+             .lstrip('@')),
             fetch['id'])
 
         self.__lsnick = (
-            fetch['username'],
+            (fetch['username']
+             .lstrip('@')),
             fetch['id'])
 
 
