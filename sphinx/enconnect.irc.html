@@ -309,53 +309,73 @@ is permitted, for more information consult the project license file.</p>
 </span><span id="line-67"><span class="w">         </span><span class="nt">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Isme"</span><span class="p">,</span>
 </span><span id="line-68"><span class="w">         </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"boolean"</span>
 </span><span id="line-69"><span class="w">      </span><span class="p">},</span>
-</span><span id="line-70"><span class="w">      </span><span class="nt">"author"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-</span><span id="line-71"><span class="w">         </span><span class="nt">"anyOf"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
-</span><span id="line-72"><span class="w">            </span><span class="p">{</span>
-</span><span id="line-73"><span class="w">               </span><span class="nt">"minLength"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span>
-</span><span id="line-74"><span class="w">               </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span>
-</span><span id="line-75"><span class="w">            </span><span class="p">},</span>
-</span><span id="line-76"><span class="w">            </span><span class="p">{</span>
-</span><span id="line-77"><span class="w">               </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"null"</span>
-</span><span id="line-78"><span class="w">            </span><span class="p">}</span>
-</span><span id="line-79"><span class="w">         </span><span class="p">],</span>
-</span><span id="line-80"><span class="w">         </span><span class="nt">"default"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span>
-</span><span id="line-81"><span class="w">         </span><span class="nt">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Dynamic field parsed from event"</span><span class="p">,</span>
-</span><span id="line-82"><span class="w">         </span><span class="nt">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Author"</span>
-</span><span id="line-83"><span class="w">      </span><span class="p">},</span>
-</span><span id="line-84"><span class="w">      </span><span class="nt">"recipient"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-</span><span id="line-85"><span class="w">         </span><span class="nt">"anyOf"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
-</span><span id="line-86"><span class="w">            </span><span class="p">{</span>
-</span><span id="line-87"><span class="w">               </span><span class="nt">"minLength"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span>
-</span><span id="line-88"><span class="w">               </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span>
-</span><span id="line-89"><span class="w">            </span><span class="p">},</span>
-</span><span id="line-90"><span class="w">            </span><span class="p">{</span>
-</span><span id="line-91"><span class="w">               </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"null"</span>
-</span><span id="line-92"><span class="w">            </span><span class="p">}</span>
-</span><span id="line-93"><span class="w">         </span><span class="p">],</span>
-</span><span id="line-94"><span class="w">         </span><span class="nt">"default"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span>
-</span><span id="line-95"><span class="w">         </span><span class="nt">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Dynamic field parsed from event"</span><span class="p">,</span>
-</span><span id="line-96"><span class="w">         </span><span class="nt">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Recipient"</span>
-</span><span id="line-97"><span class="w">      </span><span class="p">},</span>
-</span><span id="line-98"><span class="w">      </span><span class="nt">"message"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-</span><span id="line-99"><span class="w">         </span><span class="nt">"anyOf"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
-</span><span id="line-100"><span class="w">            </span><span class="p">{</span>
-</span><span id="line-101"><span class="w">               </span><span class="nt">"minLength"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span>
-</span><span id="line-102"><span class="w">               </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span>
-</span><span id="line-103"><span class="w">            </span><span class="p">},</span>
-</span><span id="line-104"><span class="w">            </span><span class="p">{</span>
-</span><span id="line-105"><span class="w">               </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"null"</span>
-</span><span id="line-106"><span class="w">            </span><span class="p">}</span>
-</span><span id="line-107"><span class="w">         </span><span class="p">],</span>
-</span><span id="line-108"><span class="w">         </span><span class="nt">"default"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span>
-</span><span id="line-109"><span class="w">         </span><span class="nt">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Dynamic field parsed from event"</span><span class="p">,</span>
-</span><span id="line-110"><span class="w">         </span><span class="nt">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Message"</span>
-</span><span id="line-111"><span class="w">      </span><span class="p">}</span>
-</span><span id="line-112"><span class="w">   </span><span class="p">},</span>
-</span><span id="line-113"><span class="w">   </span><span class="nt">"required"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
-</span><span id="line-114"><span class="w">      </span><span class="s2">"original"</span>
-</span><span id="line-115"><span class="w">   </span><span class="p">]</span>
-</span><span id="line-116"><span class="p">}</span>
+</span><span id="line-70"><span class="w">      </span><span class="nt">"hasme"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+</span><span id="line-71"><span class="w">         </span><span class="nt">"default"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span>
+</span><span id="line-72"><span class="w">         </span><span class="nt">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Indicates message mentions client"</span><span class="p">,</span>
+</span><span id="line-73"><span class="w">         </span><span class="nt">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Hasme"</span><span class="p">,</span>
+</span><span id="line-74"><span class="w">         </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"boolean"</span>
+</span><span id="line-75"><span class="w">      </span><span class="p">},</span>
+</span><span id="line-76"><span class="w">      </span><span class="nt">"whome"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+</span><span id="line-77"><span class="w">         </span><span class="nt">"anyOf"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+</span><span id="line-78"><span class="w">            </span><span class="p">{</span>
+</span><span id="line-79"><span class="w">               </span><span class="nt">"minLength"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span>
+</span><span id="line-80"><span class="w">               </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span>
+</span><span id="line-81"><span class="w">            </span><span class="p">},</span>
+</span><span id="line-82"><span class="w">            </span><span class="p">{</span>
+</span><span id="line-83"><span class="w">               </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"null"</span>
+</span><span id="line-84"><span class="w">            </span><span class="p">}</span>
+</span><span id="line-85"><span class="w">         </span><span class="p">],</span>
+</span><span id="line-86"><span class="w">         </span><span class="nt">"default"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span>
+</span><span id="line-87"><span class="w">         </span><span class="nt">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Current nickname of when received"</span><span class="p">,</span>
+</span><span id="line-88"><span class="w">         </span><span class="nt">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Whome"</span>
+</span><span id="line-89"><span class="w">      </span><span class="p">},</span>
+</span><span id="line-90"><span class="w">      </span><span class="nt">"author"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+</span><span id="line-91"><span class="w">         </span><span class="nt">"anyOf"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+</span><span id="line-92"><span class="w">            </span><span class="p">{</span>
+</span><span id="line-93"><span class="w">               </span><span class="nt">"minLength"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span>
+</span><span id="line-94"><span class="w">               </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span>
+</span><span id="line-95"><span class="w">            </span><span class="p">},</span>
+</span><span id="line-96"><span class="w">            </span><span class="p">{</span>
+</span><span id="line-97"><span class="w">               </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"null"</span>
+</span><span id="line-98"><span class="w">            </span><span class="p">}</span>
+</span><span id="line-99"><span class="w">         </span><span class="p">],</span>
+</span><span id="line-100"><span class="w">         </span><span class="nt">"default"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span>
+</span><span id="line-101"><span class="w">         </span><span class="nt">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Dynamic field parsed from event"</span><span class="p">,</span>
+</span><span id="line-102"><span class="w">         </span><span class="nt">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Author"</span>
+</span><span id="line-103"><span class="w">      </span><span class="p">},</span>
+</span><span id="line-104"><span class="w">      </span><span class="nt">"recipient"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+</span><span id="line-105"><span class="w">         </span><span class="nt">"anyOf"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+</span><span id="line-106"><span class="w">            </span><span class="p">{</span>
+</span><span id="line-107"><span class="w">               </span><span class="nt">"minLength"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span>
+</span><span id="line-108"><span class="w">               </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span>
+</span><span id="line-109"><span class="w">            </span><span class="p">},</span>
+</span><span id="line-110"><span class="w">            </span><span class="p">{</span>
+</span><span id="line-111"><span class="w">               </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"null"</span>
+</span><span id="line-112"><span class="w">            </span><span class="p">}</span>
+</span><span id="line-113"><span class="w">         </span><span class="p">],</span>
+</span><span id="line-114"><span class="w">         </span><span class="nt">"default"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span>
+</span><span id="line-115"><span class="w">         </span><span class="nt">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Dynamic field parsed from event"</span><span class="p">,</span>
+</span><span id="line-116"><span class="w">         </span><span class="nt">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Recipient"</span>
+</span><span id="line-117"><span class="w">      </span><span class="p">},</span>
+</span><span id="line-118"><span class="w">      </span><span class="nt">"message"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+</span><span id="line-119"><span class="w">         </span><span class="nt">"anyOf"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+</span><span id="line-120"><span class="w">            </span><span class="p">{</span>
+</span><span id="line-121"><span class="w">               </span><span class="nt">"minLength"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span>
+</span><span id="line-122"><span class="w">               </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span>
+</span><span id="line-123"><span class="w">            </span><span class="p">},</span>
+</span><span id="line-124"><span class="w">            </span><span class="p">{</span>
+</span><span id="line-125"><span class="w">               </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"null"</span>
+</span><span id="line-126"><span class="w">            </span><span class="p">}</span>
+</span><span id="line-127"><span class="w">         </span><span class="p">],</span>
+</span><span id="line-128"><span class="w">         </span><span class="nt">"default"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span>
+</span><span id="line-129"><span class="w">         </span><span class="nt">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Dynamic field parsed from event"</span><span class="p">,</span>
+</span><span id="line-130"><span class="w">         </span><span class="nt">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Message"</span>
+</span><span id="line-131"><span class="w">      </span><span class="p">}</span>
+</span><span id="line-132"><span class="w">   </span><span class="p">},</span>
+</span><span id="line-133"><span class="w">   </span><span class="nt">"required"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+</span><span id="line-134"><span class="w">      </span><span class="s2">"original"</span>
+</span><span id="line-135"><span class="w">   </span><span class="p">]</span>
+</span><span id="line-136"><span class="p">}</span>
 </span></code></pre></div>
 </div>
 </details></p><dl class="field-list simple">
@@ -368,6 +388,7 @@ is permitted, for more information consult the project license file.</p>
 <dd class="field-even"><ul class="simple">
 <li><p><a class="reference internal" href="#enconnect.irc.models.ClientEvent.author" title="enconnect.irc.models.ClientEvent.author"><code class="xref py py-obj docutils literal notranslate"><span class="pre">author</span> <span class="pre">(str</span> <span class="pre">|</span> <span class="pre">None)</span></code></a></p></li>
 <li><p><a class="reference internal" href="#enconnect.irc.models.ClientEvent.command" title="enconnect.irc.models.ClientEvent.command"><code class="xref py py-obj docutils literal notranslate"><span class="pre">command</span> <span class="pre">(str</span> <span class="pre">|</span> <span class="pre">None)</span></code></a></p></li>
+<li><p><a class="reference internal" href="#enconnect.irc.models.ClientEvent.hasme" title="enconnect.irc.models.ClientEvent.hasme"><code class="xref py py-obj docutils literal notranslate"><span class="pre">hasme</span> <span class="pre">(bool)</span></code></a></p></li>
 <li><p><a class="reference internal" href="#enconnect.irc.models.ClientEvent.isme" title="enconnect.irc.models.ClientEvent.isme"><code class="xref py py-obj docutils literal notranslate"><span class="pre">isme</span> <span class="pre">(bool)</span></code></a></p></li>
 <li><p><a class="reference internal" href="#enconnect.irc.models.ClientEvent.kind" title="enconnect.irc.models.ClientEvent.kind"><code class="xref py py-obj docutils literal notranslate"><span class="pre">kind</span> <span class="pre">(Literal['event',</span> <span class="pre">'chanmsg',</span> <span class="pre">'privmsg'])</span></code></a></p></li>
 <li><p><a class="reference internal" href="#enconnect.irc.models.ClientEvent.message" title="enconnect.irc.models.ClientEvent.message"><code class="xref py py-obj docutils literal notranslate"><span class="pre">message</span> <span class="pre">(str</span> <span class="pre">|</span> <span class="pre">None)</span></code></a></p></li>
@@ -375,6 +396,7 @@ is permitted, for more information consult the project license file.</p>
 <li><p><a class="reference internal" href="#enconnect.irc.models.ClientEvent.params" title="enconnect.irc.models.ClientEvent.params"><code class="xref py py-obj docutils literal notranslate"><span class="pre">params</span> <span class="pre">(str</span> <span class="pre">|</span> <span class="pre">None)</span></code></a></p></li>
 <li><p><a class="reference internal" href="#enconnect.irc.models.ClientEvent.prefix" title="enconnect.irc.models.ClientEvent.prefix"><code class="xref py py-obj docutils literal notranslate"><span class="pre">prefix</span> <span class="pre">(str</span> <span class="pre">|</span> <span class="pre">None)</span></code></a></p></li>
 <li><p><a class="reference internal" href="#enconnect.irc.models.ClientEvent.recipient" title="enconnect.irc.models.ClientEvent.recipient"><code class="xref py py-obj docutils literal notranslate"><span class="pre">recipient</span> <span class="pre">(str</span> <span class="pre">|</span> <span class="pre">None)</span></code></a></p></li>
+<li><p><a class="reference internal" href="#enconnect.irc.models.ClientEvent.whome" title="enconnect.irc.models.ClientEvent.whome"><code class="xref py py-obj docutils literal notranslate"><span class="pre">whome</span> <span class="pre">(str</span> <span class="pre">|</span> <span class="pre">None)</span></code></a></p></li>
 </ul>
 </dd>
 </dl>
@@ -401,6 +423,11 @@ is permitted, for more information consult the project license file.</p>
 </ul>
 </dd>
 </dl>
+</dd></dl>
+<dl class="py attribute pydantic_field">
+<dt class="sig sig-object py" id="enconnect.irc.models.ClientEvent.hasme">
+<em class="property"><span class="pre">field</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">hasme</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Annotated" title="(in Python v3.13)"><span class="pre">Annotated</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.13)"><span class="pre">bool</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">FieldInfo</span><span class="p"><span class="pre">(</span></span><span class="n"><span class="pre">annotation</span></span><span class="o"><span class="pre">=</span></span><span class="pre">NoneType</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="n"><span class="pre">required</span></span><span class="o"><span class="pre">=</span></span><span class="k"><span class="pre">False</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="n"><span class="pre">default</span></span><span class="o"><span class="pre">=</span></span><span class="k"><span class="pre">False</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="n"><span class="pre">description</span></span><span class="o"><span class="pre">=</span></span><span class="s"><span class="pre">'Indicates</span> <span class="pre">message</span> <span class="pre">mentions</span> <span class="pre">client'</span></span><span class="p"><span class="pre">)</span></span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">False</span></em><a class="headerlink" href="#enconnect.irc.models.ClientEvent.hasme" title="Link to this definition" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#enconnect.irc.models.ClientEvent.hasme'">¶</a></dt>
+<dd><p>Indicates message mentions client</p>
 </dd></dl>
 <dl class="py attribute pydantic_field">
 <dt class="sig sig-object py" id="enconnect.irc.models.ClientEvent.isme">
@@ -457,6 +484,18 @@ is permitted, for more information consult the project license file.</p>
 <dt class="sig sig-object py" id="enconnect.irc.models.ClientEvent.recipient">
 <em class="property"><span class="pre">field</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">recipient</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Annotated" title="(in Python v3.13)"><span class="pre">Annotated</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><span class="pre">str</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.13)"><span class="pre">None</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">FieldInfo</span><span class="p"><span class="pre">(</span></span><span class="n"><span class="pre">annotation</span></span><span class="o"><span class="pre">=</span></span><span class="pre">NoneType</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="n"><span class="pre">required</span></span><span class="o"><span class="pre">=</span></span><span class="k"><span class="pre">False</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="n"><span class="pre">default</span></span><span class="o"><span class="pre">=</span></span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.13)"><span class="pre">None</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="n"><span class="pre">description</span></span><span class="o"><span class="pre">=</span></span><span class="s"><span class="pre">'Dynamic</span> <span class="pre">field</span> <span class="pre">parsed</span> <span class="pre">from</span> <span class="pre">event'</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="n"><span class="pre">metadata</span></span><span class="o"><span class="pre">=</span></span><span class="p"><span class="pre">[</span></span><span class="pre">MinLen</span><span class="p"><span class="pre">(</span></span><span class="n"><span class="pre">min_length</span></span><span class="o"><span class="pre">=</span></span><span class="m"><span class="pre">1</span></span><span class="p"><span class="pre">)</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">)</span></span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#enconnect.irc.models.ClientEvent.recipient" title="Link to this definition" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#enconnect.irc.models.ClientEvent.recipient'">¶</a></dt>
 <dd><p>Dynamic field parsed from event</p>
+<dl class="field-list simple">
+<dt class="field-odd">Constraints<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>min_length</strong> = 1</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+<dl class="py attribute pydantic_field">
+<dt class="sig sig-object py" id="enconnect.irc.models.ClientEvent.whome">
+<em class="property"><span class="pre">field</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">whome</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Annotated" title="(in Python v3.13)"><span class="pre">Annotated</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><span class="pre">str</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.13)"><span class="pre">None</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">FieldInfo</span><span class="p"><span class="pre">(</span></span><span class="n"><span class="pre">annotation</span></span><span class="o"><span class="pre">=</span></span><span class="pre">NoneType</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="n"><span class="pre">required</span></span><span class="o"><span class="pre">=</span></span><span class="k"><span class="pre">False</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="n"><span class="pre">default</span></span><span class="o"><span class="pre">=</span></span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.13)"><span class="pre">None</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="n"><span class="pre">description</span></span><span class="o"><span class="pre">=</span></span><span class="s"><span class="pre">'Current</span> <span class="pre">nickname</span> <span class="pre">of</span> <span class="pre">when</span> <span class="pre">received'</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="n"><span class="pre">metadata</span></span><span class="o"><span class="pre">=</span></span><span class="p"><span class="pre">[</span></span><span class="pre">MinLen</span><span class="p"><span class="pre">(</span></span><span class="n"><span class="pre">min_length</span></span><span class="o"><span class="pre">=</span></span><span class="m"><span class="pre">1</span></span><span class="p"><span class="pre">)</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">)</span></span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#enconnect.irc.models.ClientEvent.whome" title="Link to this definition" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#enconnect.irc.models.ClientEvent.whome'">¶</a></dt>
+<dd><p>Current nickname of when received</p>
 <dl class="field-list simple">
 <dt class="field-odd">Constraints<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
@@ -932,53 +971,73 @@ buffer within the class after receiving more bytes.</p>
 </span><span id="line-67"><span class="w">         </span><span class="nt">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Isme"</span><span class="p">,</span>
 </span><span id="line-68"><span class="w">         </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"boolean"</span>
 </span><span id="line-69"><span class="w">      </span><span class="p">},</span>
-</span><span id="line-70"><span class="w">      </span><span class="nt">"author"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-</span><span id="line-71"><span class="w">         </span><span class="nt">"anyOf"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
-</span><span id="line-72"><span class="w">            </span><span class="p">{</span>
-</span><span id="line-73"><span class="w">               </span><span class="nt">"minLength"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span>
-</span><span id="line-74"><span class="w">               </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span>
-</span><span id="line-75"><span class="w">            </span><span class="p">},</span>
-</span><span id="line-76"><span class="w">            </span><span class="p">{</span>
-</span><span id="line-77"><span class="w">               </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"null"</span>
-</span><span id="line-78"><span class="w">            </span><span class="p">}</span>
-</span><span id="line-79"><span class="w">         </span><span class="p">],</span>
-</span><span id="line-80"><span class="w">         </span><span class="nt">"default"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span>
-</span><span id="line-81"><span class="w">         </span><span class="nt">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Dynamic field parsed from event"</span><span class="p">,</span>
-</span><span id="line-82"><span class="w">         </span><span class="nt">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Author"</span>
-</span><span id="line-83"><span class="w">      </span><span class="p">},</span>
-</span><span id="line-84"><span class="w">      </span><span class="nt">"recipient"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-</span><span id="line-85"><span class="w">         </span><span class="nt">"anyOf"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
-</span><span id="line-86"><span class="w">            </span><span class="p">{</span>
-</span><span id="line-87"><span class="w">               </span><span class="nt">"minLength"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span>
-</span><span id="line-88"><span class="w">               </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span>
-</span><span id="line-89"><span class="w">            </span><span class="p">},</span>
-</span><span id="line-90"><span class="w">            </span><span class="p">{</span>
-</span><span id="line-91"><span class="w">               </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"null"</span>
-</span><span id="line-92"><span class="w">            </span><span class="p">}</span>
-</span><span id="line-93"><span class="w">         </span><span class="p">],</span>
-</span><span id="line-94"><span class="w">         </span><span class="nt">"default"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span>
-</span><span id="line-95"><span class="w">         </span><span class="nt">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Dynamic field parsed from event"</span><span class="p">,</span>
-</span><span id="line-96"><span class="w">         </span><span class="nt">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Recipient"</span>
-</span><span id="line-97"><span class="w">      </span><span class="p">},</span>
-</span><span id="line-98"><span class="w">      </span><span class="nt">"message"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-</span><span id="line-99"><span class="w">         </span><span class="nt">"anyOf"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
-</span><span id="line-100"><span class="w">            </span><span class="p">{</span>
-</span><span id="line-101"><span class="w">               </span><span class="nt">"minLength"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span>
-</span><span id="line-102"><span class="w">               </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span>
-</span><span id="line-103"><span class="w">            </span><span class="p">},</span>
-</span><span id="line-104"><span class="w">            </span><span class="p">{</span>
-</span><span id="line-105"><span class="w">               </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"null"</span>
-</span><span id="line-106"><span class="w">            </span><span class="p">}</span>
-</span><span id="line-107"><span class="w">         </span><span class="p">],</span>
-</span><span id="line-108"><span class="w">         </span><span class="nt">"default"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span>
-</span><span id="line-109"><span class="w">         </span><span class="nt">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Dynamic field parsed from event"</span><span class="p">,</span>
-</span><span id="line-110"><span class="w">         </span><span class="nt">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Message"</span>
-</span><span id="line-111"><span class="w">      </span><span class="p">}</span>
-</span><span id="line-112"><span class="w">   </span><span class="p">},</span>
-</span><span id="line-113"><span class="w">   </span><span class="nt">"required"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
-</span><span id="line-114"><span class="w">      </span><span class="s2">"original"</span>
-</span><span id="line-115"><span class="w">   </span><span class="p">]</span>
-</span><span id="line-116"><span class="p">}</span>
+</span><span id="line-70"><span class="w">      </span><span class="nt">"hasme"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+</span><span id="line-71"><span class="w">         </span><span class="nt">"default"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span>
+</span><span id="line-72"><span class="w">         </span><span class="nt">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Indicates message mentions client"</span><span class="p">,</span>
+</span><span id="line-73"><span class="w">         </span><span class="nt">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Hasme"</span><span class="p">,</span>
+</span><span id="line-74"><span class="w">         </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"boolean"</span>
+</span><span id="line-75"><span class="w">      </span><span class="p">},</span>
+</span><span id="line-76"><span class="w">      </span><span class="nt">"whome"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+</span><span id="line-77"><span class="w">         </span><span class="nt">"anyOf"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+</span><span id="line-78"><span class="w">            </span><span class="p">{</span>
+</span><span id="line-79"><span class="w">               </span><span class="nt">"minLength"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span>
+</span><span id="line-80"><span class="w">               </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span>
+</span><span id="line-81"><span class="w">            </span><span class="p">},</span>
+</span><span id="line-82"><span class="w">            </span><span class="p">{</span>
+</span><span id="line-83"><span class="w">               </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"null"</span>
+</span><span id="line-84"><span class="w">            </span><span class="p">}</span>
+</span><span id="line-85"><span class="w">         </span><span class="p">],</span>
+</span><span id="line-86"><span class="w">         </span><span class="nt">"default"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span>
+</span><span id="line-87"><span class="w">         </span><span class="nt">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Current nickname of when received"</span><span class="p">,</span>
+</span><span id="line-88"><span class="w">         </span><span class="nt">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Whome"</span>
+</span><span id="line-89"><span class="w">      </span><span class="p">},</span>
+</span><span id="line-90"><span class="w">      </span><span class="nt">"author"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+</span><span id="line-91"><span class="w">         </span><span class="nt">"anyOf"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+</span><span id="line-92"><span class="w">            </span><span class="p">{</span>
+</span><span id="line-93"><span class="w">               </span><span class="nt">"minLength"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span>
+</span><span id="line-94"><span class="w">               </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span>
+</span><span id="line-95"><span class="w">            </span><span class="p">},</span>
+</span><span id="line-96"><span class="w">            </span><span class="p">{</span>
+</span><span id="line-97"><span class="w">               </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"null"</span>
+</span><span id="line-98"><span class="w">            </span><span class="p">}</span>
+</span><span id="line-99"><span class="w">         </span><span class="p">],</span>
+</span><span id="line-100"><span class="w">         </span><span class="nt">"default"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span>
+</span><span id="line-101"><span class="w">         </span><span class="nt">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Dynamic field parsed from event"</span><span class="p">,</span>
+</span><span id="line-102"><span class="w">         </span><span class="nt">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Author"</span>
+</span><span id="line-103"><span class="w">      </span><span class="p">},</span>
+</span><span id="line-104"><span class="w">      </span><span class="nt">"recipient"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+</span><span id="line-105"><span class="w">         </span><span class="nt">"anyOf"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+</span><span id="line-106"><span class="w">            </span><span class="p">{</span>
+</span><span id="line-107"><span class="w">               </span><span class="nt">"minLength"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span>
+</span><span id="line-108"><span class="w">               </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span>
+</span><span id="line-109"><span class="w">            </span><span class="p">},</span>
+</span><span id="line-110"><span class="w">            </span><span class="p">{</span>
+</span><span id="line-111"><span class="w">               </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"null"</span>
+</span><span id="line-112"><span class="w">            </span><span class="p">}</span>
+</span><span id="line-113"><span class="w">         </span><span class="p">],</span>
+</span><span id="line-114"><span class="w">         </span><span class="nt">"default"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span>
+</span><span id="line-115"><span class="w">         </span><span class="nt">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Dynamic field parsed from event"</span><span class="p">,</span>
+</span><span id="line-116"><span class="w">         </span><span class="nt">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Recipient"</span>
+</span><span id="line-117"><span class="w">      </span><span class="p">},</span>
+</span><span id="line-118"><span class="w">      </span><span class="nt">"message"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+</span><span id="line-119"><span class="w">         </span><span class="nt">"anyOf"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+</span><span id="line-120"><span class="w">            </span><span class="p">{</span>
+</span><span id="line-121"><span class="w">               </span><span class="nt">"minLength"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span>
+</span><span id="line-122"><span class="w">               </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span>
+</span><span id="line-123"><span class="w">            </span><span class="p">},</span>
+</span><span id="line-124"><span class="w">            </span><span class="p">{</span>
+</span><span id="line-125"><span class="w">               </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"null"</span>
+</span><span id="line-126"><span class="w">            </span><span class="p">}</span>
+</span><span id="line-127"><span class="w">         </span><span class="p">],</span>
+</span><span id="line-128"><span class="w">         </span><span class="nt">"default"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span>
+</span><span id="line-129"><span class="w">         </span><span class="nt">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Dynamic field parsed from event"</span><span class="p">,</span>
+</span><span id="line-130"><span class="w">         </span><span class="nt">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Message"</span>
+</span><span id="line-131"><span class="w">      </span><span class="p">}</span>
+</span><span id="line-132"><span class="w">   </span><span class="p">},</span>
+</span><span id="line-133"><span class="w">   </span><span class="nt">"required"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+</span><span id="line-134"><span class="w">      </span><span class="s2">"original"</span>
+</span><span id="line-135"><span class="w">   </span><span class="p">]</span>
+</span><span id="line-136"><span class="p">}</span>
 </span></code></pre></div>
 </div>
 </details></p><dl class="field-list simple">
@@ -991,6 +1050,7 @@ buffer within the class after receiving more bytes.</p>
 <dd class="field-even"><ul class="simple">
 <li><p><a class="reference internal" href="#enconnect.irc.models.ClientEvent.author" title="enconnect.irc.models.ClientEvent.author"><code class="xref py py-obj docutils literal notranslate"><span class="pre">author</span> <span class="pre">(Annotated[str</span> <span class="pre">|</span> <span class="pre">None,</span> <span class="pre">FieldInfo(annotation=NoneType,</span> <span class="pre">required=False,</span> <span class="pre">default=None,</span> <span class="pre">description='Dynamic</span> <span class="pre">field</span> <span class="pre">parsed</span> <span class="pre">from</span> <span class="pre">event',</span> <span class="pre">metadata=[MinLen(min_length=1)])])</span></code></a></p></li>
 <li><p><a class="reference internal" href="#enconnect.irc.models.ClientEvent.command" title="enconnect.irc.models.ClientEvent.command"><code class="xref py py-obj docutils literal notranslate"><span class="pre">command</span> <span class="pre">(Annotated[str</span> <span class="pre">|</span> <span class="pre">None,</span> <span class="pre">FieldInfo(annotation=NoneType,</span> <span class="pre">required=False,</span> <span class="pre">default=None,</span> <span class="pre">description='Code</span> <span class="pre">or</span> <span class="pre">command</span> <span class="pre">for</span> <span class="pre">the</span> <span class="pre">event',</span> <span class="pre">metadata=[MinLen(min_length=1)])])</span></code></a></p></li>
+<li><p><a class="reference internal" href="#enconnect.irc.models.ClientEvent.hasme" title="enconnect.irc.models.ClientEvent.hasme"><code class="xref py py-obj docutils literal notranslate"><span class="pre">hasme</span> <span class="pre">(Annotated[bool,</span> <span class="pre">FieldInfo(annotation=NoneType,</span> <span class="pre">required=False,</span> <span class="pre">default=False,</span> <span class="pre">description='Indicates</span> <span class="pre">message</span> <span class="pre">mentions</span> <span class="pre">client')])</span></code></a></p></li>
 <li><p><a class="reference internal" href="#enconnect.irc.models.ClientEvent.isme" title="enconnect.irc.models.ClientEvent.isme"><code class="xref py py-obj docutils literal notranslate"><span class="pre">isme</span> <span class="pre">(Annotated[bool,</span> <span class="pre">FieldInfo(annotation=NoneType,</span> <span class="pre">required=False,</span> <span class="pre">default=False,</span> <span class="pre">description='Indicates</span> <span class="pre">message</span> <span class="pre">is</span> <span class="pre">from</span> <span class="pre">client')])</span></code></a></p></li>
 <li><p><a class="reference internal" href="#enconnect.irc.models.ClientEvent.kind" title="enconnect.irc.models.ClientEvent.kind"><code class="xref py py-obj docutils literal notranslate"><span class="pre">kind</span> <span class="pre">(Annotated[Literal['event',</span> <span class="pre">'chanmsg',</span> <span class="pre">'privmsg'],</span> <span class="pre">FieldInfo(annotation=NoneType,</span> <span class="pre">required=False,</span> <span class="pre">default='event',</span> <span class="pre">description='Dynamic</span> <span class="pre">field</span> <span class="pre">parsed</span> <span class="pre">from</span> <span class="pre">event')])</span></code></a></p></li>
 <li><p><a class="reference internal" href="#enconnect.irc.models.ClientEvent.message" title="enconnect.irc.models.ClientEvent.message"><code class="xref py py-obj docutils literal notranslate"><span class="pre">message</span> <span class="pre">(Annotated[str</span> <span class="pre">|</span> <span class="pre">None,</span> <span class="pre">FieldInfo(annotation=NoneType,</span> <span class="pre">required=False,</span> <span class="pre">default=None,</span> <span class="pre">description='Dynamic</span> <span class="pre">field</span> <span class="pre">parsed</span> <span class="pre">from</span> <span class="pre">event',</span> <span class="pre">metadata=[MinLen(min_length=1)])])</span></code></a></p></li>
@@ -998,6 +1058,7 @@ buffer within the class after receiving more bytes.</p>
 <li><p><a class="reference internal" href="#enconnect.irc.models.ClientEvent.params" title="enconnect.irc.models.ClientEvent.params"><code class="xref py py-obj docutils literal notranslate"><span class="pre">params</span> <span class="pre">(Annotated[str</span> <span class="pre">|</span> <span class="pre">None,</span> <span class="pre">FieldInfo(annotation=NoneType,</span> <span class="pre">required=False,</span> <span class="pre">default=None,</span> <span class="pre">description='Event</span> <span class="pre">or</span> <span class="pre">command</span> <span class="pre">parameters')])</span></code></a></p></li>
 <li><p><a class="reference internal" href="#enconnect.irc.models.ClientEvent.prefix" title="enconnect.irc.models.ClientEvent.prefix"><code class="xref py py-obj docutils literal notranslate"><span class="pre">prefix</span> <span class="pre">(Annotated[str</span> <span class="pre">|</span> <span class="pre">None,</span> <span class="pre">FieldInfo(annotation=NoneType,</span> <span class="pre">required=False,</span> <span class="pre">default=None,</span> <span class="pre">description='Prefix</span> <span class="pre">or</span> <span class="pre">origin</span> <span class="pre">information',</span> <span class="pre">metadata=[MinLen(min_length=1)])])</span></code></a></p></li>
 <li><p><a class="reference internal" href="#enconnect.irc.models.ClientEvent.recipient" title="enconnect.irc.models.ClientEvent.recipient"><code class="xref py py-obj docutils literal notranslate"><span class="pre">recipient</span> <span class="pre">(Annotated[str</span> <span class="pre">|</span> <span class="pre">None,</span> <span class="pre">FieldInfo(annotation=NoneType,</span> <span class="pre">required=False,</span> <span class="pre">default=None,</span> <span class="pre">description='Dynamic</span> <span class="pre">field</span> <span class="pre">parsed</span> <span class="pre">from</span> <span class="pre">event',</span> <span class="pre">metadata=[MinLen(min_length=1)])])</span></code></a></p></li>
+<li><p><a class="reference internal" href="#enconnect.irc.models.ClientEvent.whome" title="enconnect.irc.models.ClientEvent.whome"><code class="xref py py-obj docutils literal notranslate"><span class="pre">whome</span> <span class="pre">(Annotated[str</span> <span class="pre">|</span> <span class="pre">None,</span> <span class="pre">FieldInfo(annotation=NoneType,</span> <span class="pre">required=False,</span> <span class="pre">default=None,</span> <span class="pre">description='Current</span> <span class="pre">nickname</span> <span class="pre">of</span> <span class="pre">when</span> <span class="pre">received',</span> <span class="pre">metadata=[MinLen(min_length=1)])])</span></code></a></p></li>
 </ul>
 </dd>
 </dl>
@@ -1024,6 +1085,11 @@ buffer within the class after receiving more bytes.</p>
 </ul>
 </dd>
 </dl>
+</dd></dl>
+<dl class="py attribute pydantic_field">
+<dt class="sig sig-object py" id="enconnect.irc.ClientEvent.hasme">
+<em class="property"><span class="pre">field</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">hasme</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Annotated" title="(in Python v3.13)"><span class="pre">Annotated</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.13)"><span class="pre">bool</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">FieldInfo</span><span class="p"><span class="pre">(</span></span><span class="n"><span class="pre">annotation</span></span><span class="o"><span class="pre">=</span></span><span class="pre">NoneType</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="n"><span class="pre">required</span></span><span class="o"><span class="pre">=</span></span><span class="k"><span class="pre">False</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="n"><span class="pre">default</span></span><span class="o"><span class="pre">=</span></span><span class="k"><span class="pre">False</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="n"><span class="pre">description</span></span><span class="o"><span class="pre">=</span></span><span class="s"><span class="pre">'Indicates</span> <span class="pre">message</span> <span class="pre">mentions</span> <span class="pre">client'</span></span><span class="p"><span class="pre">)</span></span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">False</span></em><a class="headerlink" href="#enconnect.irc.ClientEvent.hasme" title="Link to this definition" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#enconnect.irc.ClientEvent.hasme'">¶</a></dt>
+<dd><p>Indicates message mentions client</p>
 </dd></dl>
 <dl class="py attribute pydantic_field">
 <dt class="sig sig-object py" id="enconnect.irc.ClientEvent.isme">
@@ -1080,6 +1146,18 @@ buffer within the class after receiving more bytes.</p>
 <dt class="sig sig-object py" id="enconnect.irc.ClientEvent.recipient">
 <em class="property"><span class="pre">field</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">recipient</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Annotated" title="(in Python v3.13)"><span class="pre">Annotated</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><span class="pre">str</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.13)"><span class="pre">None</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">FieldInfo</span><span class="p"><span class="pre">(</span></span><span class="n"><span class="pre">annotation</span></span><span class="o"><span class="pre">=</span></span><span class="pre">NoneType</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="n"><span class="pre">required</span></span><span class="o"><span class="pre">=</span></span><span class="k"><span class="pre">False</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="n"><span class="pre">default</span></span><span class="o"><span class="pre">=</span></span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.13)"><span class="pre">None</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="n"><span class="pre">description</span></span><span class="o"><span class="pre">=</span></span><span class="s"><span class="pre">'Dynamic</span> <span class="pre">field</span> <span class="pre">parsed</span> <span class="pre">from</span> <span class="pre">event'</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="n"><span class="pre">metadata</span></span><span class="o"><span class="pre">=</span></span><span class="p"><span class="pre">[</span></span><span class="pre">MinLen</span><span class="p"><span class="pre">(</span></span><span class="n"><span class="pre">min_length</span></span><span class="o"><span class="pre">=</span></span><span class="m"><span class="pre">1</span></span><span class="p"><span class="pre">)</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">)</span></span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#enconnect.irc.ClientEvent.recipient" title="Link to this definition" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#enconnect.irc.ClientEvent.recipient'">¶</a></dt>
 <dd><p>Dynamic field parsed from event</p>
+<dl class="field-list simple">
+<dt class="field-odd">Constraints<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>min_length</strong> = 1</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+<dl class="py attribute pydantic_field">
+<dt class="sig sig-object py" id="enconnect.irc.ClientEvent.whome">
+<em class="property"><span class="pre">field</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">whome</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Annotated" title="(in Python v3.13)"><span class="pre">Annotated</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><span class="pre">str</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.13)"><span class="pre">None</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">FieldInfo</span><span class="p"><span class="pre">(</span></span><span class="n"><span class="pre">annotation</span></span><span class="o"><span class="pre">=</span></span><span class="pre">NoneType</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="n"><span class="pre">required</span></span><span class="o"><span class="pre">=</span></span><span class="k"><span class="pre">False</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="n"><span class="pre">default</span></span><span class="o"><span class="pre">=</span></span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.13)"><span class="pre">None</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="n"><span class="pre">description</span></span><span class="o"><span class="pre">=</span></span><span class="s"><span class="pre">'Current</span> <span class="pre">nickname</span> <span class="pre">of</span> <span class="pre">when</span> <span class="pre">received'</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="n"><span class="pre">metadata</span></span><span class="o"><span class="pre">=</span></span><span class="p"><span class="pre">[</span></span><span class="pre">MinLen</span><span class="p"><span class="pre">(</span></span><span class="n"><span class="pre">min_length</span></span><span class="o"><span class="pre">=</span></span><span class="m"><span class="pre">1</span></span><span class="p"><span class="pre">)</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">)</span></span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#enconnect.irc.ClientEvent.whome" title="Link to this definition" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#enconnect.irc.ClientEvent.whome'">¶</a></dt>
+<dd><p>Current nickname of when received</p>
 <dl class="field-list simple">
 <dt class="field-odd">Constraints<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
@@ -1398,6 +1476,7 @@ buffer within the class after receiving more bytes.</p>
 <li><a :data-current="activeSection === '#enconnect.irc.models.ClientEvent'" class="reference internal" href="#enconnect.irc.models.ClientEvent"><code class="docutils literal notranslate"><span class="pre">ClientEvent</span></code></a><ul>
 <li><a :data-current="activeSection === '#enconnect.irc.models.ClientEvent.author'" class="reference internal" href="#enconnect.irc.models.ClientEvent.author"><code class="docutils literal notranslate"><span class="pre">ClientEvent.author</span></code></a></li>
 <li><a :data-current="activeSection === '#enconnect.irc.models.ClientEvent.command'" class="reference internal" href="#enconnect.irc.models.ClientEvent.command"><code class="docutils literal notranslate"><span class="pre">ClientEvent.command</span></code></a></li>
+<li><a :data-current="activeSection === '#enconnect.irc.models.ClientEvent.hasme'" class="reference internal" href="#enconnect.irc.models.ClientEvent.hasme"><code class="docutils literal notranslate"><span class="pre">ClientEvent.hasme</span></code></a></li>
 <li><a :data-current="activeSection === '#enconnect.irc.models.ClientEvent.isme'" class="reference internal" href="#enconnect.irc.models.ClientEvent.isme"><code class="docutils literal notranslate"><span class="pre">ClientEvent.isme</span></code></a></li>
 <li><a :data-current="activeSection === '#enconnect.irc.models.ClientEvent.kind'" class="reference internal" href="#enconnect.irc.models.ClientEvent.kind"><code class="docutils literal notranslate"><span class="pre">ClientEvent.kind</span></code></a></li>
 <li><a :data-current="activeSection === '#enconnect.irc.models.ClientEvent.message'" class="reference internal" href="#enconnect.irc.models.ClientEvent.message"><code class="docutils literal notranslate"><span class="pre">ClientEvent.message</span></code></a></li>
@@ -1405,6 +1484,7 @@ buffer within the class after receiving more bytes.</p>
 <li><a :data-current="activeSection === '#enconnect.irc.models.ClientEvent.params'" class="reference internal" href="#enconnect.irc.models.ClientEvent.params"><code class="docutils literal notranslate"><span class="pre">ClientEvent.params</span></code></a></li>
 <li><a :data-current="activeSection === '#enconnect.irc.models.ClientEvent.prefix'" class="reference internal" href="#enconnect.irc.models.ClientEvent.prefix"><code class="docutils literal notranslate"><span class="pre">ClientEvent.prefix</span></code></a></li>
 <li><a :data-current="activeSection === '#enconnect.irc.models.ClientEvent.recipient'" class="reference internal" href="#enconnect.irc.models.ClientEvent.recipient"><code class="docutils literal notranslate"><span class="pre">ClientEvent.recipient</span></code></a></li>
+<li><a :data-current="activeSection === '#enconnect.irc.models.ClientEvent.whome'" class="reference internal" href="#enconnect.irc.models.ClientEvent.whome"><code class="docutils literal notranslate"><span class="pre">ClientEvent.whome</span></code></a></li>
 </ul>
 </li>
 </ul>
@@ -1444,6 +1524,7 @@ buffer within the class after receiving more bytes.</p>
 <li><a :data-current="activeSection === '#enconnect.irc.ClientEvent'" class="reference internal" href="#enconnect.irc.ClientEvent"><code class="docutils literal notranslate"><span class="pre">ClientEvent</span></code></a><ul>
 <li><a :data-current="activeSection === '#enconnect.irc.ClientEvent.author'" class="reference internal" href="#enconnect.irc.ClientEvent.author"><code class="docutils literal notranslate"><span class="pre">ClientEvent.author</span></code></a></li>
 <li><a :data-current="activeSection === '#enconnect.irc.ClientEvent.command'" class="reference internal" href="#enconnect.irc.ClientEvent.command"><code class="docutils literal notranslate"><span class="pre">ClientEvent.command</span></code></a></li>
+<li><a :data-current="activeSection === '#enconnect.irc.ClientEvent.hasme'" class="reference internal" href="#enconnect.irc.ClientEvent.hasme"><code class="docutils literal notranslate"><span class="pre">ClientEvent.hasme</span></code></a></li>
 <li><a :data-current="activeSection === '#enconnect.irc.ClientEvent.isme'" class="reference internal" href="#enconnect.irc.ClientEvent.isme"><code class="docutils literal notranslate"><span class="pre">ClientEvent.isme</span></code></a></li>
 <li><a :data-current="activeSection === '#enconnect.irc.ClientEvent.kind'" class="reference internal" href="#enconnect.irc.ClientEvent.kind"><code class="docutils literal notranslate"><span class="pre">ClientEvent.kind</span></code></a></li>
 <li><a :data-current="activeSection === '#enconnect.irc.ClientEvent.message'" class="reference internal" href="#enconnect.irc.ClientEvent.message"><code class="docutils literal notranslate"><span class="pre">ClientEvent.message</span></code></a></li>
@@ -1451,6 +1532,7 @@ buffer within the class after receiving more bytes.</p>
 <li><a :data-current="activeSection === '#enconnect.irc.ClientEvent.params'" class="reference internal" href="#enconnect.irc.ClientEvent.params"><code class="docutils literal notranslate"><span class="pre">ClientEvent.params</span></code></a></li>
 <li><a :data-current="activeSection === '#enconnect.irc.ClientEvent.prefix'" class="reference internal" href="#enconnect.irc.ClientEvent.prefix"><code class="docutils literal notranslate"><span class="pre">ClientEvent.prefix</span></code></a></li>
 <li><a :data-current="activeSection === '#enconnect.irc.ClientEvent.recipient'" class="reference internal" href="#enconnect.irc.ClientEvent.recipient"><code class="docutils literal notranslate"><span class="pre">ClientEvent.recipient</span></code></a></li>
+<li><a :data-current="activeSection === '#enconnect.irc.ClientEvent.whome'" class="reference internal" href="#enconnect.irc.ClientEvent.whome"><code class="docutils literal notranslate"><span class="pre">ClientEvent.whome</span></code></a></li>
 </ul>
 </li>
 <li><a :data-current="activeSection === '#enconnect.irc.ClientParams'" class="reference internal" href="#enconnect.irc.ClientParams"><code class="docutils literal notranslate"><span class="pre">ClientParams</span></code></a><ul>

@@ -506,165 +506,167 @@
 </span><span id="line-355">        <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">fetch</span><span class="p">,</span> <span class="nb">dict</span><span class="p">)</span>
 </span><span id="line-356">
 </span><span id="line-357">        <span class="n">logger</span><span class="p">(</span>
-</span><span id="line-358">            <span class="n">item</span><span class="o">=</span><span class="s1">&#39;whoami&#39;</span><span class="p">,</span>
+</span><span id="line-358">            <span class="n">item</span><span class="o">=</span><span class="s1">&#39;whome&#39;</span><span class="p">,</span>
 </span><span id="line-359">            <span class="n">json</span><span class="o">=</span><span class="n">dumps</span><span class="p">(</span><span class="n">fetch</span><span class="p">))</span>
 </span><span id="line-360">
 </span><span id="line-361">        <span class="bp">self</span><span class="o">.</span><span class="n">__mynick</span> <span class="o">=</span> <span class="p">(</span>
-</span><span id="line-362">            <span class="n">fetch</span><span class="p">[</span><span class="s1">&#39;username&#39;</span><span class="p">],</span>
-</span><span id="line-363">            <span class="n">fetch</span><span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">])</span>
-</span><span id="line-364">
-</span><span id="line-365">        <span class="bp">self</span><span class="o">.</span><span class="n">__lsnick</span> <span class="o">=</span> <span class="p">(</span>
-</span><span id="line-366">            <span class="n">fetch</span><span class="p">[</span><span class="s1">&#39;username&#39;</span><span class="p">],</span>
-</span><span id="line-367">            <span class="n">fetch</span><span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">])</span>
-</span><span id="line-368">
-</span><span id="line-369">
+</span><span id="line-362">            <span class="p">(</span><span class="n">fetch</span><span class="p">[</span><span class="s1">&#39;username&#39;</span><span class="p">]</span>
+</span><span id="line-363">             <span class="o">.</span><span class="n">lstrip</span><span class="p">(</span><span class="s1">&#39;@&#39;</span><span class="p">)),</span>
+</span><span id="line-364">            <span class="n">fetch</span><span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">])</span>
+</span><span id="line-365">
+</span><span id="line-366">        <span class="bp">self</span><span class="o">.</span><span class="n">__lsnick</span> <span class="o">=</span> <span class="p">(</span>
+</span><span id="line-367">            <span class="p">(</span><span class="n">fetch</span><span class="p">[</span><span class="s1">&#39;username&#39;</span><span class="p">]</span>
+</span><span id="line-368">             <span class="o">.</span><span class="n">lstrip</span><span class="p">(</span><span class="s1">&#39;@&#39;</span><span class="p">)),</span>
+</span><span id="line-369">            <span class="n">fetch</span><span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">])</span>
+</span><span id="line-370">
+</span><span id="line-371">
 <div class="viewcode-block" id="Client.socket_send">
 <a class="viewcode-back" href="../../../index.html#enconnect.mattermost.client.Client.socket_send">[docs]</a>
-</span><span id="line-370">    <span class="k">def</span><span class="w"> </span><span class="nf">socket_send</span><span class="p">(</span>
-</span><span id="line-371">        <span class="bp">self</span><span class="p">,</span>
-</span><span id="line-372">        <span class="n">send</span><span class="p">:</span> <span class="n">DictStrAny</span><span class="p">,</span>
-</span><span id="line-373">    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-</span><span id="line-374"><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-</span><span id="line-375"><span class="sd">        Transmit provided content through the socket connection.</span>
-</span><span id="line-376">
-</span><span id="line-377"><span class="sd">        :param send: Content which will be sent through socket.</span>
-</span><span id="line-378"><span class="sd">        &quot;&quot;&quot;</span>
-</span><span id="line-379">
-</span><span id="line-380">        <span class="n">logger</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__logger</span>
-</span><span id="line-381">        <span class="n">exited</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__exited</span>
-</span><span id="line-382">        <span class="n">socket</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__socket</span>
-</span><span id="line-383">
-</span><span id="line-384">        <span class="k">if</span> <span class="n">socket</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-</span><span id="line-385">            <span class="k">return</span> <span class="n">NCNone</span>
-</span><span id="line-386">
-</span><span id="line-387">        <span class="n">transmit</span> <span class="o">=</span> <span class="n">dumps</span><span class="p">(</span><span class="n">send</span><span class="p">)</span>
+</span><span id="line-372">    <span class="k">def</span><span class="w"> </span><span class="nf">socket_send</span><span class="p">(</span>
+</span><span id="line-373">        <span class="bp">self</span><span class="p">,</span>
+</span><span id="line-374">        <span class="n">send</span><span class="p">:</span> <span class="n">DictStrAny</span><span class="p">,</span>
+</span><span id="line-375">    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+</span><span id="line-376"><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="line-377"><span class="sd">        Transmit provided content through the socket connection.</span>
+</span><span id="line-378">
+</span><span id="line-379"><span class="sd">        :param send: Content which will be sent through socket.</span>
+</span><span id="line-380"><span class="sd">        &quot;&quot;&quot;</span>
+</span><span id="line-381">
+</span><span id="line-382">        <span class="n">logger</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__logger</span>
+</span><span id="line-383">        <span class="n">exited</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__exited</span>
+</span><span id="line-384">        <span class="n">socket</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__socket</span>
+</span><span id="line-385">
+</span><span id="line-386">        <span class="k">if</span> <span class="n">socket</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+</span><span id="line-387">            <span class="k">return</span> <span class="n">NCNone</span>
 </span><span id="line-388">
-</span><span id="line-389">        <span class="n">logger</span><span class="p">(</span>
-</span><span id="line-390">            <span class="n">item</span><span class="o">=</span><span class="s1">&#39;transmit&#39;</span><span class="p">,</span>
-</span><span id="line-391">            <span class="n">value</span><span class="o">=</span><span class="n">transmit</span><span class="p">)</span>
-</span><span id="line-392">
-</span><span id="line-393">        <span class="k">try</span><span class="p">:</span>
-</span><span id="line-394">            <span class="n">socket</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="n">transmit</span><span class="p">)</span>
-</span><span id="line-395">
-</span><span id="line-396">        <span class="k">except</span> <span class="n">ConnectionClosedOK</span><span class="p">:</span>
-</span><span id="line-397">            <span class="n">exited</span><span class="o">.</span><span class="n">set</span><span class="p">()</span>
-</span><span id="line-398">            <span class="k">return</span> <span class="kc">None</span></div>
+</span><span id="line-389">        <span class="n">transmit</span> <span class="o">=</span> <span class="n">dumps</span><span class="p">(</span><span class="n">send</span><span class="p">)</span>
+</span><span id="line-390">
+</span><span id="line-391">        <span class="n">logger</span><span class="p">(</span>
+</span><span id="line-392">            <span class="n">item</span><span class="o">=</span><span class="s1">&#39;transmit&#39;</span><span class="p">,</span>
+</span><span id="line-393">            <span class="n">value</span><span class="o">=</span><span class="n">transmit</span><span class="p">)</span>
+</span><span id="line-394">
+</span><span id="line-395">        <span class="k">try</span><span class="p">:</span>
+</span><span id="line-396">            <span class="n">socket</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="n">transmit</span><span class="p">)</span>
+</span><span id="line-397">
+</span><span id="line-398">        <span class="k">except</span> <span class="n">ConnectionClosedOK</span><span class="p">:</span>
+</span><span id="line-399">            <span class="n">exited</span><span class="o">.</span><span class="n">set</span><span class="p">()</span>
+</span><span id="line-400">            <span class="k">return</span> <span class="kc">None</span></div>
 
-</span><span id="line-399">
-</span><span id="line-400">
+</span><span id="line-401">
+</span><span id="line-402">
 <div class="viewcode-block" id="Client.socket_recv">
 <a class="viewcode-back" href="../../../index.html#enconnect.mattermost.client.Client.socket_recv">[docs]</a>
-</span><span id="line-401">    <span class="k">def</span><span class="w"> </span><span class="nf">socket_recv</span><span class="p">(</span>  <span class="c1"># noqa: CFQ004</span>
-</span><span id="line-402">        <span class="bp">self</span><span class="p">,</span>
-</span><span id="line-403">    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">DictStrAny</span><span class="p">]:</span>
-</span><span id="line-404"><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-</span><span id="line-405"><span class="sd">        Return the content received from the socket connection.</span>
-</span><span id="line-406">
-</span><span id="line-407"><span class="sd">        :returns: Content received from the socket connection.</span>
-</span><span id="line-408"><span class="sd">        &quot;&quot;&quot;</span>
-</span><span id="line-409">
-</span><span id="line-410">        <span class="n">logger</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__logger</span>
-</span><span id="line-411">        <span class="n">exited</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__exited</span>
-</span><span id="line-412">        <span class="n">socket</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__socket</span>
-</span><span id="line-413">
-</span><span id="line-414">        <span class="k">if</span> <span class="n">socket</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-</span><span id="line-415">            <span class="k">return</span> <span class="n">NCNone</span>
-</span><span id="line-416">
-</span><span id="line-417">
-</span><span id="line-418">        <span class="k">try</span><span class="p">:</span>
+</span><span id="line-403">    <span class="k">def</span><span class="w"> </span><span class="nf">socket_recv</span><span class="p">(</span>  <span class="c1"># noqa: CFQ004</span>
+</span><span id="line-404">        <span class="bp">self</span><span class="p">,</span>
+</span><span id="line-405">    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">DictStrAny</span><span class="p">]:</span>
+</span><span id="line-406"><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="line-407"><span class="sd">        Return the content received from the socket connection.</span>
+</span><span id="line-408">
+</span><span id="line-409"><span class="sd">        :returns: Content received from the socket connection.</span>
+</span><span id="line-410"><span class="sd">        &quot;&quot;&quot;</span>
+</span><span id="line-411">
+</span><span id="line-412">        <span class="n">logger</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__logger</span>
+</span><span id="line-413">        <span class="n">exited</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__exited</span>
+</span><span id="line-414">        <span class="n">socket</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__socket</span>
+</span><span id="line-415">
+</span><span id="line-416">        <span class="k">if</span> <span class="n">socket</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+</span><span id="line-417">            <span class="k">return</span> <span class="n">NCNone</span>
+</span><span id="line-418">
 </span><span id="line-419">
-</span><span id="line-420">            <span class="n">recv</span> <span class="o">=</span> <span class="n">socket</span><span class="o">.</span><span class="n">recv</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+</span><span id="line-420">        <span class="k">try</span><span class="p">:</span>
 </span><span id="line-421">
-</span><span id="line-422">            <span class="n">logger</span><span class="p">(</span>
-</span><span id="line-423">                <span class="n">item</span><span class="o">=</span><span class="s1">&#39;receive&#39;</span><span class="p">,</span>
-</span><span id="line-424">                <span class="n">value</span><span class="o">=</span><span class="n">recv</span><span class="p">)</span>
-</span><span id="line-425">
-</span><span id="line-426">        <span class="k">except</span> <span class="ne">TimeoutError</span><span class="p">:</span>
-</span><span id="line-427">            <span class="k">return</span> <span class="kc">None</span>
-</span><span id="line-428">
-</span><span id="line-429">        <span class="k">except</span> <span class="n">ConnectionClosedOK</span><span class="p">:</span>
-</span><span id="line-430">            <span class="n">exited</span><span class="o">.</span><span class="n">set</span><span class="p">()</span>
-</span><span id="line-431">            <span class="k">return</span> <span class="kc">None</span>
-</span><span id="line-432">
-</span><span id="line-433">
-</span><span id="line-434">        <span class="n">event</span> <span class="o">=</span> <span class="n">loads</span><span class="p">(</span><span class="n">recv</span><span class="p">)</span>
+</span><span id="line-422">            <span class="n">recv</span> <span class="o">=</span> <span class="n">socket</span><span class="o">.</span><span class="n">recv</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+</span><span id="line-423">
+</span><span id="line-424">            <span class="n">logger</span><span class="p">(</span>
+</span><span id="line-425">                <span class="n">item</span><span class="o">=</span><span class="s1">&#39;receive&#39;</span><span class="p">,</span>
+</span><span id="line-426">                <span class="n">value</span><span class="o">=</span><span class="n">recv</span><span class="p">)</span>
+</span><span id="line-427">
+</span><span id="line-428">        <span class="k">except</span> <span class="ne">TimeoutError</span><span class="p">:</span>
+</span><span id="line-429">            <span class="k">return</span> <span class="kc">None</span>
+</span><span id="line-430">
+</span><span id="line-431">        <span class="k">except</span> <span class="n">ConnectionClosedOK</span><span class="p">:</span>
+</span><span id="line-432">            <span class="n">exited</span><span class="o">.</span><span class="n">set</span><span class="p">()</span>
+</span><span id="line-433">            <span class="k">return</span> <span class="kc">None</span>
+</span><span id="line-434">
 </span><span id="line-435">
-</span><span id="line-436">        <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">event</span><span class="p">,</span> <span class="nb">dict</span><span class="p">)</span>
+</span><span id="line-436">        <span class="n">event</span> <span class="o">=</span> <span class="n">loads</span><span class="p">(</span><span class="n">recv</span><span class="p">)</span>
 </span><span id="line-437">
-</span><span id="line-438">        <span class="nb">type</span> <span class="o">=</span> <span class="n">event</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;event&#39;</span><span class="p">)</span>
+</span><span id="line-438">        <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">event</span><span class="p">,</span> <span class="nb">dict</span><span class="p">)</span>
 </span><span id="line-439">
-</span><span id="line-440">        <span class="k">if</span> <span class="nb">type</span> <span class="o">==</span> <span class="s1">&#39;discon&#39;</span><span class="p">:</span>
-</span><span id="line-441">            <span class="n">exited</span><span class="o">.</span><span class="n">set</span><span class="p">()</span>
-</span><span id="line-442">
-</span><span id="line-443">        <span class="k">return</span> <span class="n">sort_dict</span><span class="p">(</span><span class="n">event</span><span class="p">)</span></div>
-
+</span><span id="line-440">        <span class="nb">type</span> <span class="o">=</span> <span class="n">event</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;event&#39;</span><span class="p">)</span>
+</span><span id="line-441">
+</span><span id="line-442">        <span class="k">if</span> <span class="nb">type</span> <span class="o">==</span> <span class="s1">&#39;discon&#39;</span><span class="p">:</span>
+</span><span id="line-443">            <span class="n">exited</span><span class="o">.</span><span class="n">set</span><span class="p">()</span>
 </span><span id="line-444">
-</span><span id="line-445">
+</span><span id="line-445">        <span class="k">return</span> <span class="n">sort_dict</span><span class="p">(</span><span class="n">event</span><span class="p">)</span></div>
+
+</span><span id="line-446">
+</span><span id="line-447">
 <div class="viewcode-block" id="Client.request">
 <a class="viewcode-back" href="../../../index.html#enconnect.mattermost.client.Client.request">[docs]</a>
-</span><span id="line-446">    <span class="k">def</span><span class="w"> </span><span class="nf">request</span><span class="p">(</span>
-</span><span id="line-447">        <span class="bp">self</span><span class="p">,</span>
-</span><span id="line-448">        <span class="n">method</span><span class="p">:</span> <span class="n">_METHODS</span><span class="p">,</span>
-</span><span id="line-449">        <span class="n">path</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
-</span><span id="line-450">        <span class="n">params</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">_PAYLOAD</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-</span><span id="line-451">        <span class="n">json</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">_PAYLOAD</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-</span><span id="line-452">        <span class="o">*</span><span class="p">,</span>
-</span><span id="line-453">        <span class="n">timeout</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-</span><span id="line-454">    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Response</span><span class="p">:</span>
-</span><span id="line-455"><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-</span><span id="line-456"><span class="sd">        Return the response for upstream request to the server.</span>
-</span><span id="line-457">
-</span><span id="line-458"><span class="sd">        :param method: Method for operation with the API server.</span>
-</span><span id="line-459"><span class="sd">        :param path: Path for the location to upstream endpoint.</span>
-</span><span id="line-460"><span class="sd">        :param params: Optional parameters included in request.</span>
-</span><span id="line-461"><span class="sd">        :param json: Optional JSON payload included in request.</span>
-</span><span id="line-462"><span class="sd">        :param timeout: Timeout waiting for the server response.</span>
-</span><span id="line-463"><span class="sd">            This will override the default client instantiated.</span>
-</span><span id="line-464"><span class="sd">        :returns: Response from upstream request to the server.</span>
-</span><span id="line-465"><span class="sd">        &quot;&quot;&quot;</span>
-</span><span id="line-466">
-</span><span id="line-467">        <span class="n">params</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">params</span> <span class="ow">or</span> <span class="p">{})</span>
-</span><span id="line-468">        <span class="n">json</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">json</span> <span class="ow">or</span> <span class="p">{})</span>
-</span><span id="line-469">
-</span><span id="line-470">        <span class="n">logger</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__logger</span>
-</span><span id="line-471">        <span class="n">client</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__client</span>
-</span><span id="line-472">
-</span><span id="line-473">        <span class="n">_params</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__params</span>
-</span><span id="line-474">        <span class="n">server</span> <span class="o">=</span> <span class="n">_params</span><span class="o">.</span><span class="n">server</span>
-</span><span id="line-475">        <span class="n">port</span> <span class="o">=</span> <span class="n">_params</span><span class="o">.</span><span class="n">port</span>
-</span><span id="line-476">        <span class="n">token</span> <span class="o">=</span> <span class="n">_params</span><span class="o">.</span><span class="n">token</span>
-</span><span id="line-477">
-</span><span id="line-478">        <span class="n">address</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">server</span><span class="si">}</span><span class="s1">:</span><span class="si">{</span><span class="n">port</span><span class="si">}</span><span class="s1">&#39;</span>
-</span><span id="line-479">        <span class="n">tokey</span> <span class="o">=</span> <span class="s1">&#39;Authorization&#39;</span>
-</span><span id="line-480">        <span class="n">content</span> <span class="o">=</span> <span class="s1">&#39;application/json&#39;</span>
-</span><span id="line-481">
-</span><span id="line-482">        <span class="n">headers</span> <span class="o">=</span> <span class="p">{</span>
-</span><span id="line-483">            <span class="n">tokey</span><span class="p">:</span> <span class="sa">f</span><span class="s1">&#39;Bearer </span><span class="si">{</span><span class="n">token</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">,</span>
-</span><span id="line-484">            <span class="s1">&#39;Content-Type&#39;</span><span class="p">:</span> <span class="n">content</span><span class="p">}</span>
-</span><span id="line-485">
-</span><span id="line-486">        <span class="n">location</span> <span class="o">=</span> <span class="p">(</span>
-</span><span id="line-487">            <span class="sa">f</span><span class="s1">&#39;https://</span><span class="si">{</span><span class="n">address</span><span class="si">}</span><span class="s1">&#39;</span>
-</span><span id="line-488">            <span class="sa">f</span><span class="s1">&#39;/api/v4/</span><span class="si">{</span><span class="n">path</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
-</span><span id="line-489">
-</span><span id="line-490">        <span class="n">request</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">request_block</span>
+</span><span id="line-448">    <span class="k">def</span><span class="w"> </span><span class="nf">request</span><span class="p">(</span>
+</span><span id="line-449">        <span class="bp">self</span><span class="p">,</span>
+</span><span id="line-450">        <span class="n">method</span><span class="p">:</span> <span class="n">_METHODS</span><span class="p">,</span>
+</span><span id="line-451">        <span class="n">path</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+</span><span id="line-452">        <span class="n">params</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">_PAYLOAD</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+</span><span id="line-453">        <span class="n">json</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">_PAYLOAD</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+</span><span id="line-454">        <span class="o">*</span><span class="p">,</span>
+</span><span id="line-455">        <span class="n">timeout</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+</span><span id="line-456">    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Response</span><span class="p">:</span>
+</span><span id="line-457"><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="line-458"><span class="sd">        Return the response for upstream request to the server.</span>
+</span><span id="line-459">
+</span><span id="line-460"><span class="sd">        :param method: Method for operation with the API server.</span>
+</span><span id="line-461"><span class="sd">        :param path: Path for the location to upstream endpoint.</span>
+</span><span id="line-462"><span class="sd">        :param params: Optional parameters included in request.</span>
+</span><span id="line-463"><span class="sd">        :param json: Optional JSON payload included in request.</span>
+</span><span id="line-464"><span class="sd">        :param timeout: Timeout waiting for the server response.</span>
+</span><span id="line-465"><span class="sd">            This will override the default client instantiated.</span>
+</span><span id="line-466"><span class="sd">        :returns: Response from upstream request to the server.</span>
+</span><span id="line-467"><span class="sd">        &quot;&quot;&quot;</span>
+</span><span id="line-468">
+</span><span id="line-469">        <span class="n">params</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">params</span> <span class="ow">or</span> <span class="p">{})</span>
+</span><span id="line-470">        <span class="n">json</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">json</span> <span class="ow">or</span> <span class="p">{})</span>
+</span><span id="line-471">
+</span><span id="line-472">        <span class="n">logger</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__logger</span>
+</span><span id="line-473">        <span class="n">client</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__client</span>
+</span><span id="line-474">
+</span><span id="line-475">        <span class="n">_params</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__params</span>
+</span><span id="line-476">        <span class="n">server</span> <span class="o">=</span> <span class="n">_params</span><span class="o">.</span><span class="n">server</span>
+</span><span id="line-477">        <span class="n">port</span> <span class="o">=</span> <span class="n">_params</span><span class="o">.</span><span class="n">port</span>
+</span><span id="line-478">        <span class="n">token</span> <span class="o">=</span> <span class="n">_params</span><span class="o">.</span><span class="n">token</span>
+</span><span id="line-479">
+</span><span id="line-480">        <span class="n">address</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">server</span><span class="si">}</span><span class="s1">:</span><span class="si">{</span><span class="n">port</span><span class="si">}</span><span class="s1">&#39;</span>
+</span><span id="line-481">        <span class="n">tokey</span> <span class="o">=</span> <span class="s1">&#39;Authorization&#39;</span>
+</span><span id="line-482">        <span class="n">content</span> <span class="o">=</span> <span class="s1">&#39;application/json&#39;</span>
+</span><span id="line-483">
+</span><span id="line-484">        <span class="n">headers</span> <span class="o">=</span> <span class="p">{</span>
+</span><span id="line-485">            <span class="n">tokey</span><span class="p">:</span> <span class="sa">f</span><span class="s1">&#39;Bearer </span><span class="si">{</span><span class="n">token</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">,</span>
+</span><span id="line-486">            <span class="s1">&#39;Content-Type&#39;</span><span class="p">:</span> <span class="n">content</span><span class="p">}</span>
+</span><span id="line-487">
+</span><span id="line-488">        <span class="n">location</span> <span class="o">=</span> <span class="p">(</span>
+</span><span id="line-489">            <span class="sa">f</span><span class="s1">&#39;https://</span><span class="si">{</span><span class="n">address</span><span class="si">}</span><span class="s1">&#39;</span>
+</span><span id="line-490">            <span class="sa">f</span><span class="s1">&#39;/api/v4/</span><span class="si">{</span><span class="n">path</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
 </span><span id="line-491">
-</span><span id="line-492">        <span class="n">logger</span><span class="p">(</span>
-</span><span id="line-493">            <span class="n">item</span><span class="o">=</span><span class="s1">&#39;request&#39;</span><span class="p">,</span>
-</span><span id="line-494">            <span class="n">method</span><span class="o">=</span><span class="n">method</span><span class="p">,</span>
-</span><span id="line-495">            <span class="n">path</span><span class="o">=</span><span class="n">path</span><span class="p">,</span>
-</span><span id="line-496">            <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">,</span>
-</span><span id="line-497">            <span class="n">json</span><span class="o">=</span><span class="p">(</span>
-</span><span id="line-498">                <span class="n">dumps</span><span class="p">(</span><span class="n">json</span><span class="p">)</span>
-</span><span id="line-499">                <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">json</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="mi">1</span>
-</span><span id="line-500">                <span class="k">else</span> <span class="kc">None</span><span class="p">))</span>
-</span><span id="line-501">
-</span><span id="line-502">        <span class="k">return</span> <span class="n">request</span><span class="p">(</span>
-</span><span id="line-503">            <span class="n">method</span><span class="o">=</span><span class="n">method</span><span class="p">,</span>
-</span><span id="line-504">            <span class="n">location</span><span class="o">=</span><span class="n">location</span><span class="p">,</span>
-</span><span id="line-505">            <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">,</span>
-</span><span id="line-506">            <span class="n">headers</span><span class="o">=</span><span class="n">headers</span><span class="p">,</span>
-</span><span id="line-507">            <span class="n">json</span><span class="o">=</span><span class="n">json</span><span class="p">,</span>
-</span><span id="line-508">            <span class="n">timeout</span><span class="o">=</span><span class="n">timeout</span><span class="p">)</span></div>
+</span><span id="line-492">        <span class="n">request</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">request_block</span>
+</span><span id="line-493">
+</span><span id="line-494">        <span class="n">logger</span><span class="p">(</span>
+</span><span id="line-495">            <span class="n">item</span><span class="o">=</span><span class="s1">&#39;request&#39;</span><span class="p">,</span>
+</span><span id="line-496">            <span class="n">method</span><span class="o">=</span><span class="n">method</span><span class="p">,</span>
+</span><span id="line-497">            <span class="n">path</span><span class="o">=</span><span class="n">path</span><span class="p">,</span>
+</span><span id="line-498">            <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">,</span>
+</span><span id="line-499">            <span class="n">json</span><span class="o">=</span><span class="p">(</span>
+</span><span id="line-500">                <span class="n">dumps</span><span class="p">(</span><span class="n">json</span><span class="p">)</span>
+</span><span id="line-501">                <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">json</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="mi">1</span>
+</span><span id="line-502">                <span class="k">else</span> <span class="kc">None</span><span class="p">))</span>
+</span><span id="line-503">
+</span><span id="line-504">        <span class="k">return</span> <span class="n">request</span><span class="p">(</span>
+</span><span id="line-505">            <span class="n">method</span><span class="o">=</span><span class="n">method</span><span class="p">,</span>
+</span><span id="line-506">            <span class="n">location</span><span class="o">=</span><span class="n">location</span><span class="p">,</span>
+</span><span id="line-507">            <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">,</span>
+</span><span id="line-508">            <span class="n">headers</span><span class="o">=</span><span class="n">headers</span><span class="p">,</span>
+</span><span id="line-509">            <span class="n">json</span><span class="o">=</span><span class="n">json</span><span class="p">,</span>
+</span><span id="line-510">            <span class="n">timeout</span><span class="o">=</span><span class="n">timeout</span><span class="p">)</span></div>
 </div>
 
 </span></code></pre></div>
