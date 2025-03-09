@@ -308,8 +308,13 @@ class ClientEvent(BaseModel, extra='ignore'):
         if message is None:
             return None
 
-        needle = re_escape(mynick[0])
-        pattern = rf'\b@?{needle}\b'
+        needle = (
+            re_escape(mynick[0]),
+            re_escape(mynick[1]))
+
+        pattern = (
+            rf'\b({needle[0]})'
+            rf'|({needle[1]})\b')
 
         mentions = [
             x['id'] for x in
