@@ -453,36 +453,41 @@
 </span><span id="line-308">        <span class="k">if</span> <span class="n">message</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
 </span><span id="line-309">            <span class="k">return</span> <span class="kc">None</span>
 </span><span id="line-310">
-</span><span id="line-311">        <span class="n">needle</span> <span class="o">=</span> <span class="n">re_escape</span><span class="p">(</span><span class="n">mynick</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
-</span><span id="line-312">        <span class="n">pattern</span> <span class="o">=</span> <span class="sa">rf</span><span class="s1">&#39;\b@?</span><span class="si">{</span><span class="n">needle</span><span class="si">}</span><span class="s1">\b&#39;</span>
-</span><span id="line-313">
-</span><span id="line-314">        <span class="n">mentions</span> <span class="o">=</span> <span class="p">[</span>
-</span><span id="line-315">            <span class="n">x</span><span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">]</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span>
-</span><span id="line-316">            <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">original</span>
-</span><span id="line-317">             <span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;mentions&#39;</span><span class="p">,</span> <span class="p">{})</span>
-</span><span id="line-318">             <span class="o">.</span><span class="n">values</span><span class="p">())]</span>
-</span><span id="line-319">
-</span><span id="line-320">        <span class="bp">self</span><span class="o">.</span><span class="n">hasme</span> <span class="o">=</span> <span class="nb">any</span><span class="p">([</span>
-</span><span id="line-321">
-</span><span id="line-322">            <span class="n">mynick</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="ow">in</span> <span class="n">mentions</span><span class="p">,</span>
-</span><span id="line-323">
-</span><span id="line-324">            <span class="n">re_search</span><span class="p">(</span>
-</span><span id="line-325">                <span class="n">pattern</span><span class="p">,</span>
-</span><span id="line-326">                <span class="n">message</span><span class="p">,</span>
-</span><span id="line-327">                <span class="n">IGNORECASE</span><span class="p">)])</span>
+</span><span id="line-311">        <span class="n">needle</span> <span class="o">=</span> <span class="p">(</span>
+</span><span id="line-312">            <span class="n">re_escape</span><span class="p">(</span><span class="n">mynick</span><span class="p">[</span><span class="mi">0</span><span class="p">]),</span>
+</span><span id="line-313">            <span class="n">re_escape</span><span class="p">(</span><span class="n">mynick</span><span class="p">[</span><span class="mi">1</span><span class="p">]))</span>
+</span><span id="line-314">
+</span><span id="line-315">        <span class="n">pattern</span> <span class="o">=</span> <span class="p">(</span>
+</span><span id="line-316">            <span class="sa">rf</span><span class="s1">&#39;\b(</span><span class="si">{</span><span class="n">needle</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s1">)&#39;</span>
+</span><span id="line-317">            <span class="sa">rf</span><span class="s1">&#39;|(</span><span class="si">{</span><span class="n">needle</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="si">}</span><span class="s1">)\b&#39;</span><span class="p">)</span>
+</span><span id="line-318">
+</span><span id="line-319">        <span class="n">mentions</span> <span class="o">=</span> <span class="p">[</span>
+</span><span id="line-320">            <span class="n">x</span><span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">]</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span>
+</span><span id="line-321">            <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">original</span>
+</span><span id="line-322">             <span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;mentions&#39;</span><span class="p">,</span> <span class="p">{})</span>
+</span><span id="line-323">             <span class="o">.</span><span class="n">values</span><span class="p">())]</span>
+</span><span id="line-324">
+</span><span id="line-325">        <span class="bp">self</span><span class="o">.</span><span class="n">hasme</span> <span class="o">=</span> <span class="nb">any</span><span class="p">([</span>
+</span><span id="line-326">
+</span><span id="line-327">            <span class="n">mynick</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="ow">in</span> <span class="n">mentions</span><span class="p">,</span>
 </span><span id="line-328">
-</span><span id="line-329">
-</span><span id="line-330">    <span class="k">def</span><span class="w"> </span><span class="nf">__set_whome</span><span class="p">(</span>
-</span><span id="line-331">        <span class="bp">self</span><span class="p">,</span>
-</span><span id="line-332">        <span class="n">client</span><span class="p">:</span> <span class="s1">&#39;Client&#39;</span><span class="p">,</span>
-</span><span id="line-333">    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-</span><span id="line-334"><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-</span><span id="line-335"><span class="sd">        Update the value for the attribute from class instance.</span>
-</span><span id="line-336">
-</span><span id="line-337"><span class="sd">        :param client: Class instance for connecting to service.</span>
-</span><span id="line-338"><span class="sd">        &quot;&quot;&quot;</span>
-</span><span id="line-339">
-</span><span id="line-340">        <span class="bp">self</span><span class="o">.</span><span class="n">whome</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">nickname</span></div>
+</span><span id="line-329">            <span class="n">re_search</span><span class="p">(</span>
+</span><span id="line-330">                <span class="n">pattern</span><span class="p">,</span>
+</span><span id="line-331">                <span class="n">message</span><span class="p">,</span>
+</span><span id="line-332">                <span class="n">IGNORECASE</span><span class="p">)])</span>
+</span><span id="line-333">
+</span><span id="line-334">
+</span><span id="line-335">    <span class="k">def</span><span class="w"> </span><span class="nf">__set_whome</span><span class="p">(</span>
+</span><span id="line-336">        <span class="bp">self</span><span class="p">,</span>
+</span><span id="line-337">        <span class="n">client</span><span class="p">:</span> <span class="s1">&#39;Client&#39;</span><span class="p">,</span>
+</span><span id="line-338">    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+</span><span id="line-339"><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="line-340"><span class="sd">        Update the value for the attribute from class instance.</span>
+</span><span id="line-341">
+</span><span id="line-342"><span class="sd">        :param client: Class instance for connecting to service.</span>
+</span><span id="line-343"><span class="sd">        &quot;&quot;&quot;</span>
+</span><span id="line-344">
+</span><span id="line-345">        <span class="bp">self</span><span class="o">.</span><span class="n">whome</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">nickname</span></div>
 
 </span></code></pre></div>
     </div></div>
