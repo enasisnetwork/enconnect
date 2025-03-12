@@ -42,7 +42,7 @@ EVENTS: list[DictStrAny] = [
     {'event': 'posted',
      'seq': 4,
      'broadcast': {
-         'channel_id': 'chanid'},
+         'channel_id': 'privid'},
      'data': {
          'channel_type': 'D',
          'post': (
