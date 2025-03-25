@@ -210,126 +210,127 @@
 </span><span id="line-62">        <span class="s1">&#39;_Client__exited&#39;</span><span class="p">,</span>
 </span><span id="line-63">        <span class="s1">&#39;_Client__mynick&#39;</span><span class="p">,</span>
 </span><span id="line-64">        <span class="s1">&#39;_Client__lsnick&#39;</span><span class="p">,</span>
-</span><span id="line-65">        <span class="s1">&#39;_Client__mqueue&#39;</span><span class="p">,</span>
-</span><span id="line-66">        <span class="s1">&#39;_Client__cancel&#39;</span><span class="p">]</span>
-</span><span id="line-67">
+</span><span id="line-65">        <span class="s1">&#39;_Client__ponged&#39;</span><span class="p">,</span>
+</span><span id="line-66">        <span class="s1">&#39;_Client__mqueue&#39;</span><span class="p">,</span>
+</span><span id="line-67">        <span class="s1">&#39;_Client__cancel&#39;</span><span class="p">]</span>
 </span><span id="line-68">
-</span><span id="line-69">    <span class="k">assert</span> <span class="n">inrepr</span><span class="p">(</span>
-</span><span id="line-70">        <span class="s1">&#39;client.Client object&#39;</span><span class="p">,</span>
-</span><span id="line-71">        <span class="n">client</span><span class="p">)</span>
-</span><span id="line-72">
-</span><span id="line-73">    <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span>
-</span><span id="line-74">        <span class="nb">hash</span><span class="p">(</span><span class="n">client</span><span class="p">),</span> <span class="nb">int</span><span class="p">)</span>
-</span><span id="line-75">
-</span><span id="line-76">    <span class="k">assert</span> <span class="n">instr</span><span class="p">(</span>
-</span><span id="line-77">        <span class="s1">&#39;client.Client object&#39;</span><span class="p">,</span>
-</span><span id="line-78">        <span class="n">client</span><span class="p">)</span>
-</span><span id="line-79">
+</span><span id="line-69">
+</span><span id="line-70">    <span class="k">assert</span> <span class="n">inrepr</span><span class="p">(</span>
+</span><span id="line-71">        <span class="s1">&#39;client.Client object&#39;</span><span class="p">,</span>
+</span><span id="line-72">        <span class="n">client</span><span class="p">)</span>
+</span><span id="line-73">
+</span><span id="line-74">    <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span>
+</span><span id="line-75">        <span class="nb">hash</span><span class="p">(</span><span class="n">client</span><span class="p">),</span> <span class="nb">int</span><span class="p">)</span>
+</span><span id="line-76">
+</span><span id="line-77">    <span class="k">assert</span> <span class="n">instr</span><span class="p">(</span>
+</span><span id="line-78">        <span class="s1">&#39;client.Client object&#39;</span><span class="p">,</span>
+</span><span id="line-79">        <span class="n">client</span><span class="p">)</span>
 </span><span id="line-80">
-</span><span id="line-81">    <span class="k">assert</span> <span class="n">client</span><span class="o">.</span><span class="n">params</span>
-</span><span id="line-82">
-</span><span id="line-83">    <span class="k">assert</span> <span class="ow">not</span> <span class="n">client</span><span class="o">.</span><span class="n">connected</span>
-</span><span id="line-84">
-</span><span id="line-85">    <span class="k">assert</span> <span class="ow">not</span> <span class="n">client</span><span class="o">.</span><span class="n">nickname</span>
-</span><span id="line-86">
-</span><span id="line-87">    <span class="k">assert</span> <span class="n">client</span><span class="o">.</span><span class="n">mqueue</span><span class="o">.</span><span class="n">qsize</span><span class="p">()</span> <span class="o">==</span> <span class="mi">0</span>
-</span><span id="line-88">
-</span><span id="line-89">    <span class="k">assert</span> <span class="ow">not</span> <span class="n">client</span><span class="o">.</span><span class="n">canceled</span></div>
+</span><span id="line-81">
+</span><span id="line-82">    <span class="k">assert</span> <span class="n">client</span><span class="o">.</span><span class="n">params</span>
+</span><span id="line-83">
+</span><span id="line-84">    <span class="k">assert</span> <span class="ow">not</span> <span class="n">client</span><span class="o">.</span><span class="n">connected</span>
+</span><span id="line-85">
+</span><span id="line-86">    <span class="k">assert</span> <span class="ow">not</span> <span class="n">client</span><span class="o">.</span><span class="n">nickname</span>
+</span><span id="line-87">
+</span><span id="line-88">    <span class="k">assert</span> <span class="n">client</span><span class="o">.</span><span class="n">mqueue</span><span class="o">.</span><span class="n">qsize</span><span class="p">()</span> <span class="o">==</span> <span class="mi">0</span>
+</span><span id="line-89">
+</span><span id="line-90">    <span class="k">assert</span> <span class="ow">not</span> <span class="n">client</span><span class="o">.</span><span class="n">canceled</span></div>
 
-</span><span id="line-90">
 </span><span id="line-91">
 </span><span id="line-92">
+</span><span id="line-93">
 <div class="viewcode-block" id="test_Client_cover">
 <a class="viewcode-back" href="../../../../enconnect.irc.test.html#enconnect.irc.test.test_client.test_Client_cover">[docs]</a>
-</span><span id="line-93"><span class="k">def</span><span class="w"> </span><span class="nf">test_Client_cover</span><span class="p">(</span>
-</span><span id="line-94">    <span class="n">client</span><span class="p">:</span> <span class="n">Client</span><span class="p">,</span>
-</span><span id="line-95"><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-</span><span id="line-96"><span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-</span><span id="line-97"><span class="sd">    Perform various tests associated with relevant routines.</span>
-</span><span id="line-98">
-</span><span id="line-99"><span class="sd">    :param client: Class instance for connecting to service.</span>
-</span><span id="line-100"><span class="sd">    &quot;&quot;&quot;</span>
-</span><span id="line-101">
-</span><span id="line-102">    <span class="n">client</span><span class="o">.</span><span class="n">stop</span><span class="p">()</span>
-</span><span id="line-103">
-</span><span id="line-104">    <span class="n">client</span><span class="o">.</span><span class="n">_Client__conned</span><span class="o">.</span><span class="n">set</span><span class="p">()</span>  <span class="c1"># type: ignore</span>
-</span><span id="line-105">    <span class="n">client</span><span class="o">.</span><span class="n">_Client__socket</span> <span class="o">=</span> <span class="n">Mock</span><span class="p">()</span>  <span class="c1"># type: ignore</span>
-</span><span id="line-106">
-</span><span id="line-107">    <span class="n">client</span><span class="o">.</span><span class="n">stop</span><span class="p">()</span></div>
+</span><span id="line-94"><span class="k">def</span><span class="w"> </span><span class="nf">test_Client_cover</span><span class="p">(</span>
+</span><span id="line-95">    <span class="n">client</span><span class="p">:</span> <span class="n">Client</span><span class="p">,</span>
+</span><span id="line-96"><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+</span><span id="line-97"><span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="line-98"><span class="sd">    Perform various tests associated with relevant routines.</span>
+</span><span id="line-99">
+</span><span id="line-100"><span class="sd">    :param client: Class instance for connecting to service.</span>
+</span><span id="line-101"><span class="sd">    &quot;&quot;&quot;</span>
+</span><span id="line-102">
+</span><span id="line-103">    <span class="n">client</span><span class="o">.</span><span class="n">stop</span><span class="p">()</span>
+</span><span id="line-104">
+</span><span id="line-105">    <span class="n">client</span><span class="o">.</span><span class="n">_Client__conned</span><span class="o">.</span><span class="n">set</span><span class="p">()</span>  <span class="c1"># type: ignore</span>
+</span><span id="line-106">    <span class="n">client</span><span class="o">.</span><span class="n">_Client__socket</span> <span class="o">=</span> <span class="n">Mock</span><span class="p">()</span>  <span class="c1"># type: ignore</span>
+</span><span id="line-107">
+</span><span id="line-108">    <span class="n">client</span><span class="o">.</span><span class="n">stop</span><span class="p">()</span></div>
 
-</span><span id="line-108">
 </span><span id="line-109">
 </span><span id="line-110">
+</span><span id="line-111">
 <div class="viewcode-block" id="test_Client_connect">
 <a class="viewcode-back" href="../../../../enconnect.irc.test.html#enconnect.irc.test.test_client.test_Client_connect">[docs]</a>
-</span><span id="line-111"><span class="k">def</span><span class="w"> </span><span class="nf">test_Client_connect</span><span class="p">(</span>
-</span><span id="line-112">    <span class="n">client</span><span class="p">:</span> <span class="n">Client</span><span class="p">,</span>
-</span><span id="line-113">    <span class="n">client_ircsock</span><span class="p">:</span> <span class="n">IRCClientSocket</span><span class="p">,</span>
-</span><span id="line-114"><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-</span><span id="line-115"><span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-</span><span id="line-116"><span class="sd">    Perform various tests associated with relevant routines.</span>
-</span><span id="line-117">
-</span><span id="line-118"><span class="sd">    :param client: Class instance for connecting to service.</span>
-</span><span id="line-119"><span class="sd">    :param client_ircsock: Object to mock client connection.</span>
-</span><span id="line-120"><span class="sd">    &quot;&quot;&quot;</span>
-</span><span id="line-121">
-</span><span id="line-122">    <span class="n">params</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">params</span>
-</span><span id="line-123">
+</span><span id="line-112"><span class="k">def</span><span class="w"> </span><span class="nf">test_Client_connect</span><span class="p">(</span>
+</span><span id="line-113">    <span class="n">client</span><span class="p">:</span> <span class="n">Client</span><span class="p">,</span>
+</span><span id="line-114">    <span class="n">client_ircsock</span><span class="p">:</span> <span class="n">IRCClientSocket</span><span class="p">,</span>
+</span><span id="line-115"><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+</span><span id="line-116"><span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="line-117"><span class="sd">    Perform various tests associated with relevant routines.</span>
+</span><span id="line-118">
+</span><span id="line-119"><span class="sd">    :param client: Class instance for connecting to service.</span>
+</span><span id="line-120"><span class="sd">    :param client_ircsock: Object to mock client connection.</span>
+</span><span id="line-121"><span class="sd">    &quot;&quot;&quot;</span>
+</span><span id="line-122">
+</span><span id="line-123">    <span class="n">params</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">params</span>
 </span><span id="line-124">
-</span><span id="line-125">    <span class="n">params</span><span class="o">.</span><span class="n">port</span> <span class="o">=</span> <span class="mi">6697</span>
-</span><span id="line-126">    <span class="n">params</span><span class="o">.</span><span class="n">ssl_enable</span> <span class="o">=</span> <span class="kc">True</span>
-</span><span id="line-127">
-</span><span id="line-128">    <span class="n">client</span> <span class="o">=</span> <span class="n">Client</span><span class="p">(</span><span class="n">params</span><span class="p">)</span>
-</span><span id="line-129">
-</span><span id="line-130">    <span class="n">client_ircsock</span><span class="p">()</span>
-</span><span id="line-131">
-</span><span id="line-132">    <span class="k">with</span> <span class="n">raises</span><span class="p">(</span><span class="ne">ConnectionError</span><span class="p">):</span>
-</span><span id="line-133">        <span class="n">client</span><span class="o">.</span><span class="n">operate</span><span class="p">()</span>
-</span><span id="line-134">
-</span><span id="line-135">    <span class="k">assert</span> <span class="ow">not</span> <span class="n">client</span><span class="o">.</span><span class="n">canceled</span>
-</span><span id="line-136">    <span class="k">assert</span> <span class="ow">not</span> <span class="n">client</span><span class="o">.</span><span class="n">connected</span>
-</span><span id="line-137">
-</span><span id="line-138">    <span class="n">mqueue</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">mqueue</span>
-</span><span id="line-139">
-</span><span id="line-140">    <span class="k">assert</span> <span class="n">mqueue</span><span class="o">.</span><span class="n">qsize</span><span class="p">()</span> <span class="o">==</span> <span class="mi">3</span>
-</span><span id="line-141">
+</span><span id="line-125">
+</span><span id="line-126">    <span class="n">params</span><span class="o">.</span><span class="n">port</span> <span class="o">=</span> <span class="mi">6697</span>
+</span><span id="line-127">    <span class="n">params</span><span class="o">.</span><span class="n">ssl_enable</span> <span class="o">=</span> <span class="kc">True</span>
+</span><span id="line-128">
+</span><span id="line-129">    <span class="n">client</span> <span class="o">=</span> <span class="n">Client</span><span class="p">(</span><span class="n">params</span><span class="p">)</span>
+</span><span id="line-130">
+</span><span id="line-131">    <span class="n">client_ircsock</span><span class="p">()</span>
+</span><span id="line-132">
+</span><span id="line-133">    <span class="k">with</span> <span class="n">raises</span><span class="p">(</span><span class="ne">ConnectionError</span><span class="p">):</span>
+</span><span id="line-134">        <span class="n">client</span><span class="o">.</span><span class="n">operate</span><span class="p">()</span>
+</span><span id="line-135">
+</span><span id="line-136">    <span class="k">assert</span> <span class="ow">not</span> <span class="n">client</span><span class="o">.</span><span class="n">canceled</span>
+</span><span id="line-137">    <span class="k">assert</span> <span class="ow">not</span> <span class="n">client</span><span class="o">.</span><span class="n">connected</span>
+</span><span id="line-138">
+</span><span id="line-139">    <span class="n">mqueue</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">mqueue</span>
+</span><span id="line-140">
+</span><span id="line-141">    <span class="k">assert</span> <span class="n">mqueue</span><span class="o">.</span><span class="n">qsize</span><span class="p">()</span> <span class="o">==</span> <span class="mi">3</span>
 </span><span id="line-142">
-</span><span id="line-143">    <span class="n">params</span><span class="o">.</span><span class="n">port</span> <span class="o">=</span> <span class="mi">6667</span>
-</span><span id="line-144">    <span class="n">params</span><span class="o">.</span><span class="n">ssl_enable</span> <span class="o">=</span> <span class="kc">False</span>
-</span><span id="line-145">
-</span><span id="line-146">    <span class="n">client</span> <span class="o">=</span> <span class="n">Client</span><span class="p">(</span><span class="n">params</span><span class="p">)</span>
-</span><span id="line-147">
-</span><span id="line-148">    <span class="n">client_ircsock</span><span class="p">()</span>
-</span><span id="line-149">
-</span><span id="line-150">    <span class="k">with</span> <span class="n">raises</span><span class="p">(</span><span class="ne">ConnectionError</span><span class="p">):</span>
-</span><span id="line-151">        <span class="n">client</span><span class="o">.</span><span class="n">operate</span><span class="p">()</span>
-</span><span id="line-152">
-</span><span id="line-153">    <span class="k">assert</span> <span class="ow">not</span> <span class="n">client</span><span class="o">.</span><span class="n">canceled</span>
-</span><span id="line-154">    <span class="k">assert</span> <span class="ow">not</span> <span class="n">client</span><span class="o">.</span><span class="n">connected</span>
-</span><span id="line-155">
-</span><span id="line-156">    <span class="n">mqueue</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">mqueue</span>
-</span><span id="line-157">
-</span><span id="line-158">    <span class="k">assert</span> <span class="n">mqueue</span><span class="o">.</span><span class="n">qsize</span><span class="p">()</span> <span class="o">==</span> <span class="mi">3</span>
-</span><span id="line-159">
+</span><span id="line-143">
+</span><span id="line-144">    <span class="n">params</span><span class="o">.</span><span class="n">port</span> <span class="o">=</span> <span class="mi">6667</span>
+</span><span id="line-145">    <span class="n">params</span><span class="o">.</span><span class="n">ssl_enable</span> <span class="o">=</span> <span class="kc">False</span>
+</span><span id="line-146">
+</span><span id="line-147">    <span class="n">client</span> <span class="o">=</span> <span class="n">Client</span><span class="p">(</span><span class="n">params</span><span class="p">)</span>
+</span><span id="line-148">
+</span><span id="line-149">    <span class="n">client_ircsock</span><span class="p">()</span>
+</span><span id="line-150">
+</span><span id="line-151">    <span class="k">with</span> <span class="n">raises</span><span class="p">(</span><span class="ne">ConnectionError</span><span class="p">):</span>
+</span><span id="line-152">        <span class="n">client</span><span class="o">.</span><span class="n">operate</span><span class="p">()</span>
+</span><span id="line-153">
+</span><span id="line-154">    <span class="k">assert</span> <span class="ow">not</span> <span class="n">client</span><span class="o">.</span><span class="n">canceled</span>
+</span><span id="line-155">    <span class="k">assert</span> <span class="ow">not</span> <span class="n">client</span><span class="o">.</span><span class="n">connected</span>
+</span><span id="line-156">
+</span><span id="line-157">    <span class="n">mqueue</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">mqueue</span>
+</span><span id="line-158">
+</span><span id="line-159">    <span class="k">assert</span> <span class="n">mqueue</span><span class="o">.</span><span class="n">qsize</span><span class="p">()</span> <span class="o">==</span> <span class="mi">3</span>
 </span><span id="line-160">
-</span><span id="line-161">    <span class="n">params</span><span class="o">.</span><span class="n">operate</span> <span class="o">=</span> <span class="s1">&#39;service&#39;</span>
-</span><span id="line-162">    <span class="n">params</span><span class="o">.</span><span class="n">port</span> <span class="o">=</span> <span class="mi">6900</span>
-</span><span id="line-163">    <span class="n">params</span><span class="o">.</span><span class="n">password</span> <span class="o">=</span> <span class="s1">&#39;password&#39;</span>
-</span><span id="line-164">    <span class="n">params</span><span class="o">.</span><span class="n">ssl_enable</span> <span class="o">=</span> <span class="kc">True</span>
-</span><span id="line-165">
-</span><span id="line-166">    <span class="n">client</span> <span class="o">=</span> <span class="n">Client</span><span class="p">(</span><span class="n">params</span><span class="p">)</span>
-</span><span id="line-167">
-</span><span id="line-168">    <span class="n">client_ircsock</span><span class="p">()</span>
-</span><span id="line-169">
-</span><span id="line-170">    <span class="k">with</span> <span class="n">raises</span><span class="p">(</span><span class="ne">ConnectionError</span><span class="p">):</span>
-</span><span id="line-171">        <span class="n">client</span><span class="o">.</span><span class="n">operate</span><span class="p">()</span>
-</span><span id="line-172">
-</span><span id="line-173">    <span class="k">assert</span> <span class="ow">not</span> <span class="n">client</span><span class="o">.</span><span class="n">canceled</span>
-</span><span id="line-174">    <span class="k">assert</span> <span class="ow">not</span> <span class="n">client</span><span class="o">.</span><span class="n">connected</span>
-</span><span id="line-175">
-</span><span id="line-176">    <span class="n">mqueue</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">mqueue</span>
-</span><span id="line-177">
-</span><span id="line-178">    <span class="k">assert</span> <span class="n">mqueue</span><span class="o">.</span><span class="n">qsize</span><span class="p">()</span> <span class="o">==</span> <span class="mi">3</span></div>
+</span><span id="line-161">
+</span><span id="line-162">    <span class="n">params</span><span class="o">.</span><span class="n">operate</span> <span class="o">=</span> <span class="s1">&#39;service&#39;</span>
+</span><span id="line-163">    <span class="n">params</span><span class="o">.</span><span class="n">port</span> <span class="o">=</span> <span class="mi">6900</span>
+</span><span id="line-164">    <span class="n">params</span><span class="o">.</span><span class="n">password</span> <span class="o">=</span> <span class="s1">&#39;password&#39;</span>
+</span><span id="line-165">    <span class="n">params</span><span class="o">.</span><span class="n">ssl_enable</span> <span class="o">=</span> <span class="kc">True</span>
+</span><span id="line-166">
+</span><span id="line-167">    <span class="n">client</span> <span class="o">=</span> <span class="n">Client</span><span class="p">(</span><span class="n">params</span><span class="p">)</span>
+</span><span id="line-168">
+</span><span id="line-169">    <span class="n">client_ircsock</span><span class="p">()</span>
+</span><span id="line-170">
+</span><span id="line-171">    <span class="k">with</span> <span class="n">raises</span><span class="p">(</span><span class="ne">ConnectionError</span><span class="p">):</span>
+</span><span id="line-172">        <span class="n">client</span><span class="o">.</span><span class="n">operate</span><span class="p">()</span>
+</span><span id="line-173">
+</span><span id="line-174">    <span class="k">assert</span> <span class="ow">not</span> <span class="n">client</span><span class="o">.</span><span class="n">canceled</span>
+</span><span id="line-175">    <span class="k">assert</span> <span class="ow">not</span> <span class="n">client</span><span class="o">.</span><span class="n">connected</span>
+</span><span id="line-176">
+</span><span id="line-177">    <span class="n">mqueue</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">mqueue</span>
+</span><span id="line-178">
+</span><span id="line-179">    <span class="k">assert</span> <span class="n">mqueue</span><span class="o">.</span><span class="n">qsize</span><span class="p">()</span> <span class="o">==</span> <span class="mi">3</span></div>
 
 </span></code></pre></div>
     </div></div>
