@@ -24,6 +24,8 @@ from typing import Iterator
 from typing import Optional
 from typing import TYPE_CHECKING
 
+from encommon.times import Time
+from encommon.types import NCFalse
 from encommon.types.strings import NEWLINE
 from encommon.types.strings import SEMPTY
 
@@ -64,6 +66,7 @@ class Client:
     __exited: Event
     __mynick: Optional[str]
     __lsnick: Optional[str]
+    __ponged: Optional[Time]
 
     __mqueue: Queue[ClientEvent]
     __cancel: Event
@@ -87,6 +90,7 @@ class Client:
         self.__exited = Event()
         self.__mynick = None
         self.__lsnick = None
+        self.__ponged = None
 
         self.__mqueue = Queue(
             params.queue_size)
@@ -225,8 +229,23 @@ class Client:
 
         assert socket is not None
 
+        self.__ponged = Time()
 
-        while not self.canceled:
+
+        def _timeout() -> bool:
+
+            ponged = self.__ponged
+
+            if ponged is None:
+                return NCFalse
+
+            since = ponged.since
+
+            return since > 300
+
+
+        while (not self.canceled
+               and not _timeout()):
 
             receive = (
                 self.socket_recv())
@@ -301,6 +320,8 @@ class Client:
             PING, event)
 
         if match is not None:
+
+            self.__ponged = Time()
 
             ping = match.group(1)
             pong = f'PONG {ping}'

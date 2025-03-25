@@ -62,6 +62,7 @@ def test_Client(
         '_Client__exited',
         '_Client__mynick',
         '_Client__lsnick',
+        '_Client__ponged',
         '_Client__mqueue',
         '_Client__cancel']
 
