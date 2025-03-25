@@ -24,7 +24,7 @@ enconnect/instagram/test/__init__.py             2      0   100%
 enconnect/instagram/test/test_instagram.py      61      0   100%
 enconnect/instagram/test/test_models.py         30      0   100%
 enconnect/irc/__init__.py                        4      0   100%
-enconnect/irc/client.py                        210      0   100%
+enconnect/irc/client.py                        220      0   100%
 enconnect/irc/models.py                        113      0   100%
 enconnect/irc/params.py                         22      0   100%
 enconnect/irc/test/__init__.py                   6      0   100%
@@ -70,4 +70,4 @@ enconnect/youtube/test/test_models.py           51      0   100%
 enconnect/youtube/test/test_youtube.py          70      0   100%
 enconnect/youtube/youtube.py                   102      0   100%
 ----------------------------------------------------------------
-TOTAL                                         3359      0   100%
+TOTAL                                         3369      0   100%
