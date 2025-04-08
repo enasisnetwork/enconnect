@@ -200,12 +200,28 @@ class ClientEvent(BaseModel, extra='ignore'):
         kind = self.kind
         data = self.data
 
-        if (kind not in MESSAGE
-                or not data):
+        if data is None:
             return None
 
+
+        interact = 'INTERACTION_'
+
+        startswith = (
+            (self.type
+             .startswith(interact))
+            if self.type
+            else False)
+
+        if (kind not in MESSAGE
+                and not startswith):
+            return None
+
+
         dscuser = (
-            data.get('author'))
+            data['member']['user']
+            if startswith is True
+            else data.get('author'))
+
 
         if dscuser is None:
             return NCNone
