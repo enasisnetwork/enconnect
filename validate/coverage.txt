@@ -3,9 +3,9 @@ Name                                         Stmts   Miss  Cover
 enconnect/__init__.py                            5      0   100%
 enconnect/conftest.py                            1      0   100%
 enconnect/discord/__init__.py                    4      0   100%
-enconnect/discord/client.py                    233      0   100%
+enconnect/discord/client.py                    236      0   100%
 enconnect/discord/models.py                    105      0   100%
-enconnect/discord/params.py                     13      0   100%
+enconnect/discord/params.py                     15      0   100%
 enconnect/discord/test/__init__.py               5      0   100%
 enconnect/discord/test/helpers.py               52      0   100%
 enconnect/discord/test/test_client.py           37      0   100%
@@ -70,4 +70,4 @@ enconnect/youtube/test/test_models.py           51      0   100%
 enconnect/youtube/test/test_youtube.py          70      0   100%
 enconnect/youtube/youtube.py                   102      0   100%
 ----------------------------------------------------------------
-TOTAL                                         3369      0   100%
+TOTAL                                         3374      0   100%
