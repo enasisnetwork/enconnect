@@ -345,149 +345,165 @@
 </span><span id="line-200">        <span class="n">kind</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">kind</span>
 </span><span id="line-201">        <span class="n">data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span>
 </span><span id="line-202">
-</span><span id="line-203">        <span class="k">if</span> <span class="p">(</span><span class="n">kind</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">MESSAGE</span>
-</span><span id="line-204">                <span class="ow">or</span> <span class="ow">not</span> <span class="n">data</span><span class="p">):</span>
-</span><span id="line-205">            <span class="k">return</span> <span class="kc">None</span>
+</span><span id="line-203">        <span class="k">if</span> <span class="n">data</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+</span><span id="line-204">            <span class="k">return</span> <span class="kc">None</span>
+</span><span id="line-205">
 </span><span id="line-206">
-</span><span id="line-207">        <span class="n">dscuser</span> <span class="o">=</span> <span class="p">(</span>
-</span><span id="line-208">            <span class="n">data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;author&#39;</span><span class="p">))</span>
-</span><span id="line-209">
-</span><span id="line-210">        <span class="k">if</span> <span class="n">dscuser</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-</span><span id="line-211">            <span class="k">return</span> <span class="n">NCNone</span>
-</span><span id="line-212">
-</span><span id="line-213">        <span class="n">unique</span> <span class="o">=</span> <span class="n">dscuser</span><span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">]</span>
-</span><span id="line-214">        <span class="n">name</span> <span class="o">=</span> <span class="n">dscuser</span><span class="p">[</span><span class="s1">&#39;username&#39;</span><span class="p">]</span>
-</span><span id="line-215">
-</span><span id="line-216">        <span class="bp">self</span><span class="o">.</span><span class="n">author</span> <span class="o">=</span> <span class="p">(</span>
-</span><span id="line-217">            <span class="n">name</span><span class="p">,</span> <span class="n">unique</span><span class="p">)</span>
+</span><span id="line-207">        <span class="n">interact</span> <span class="o">=</span> <span class="s1">&#39;INTERACTION_&#39;</span>
+</span><span id="line-208">
+</span><span id="line-209">        <span class="n">startswith</span> <span class="o">=</span> <span class="p">(</span>
+</span><span id="line-210">            <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">type</span>
+</span><span id="line-211">             <span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="n">interact</span><span class="p">))</span>
+</span><span id="line-212">            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">type</span>
+</span><span id="line-213">            <span class="k">else</span> <span class="kc">False</span><span class="p">)</span>
+</span><span id="line-214">
+</span><span id="line-215">        <span class="k">if</span> <span class="p">(</span><span class="n">kind</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">MESSAGE</span>
+</span><span id="line-216">                <span class="ow">and</span> <span class="ow">not</span> <span class="n">startswith</span><span class="p">):</span>
+</span><span id="line-217">            <span class="k">return</span> <span class="kc">None</span>
 </span><span id="line-218">
 </span><span id="line-219">
-</span><span id="line-220">    <span class="k">def</span><span class="w"> </span><span class="nf">__set_recipient</span><span class="p">(</span>
-</span><span id="line-221">        <span class="bp">self</span><span class="p">,</span>
-</span><span id="line-222">    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-</span><span id="line-223"><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-</span><span id="line-224"><span class="sd">        Update the value for the attribute from class instance.</span>
-</span><span id="line-225"><span class="sd">        &quot;&quot;&quot;</span>
-</span><span id="line-226">
-</span><span id="line-227">        <span class="n">kind</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">kind</span>
-</span><span id="line-228">        <span class="n">data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span>
-</span><span id="line-229">
-</span><span id="line-230">        <span class="k">if</span> <span class="p">(</span><span class="n">kind</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">MESSAGE</span>
-</span><span id="line-231">                <span class="ow">or</span> <span class="ow">not</span> <span class="n">data</span><span class="p">):</span>
-</span><span id="line-232">            <span class="k">return</span> <span class="kc">None</span>
-</span><span id="line-233">
-</span><span id="line-234">        <span class="n">guild</span> <span class="o">=</span> <span class="p">(</span>
-</span><span id="line-235">            <span class="n">data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;guild_id&#39;</span><span class="p">))</span>
-</span><span id="line-236">
-</span><span id="line-237">        <span class="n">channel</span> <span class="o">=</span> <span class="p">(</span>
-</span><span id="line-238">            <span class="n">data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;channel_id&#39;</span><span class="p">))</span>
-</span><span id="line-239">
-</span><span id="line-240">        <span class="k">if</span> <span class="n">channel</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-</span><span id="line-241">            <span class="k">return</span> <span class="n">NCNone</span>
+</span><span id="line-220">        <span class="n">dscuser</span> <span class="o">=</span> <span class="p">(</span>
+</span><span id="line-221">            <span class="n">data</span><span class="p">[</span><span class="s1">&#39;member&#39;</span><span class="p">][</span><span class="s1">&#39;user&#39;</span><span class="p">]</span>
+</span><span id="line-222">            <span class="k">if</span> <span class="n">startswith</span> <span class="ow">is</span> <span class="kc">True</span>
+</span><span id="line-223">            <span class="k">else</span> <span class="n">data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;author&#39;</span><span class="p">))</span>
+</span><span id="line-224">
+</span><span id="line-225">
+</span><span id="line-226">        <span class="k">if</span> <span class="n">dscuser</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+</span><span id="line-227">            <span class="k">return</span> <span class="n">NCNone</span>
+</span><span id="line-228">
+</span><span id="line-229">        <span class="n">unique</span> <span class="o">=</span> <span class="n">dscuser</span><span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">]</span>
+</span><span id="line-230">        <span class="n">name</span> <span class="o">=</span> <span class="n">dscuser</span><span class="p">[</span><span class="s1">&#39;username&#39;</span><span class="p">]</span>
+</span><span id="line-231">
+</span><span id="line-232">        <span class="bp">self</span><span class="o">.</span><span class="n">author</span> <span class="o">=</span> <span class="p">(</span>
+</span><span id="line-233">            <span class="n">name</span><span class="p">,</span> <span class="n">unique</span><span class="p">)</span>
+</span><span id="line-234">
+</span><span id="line-235">
+</span><span id="line-236">    <span class="k">def</span><span class="w"> </span><span class="nf">__set_recipient</span><span class="p">(</span>
+</span><span id="line-237">        <span class="bp">self</span><span class="p">,</span>
+</span><span id="line-238">    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+</span><span id="line-239"><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="line-240"><span class="sd">        Update the value for the attribute from class instance.</span>
+</span><span id="line-241"><span class="sd">        &quot;&quot;&quot;</span>
 </span><span id="line-242">
-</span><span id="line-243">        <span class="bp">self</span><span class="o">.</span><span class="n">recipient</span> <span class="o">=</span> <span class="p">(</span>
-</span><span id="line-244">            <span class="n">guild</span><span class="p">,</span> <span class="n">channel</span><span class="p">)</span>
+</span><span id="line-243">        <span class="n">kind</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">kind</span>
+</span><span id="line-244">        <span class="n">data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span>
 </span><span id="line-245">
-</span><span id="line-246">
-</span><span id="line-247">    <span class="k">def</span><span class="w"> </span><span class="nf">__set_message</span><span class="p">(</span>
-</span><span id="line-248">        <span class="bp">self</span><span class="p">,</span>
-</span><span id="line-249">    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-</span><span id="line-250"><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-</span><span id="line-251"><span class="sd">        Update the value for the attribute from class instance.</span>
-</span><span id="line-252"><span class="sd">        &quot;&quot;&quot;</span>
-</span><span id="line-253">
-</span><span id="line-254">        <span class="n">kind</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">kind</span>
-</span><span id="line-255">        <span class="n">data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span>
-</span><span id="line-256">
-</span><span id="line-257">        <span class="k">if</span> <span class="p">(</span><span class="n">kind</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">MESSAGE</span>
-</span><span id="line-258">                <span class="ow">or</span> <span class="ow">not</span> <span class="n">data</span><span class="p">):</span>
-</span><span id="line-259">            <span class="k">return</span> <span class="kc">None</span>
-</span><span id="line-260">
-</span><span id="line-261">        <span class="n">content</span> <span class="o">=</span> <span class="p">(</span>
-</span><span id="line-262">            <span class="n">data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;content&#39;</span><span class="p">))</span>
-</span><span id="line-263">
-</span><span id="line-264">        <span class="bp">self</span><span class="o">.</span><span class="n">message</span> <span class="o">=</span> <span class="n">content</span>
-</span><span id="line-265">
-</span><span id="line-266">
-</span><span id="line-267">    <span class="k">def</span><span class="w"> </span><span class="nf">__set_isme</span><span class="p">(</span>
-</span><span id="line-268">        <span class="bp">self</span><span class="p">,</span>
-</span><span id="line-269">        <span class="n">client</span><span class="p">:</span> <span class="s1">&#39;Client&#39;</span><span class="p">,</span>
-</span><span id="line-270">    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-</span><span id="line-271"><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-</span><span id="line-272"><span class="sd">        Update the value for the attribute from class instance.</span>
-</span><span id="line-273">
-</span><span id="line-274"><span class="sd">        :param client: Class instance for connecting to service.</span>
-</span><span id="line-275"><span class="sd">        &quot;&quot;&quot;</span>
+</span><span id="line-246">        <span class="k">if</span> <span class="p">(</span><span class="n">kind</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">MESSAGE</span>
+</span><span id="line-247">                <span class="ow">or</span> <span class="ow">not</span> <span class="n">data</span><span class="p">):</span>
+</span><span id="line-248">            <span class="k">return</span> <span class="kc">None</span>
+</span><span id="line-249">
+</span><span id="line-250">        <span class="n">guild</span> <span class="o">=</span> <span class="p">(</span>
+</span><span id="line-251">            <span class="n">data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;guild_id&#39;</span><span class="p">))</span>
+</span><span id="line-252">
+</span><span id="line-253">        <span class="n">channel</span> <span class="o">=</span> <span class="p">(</span>
+</span><span id="line-254">            <span class="n">data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;channel_id&#39;</span><span class="p">))</span>
+</span><span id="line-255">
+</span><span id="line-256">        <span class="k">if</span> <span class="n">channel</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+</span><span id="line-257">            <span class="k">return</span> <span class="n">NCNone</span>
+</span><span id="line-258">
+</span><span id="line-259">        <span class="bp">self</span><span class="o">.</span><span class="n">recipient</span> <span class="o">=</span> <span class="p">(</span>
+</span><span id="line-260">            <span class="n">guild</span><span class="p">,</span> <span class="n">channel</span><span class="p">)</span>
+</span><span id="line-261">
+</span><span id="line-262">
+</span><span id="line-263">    <span class="k">def</span><span class="w"> </span><span class="nf">__set_message</span><span class="p">(</span>
+</span><span id="line-264">        <span class="bp">self</span><span class="p">,</span>
+</span><span id="line-265">    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+</span><span id="line-266"><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="line-267"><span class="sd">        Update the value for the attribute from class instance.</span>
+</span><span id="line-268"><span class="sd">        &quot;&quot;&quot;</span>
+</span><span id="line-269">
+</span><span id="line-270">        <span class="n">kind</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">kind</span>
+</span><span id="line-271">        <span class="n">data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span>
+</span><span id="line-272">
+</span><span id="line-273">        <span class="k">if</span> <span class="p">(</span><span class="n">kind</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">MESSAGE</span>
+</span><span id="line-274">                <span class="ow">or</span> <span class="ow">not</span> <span class="n">data</span><span class="p">):</span>
+</span><span id="line-275">            <span class="k">return</span> <span class="kc">None</span>
 </span><span id="line-276">
-</span><span id="line-277">        <span class="n">mynick</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">nickname</span>
-</span><span id="line-278">        <span class="n">author</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">author</span>
+</span><span id="line-277">        <span class="n">content</span> <span class="o">=</span> <span class="p">(</span>
+</span><span id="line-278">            <span class="n">data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;content&#39;</span><span class="p">))</span>
 </span><span id="line-279">
-</span><span id="line-280">        <span class="n">isme</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span>
+</span><span id="line-280">        <span class="bp">self</span><span class="o">.</span><span class="n">message</span> <span class="o">=</span> <span class="n">content</span>
 </span><span id="line-281">
-</span><span id="line-282">        <span class="k">if</span> <span class="n">mynick</span> <span class="ow">and</span> <span class="n">author</span><span class="p">:</span>
-</span><span id="line-283">
-</span><span id="line-284">            <span class="n">mine</span> <span class="o">=</span> <span class="n">mynick</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
-</span><span id="line-285">            <span class="n">them</span> <span class="o">=</span> <span class="n">author</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
-</span><span id="line-286">
-</span><span id="line-287">            <span class="n">isme</span> <span class="o">=</span> <span class="n">mine</span> <span class="o">==</span> <span class="n">them</span>
-</span><span id="line-288">
-</span><span id="line-289">        <span class="bp">self</span><span class="o">.</span><span class="n">isme</span> <span class="o">=</span> <span class="n">isme</span>
-</span><span id="line-290">
-</span><span id="line-291">
-</span><span id="line-292">    <span class="k">def</span><span class="w"> </span><span class="nf">__set_hasme</span><span class="p">(</span>
-</span><span id="line-293">        <span class="bp">self</span><span class="p">,</span>
-</span><span id="line-294">        <span class="n">client</span><span class="p">:</span> <span class="s1">&#39;Client&#39;</span><span class="p">,</span>
-</span><span id="line-295">    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-</span><span id="line-296"><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-</span><span id="line-297"><span class="sd">        Update the value for the attribute from class instance.</span>
-</span><span id="line-298">
-</span><span id="line-299"><span class="sd">        :param client: Class instance for connecting to service.</span>
-</span><span id="line-300"><span class="sd">        &quot;&quot;&quot;</span>
-</span><span id="line-301">
-</span><span id="line-302">        <span class="n">mynick</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">nickname</span>
-</span><span id="line-303">        <span class="n">message</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">message</span>
+</span><span id="line-282">
+</span><span id="line-283">    <span class="k">def</span><span class="w"> </span><span class="nf">__set_isme</span><span class="p">(</span>
+</span><span id="line-284">        <span class="bp">self</span><span class="p">,</span>
+</span><span id="line-285">        <span class="n">client</span><span class="p">:</span> <span class="s1">&#39;Client&#39;</span><span class="p">,</span>
+</span><span id="line-286">    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+</span><span id="line-287"><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="line-288"><span class="sd">        Update the value for the attribute from class instance.</span>
+</span><span id="line-289">
+</span><span id="line-290"><span class="sd">        :param client: Class instance for connecting to service.</span>
+</span><span id="line-291"><span class="sd">        &quot;&quot;&quot;</span>
+</span><span id="line-292">
+</span><span id="line-293">        <span class="n">mynick</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">nickname</span>
+</span><span id="line-294">        <span class="n">author</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">author</span>
+</span><span id="line-295">
+</span><span id="line-296">        <span class="n">isme</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span>
+</span><span id="line-297">
+</span><span id="line-298">        <span class="k">if</span> <span class="n">mynick</span> <span class="ow">and</span> <span class="n">author</span><span class="p">:</span>
+</span><span id="line-299">
+</span><span id="line-300">            <span class="n">mine</span> <span class="o">=</span> <span class="n">mynick</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+</span><span id="line-301">            <span class="n">them</span> <span class="o">=</span> <span class="n">author</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+</span><span id="line-302">
+</span><span id="line-303">            <span class="n">isme</span> <span class="o">=</span> <span class="n">mine</span> <span class="o">==</span> <span class="n">them</span>
 </span><span id="line-304">
-</span><span id="line-305">        <span class="k">if</span> <span class="n">mynick</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-</span><span id="line-306">            <span class="k">return</span> <span class="kc">None</span>
+</span><span id="line-305">        <span class="bp">self</span><span class="o">.</span><span class="n">isme</span> <span class="o">=</span> <span class="n">isme</span>
+</span><span id="line-306">
 </span><span id="line-307">
-</span><span id="line-308">        <span class="k">if</span> <span class="n">message</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-</span><span id="line-309">            <span class="k">return</span> <span class="kc">None</span>
-</span><span id="line-310">
-</span><span id="line-311">        <span class="n">needle</span> <span class="o">=</span> <span class="p">(</span>
-</span><span id="line-312">            <span class="n">re_escape</span><span class="p">(</span><span class="n">mynick</span><span class="p">[</span><span class="mi">0</span><span class="p">]),</span>
-</span><span id="line-313">            <span class="n">re_escape</span><span class="p">(</span><span class="n">mynick</span><span class="p">[</span><span class="mi">1</span><span class="p">]))</span>
+</span><span id="line-308">    <span class="k">def</span><span class="w"> </span><span class="nf">__set_hasme</span><span class="p">(</span>
+</span><span id="line-309">        <span class="bp">self</span><span class="p">,</span>
+</span><span id="line-310">        <span class="n">client</span><span class="p">:</span> <span class="s1">&#39;Client&#39;</span><span class="p">,</span>
+</span><span id="line-311">    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+</span><span id="line-312"><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="line-313"><span class="sd">        Update the value for the attribute from class instance.</span>
 </span><span id="line-314">
-</span><span id="line-315">        <span class="n">pattern</span> <span class="o">=</span> <span class="p">(</span>
-</span><span id="line-316">            <span class="sa">rf</span><span class="s1">&#39;\b(</span><span class="si">{</span><span class="n">needle</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s1">)&#39;</span>
-</span><span id="line-317">            <span class="sa">rf</span><span class="s1">&#39;|(</span><span class="si">{</span><span class="n">needle</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="si">}</span><span class="s1">)\b&#39;</span><span class="p">)</span>
-</span><span id="line-318">
-</span><span id="line-319">        <span class="n">mentions</span> <span class="o">=</span> <span class="p">[</span>
-</span><span id="line-320">            <span class="n">x</span><span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">]</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span>
-</span><span id="line-321">            <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">original</span>
-</span><span id="line-322">             <span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;mentions&#39;</span><span class="p">,</span> <span class="p">{})</span>
-</span><span id="line-323">             <span class="o">.</span><span class="n">values</span><span class="p">())]</span>
-</span><span id="line-324">
-</span><span id="line-325">        <span class="bp">self</span><span class="o">.</span><span class="n">hasme</span> <span class="o">=</span> <span class="nb">any</span><span class="p">([</span>
+</span><span id="line-315"><span class="sd">        :param client: Class instance for connecting to service.</span>
+</span><span id="line-316"><span class="sd">        &quot;&quot;&quot;</span>
+</span><span id="line-317">
+</span><span id="line-318">        <span class="n">mynick</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">nickname</span>
+</span><span id="line-319">        <span class="n">message</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">message</span>
+</span><span id="line-320">
+</span><span id="line-321">        <span class="k">if</span> <span class="n">mynick</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+</span><span id="line-322">            <span class="k">return</span> <span class="kc">None</span>
+</span><span id="line-323">
+</span><span id="line-324">        <span class="k">if</span> <span class="n">message</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+</span><span id="line-325">            <span class="k">return</span> <span class="kc">None</span>
 </span><span id="line-326">
-</span><span id="line-327">            <span class="n">mynick</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="ow">in</span> <span class="n">mentions</span><span class="p">,</span>
-</span><span id="line-328">
-</span><span id="line-329">            <span class="n">re_search</span><span class="p">(</span>
-</span><span id="line-330">                <span class="n">pattern</span><span class="p">,</span>
-</span><span id="line-331">                <span class="n">message</span><span class="p">,</span>
-</span><span id="line-332">                <span class="n">IGNORECASE</span><span class="p">)])</span>
-</span><span id="line-333">
+</span><span id="line-327">        <span class="n">needle</span> <span class="o">=</span> <span class="p">(</span>
+</span><span id="line-328">            <span class="n">re_escape</span><span class="p">(</span><span class="n">mynick</span><span class="p">[</span><span class="mi">0</span><span class="p">]),</span>
+</span><span id="line-329">            <span class="n">re_escape</span><span class="p">(</span><span class="n">mynick</span><span class="p">[</span><span class="mi">1</span><span class="p">]))</span>
+</span><span id="line-330">
+</span><span id="line-331">        <span class="n">pattern</span> <span class="o">=</span> <span class="p">(</span>
+</span><span id="line-332">            <span class="sa">rf</span><span class="s1">&#39;\b(</span><span class="si">{</span><span class="n">needle</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s1">)&#39;</span>
+</span><span id="line-333">            <span class="sa">rf</span><span class="s1">&#39;|(</span><span class="si">{</span><span class="n">needle</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="si">}</span><span class="s1">)\b&#39;</span><span class="p">)</span>
 </span><span id="line-334">
-</span><span id="line-335">    <span class="k">def</span><span class="w"> </span><span class="nf">__set_whome</span><span class="p">(</span>
-</span><span id="line-336">        <span class="bp">self</span><span class="p">,</span>
-</span><span id="line-337">        <span class="n">client</span><span class="p">:</span> <span class="s1">&#39;Client&#39;</span><span class="p">,</span>
-</span><span id="line-338">    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-</span><span id="line-339"><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-</span><span id="line-340"><span class="sd">        Update the value for the attribute from class instance.</span>
-</span><span id="line-341">
-</span><span id="line-342"><span class="sd">        :param client: Class instance for connecting to service.</span>
-</span><span id="line-343"><span class="sd">        &quot;&quot;&quot;</span>
+</span><span id="line-335">        <span class="n">mentions</span> <span class="o">=</span> <span class="p">[</span>
+</span><span id="line-336">            <span class="n">x</span><span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">]</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span>
+</span><span id="line-337">            <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">original</span>
+</span><span id="line-338">             <span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;mentions&#39;</span><span class="p">,</span> <span class="p">{})</span>
+</span><span id="line-339">             <span class="o">.</span><span class="n">values</span><span class="p">())]</span>
+</span><span id="line-340">
+</span><span id="line-341">        <span class="bp">self</span><span class="o">.</span><span class="n">hasme</span> <span class="o">=</span> <span class="nb">any</span><span class="p">([</span>
+</span><span id="line-342">
+</span><span id="line-343">            <span class="n">mynick</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="ow">in</span> <span class="n">mentions</span><span class="p">,</span>
 </span><span id="line-344">
-</span><span id="line-345">        <span class="bp">self</span><span class="o">.</span><span class="n">whome</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">nickname</span></div>
+</span><span id="line-345">            <span class="n">re_search</span><span class="p">(</span>
+</span><span id="line-346">                <span class="n">pattern</span><span class="p">,</span>
+</span><span id="line-347">                <span class="n">message</span><span class="p">,</span>
+</span><span id="line-348">                <span class="n">IGNORECASE</span><span class="p">)])</span>
+</span><span id="line-349">
+</span><span id="line-350">
+</span><span id="line-351">    <span class="k">def</span><span class="w"> </span><span class="nf">__set_whome</span><span class="p">(</span>
+</span><span id="line-352">        <span class="bp">self</span><span class="p">,</span>
+</span><span id="line-353">        <span class="n">client</span><span class="p">:</span> <span class="s1">&#39;Client&#39;</span><span class="p">,</span>
+</span><span id="line-354">    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+</span><span id="line-355"><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="line-356"><span class="sd">        Update the value for the attribute from class instance.</span>
+</span><span id="line-357">
+</span><span id="line-358"><span class="sd">        :param client: Class instance for connecting to service.</span>
+</span><span id="line-359"><span class="sd">        &quot;&quot;&quot;</span>
+</span><span id="line-360">
+</span><span id="line-361">        <span class="bp">self</span><span class="o">.</span><span class="n">whome</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">nickname</span></div>
 
 </span></code></pre></div>
     </div></div>
