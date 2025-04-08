@@ -659,7 +659,7 @@ class Client:
 
         headers = {tokey: _token}
 
-        if files is not NCNone:
+        if files is NCNone:
             headers[ctkey] = content
 
         return request(
