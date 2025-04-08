@@ -256,6 +256,7 @@ class HTTPClient:
         json: Optional[_PAYLOAD] = None,
         *,
         data: Optional[_PAYLOAD] = None,
+        files: Optional[_PAYLOAD] = None,
         timeout: Optional[int] = None,
         headers: Optional[_HEADERS] = None,
         httpauth: Optional[_HTTPAUTH] = None,
@@ -268,6 +269,7 @@ class HTTPClient:
         :param params: Optional parameters included in request.
         :param json: Optional JSON payload included in request.
         :param data: Optional dict payload included in request.
+        :param files: Optional file payload included in request.
         :param timeout: Timeout waiting for the server response.
         :param headers: Optional headers to include in requests.
         :param httpauth: Optional information for authentication.
@@ -294,6 +296,7 @@ class HTTPClient:
                 timeout=timeout or default,
                 params=params or None,
                 data=data or None,
+                files=files or None,
                 json=json or None)
 
             status = response.status_code
@@ -315,6 +318,7 @@ class HTTPClient:
         json: Optional[_PAYLOAD] = None,
         *,
         data: Optional[_PAYLOAD] = None,
+        files: Optional[_PAYLOAD] = None,
         timeout: Optional[int] = None,
         headers: Optional[_HEADERS] = None,
         httpauth: Optional[_HTTPAUTH] = None,
@@ -327,6 +331,7 @@ class HTTPClient:
         :param params: Optional parameters included in request.
         :param json: Optional JSON payload included in request.
         :param data: Optional dict payload included in request.
+        :param files: Optional file payload included in request.
         :param timeout: Timeout waiting for the server response.
         :param headers: Optional headers to include in requests.
         :param httpauth: Optional information for authentication.
@@ -353,6 +358,7 @@ class HTTPClient:
                 timeout=timeout or default,
                 params=params or None,
                 data=data or None,
+                files=files or None,
                 json=json or None)
 
             status = response.status_code

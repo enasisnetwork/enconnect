@@ -12,6 +12,7 @@ from typing import Any
 from typing import Optional
 
 from encommon.types import BaseModel
+from encommon.types import NCNone
 
 from pydantic import Field
 
@@ -21,6 +22,12 @@ class ClientParams(BaseModel, extra='forbid'):
     """
     Process and validate the class configuration parameters.
     """
+
+    appid: Annotated[
+        Optional[str],
+        Field(None,
+              description='Optional application identifier',
+              min_length=1)]
 
     token: Annotated[
         str,
@@ -60,5 +67,10 @@ class ClientParams(BaseModel, extra='forbid'):
         """
         Initialize instance for class using provided parameters.
         """
+
+        appid = data.get('appid')
+
+        if appid is not NCNone:
+            data['appid'] = str(appid)
 
         super().__init__(**data)

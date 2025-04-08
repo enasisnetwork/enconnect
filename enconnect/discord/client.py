@@ -12,6 +12,7 @@ from json import loads
 from queue import Queue
 from threading import Event
 from time import sleep as block_sleep
+from typing import Any
 from typing import Callable
 from typing import Optional
 from typing import TYPE_CHECKING
@@ -601,13 +602,15 @@ class Client:
         return sort_dict(event)
 
 
-    def request(
+    def request(  # noqa: CFQ002
         self,
         method: _METHODS,
         path: str,
         params: Optional[_PAYLOAD] = None,
         json: Optional[_PAYLOAD] = None,
         *,
+        data: Optional[_PAYLOAD] = None,
+        files: Optional[_PAYLOAD] = None,
         timeout: Optional[int] = None,
     ) -> Response:
         """
@@ -617,6 +620,8 @@ class Client:
         :param path: Path for the location to upstream endpoint.
         :param params: Optional parameters included in request.
         :param json: Optional JSON payload included in request.
+        :param data: Optional dict payload included in request.
+        :param files: Optional file payload included in request.
         :param timeout: Timeout waiting for the server response.
             This will override the default client instantiated.
         :returns: Response from upstream request to the server.
@@ -628,22 +633,6 @@ class Client:
         logger = self.__logger
         client = self.__client
 
-        _params = self.__params
-        token = _params.token
-
-        tokey = 'Authorization'
-        content = 'application/json'
-
-        headers = {
-            tokey: f'Bot {token}',
-            'Content-Type': content}
-
-        location = (
-            'https://discord.com'
-            f'/api/v10/{path}')
-
-        request = client.request_block
-
         logger(
             item='request',
             method=method,
@@ -654,10 +643,254 @@ class Client:
                 if len(json) >= 1
                 else None))
 
+        request = client.request_block
+
+        location = (
+            'https://discord.com'
+            f'/api/v10/{path}')
+
+        _params = self.__params
+        token = _params.token
+
+        tokey = 'Authorization'
+        _token = f'Bot {token}'
+        ctkey = 'Content-Type'
+        content = 'application/json'
+
+        headers = {tokey: _token}
+
+        if files is not NCNone:
+            headers[ctkey] = content
+
         return request(
             method=method,
             location=location,
             params=params,
             headers=headers,
             json=json,
+            data=data,
+            files=files,
             timeout=timeout)
+
+
+    def slash_create(
+        # NOCVR
+        self,
+        command: DictStrAny,
+        guild: Optional[str] = None,
+    ) -> Response:
+        """
+        Register the specified command using upstream endpoint.
+
+        :param command: Parameters for registering the command.
+        :param guild: Discord guild for registering the command.
+        :returns: Response from upstream request to the server.
+        """
+
+        params = self.params
+        appid = params.appid
+
+        assert appid is not None
+
+        request = self.request
+
+        path = (
+            f'applications/{appid}'
+            '/commands')
+
+        if guild is not None:
+            path = path.replace(
+                '/commands',
+                (f'/guilds/{guild}'
+                 '/commands'))
+
+        return request(
+            'post', path,
+            json=command)
+
+
+    def slash_delete(
+        # NOCVR
+        self,
+        name: str,
+        guild: Optional[str] = None,
+    ) -> None:
+        """
+        Remove specified slash command using upstream endpoint.
+
+        :param name: Match of the name of the returned commands.
+        :param guild: Discord guild where command is registred.
+        """
+
+        params = self.params
+        appid = params.appid
+
+        assert appid is not None
+
+        request = self.request
+
+        path = (
+            f'applications/{appid}'
+            '/commands')
+
+        if guild is not None:
+            path = path.replace(
+                '/commands',
+                (f'/guilds/{guild}'
+                 '/commands'))
+
+
+        response = request(
+            'get', path)
+
+        (response
+         .raise_for_status())
+
+        commands = response.json()
+
+        for command in commands:
+
+            unique = command['id']
+            _name = command['name']
+
+            if _name != name:
+                continue
+
+            path = (
+                f'applications/{appid}'
+                f'/commands/{unique}')
+
+            if guild is not None:
+                path = path.replace(
+                    '/commands',
+                    (f'/guilds/{guild}'
+                     '/commands'))
+
+            response = request(
+                'delete', path)
+
+            (response
+             .raise_for_status())
+
+
+    def get_guild(
+        # NOCVR
+        self,
+        unique: str,
+    ) -> DictStrAny:
+        """
+        Return the information about the object within Discord.
+
+        :param unique: Unique identifier to locate with Discord.
+        :returns: Response from upstream request to the server.
+        """
+
+        request = self.request
+
+        path = f'guilds/{unique}'
+
+        response = request(
+            'get', path)
+
+        (response
+         .raise_for_status())
+
+        fetch = response.json()
+
+        assert isinstance(fetch, dict)
+
+        return fetch
+
+
+    def get_channel(
+        # NOCVR
+        self,
+        unique: str,
+    ) -> DictStrAny:
+        """
+        Return the information about the object within Discord.
+
+        :param unique: Unique identifier to locate with Discord.
+        :returns: Response from upstream request to the server.
+        """
+
+        request = self.request
+
+        path = f'channels/{unique}'
+
+        response = request(
+            'get', path)
+
+        (response
+         .raise_for_status())
+
+        fetch = response.json()
+
+        assert isinstance(fetch, dict)
+
+        return fetch
+
+
+    def interact_create(
+        # NOCVR
+        self,
+        event: ClientEvent,
+        **kwargs: Any,
+    ) -> None:
+        """
+        Create the interaction using the raw event from server.
+
+        :param event: Raw event received from the network peer.
+        :param kwargs: Keyword arguments passed for downstream.
+        """
+
+        request = self.request
+
+        assert event.data
+
+        unique = event.data['id']
+        token = event.data['token']
+
+        response = request(
+            'post',
+            (f'interactions/{unique}'
+             f'/{token}/callback'),
+            **kwargs)
+
+        (response
+         .raise_for_status())
+
+
+    def interact_update(
+        # NOCVR
+        self,
+        event: ClientEvent,
+        **kwargs: Any,
+    ) -> None:
+        """
+        Update the interaction using the raw event from server.
+
+        :param event: Raw event received from the network peer.
+        :param kwargs: Keyword arguments passed for downstream.
+        """
+
+        params = self.params
+        appid = params.appid
+
+        assert appid is not None
+
+        request = self.request
+
+        assert event.data
+
+        token = event.data['token']
+
+        response = request(
+            'patch',
+            (f'webhooks/{appid}'
+             f'/{token}/messages'
+             '/@original'),
+            **kwargs)
+
+        (response
+         .raise_for_status())
