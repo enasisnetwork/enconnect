@@ -354,6 +354,20 @@ class YouTube:
             for x in fetched['items']]
 
 
+    def video(
+        self,
+        unique: str,
+    ) -> YouTubeVideo:
+        """
+        Return the specific content within the social platform.
+
+        :param unique: Unique identifier within social platform.
+        :returns: Specific content within the social platform.
+        """
+
+        return self.video_block(unique)
+
+
     def video_block(
         self,
         unique: str,

@@ -16,6 +16,7 @@ from typing import Any
 from typing import Callable
 from typing import Optional
 from typing import TYPE_CHECKING
+from urllib.parse import quote
 
 from encommon.times import Timer
 from encommon.types import DictStrAny
@@ -829,6 +830,106 @@ class Client:
         assert isinstance(fetch, dict)
 
         return fetch
+
+
+    def message_create(
+        # NOCVR
+        self,
+        channel: str,
+        **kwargs: Any,
+    ) -> Response:
+        """
+        Create the message using the unique Discord identifier.
+
+        :param channel: Unique identifier in the Discord server.
+        :param payload: Message payload with the Discord syntax.
+        :param files: Required file payload included in request.
+        :param kwargs: Keyword arguments passed for downstream.
+        :returns: Response from upstream request to the server.
+        """
+
+        request = self.request
+
+        path = (
+            f'channels/{channel}'
+            '/messages')
+
+        response = request(
+            'post', path,
+            **kwargs)
+
+        (response
+         .raise_for_status())
+
+        return response
+
+
+    def message_update(
+        # NOCVR
+        self,
+        channel: str,
+        unique: str,
+        **kwargs: Any,
+    ) -> Response:
+        """
+        Update the message using the unique Discord identifiers.
+
+        :param channel: Unique identifier in the Discord server.
+        :param unique: Unique identifier in the Discord server.
+        :param payload: Message payload with the Discord syntax.
+        :param files: Required file payload included in request.
+        :param kwargs: Keyword arguments passed for downstream.
+        :returns: Response from upstream request to the server.
+        """
+
+        request = self.request
+
+        path = (
+            f'channels/{channel}'
+            f'/messages/{unique}')
+
+        response = request(
+            'patch', path,
+            **kwargs)
+
+        (response
+         .raise_for_status())
+
+        return response
+
+
+    def message_react(
+        # NOCVR
+        self,
+        channel: str,
+        unique: str,
+        emoji: str,
+    ) -> Response:
+        """
+        React to the message with the provided emoji identifier.
+
+        :param channel: Unique identifier in the Discord server.
+        :param unique: Unique identifier in the Discord server.
+        :param emoji: Unique identifier in the Discord server.
+        :returns: Response from upstream request to the server.
+        """
+
+        request = self.request
+
+        encoded = quote(emoji)
+
+        path = (
+            f'channels/{channel}'
+            f'/messages/{unique}'
+            f'/reactions/{encoded}/@me')
+
+        response = request(
+            'put', path)
+
+        (response
+         .raise_for_status())
+
+        return response
 
 
     def interact_create(

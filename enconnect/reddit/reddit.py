@@ -287,6 +287,20 @@ class Reddit:
             httpauth=httpauth)
 
 
+    def listing(
+        self,
+        unique: str,
+    ) -> RedditListing:
+        """
+        Return the specific content within the social platform.
+
+        :param unique: Unique identifier within social platform.
+        :returns: Specific content within the social platform.
+        """
+
+        return self.listing_block(unique)
+
+
     def listing_block(
         self,
         unique: str,
