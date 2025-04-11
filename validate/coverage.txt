@@ -3,7 +3,7 @@ Name                                         Stmts   Miss  Cover
 enconnect/__init__.py                            5      0   100%
 enconnect/conftest.py                            1      0   100%
 enconnect/discord/__init__.py                    4      0   100%
-enconnect/discord/client.py                    236      0   100%
+enconnect/discord/client.py                    237      0   100%
 enconnect/discord/models.py                    109      0   100%
 enconnect/discord/params.py                     15      0   100%
 enconnect/discord/test/__init__.py               5      0   100%
@@ -48,7 +48,7 @@ enconnect/philips/test/test_bridge.py           68      0   100%
 enconnect/reddit/__init__.py                     4      0   100%
 enconnect/reddit/models.py                      56      0   100%
 enconnect/reddit/params.py                      16      0   100%
-enconnect/reddit/reddit.py                     158      0   100%
+enconnect/reddit/reddit.py                     160      1    99%
 enconnect/reddit/test/__init__.py                2      0   100%
 enconnect/reddit/test/test_models.py            40      0   100%
 enconnect/reddit/test/test_reddit.py            83      0   100%
@@ -68,6 +68,6 @@ enconnect/youtube/params.py                     12      0   100%
 enconnect/youtube/test/__init__.py               2      0   100%
 enconnect/youtube/test/test_models.py           51      0   100%
 enconnect/youtube/test/test_youtube.py          70      0   100%
-enconnect/youtube/youtube.py                   102      0   100%
+enconnect/youtube/youtube.py                   104      1    99%
 ----------------------------------------------------------------
-TOTAL                                         3378      0   100%
+TOTAL                                         3383      2    99%
