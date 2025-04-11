@@ -523,9 +523,9 @@
 
 </span><span id="line-355">
 </span><span id="line-356">
-<div class="viewcode-block" id="YouTube.video_block">
-<a class="viewcode-back" href="../../../index.html#enconnect.youtube.youtube.YouTube.video_block">[docs]</a>
-</span><span id="line-357">    <span class="k">def</span><span class="w"> </span><span class="nf">video_block</span><span class="p">(</span>
+<div class="viewcode-block" id="YouTube.video">
+<a class="viewcode-back" href="../../../index.html#enconnect.youtube.youtube.YouTube.video">[docs]</a>
+</span><span id="line-357">    <span class="k">def</span><span class="w"> </span><span class="nf">video</span><span class="p">(</span>
 </span><span id="line-358">        <span class="bp">self</span><span class="p">,</span>
 </span><span id="line-359">        <span class="n">unique</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
 </span><span id="line-360">    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">YouTubeVideo</span><span class="p">:</span>
@@ -536,31 +536,48 @@
 </span><span id="line-365"><span class="sd">        :returns: Specific content within the social platform.</span>
 </span><span id="line-366"><span class="sd">        &quot;&quot;&quot;</span>
 </span><span id="line-367">
-</span><span id="line-368">        <span class="n">videos</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">videos_block</span><span class="p">(</span>
-</span><span id="line-369">            <span class="p">{</span><span class="s1">&#39;id&#39;</span><span class="p">:</span> <span class="n">unique</span><span class="p">})</span>
-</span><span id="line-370">
-</span><span id="line-371">        <span class="k">return</span> <span class="n">videos</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span></div>
+</span><span id="line-368">        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">video_block</span><span class="p">(</span><span class="n">unique</span><span class="p">)</span></div>
 
-</span><span id="line-372">
-</span><span id="line-373">
+</span><span id="line-369">
+</span><span id="line-370">
+<div class="viewcode-block" id="YouTube.video_block">
+<a class="viewcode-back" href="../../../index.html#enconnect.youtube.youtube.YouTube.video_block">[docs]</a>
+</span><span id="line-371">    <span class="k">def</span><span class="w"> </span><span class="nf">video_block</span><span class="p">(</span>
+</span><span id="line-372">        <span class="bp">self</span><span class="p">,</span>
+</span><span id="line-373">        <span class="n">unique</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+</span><span id="line-374">    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">YouTubeVideo</span><span class="p">:</span>
+</span><span id="line-375"><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="line-376"><span class="sd">        Return the specific content within the social platform.</span>
+</span><span id="line-377">
+</span><span id="line-378"><span class="sd">        :param unique: Unique identifier within social platform.</span>
+</span><span id="line-379"><span class="sd">        :returns: Specific content within the social platform.</span>
+</span><span id="line-380"><span class="sd">        &quot;&quot;&quot;</span>
+</span><span id="line-381">
+</span><span id="line-382">        <span class="n">videos</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">videos_block</span><span class="p">(</span>
+</span><span id="line-383">            <span class="p">{</span><span class="s1">&#39;id&#39;</span><span class="p">:</span> <span class="n">unique</span><span class="p">})</span>
+</span><span id="line-384">
+</span><span id="line-385">        <span class="k">return</span> <span class="n">videos</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span></div>
+
+</span><span id="line-386">
+</span><span id="line-387">
 <div class="viewcode-block" id="YouTube.video_async">
 <a class="viewcode-back" href="../../../index.html#enconnect.youtube.youtube.YouTube.video_async">[docs]</a>
-</span><span id="line-374">    <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">video_async</span><span class="p">(</span>
-</span><span id="line-375">        <span class="bp">self</span><span class="p">,</span>
-</span><span id="line-376">        <span class="n">unique</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
-</span><span id="line-377">    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">YouTubeVideo</span><span class="p">:</span>
-</span><span id="line-378"><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-</span><span id="line-379"><span class="sd">        Return the specific content within the social platform.</span>
-</span><span id="line-380">
-</span><span id="line-381"><span class="sd">        :param unique: Unique identifier within social platform.</span>
-</span><span id="line-382"><span class="sd">        :returns: Specific content within the social platform.</span>
-</span><span id="line-383"><span class="sd">        &quot;&quot;&quot;</span>
-</span><span id="line-384">
-</span><span id="line-385">        <span class="n">videos</span> <span class="o">=</span> <span class="k">await</span> <span class="p">(</span>
-</span><span id="line-386">            <span class="bp">self</span><span class="o">.</span><span class="n">videos_async</span><span class="p">({</span>
-</span><span id="line-387">                <span class="s1">&#39;id&#39;</span><span class="p">:</span> <span class="n">unique</span><span class="p">}))</span>
-</span><span id="line-388">
-</span><span id="line-389">        <span class="k">return</span> <span class="n">videos</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span></div>
+</span><span id="line-388">    <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">video_async</span><span class="p">(</span>
+</span><span id="line-389">        <span class="bp">self</span><span class="p">,</span>
+</span><span id="line-390">        <span class="n">unique</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+</span><span id="line-391">    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">YouTubeVideo</span><span class="p">:</span>
+</span><span id="line-392"><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="line-393"><span class="sd">        Return the specific content within the social platform.</span>
+</span><span id="line-394">
+</span><span id="line-395"><span class="sd">        :param unique: Unique identifier within social platform.</span>
+</span><span id="line-396"><span class="sd">        :returns: Specific content within the social platform.</span>
+</span><span id="line-397"><span class="sd">        &quot;&quot;&quot;</span>
+</span><span id="line-398">
+</span><span id="line-399">        <span class="n">videos</span> <span class="o">=</span> <span class="k">await</span> <span class="p">(</span>
+</span><span id="line-400">            <span class="bp">self</span><span class="o">.</span><span class="n">videos_async</span><span class="p">({</span>
+</span><span id="line-401">                <span class="s1">&#39;id&#39;</span><span class="p">:</span> <span class="n">unique</span><span class="p">}))</span>
+</span><span id="line-402">
+</span><span id="line-403">        <span class="k">return</span> <span class="n">videos</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span></div>
 </div>
 
 </span></code></pre></div>
