@@ -842,8 +842,6 @@ class Client:
         Create the message using the unique Discord identifier.
 
         :param channel: Unique identifier in the Discord server.
-        :param payload: Message payload with the Discord syntax.
-        :param files: Required file payload included in request.
         :param kwargs: Keyword arguments passed for downstream.
         :returns: Response from upstream request to the server.
         """
@@ -877,7 +875,6 @@ class Client:
         :param channel: Unique identifier in the Discord server.
         :param unique: Unique identifier in the Discord server.
         :param payload: Message payload with the Discord syntax.
-        :param files: Required file payload included in request.
         :param kwargs: Keyword arguments passed for downstream.
         :returns: Response from upstream request to the server.
         """
@@ -891,6 +888,35 @@ class Client:
         response = request(
             'patch', path,
             **kwargs)
+
+        (response
+         .raise_for_status())
+
+        return response
+
+
+    def message_delete(
+        # NOCVR
+        self,
+        channel: str,
+        unique: str,
+    ) -> Response:
+        """
+        Delete the message using the unique Discord identifiers.
+
+        :param channel: Unique identifier in the Discord server.
+        :param unique: Unique identifier in the Discord server.
+        :returns: Response from upstream request to the server.
+        """
+
+        request = self.request
+
+        path = (
+            f'channels/{channel}'
+            f'/messages/{unique}')
+
+        response = request(
+            'delete', path)
 
         (response
          .raise_for_status())
