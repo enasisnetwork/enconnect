@@ -1016,171 +1016,200 @@
 </span><span id="line-842"><span class="sd">        Create the message using the unique Discord identifier.</span>
 </span><span id="line-843">
 </span><span id="line-844"><span class="sd">        :param channel: Unique identifier in the Discord server.</span>
-</span><span id="line-845"><span class="sd">        :param payload: Message payload with the Discord syntax.</span>
-</span><span id="line-846"><span class="sd">        :param files: Required file payload included in request.</span>
-</span><span id="line-847"><span class="sd">        :param kwargs: Keyword arguments passed for downstream.</span>
-</span><span id="line-848"><span class="sd">        :returns: Response from upstream request to the server.</span>
-</span><span id="line-849"><span class="sd">        &quot;&quot;&quot;</span>
+</span><span id="line-845"><span class="sd">        :param kwargs: Keyword arguments passed for downstream.</span>
+</span><span id="line-846"><span class="sd">        :returns: Response from upstream request to the server.</span>
+</span><span id="line-847"><span class="sd">        &quot;&quot;&quot;</span>
+</span><span id="line-848">
+</span><span id="line-849">        <span class="n">request</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">request</span>
 </span><span id="line-850">
-</span><span id="line-851">        <span class="n">request</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">request</span>
-</span><span id="line-852">
-</span><span id="line-853">        <span class="n">path</span> <span class="o">=</span> <span class="p">(</span>
-</span><span id="line-854">            <span class="sa">f</span><span class="s1">&#39;channels/</span><span class="si">{</span><span class="n">channel</span><span class="si">}</span><span class="s1">&#39;</span>
-</span><span id="line-855">            <span class="s1">&#39;/messages&#39;</span><span class="p">)</span>
-</span><span id="line-856">
-</span><span id="line-857">        <span class="n">response</span> <span class="o">=</span> <span class="n">request</span><span class="p">(</span>
-</span><span id="line-858">            <span class="s1">&#39;post&#39;</span><span class="p">,</span> <span class="n">path</span><span class="p">,</span>
-</span><span id="line-859">            <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
-</span><span id="line-860">
-</span><span id="line-861">        <span class="p">(</span><span class="n">response</span>
-</span><span id="line-862">         <span class="o">.</span><span class="n">raise_for_status</span><span class="p">())</span>
-</span><span id="line-863">
-</span><span id="line-864">        <span class="k">return</span> <span class="n">response</span></div>
+</span><span id="line-851">        <span class="n">path</span> <span class="o">=</span> <span class="p">(</span>
+</span><span id="line-852">            <span class="sa">f</span><span class="s1">&#39;channels/</span><span class="si">{</span><span class="n">channel</span><span class="si">}</span><span class="s1">&#39;</span>
+</span><span id="line-853">            <span class="s1">&#39;/messages&#39;</span><span class="p">)</span>
+</span><span id="line-854">
+</span><span id="line-855">        <span class="n">response</span> <span class="o">=</span> <span class="n">request</span><span class="p">(</span>
+</span><span id="line-856">            <span class="s1">&#39;post&#39;</span><span class="p">,</span> <span class="n">path</span><span class="p">,</span>
+</span><span id="line-857">            <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+</span><span id="line-858">
+</span><span id="line-859">        <span class="p">(</span><span class="n">response</span>
+</span><span id="line-860">         <span class="o">.</span><span class="n">raise_for_status</span><span class="p">())</span>
+</span><span id="line-861">
+</span><span id="line-862">        <span class="k">return</span> <span class="n">response</span></div>
 
-</span><span id="line-865">
-</span><span id="line-866">
+</span><span id="line-863">
+</span><span id="line-864">
 <div class="viewcode-block" id="Client.message_update">
 <a class="viewcode-back" href="../../../index.html#enconnect.discord.client.Client.message_update">[docs]</a>
-</span><span id="line-867">    <span class="k">def</span><span class="w"> </span><span class="nf">message_update</span><span class="p">(</span>
-</span><span id="line-868">        <span class="c1"># NOCVR</span>
-</span><span id="line-869">        <span class="bp">self</span><span class="p">,</span>
-</span><span id="line-870">        <span class="n">channel</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
-</span><span id="line-871">        <span class="n">unique</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
-</span><span id="line-872">        <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
-</span><span id="line-873">    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Response</span><span class="p">:</span>
-</span><span id="line-874"><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-</span><span id="line-875"><span class="sd">        Update the message using the unique Discord identifiers.</span>
-</span><span id="line-876">
-</span><span id="line-877"><span class="sd">        :param channel: Unique identifier in the Discord server.</span>
-</span><span id="line-878"><span class="sd">        :param unique: Unique identifier in the Discord server.</span>
-</span><span id="line-879"><span class="sd">        :param payload: Message payload with the Discord syntax.</span>
-</span><span id="line-880"><span class="sd">        :param files: Required file payload included in request.</span>
-</span><span id="line-881"><span class="sd">        :param kwargs: Keyword arguments passed for downstream.</span>
-</span><span id="line-882"><span class="sd">        :returns: Response from upstream request to the server.</span>
-</span><span id="line-883"><span class="sd">        &quot;&quot;&quot;</span>
-</span><span id="line-884">
-</span><span id="line-885">        <span class="n">request</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">request</span>
-</span><span id="line-886">
-</span><span id="line-887">        <span class="n">path</span> <span class="o">=</span> <span class="p">(</span>
-</span><span id="line-888">            <span class="sa">f</span><span class="s1">&#39;channels/</span><span class="si">{</span><span class="n">channel</span><span class="si">}</span><span class="s1">&#39;</span>
-</span><span id="line-889">            <span class="sa">f</span><span class="s1">&#39;/messages/</span><span class="si">{</span><span class="n">unique</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
-</span><span id="line-890">
-</span><span id="line-891">        <span class="n">response</span> <span class="o">=</span> <span class="n">request</span><span class="p">(</span>
-</span><span id="line-892">            <span class="s1">&#39;patch&#39;</span><span class="p">,</span> <span class="n">path</span><span class="p">,</span>
-</span><span id="line-893">            <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+</span><span id="line-865">    <span class="k">def</span><span class="w"> </span><span class="nf">message_update</span><span class="p">(</span>
+</span><span id="line-866">        <span class="c1"># NOCVR</span>
+</span><span id="line-867">        <span class="bp">self</span><span class="p">,</span>
+</span><span id="line-868">        <span class="n">channel</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+</span><span id="line-869">        <span class="n">unique</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+</span><span id="line-870">        <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
+</span><span id="line-871">    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Response</span><span class="p">:</span>
+</span><span id="line-872"><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="line-873"><span class="sd">        Update the message using the unique Discord identifiers.</span>
+</span><span id="line-874">
+</span><span id="line-875"><span class="sd">        :param channel: Unique identifier in the Discord server.</span>
+</span><span id="line-876"><span class="sd">        :param unique: Unique identifier in the Discord server.</span>
+</span><span id="line-877"><span class="sd">        :param payload: Message payload with the Discord syntax.</span>
+</span><span id="line-878"><span class="sd">        :param kwargs: Keyword arguments passed for downstream.</span>
+</span><span id="line-879"><span class="sd">        :returns: Response from upstream request to the server.</span>
+</span><span id="line-880"><span class="sd">        &quot;&quot;&quot;</span>
+</span><span id="line-881">
+</span><span id="line-882">        <span class="n">request</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">request</span>
+</span><span id="line-883">
+</span><span id="line-884">        <span class="n">path</span> <span class="o">=</span> <span class="p">(</span>
+</span><span id="line-885">            <span class="sa">f</span><span class="s1">&#39;channels/</span><span class="si">{</span><span class="n">channel</span><span class="si">}</span><span class="s1">&#39;</span>
+</span><span id="line-886">            <span class="sa">f</span><span class="s1">&#39;/messages/</span><span class="si">{</span><span class="n">unique</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+</span><span id="line-887">
+</span><span id="line-888">        <span class="n">response</span> <span class="o">=</span> <span class="n">request</span><span class="p">(</span>
+</span><span id="line-889">            <span class="s1">&#39;patch&#39;</span><span class="p">,</span> <span class="n">path</span><span class="p">,</span>
+</span><span id="line-890">            <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+</span><span id="line-891">
+</span><span id="line-892">        <span class="p">(</span><span class="n">response</span>
+</span><span id="line-893">         <span class="o">.</span><span class="n">raise_for_status</span><span class="p">())</span>
 </span><span id="line-894">
-</span><span id="line-895">        <span class="p">(</span><span class="n">response</span>
-</span><span id="line-896">         <span class="o">.</span><span class="n">raise_for_status</span><span class="p">())</span>
-</span><span id="line-897">
-</span><span id="line-898">        <span class="k">return</span> <span class="n">response</span></div>
+</span><span id="line-895">        <span class="k">return</span> <span class="n">response</span></div>
 
-</span><span id="line-899">
-</span><span id="line-900">
+</span><span id="line-896">
+</span><span id="line-897">
+<div class="viewcode-block" id="Client.message_delete">
+<a class="viewcode-back" href="../../../index.html#enconnect.discord.client.Client.message_delete">[docs]</a>
+</span><span id="line-898">    <span class="k">def</span><span class="w"> </span><span class="nf">message_delete</span><span class="p">(</span>
+</span><span id="line-899">        <span class="c1"># NOCVR</span>
+</span><span id="line-900">        <span class="bp">self</span><span class="p">,</span>
+</span><span id="line-901">        <span class="n">channel</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+</span><span id="line-902">        <span class="n">unique</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+</span><span id="line-903">    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Response</span><span class="p">:</span>
+</span><span id="line-904"><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="line-905"><span class="sd">        Delete the message using the unique Discord identifiers.</span>
+</span><span id="line-906">
+</span><span id="line-907"><span class="sd">        :param channel: Unique identifier in the Discord server.</span>
+</span><span id="line-908"><span class="sd">        :param unique: Unique identifier in the Discord server.</span>
+</span><span id="line-909"><span class="sd">        :returns: Response from upstream request to the server.</span>
+</span><span id="line-910"><span class="sd">        &quot;&quot;&quot;</span>
+</span><span id="line-911">
+</span><span id="line-912">        <span class="n">request</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">request</span>
+</span><span id="line-913">
+</span><span id="line-914">        <span class="n">path</span> <span class="o">=</span> <span class="p">(</span>
+</span><span id="line-915">            <span class="sa">f</span><span class="s1">&#39;channels/</span><span class="si">{</span><span class="n">channel</span><span class="si">}</span><span class="s1">&#39;</span>
+</span><span id="line-916">            <span class="sa">f</span><span class="s1">&#39;/messages/</span><span class="si">{</span><span class="n">unique</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+</span><span id="line-917">
+</span><span id="line-918">        <span class="n">response</span> <span class="o">=</span> <span class="n">request</span><span class="p">(</span>
+</span><span id="line-919">            <span class="s1">&#39;delete&#39;</span><span class="p">,</span> <span class="n">path</span><span class="p">)</span>
+</span><span id="line-920">
+</span><span id="line-921">        <span class="p">(</span><span class="n">response</span>
+</span><span id="line-922">         <span class="o">.</span><span class="n">raise_for_status</span><span class="p">())</span>
+</span><span id="line-923">
+</span><span id="line-924">        <span class="k">return</span> <span class="n">response</span></div>
+
+</span><span id="line-925">
+</span><span id="line-926">
 <div class="viewcode-block" id="Client.message_react">
 <a class="viewcode-back" href="../../../index.html#enconnect.discord.client.Client.message_react">[docs]</a>
-</span><span id="line-901">    <span class="k">def</span><span class="w"> </span><span class="nf">message_react</span><span class="p">(</span>
-</span><span id="line-902">        <span class="c1"># NOCVR</span>
-</span><span id="line-903">        <span class="bp">self</span><span class="p">,</span>
-</span><span id="line-904">        <span class="n">channel</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
-</span><span id="line-905">        <span class="n">unique</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
-</span><span id="line-906">        <span class="n">emoji</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
-</span><span id="line-907">    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Response</span><span class="p">:</span>
-</span><span id="line-908"><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-</span><span id="line-909"><span class="sd">        React to the message with the provided emoji identifier.</span>
-</span><span id="line-910">
-</span><span id="line-911"><span class="sd">        :param channel: Unique identifier in the Discord server.</span>
-</span><span id="line-912"><span class="sd">        :param unique: Unique identifier in the Discord server.</span>
-</span><span id="line-913"><span class="sd">        :param emoji: Unique identifier in the Discord server.</span>
-</span><span id="line-914"><span class="sd">        :returns: Response from upstream request to the server.</span>
-</span><span id="line-915"><span class="sd">        &quot;&quot;&quot;</span>
-</span><span id="line-916">
-</span><span id="line-917">        <span class="n">request</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">request</span>
-</span><span id="line-918">
-</span><span id="line-919">        <span class="n">encoded</span> <span class="o">=</span> <span class="n">quote</span><span class="p">(</span><span class="n">emoji</span><span class="p">)</span>
-</span><span id="line-920">
-</span><span id="line-921">        <span class="n">path</span> <span class="o">=</span> <span class="p">(</span>
-</span><span id="line-922">            <span class="sa">f</span><span class="s1">&#39;channels/</span><span class="si">{</span><span class="n">channel</span><span class="si">}</span><span class="s1">&#39;</span>
-</span><span id="line-923">            <span class="sa">f</span><span class="s1">&#39;/messages/</span><span class="si">{</span><span class="n">unique</span><span class="si">}</span><span class="s1">&#39;</span>
-</span><span id="line-924">            <span class="sa">f</span><span class="s1">&#39;/reactions/</span><span class="si">{</span><span class="n">encoded</span><span class="si">}</span><span class="s1">/@me&#39;</span><span class="p">)</span>
-</span><span id="line-925">
-</span><span id="line-926">        <span class="n">response</span> <span class="o">=</span> <span class="n">request</span><span class="p">(</span>
-</span><span id="line-927">            <span class="s1">&#39;put&#39;</span><span class="p">,</span> <span class="n">path</span><span class="p">)</span>
-</span><span id="line-928">
-</span><span id="line-929">        <span class="p">(</span><span class="n">response</span>
-</span><span id="line-930">         <span class="o">.</span><span class="n">raise_for_status</span><span class="p">())</span>
-</span><span id="line-931">
-</span><span id="line-932">        <span class="k">return</span> <span class="n">response</span></div>
+</span><span id="line-927">    <span class="k">def</span><span class="w"> </span><span class="nf">message_react</span><span class="p">(</span>
+</span><span id="line-928">        <span class="c1"># NOCVR</span>
+</span><span id="line-929">        <span class="bp">self</span><span class="p">,</span>
+</span><span id="line-930">        <span class="n">channel</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+</span><span id="line-931">        <span class="n">unique</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+</span><span id="line-932">        <span class="n">emoji</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+</span><span id="line-933">    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Response</span><span class="p">:</span>
+</span><span id="line-934"><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="line-935"><span class="sd">        React to the message with the provided emoji identifier.</span>
+</span><span id="line-936">
+</span><span id="line-937"><span class="sd">        :param channel: Unique identifier in the Discord server.</span>
+</span><span id="line-938"><span class="sd">        :param unique: Unique identifier in the Discord server.</span>
+</span><span id="line-939"><span class="sd">        :param emoji: Unique identifier in the Discord server.</span>
+</span><span id="line-940"><span class="sd">        :returns: Response from upstream request to the server.</span>
+</span><span id="line-941"><span class="sd">        &quot;&quot;&quot;</span>
+</span><span id="line-942">
+</span><span id="line-943">        <span class="n">request</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">request</span>
+</span><span id="line-944">
+</span><span id="line-945">        <span class="n">encoded</span> <span class="o">=</span> <span class="n">quote</span><span class="p">(</span><span class="n">emoji</span><span class="p">)</span>
+</span><span id="line-946">
+</span><span id="line-947">        <span class="n">path</span> <span class="o">=</span> <span class="p">(</span>
+</span><span id="line-948">            <span class="sa">f</span><span class="s1">&#39;channels/</span><span class="si">{</span><span class="n">channel</span><span class="si">}</span><span class="s1">&#39;</span>
+</span><span id="line-949">            <span class="sa">f</span><span class="s1">&#39;/messages/</span><span class="si">{</span><span class="n">unique</span><span class="si">}</span><span class="s1">&#39;</span>
+</span><span id="line-950">            <span class="sa">f</span><span class="s1">&#39;/reactions/</span><span class="si">{</span><span class="n">encoded</span><span class="si">}</span><span class="s1">/@me&#39;</span><span class="p">)</span>
+</span><span id="line-951">
+</span><span id="line-952">        <span class="n">response</span> <span class="o">=</span> <span class="n">request</span><span class="p">(</span>
+</span><span id="line-953">            <span class="s1">&#39;put&#39;</span><span class="p">,</span> <span class="n">path</span><span class="p">)</span>
+</span><span id="line-954">
+</span><span id="line-955">        <span class="p">(</span><span class="n">response</span>
+</span><span id="line-956">         <span class="o">.</span><span class="n">raise_for_status</span><span class="p">())</span>
+</span><span id="line-957">
+</span><span id="line-958">        <span class="k">return</span> <span class="n">response</span></div>
 
-</span><span id="line-933">
-</span><span id="line-934">
+</span><span id="line-959">
+</span><span id="line-960">
 <div class="viewcode-block" id="Client.interact_create">
 <a class="viewcode-back" href="../../../index.html#enconnect.discord.client.Client.interact_create">[docs]</a>
-</span><span id="line-935">    <span class="k">def</span><span class="w"> </span><span class="nf">interact_create</span><span class="p">(</span>
-</span><span id="line-936">        <span class="c1"># NOCVR</span>
-</span><span id="line-937">        <span class="bp">self</span><span class="p">,</span>
-</span><span id="line-938">        <span class="n">event</span><span class="p">:</span> <span class="n">ClientEvent</span><span class="p">,</span>
-</span><span id="line-939">        <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
-</span><span id="line-940">    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-</span><span id="line-941"><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-</span><span id="line-942"><span class="sd">        Create the interaction using the raw event from server.</span>
-</span><span id="line-943">
-</span><span id="line-944"><span class="sd">        :param event: Raw event received from the network peer.</span>
-</span><span id="line-945"><span class="sd">        :param kwargs: Keyword arguments passed for downstream.</span>
-</span><span id="line-946"><span class="sd">        &quot;&quot;&quot;</span>
-</span><span id="line-947">
-</span><span id="line-948">        <span class="n">request</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">request</span>
-</span><span id="line-949">
-</span><span id="line-950">        <span class="k">assert</span> <span class="n">event</span><span class="o">.</span><span class="n">data</span>
-</span><span id="line-951">
-</span><span id="line-952">        <span class="n">unique</span> <span class="o">=</span> <span class="n">event</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">]</span>
-</span><span id="line-953">        <span class="n">token</span> <span class="o">=</span> <span class="n">event</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;token&#39;</span><span class="p">]</span>
-</span><span id="line-954">
-</span><span id="line-955">        <span class="n">response</span> <span class="o">=</span> <span class="n">request</span><span class="p">(</span>
-</span><span id="line-956">            <span class="s1">&#39;post&#39;</span><span class="p">,</span>
-</span><span id="line-957">            <span class="p">(</span><span class="sa">f</span><span class="s1">&#39;interactions/</span><span class="si">{</span><span class="n">unique</span><span class="si">}</span><span class="s1">&#39;</span>
-</span><span id="line-958">             <span class="sa">f</span><span class="s1">&#39;/</span><span class="si">{</span><span class="n">token</span><span class="si">}</span><span class="s1">/callback&#39;</span><span class="p">),</span>
-</span><span id="line-959">            <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
-</span><span id="line-960">
-</span><span id="line-961">        <span class="p">(</span><span class="n">response</span>
-</span><span id="line-962">         <span class="o">.</span><span class="n">raise_for_status</span><span class="p">())</span></div>
+</span><span id="line-961">    <span class="k">def</span><span class="w"> </span><span class="nf">interact_create</span><span class="p">(</span>
+</span><span id="line-962">        <span class="c1"># NOCVR</span>
+</span><span id="line-963">        <span class="bp">self</span><span class="p">,</span>
+</span><span id="line-964">        <span class="n">event</span><span class="p">:</span> <span class="n">ClientEvent</span><span class="p">,</span>
+</span><span id="line-965">        <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
+</span><span id="line-966">    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+</span><span id="line-967"><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="line-968"><span class="sd">        Create the interaction using the raw event from server.</span>
+</span><span id="line-969">
+</span><span id="line-970"><span class="sd">        :param event: Raw event received from the network peer.</span>
+</span><span id="line-971"><span class="sd">        :param kwargs: Keyword arguments passed for downstream.</span>
+</span><span id="line-972"><span class="sd">        &quot;&quot;&quot;</span>
+</span><span id="line-973">
+</span><span id="line-974">        <span class="n">request</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">request</span>
+</span><span id="line-975">
+</span><span id="line-976">        <span class="k">assert</span> <span class="n">event</span><span class="o">.</span><span class="n">data</span>
+</span><span id="line-977">
+</span><span id="line-978">        <span class="n">unique</span> <span class="o">=</span> <span class="n">event</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">]</span>
+</span><span id="line-979">        <span class="n">token</span> <span class="o">=</span> <span class="n">event</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;token&#39;</span><span class="p">]</span>
+</span><span id="line-980">
+</span><span id="line-981">        <span class="n">response</span> <span class="o">=</span> <span class="n">request</span><span class="p">(</span>
+</span><span id="line-982">            <span class="s1">&#39;post&#39;</span><span class="p">,</span>
+</span><span id="line-983">            <span class="p">(</span><span class="sa">f</span><span class="s1">&#39;interactions/</span><span class="si">{</span><span class="n">unique</span><span class="si">}</span><span class="s1">&#39;</span>
+</span><span id="line-984">             <span class="sa">f</span><span class="s1">&#39;/</span><span class="si">{</span><span class="n">token</span><span class="si">}</span><span class="s1">/callback&#39;</span><span class="p">),</span>
+</span><span id="line-985">            <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+</span><span id="line-986">
+</span><span id="line-987">        <span class="p">(</span><span class="n">response</span>
+</span><span id="line-988">         <span class="o">.</span><span class="n">raise_for_status</span><span class="p">())</span></div>
 
-</span><span id="line-963">
-</span><span id="line-964">
+</span><span id="line-989">
+</span><span id="line-990">
 <div class="viewcode-block" id="Client.interact_update">
 <a class="viewcode-back" href="../../../index.html#enconnect.discord.client.Client.interact_update">[docs]</a>
-</span><span id="line-965">    <span class="k">def</span><span class="w"> </span><span class="nf">interact_update</span><span class="p">(</span>
-</span><span id="line-966">        <span class="c1"># NOCVR</span>
-</span><span id="line-967">        <span class="bp">self</span><span class="p">,</span>
-</span><span id="line-968">        <span class="n">event</span><span class="p">:</span> <span class="n">ClientEvent</span><span class="p">,</span>
-</span><span id="line-969">        <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
-</span><span id="line-970">    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-</span><span id="line-971"><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-</span><span id="line-972"><span class="sd">        Update the interaction using the raw event from server.</span>
-</span><span id="line-973">
-</span><span id="line-974"><span class="sd">        :param event: Raw event received from the network peer.</span>
-</span><span id="line-975"><span class="sd">        :param kwargs: Keyword arguments passed for downstream.</span>
-</span><span id="line-976"><span class="sd">        &quot;&quot;&quot;</span>
-</span><span id="line-977">
-</span><span id="line-978">        <span class="n">params</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">params</span>
-</span><span id="line-979">        <span class="n">appid</span> <span class="o">=</span> <span class="n">params</span><span class="o">.</span><span class="n">appid</span>
-</span><span id="line-980">
-</span><span id="line-981">        <span class="k">assert</span> <span class="n">appid</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
-</span><span id="line-982">
-</span><span id="line-983">        <span class="n">request</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">request</span>
-</span><span id="line-984">
-</span><span id="line-985">        <span class="k">assert</span> <span class="n">event</span><span class="o">.</span><span class="n">data</span>
-</span><span id="line-986">
-</span><span id="line-987">        <span class="n">token</span> <span class="o">=</span> <span class="n">event</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;token&#39;</span><span class="p">]</span>
-</span><span id="line-988">
-</span><span id="line-989">        <span class="n">response</span> <span class="o">=</span> <span class="n">request</span><span class="p">(</span>
-</span><span id="line-990">            <span class="s1">&#39;patch&#39;</span><span class="p">,</span>
-</span><span id="line-991">            <span class="p">(</span><span class="sa">f</span><span class="s1">&#39;webhooks/</span><span class="si">{</span><span class="n">appid</span><span class="si">}</span><span class="s1">&#39;</span>
-</span><span id="line-992">             <span class="sa">f</span><span class="s1">&#39;/</span><span class="si">{</span><span class="n">token</span><span class="si">}</span><span class="s1">/messages&#39;</span>
-</span><span id="line-993">             <span class="s1">&#39;/@original&#39;</span><span class="p">),</span>
-</span><span id="line-994">            <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
-</span><span id="line-995">
-</span><span id="line-996">        <span class="p">(</span><span class="n">response</span>
-</span><span id="line-997">         <span class="o">.</span><span class="n">raise_for_status</span><span class="p">())</span></div>
+</span><span id="line-991">    <span class="k">def</span><span class="w"> </span><span class="nf">interact_update</span><span class="p">(</span>
+</span><span id="line-992">        <span class="c1"># NOCVR</span>
+</span><span id="line-993">        <span class="bp">self</span><span class="p">,</span>
+</span><span id="line-994">        <span class="n">event</span><span class="p">:</span> <span class="n">ClientEvent</span><span class="p">,</span>
+</span><span id="line-995">        <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
+</span><span id="line-996">    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+</span><span id="line-997"><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="line-998"><span class="sd">        Update the interaction using the raw event from server.</span>
+</span><span id="line-999">
+</span><span id="line-1000"><span class="sd">        :param event: Raw event received from the network peer.</span>
+</span><span id="line-1001"><span class="sd">        :param kwargs: Keyword arguments passed for downstream.</span>
+</span><span id="line-1002"><span class="sd">        &quot;&quot;&quot;</span>
+</span><span id="line-1003">
+</span><span id="line-1004">        <span class="n">params</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">params</span>
+</span><span id="line-1005">        <span class="n">appid</span> <span class="o">=</span> <span class="n">params</span><span class="o">.</span><span class="n">appid</span>
+</span><span id="line-1006">
+</span><span id="line-1007">        <span class="k">assert</span> <span class="n">appid</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
+</span><span id="line-1008">
+</span><span id="line-1009">        <span class="n">request</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">request</span>
+</span><span id="line-1010">
+</span><span id="line-1011">        <span class="k">assert</span> <span class="n">event</span><span class="o">.</span><span class="n">data</span>
+</span><span id="line-1012">
+</span><span id="line-1013">        <span class="n">token</span> <span class="o">=</span> <span class="n">event</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;token&#39;</span><span class="p">]</span>
+</span><span id="line-1014">
+</span><span id="line-1015">        <span class="n">response</span> <span class="o">=</span> <span class="n">request</span><span class="p">(</span>
+</span><span id="line-1016">            <span class="s1">&#39;patch&#39;</span><span class="p">,</span>
+</span><span id="line-1017">            <span class="p">(</span><span class="sa">f</span><span class="s1">&#39;webhooks/</span><span class="si">{</span><span class="n">appid</span><span class="si">}</span><span class="s1">&#39;</span>
+</span><span id="line-1018">             <span class="sa">f</span><span class="s1">&#39;/</span><span class="si">{</span><span class="n">token</span><span class="si">}</span><span class="s1">/messages&#39;</span>
+</span><span id="line-1019">             <span class="s1">&#39;/@original&#39;</span><span class="p">),</span>
+</span><span id="line-1020">            <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+</span><span id="line-1021">
+</span><span id="line-1022">        <span class="p">(</span><span class="n">response</span>
+</span><span id="line-1023">         <span class="o">.</span><span class="n">raise_for_status</span><span class="p">())</span></div>
 </div>
 
 </span></code></pre></div>
