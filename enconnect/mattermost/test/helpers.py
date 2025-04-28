@@ -18,6 +18,7 @@ from unittest.mock import MagicMock
 from unittest.mock import Mock
 
 from encommon.types import DictStrAny
+from encommon.types import LDictStrAny
 
 from httpx import Response
 
@@ -29,7 +30,7 @@ from respx import MockRouter
 
 
 
-_EVENTS = Optional[list[DictStrAny]]
+_EVENTS = Optional[LDictStrAny]
 
 _SOCKET = tuple[
     SSLContext,
@@ -37,7 +38,7 @@ _SOCKET = tuple[
 
 
 
-EVENTS: list[DictStrAny] = [
+EVENTS: LDictStrAny = [
 
     {'event': 'posted',
      'seq': 4,
@@ -77,7 +78,7 @@ EVENTS: list[DictStrAny] = [
 
 
 
-RVENTS: list[DictStrAny] = [
+RVENTS: LDictStrAny = [
 
     {'status': 'OK',
      'seq_reply': 1},
@@ -175,7 +176,7 @@ def client_mtmsock(  # noqa: CFQ004
 
 
     def _encode(
-        resps: list[DictStrAny],
+        resps: LDictStrAny,
     ) -> list[bytes]:
 
         return [
@@ -211,7 +212,7 @@ def client_mtmsock(  # noqa: CFQ004
 
 
     def _factory(
-        rvents: list[DictStrAny],
+        rvents: LDictStrAny,
     ) -> MagicMock:
 
         effect = _delayed(
