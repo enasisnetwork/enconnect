@@ -17,7 +17,7 @@ from typing import overload
 from unittest.mock import MagicMock
 from unittest.mock import Mock
 
-from encommon.types import DictStrAny
+from encommon.types import LDictStrAny
 
 from httpx import Response
 
@@ -29,7 +29,7 @@ from respx import MockRouter
 
 
 
-_EVENTS = Optional[list[DictStrAny]]
+_EVENTS = Optional[LDictStrAny]
 
 _SOCKET = tuple[
     SSLContext,
@@ -37,7 +37,7 @@ _SOCKET = tuple[
 
 
 
-EVENTS: list[DictStrAny] = [
+EVENTS: LDictStrAny = [
 
     {'t': 'MESSAGE_CREATE',
      's': 3,
@@ -73,7 +73,7 @@ EVENTS: list[DictStrAny] = [
 
 
 
-RVENTS: list[DictStrAny] = [
+RVENTS: LDictStrAny = [
 
     {'t': 'READY',
      's': 1,
@@ -176,7 +176,7 @@ def client_dscsock(  # noqa: CFQ004
 
 
     def _encode(
-        resps: list[DictStrAny],
+        resps: LDictStrAny,
     ) -> list[bytes]:
 
         return [
@@ -204,7 +204,7 @@ def client_dscsock(  # noqa: CFQ004
 
 
     def _factory(
-        rvents: list[DictStrAny],
+        rvents: LDictStrAny,
     ) -> MagicMock:
 
         effect = _delayed(

@@ -7,7 +7,7 @@ is permitted, for more information consult the project license file.
 
 
 
-from encommon.types import DictStrAny
+from encommon.types import LDictStrAny
 from encommon.types import inrepr
 from encommon.types import instr
 from encommon.types import lattrs
@@ -227,7 +227,7 @@ async def test_Bridge_events_async(
 
     _events = request()
 
-    events: list[DictStrAny] = []
+    events: LDictStrAny = []
 
     async for event in _events:
         events.append(event)

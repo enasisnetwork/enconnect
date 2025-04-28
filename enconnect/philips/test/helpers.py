@@ -13,7 +13,7 @@ from json import loads
 from typing import AsyncIterator
 from typing import Iterator
 
-from encommon.types import DictStrAny
+from encommon.types import LDictStrAny
 
 from httpx import AsyncByteStream
 from httpx import SyncByteStream
@@ -27,7 +27,7 @@ class ByteStreamBlock(SyncByteStream):
     :param source: JSON encoded source string for iteration.
     """
 
-    source: list[DictStrAny]
+    source: LDictStrAny
 
     def __init__(
         self,
@@ -66,7 +66,7 @@ class ByteStreamAsync(AsyncByteStream):
     :param source: JSON encoded source string for iteration.
     """
 
-    source: list[DictStrAny]
+    source: LDictStrAny
 
     def __init__(
         self,
