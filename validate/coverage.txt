@@ -38,7 +38,7 @@ enconnect/mattermost/params.py                  16      0   100%
 enconnect/mattermost/test/__init__.py            6      0   100%
 enconnect/mattermost/test/helpers.py            55      0   100%
 enconnect/mattermost/test/test_client.py        37      0   100%
-enconnect/mattermost/test/test_models.py       199      4    98%
+enconnect/mattermost/test/test_models.py       199      0   100%
 enconnect/philips/__init__.py                    3      0   100%
 enconnect/philips/bridge.py                     80      0   100%
 enconnect/philips/params.py                     13      0   100%
@@ -70,4 +70,4 @@ enconnect/youtube/test/test_models.py           51      0   100%
 enconnect/youtube/test/test_youtube.py          70      0   100%
 enconnect/youtube/youtube.py                   104      1    99%
 ----------------------------------------------------------------
-TOTAL                                         3384      6    99%
+TOTAL                                         3384      2    99%
