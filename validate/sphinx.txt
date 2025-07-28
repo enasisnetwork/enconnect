@@ -35,7 +35,7 @@ highlighting module code... [  2%] enconnect.discord.clienthighlighting module 
 writing additional pages... search done
 dumping search index in English (code: en)... done
 dumping object inventory... done
-build succeeded, 1250 warnings.
+build succeeded, 1251 warnings.
 
 The HTML pages are in sphinx/html.
     DONE
