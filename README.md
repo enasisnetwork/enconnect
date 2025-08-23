@@ -1,6 +1,6 @@
 # Enasis Network Remote Connect
 
-> :warning: This project has not released its first major version.
+> This project has not released its first major version.
 
 Functions and classes for connecting to remote services and whatnot.
 
