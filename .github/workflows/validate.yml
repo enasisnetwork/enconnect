@@ -14,7 +14,7 @@ permissions:
 on:  # yamllint disable-line rule:truthy
 
   schedule:
-    - cron: '0 2 * * *'
+    - cron: '0 3 * * *'
 
   pull_request:
 
