@@ -3,7 +3,7 @@
 ============================= test session starts ==============================
 platform linux -- Python 3.12.11, pytest-8.4.2, pluggy-1.6.0 -- /home/runner/work/enconnect/enconnect/main/.venv-package/bin/python3
 cachedir: .pytest_cache
-Using --randomly-seed=862002257
+Using --randomly-seed=3716708938
 rootdir: /home/runner/work/enconnect/enconnect/main
 configfile: pyproject.toml
 plugins: mock-3.15.0, mypy-1.0.1, randomly-3.16.0, sphinx-0.6.3, asyncio-1.1.0, anyio-4.10.0, respx-0.22.0, xdist-3.8.0, clarity-1.0.1, cov-6.3.0
@@ -13,98 +13,98 @@ created: 4/4 workers
 
 scheduling tests via LoadScheduling
 
-enconnect/philips/test/test_bridge.py::test_Bridge_request 
-enconnect/philips/test/test_bridge.py::test_Bridge_events_block 
-enconnect/reddit/test/test_reddit.py::test_Reddit_listing_async 
-enconnect/reddit/test/test_reddit.py::test_Reddit 
-[gw3] [  2%] PASSED enconnect/reddit/test/test_reddit.py::test_Reddit 
-enconnect/reddit/test/test_reddit.py::test_Reddit_latest_block 
-[gw1] [  4%] PASSED enconnect/philips/test/test_bridge.py::test_Bridge_events_block 
-enconnect/philips/test/test_bridge.py::test_Bridge 
-[gw2] [  6%] PASSED enconnect/reddit/test/test_reddit.py::test_Reddit_listing_async 
-enconnect/reddit/test/test_reddit.py::test_Reddit_latest_async 
-[gw0] [  8%] PASSED enconnect/philips/test/test_bridge.py::test_Bridge_request 
-enconnect/philips/test/test_bridge.py::test_Bridge_events_async 
-[gw1] [ 10%] PASSED enconnect/philips/test/test_bridge.py::test_Bridge 
-[gw3] [ 13%] PASSED enconnect/reddit/test/test_reddit.py::test_Reddit_latest_block 
-enconnect/irc/test/test_client.py::test_Client_connect 
-enconnect/reddit/test/test_reddit.py::test_Reddit_listing_block 
-[gw2] [ 15%] PASSED enconnect/reddit/test/test_reddit.py::test_Reddit_latest_async 
-enconnect/utils/test/test_http.py::test_HTTPClient_request_block 
-[gw0] [ 17%] PASSED enconnect/philips/test/test_bridge.py::test_Bridge_events_async 
-enconnect/utils/test/test_http.py::test_HTTPClient_request_async 
-[gw3] [ 19%] PASSED enconnect/reddit/test/test_reddit.py::test_Reddit_listing_block 
-enconnect/irc/test/test_client.py::test_Client 
-[gw3] [ 21%] PASSED enconnect/irc/test/test_client.py::test_Client 
-enconnect/irc/test/test_client.py::test_Client_cover 
-[gw3] [ 23%] PASSED enconnect/irc/test/test_client.py::test_Client_cover 
-enconnect/mattermost/test/test_models.py::test_ClientEvent 
-[gw3] [ 26%] PASSED enconnect/mattermost/test/test_models.py::test_ClientEvent 
 enconnect/mattermost/test/test_models.py::test_ClientEvent_cover 
-[gw3] [ 28%] PASSED enconnect/mattermost/test/test_models.py::test_ClientEvent_cover 
-enconnect/discord/test/test_client.py::test_Client 
-[gw3] [ 30%] PASSED enconnect/discord/test/test_client.py::test_Client 
-enconnect/discord/test/test_client.py::test_Client_connect 
-[gw1] [ 32%] PASSED enconnect/irc/test/test_client.py::test_Client_connect 
-enconnect/youtube/test/test_models.py::test_YouTubeVideo 
-[gw1] [ 34%] PASSED enconnect/youtube/test/test_models.py::test_YouTubeVideo 
-enconnect/youtube/test/test_models.py::test_YouTubeResult 
-[gw1] [ 36%] PASSED enconnect/youtube/test/test_models.py::test_YouTubeResult 
-enconnect/mattermost/test/test_client.py::test_Client_cover 
-[gw1] [ 39%] PASSED enconnect/mattermost/test/test_client.py::test_Client_cover 
-enconnect/mattermost/test/test_client.py::test_Client 
-[gw1] [ 41%] PASSED enconnect/mattermost/test/test_client.py::test_Client 
-enconnect/mattermost/test/test_client.py::test_Client_connect 
-[gw1] [ 43%] PASSED enconnect/mattermost/test/test_client.py::test_Client_connect 
-enconnect/discord/test/test_models.py::test_ClientEvent 
-[gw1] [ 45%] PASSED enconnect/discord/test/test_models.py::test_ClientEvent 
-enconnect/discord/test/test_models.py::test_ClientEvent_cover 
-[gw3] [ 47%] PASSED enconnect/discord/test/test_client.py::test_Client_connect 
+enconnect/reddit/test/test_reddit.py::test_Reddit_listing_block 
+enconnect/reddit/test/test_reddit.py::test_Reddit_listing_async 
+enconnect/reddit/test/test_reddit.py::test_Reddit_latest_async 
+[gw3] [  2%] PASSED enconnect/reddit/test/test_reddit.py::test_Reddit_listing_block 
+[gw1] [  4%] PASSED enconnect/reddit/test/test_reddit.py::test_Reddit_listing_async 
 enconnect/discord/test/test_client.py::test_Client_cover 
-[gw3] [ 50%] PASSED enconnect/discord/test/test_client.py::test_Client_cover 
-enconnect/reddit/test/test_models.py::test_RedditListing 
-[gw3] [ 52%] PASSED enconnect/reddit/test/test_models.py::test_RedditListing 
-enconnect/youtube/test/test_youtube.py::test_YouTube_search_async 
-[gw3] [ 54%] PASSED enconnect/youtube/test/test_youtube.py::test_YouTube_search_async 
-enconnect/youtube/test/test_youtube.py::test_YouTube 
-[gw3] [ 56%] PASSED enconnect/youtube/test/test_youtube.py::test_YouTube 
-enconnect/youtube/test/test_youtube.py::test_YouTube_videos_block 
-[gw3] [ 58%] PASSED enconnect/youtube/test/test_youtube.py::test_YouTube_videos_block 
-enconnect/youtube/test/test_youtube.py::test_YouTube_search_block 
-[gw3] [ 60%] PASSED enconnect/youtube/test/test_youtube.py::test_YouTube_search_block 
-enconnect/youtube/test/test_youtube.py::test_YouTube_videos_async 
-[gw2] [ 63%] PASSED enconnect/utils/test/test_http.py::test_HTTPClient_request_block 
-enconnect/utils/test/test_http.py::test_HTTPClient_stream_async 
-[gw3] [ 65%] PASSED enconnect/youtube/test/test_youtube.py::test_YouTube_videos_async 
-enconnect/irc/test/test_models.py::test_ClientEvent 
-[gw3] [ 67%] PASSED enconnect/irc/test/test_models.py::test_ClientEvent 
-enconnect/irc/test/test_models.py::test_ClientEvent_cover 
-[gw0] [ 69%] PASSED enconnect/utils/test/test_http.py::test_HTTPClient_request_async 
-enconnect/utils/test/test_http.py::test_HTTPClient_stream_block 
-[gw2] [ 71%] PASSED enconnect/utils/test/test_http.py::test_HTTPClient_stream_async 
-enconnect/utils/test/test_http.py::test_HTTPClient 
-[gw2] [ 73%] PASSED enconnect/utils/test/test_http.py::test_HTTPClient 
+[gw2] [  6%] PASSED enconnect/reddit/test/test_reddit.py::test_Reddit_latest_async 
+enconnect/reddit/test/test_reddit.py::test_Reddit_latest_block 
+enconnect/reddit/test/test_reddit.py::test_Reddit 
+[gw1] [  8%] PASSED enconnect/reddit/test/test_reddit.py::test_Reddit_latest_block 
 enconnect/hubitat/test/test_bridge.py::test_Bridge 
-[gw0] [ 76%] PASSED enconnect/utils/test/test_http.py::test_HTTPClient_stream_block 
-[gw2] [ 78%] PASSED enconnect/hubitat/test/test_bridge.py::test_Bridge 
-enconnect/hubitat/test/test_bridge.py::test_Bridge_request 
+[gw1] [ 10%] PASSED enconnect/hubitat/test/test_bridge.py::test_Bridge 
 enconnect/ubiquiti/test/test_router.py::test_Router 
-[gw0] [ 80%] PASSED enconnect/hubitat/test/test_bridge.py::test_Bridge_request 
-enconnect/ubiquiti/test/test_router.py::test_Router_request 
-[gw2] [ 82%] PASSED enconnect/ubiquiti/test/test_router.py::test_Router 
-enconnect/instagram/test/test_instagram.py::test_Instagram 
-[gw0] [ 84%] PASSED enconnect/ubiquiti/test/test_router.py::test_Router_request 
+[gw3] [ 13%] PASSED enconnect/discord/test/test_client.py::test_Client_cover 
+enconnect/discord/test/test_client.py::test_Client_connect 
+[gw2] [ 15%] PASSED enconnect/reddit/test/test_reddit.py::test_Reddit 
 enconnect/instagram/test/test_instagram.py::test_Instagram_async 
-[gw2] [ 86%] PASSED enconnect/instagram/test/test_instagram.py::test_Instagram 
+[gw1] [ 17%] PASSED enconnect/ubiquiti/test/test_router.py::test_Router 
+enconnect/ubiquiti/test/test_router.py::test_Router_request 
+[gw1] [ 19%] PASSED enconnect/ubiquiti/test/test_router.py::test_Router_request 
+enconnect/utils/test/test_http.py::test_HTTPClient 
+[gw2] [ 21%] PASSED enconnect/instagram/test/test_instagram.py::test_Instagram_async 
+enconnect/instagram/test/test_instagram.py::test_Instagram 
+[gw1] [ 23%] PASSED enconnect/utils/test/test_http.py::test_HTTPClient 
+enconnect/utils/test/test_http.py::test_HTTPClient_stream_block 
+[gw2] [ 26%] PASSED enconnect/instagram/test/test_instagram.py::test_Instagram 
 enconnect/instagram/test/test_instagram.py::test_Instagram_block 
-[gw0] [ 89%] PASSED enconnect/instagram/test/test_instagram.py::test_Instagram_async 
-[gw2] [ 91%] PASSED enconnect/instagram/test/test_instagram.py::test_Instagram_block 
-[gw1] [ 93%] PASSED enconnect/discord/test/test_models.py::test_ClientEvent_cover 
+[gw1] [ 28%] PASSED enconnect/utils/test/test_http.py::test_HTTPClient_stream_block 
+enconnect/utils/test/test_http.py::test_HTTPClient_stream_async 
+[gw2] [ 30%] PASSED enconnect/instagram/test/test_instagram.py::test_Instagram_block 
+enconnect/utils/test/test_http.py::test_HTTPClient_request_async 
+[gw1] [ 32%] PASSED enconnect/utils/test/test_http.py::test_HTTPClient_stream_async 
+enconnect/utils/test/test_http.py::test_HTTPClient_request_block 
+[gw0] [ 34%] PASSED enconnect/mattermost/test/test_models.py::test_ClientEvent_cover 
+enconnect/mattermost/test/test_models.py::test_ClientEvent 
+[gw0] [ 36%] PASSED enconnect/mattermost/test/test_models.py::test_ClientEvent 
+enconnect/philips/test/test_bridge.py::test_Bridge 
+[gw0] [ 39%] PASSED enconnect/philips/test/test_bridge.py::test_Bridge 
+enconnect/philips/test/test_bridge.py::test_Bridge_events_async 
+[gw0] [ 41%] PASSED enconnect/philips/test/test_bridge.py::test_Bridge_events_async 
+enconnect/youtube/test/test_youtube.py::test_YouTube_search_async 
+[gw0] [ 43%] PASSED enconnect/youtube/test/test_youtube.py::test_YouTube_search_async 
+enconnect/youtube/test/test_youtube.py::test_YouTube_videos_block 
+[gw0] [ 45%] PASSED enconnect/youtube/test/test_youtube.py::test_YouTube_videos_block 
+enconnect/youtube/test/test_youtube.py::test_YouTube_search_block 
+[gw0] [ 47%] PASSED enconnect/youtube/test/test_youtube.py::test_YouTube_search_block 
+enconnect/youtube/test/test_youtube.py::test_YouTube 
+[gw0] [ 50%] PASSED enconnect/youtube/test/test_youtube.py::test_YouTube 
+enconnect/youtube/test/test_youtube.py::test_YouTube_videos_async 
+[gw0] [ 52%] PASSED enconnect/youtube/test/test_youtube.py::test_YouTube_videos_async 
+enconnect/youtube/test/test_models.py::test_YouTubeVideo 
+[gw0] [ 54%] PASSED enconnect/youtube/test/test_models.py::test_YouTubeVideo 
+enconnect/youtube/test/test_models.py::test_YouTubeResult 
+[gw0] [ 56%] PASSED enconnect/youtube/test/test_models.py::test_YouTubeResult 
+enconnect/mattermost/test/test_client.py::test_Client_connect 
+[gw3] [ 58%] PASSED enconnect/discord/test/test_client.py::test_Client_connect 
+enconnect/discord/test/test_client.py::test_Client 
+[gw3] [ 60%] PASSED enconnect/discord/test/test_client.py::test_Client 
+enconnect/hubitat/test/test_bridge.py::test_Bridge_request 
+[gw3] [ 63%] PASSED enconnect/hubitat/test/test_bridge.py::test_Bridge_request 
+enconnect/mattermost/test/test_client.py::test_Client_cover 
+[gw3] [ 65%] PASSED enconnect/mattermost/test/test_client.py::test_Client_cover 
+enconnect/discord/test/test_models.py::test_ClientEvent_cover 
+[gw0] [ 67%] PASSED enconnect/mattermost/test/test_client.py::test_Client_connect 
+enconnect/mattermost/test/test_client.py::test_Client 
+[gw0] [ 69%] PASSED enconnect/mattermost/test/test_client.py::test_Client 
 enconnect/instagram/test/test_models.py::test_InstagramMedia 
-[gw1] [ 95%] PASSED enconnect/instagram/test/test_models.py::test_InstagramMedia 
-[gw3] [ 97%] PASSED enconnect/irc/test/test_models.py::test_ClientEvent_cover 
+[gw0] [ 71%] PASSED enconnect/instagram/test/test_models.py::test_InstagramMedia 
+enconnect/irc/test/test_client.py::test_Client 
+[gw0] [ 73%] PASSED enconnect/irc/test/test_client.py::test_Client 
+enconnect/irc/test/test_client.py::test_Client_connect 
+[gw2] [ 76%] PASSED enconnect/utils/test/test_http.py::test_HTTPClient_request_async 
+enconnect/philips/test/test_bridge.py::test_Bridge_request 
+[gw1] [ 78%] PASSED enconnect/utils/test/test_http.py::test_HTTPClient_request_block 
+enconnect/philips/test/test_bridge.py::test_Bridge_events_block 
+[gw2] [ 80%] PASSED enconnect/philips/test/test_bridge.py::test_Bridge_request 
+[gw1] [ 82%] PASSED enconnect/philips/test/test_bridge.py::test_Bridge_events_block 
+enconnect/reddit/test/test_models.py::test_RedditListing 
+enconnect/irc/test/test_models.py::test_ClientEvent 
+[gw2] [ 84%] PASSED enconnect/reddit/test/test_models.py::test_RedditListing 
+[gw1] [ 86%] PASSED enconnect/irc/test/test_models.py::test_ClientEvent 
 enconnect/irc/test/test_models.py::test_ClientEvent_service 
-[gw3] [100%] PASSED enconnect/irc/test/test_models.py::test_ClientEvent_service 
+enconnect/irc/test/test_models.py::test_ClientEvent_cover 
+[gw3] [ 89%] PASSED enconnect/discord/test/test_models.py::test_ClientEvent_cover 
+enconnect/discord/test/test_models.py::test_ClientEvent 
+[gw3] [ 91%] PASSED enconnect/discord/test/test_models.py::test_ClientEvent 
+[gw0] [ 93%] PASSED enconnect/irc/test/test_client.py::test_Client_connect 
+enconnect/irc/test/test_client.py::test_Client_cover 
+[gw0] [ 95%] PASSED enconnect/irc/test/test_client.py::test_Client_cover 
+[gw1] [ 97%] PASSED enconnect/irc/test/test_models.py::test_ClientEvent_cover 
+[gw2] [100%] PASSED enconnect/irc/test/test_models.py::test_ClientEvent_service 
 
 ================================ tests coverage ================================
 _______________ coverage: platform linux, python 3.12.11-final-0 _______________
@@ -182,7 +182,7 @@ enconnect/youtube/test/test_youtube.py          70      0   100%
 enconnect/youtube/youtube.py                   104      1    99%
 ----------------------------------------------------------------
 TOTAL                                         3384      2    99%
-============================= 46 passed in 11.84s ==============================
+============================== 46 passed in 9.81s ==============================
     DONE
   ● Write coveragepy output to htmlcov..
     DONE
