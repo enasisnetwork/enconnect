@@ -1,6 +1,6 @@
 >>> make sphinx
   ● Building Sphinx documentation..
-Running Sphinx v9.0.0
+Running Sphinx v9.0.1
 loading translations [en]... done
 making output directory... done
 loading intersphinx inventory 'encommon' from https://enasisnetwork.github.io/encommon/sphinx/objects.inv ...
