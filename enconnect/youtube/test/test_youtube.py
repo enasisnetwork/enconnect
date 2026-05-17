@@ -117,12 +117,12 @@ def test_YouTube_search_block(
 
     sample = load_sample(
         sample_path,
-        [x.endumped
+        [x.model_dump()
          for x in search],
         update=ENPYRWS)
 
     expect = prep_sample([
-        x.endumped
+        x.model_dump()
         for x in search])
 
     assert expect == sample
@@ -169,12 +169,12 @@ async def test_YouTube_search_async(
 
     sample = load_sample(
         sample_path,
-        [x.endumped
+        [x.model_dump()
          for x in search],
         update=ENPYRWS)
 
     expect = prep_sample([
-        x.endumped
+        x.model_dump()
         for x in search])
 
     assert expect == sample
@@ -229,12 +229,12 @@ def test_YouTube_videos_block(
 
     sample = load_sample(
         sample_path,
-        [x.endumped
+        [x.model_dump()
          for x in videos],
         update=ENPYRWS)
 
     expect = prep_sample([
-        x.endumped
+        x.model_dump()
         for x in videos])
 
     assert expect == sample
@@ -293,12 +293,12 @@ async def test_YouTube_videos_async(
 
     sample = load_sample(
         sample_path,
-        [x.endumped
+        [x.model_dump()
          for x in videos],
         update=ENPYRWS)
 
     expect = prep_sample([
-        x.endumped
+        x.model_dump()
         for x in videos])
 
     assert expect == sample

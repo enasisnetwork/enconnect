@@ -24,9 +24,9 @@ from pytest import mark
 
 from respx import MockRouter
 
-from . import ByteStreamAsync
-from . import ByteStreamBlock
 from . import SAMPLES
+from .helpers import ByteStreamAsync
+from .helpers import ByteStreamBlock
 from ..bridge import Bridge
 from ..params import BridgeParams
 

@@ -12,7 +12,7 @@ from typing import TYPE_CHECKING
 
 from httpx import Response
 
-from ..utils import HTTPClient
+from ..utils.http import HTTPClient
 from ..utils.http import _METHODS
 from ..utils.http import _PAYLOAD
 

@@ -30,7 +30,7 @@ from encommon.types.strings import NEWLINE
 from encommon.types.strings import SEMPTY
 
 from .models import ClientEvent
-from ..utils import dumlog
+from ..utils.dummy import dumlog
 
 if TYPE_CHECKING:
     from .params import ClientParams

@@ -1,184 +1,91 @@
 Enasis Network Remote Connect
 =============================
 
-Discord Parameters
-------------------
-
-.. autopydantic_model:: enconnect.discord.ClientParams
-   :members:
-   :show-inheritance:
-   :noindex:
-
-Discord Client
---------------
-
-.. autoclass:: enconnect.discord.Client
-   :members:
-   :show-inheritance:
-   :noindex:
-
-.. autopydantic_model:: enconnect.discord.ClientEvent
-   :members:
-   :show-inheritance:
-   :noindex:
-
-Instagram Parameters
---------------------
-
-.. autopydantic_model:: enconnect.instagram.InstagramParams
-   :members:
-   :show-inheritance:
-   :noindex:
-
-Instagram Client
-----------------
-
-.. autoclass:: enconnect.instagram.Instagram
-   :members:
-   :show-inheritance:
-   :noindex:
-
-.. autopydantic_model:: enconnect.instagram.InstagramMedia
-   :members:
-   :show-inheritance:
-   :noindex:
-
-IRC Parameters
---------------
-
-.. autopydantic_model:: enconnect.irc.ClientParams
-   :members:
-   :show-inheritance:
-   :noindex:
-
-IRC Client
-----------
-
-.. autoclass:: enconnect.irc.Client
-   :members:
-   :show-inheritance:
-   :noindex:
-
-.. autopydantic_model:: enconnect.irc.ClientEvent
-   :members:
-   :show-inheritance:
-   :noindex:
-
-Mattermost Parameters
+Documentation Welcome
 ---------------------
 
-.. autopydantic_model:: enconnect.mattermost.ClientParams
+.. raw:: html
+
+   Welcome to the project documentation. Below you will find the most common
+   functions and classes within the library, but you may click your way further
+   into the project from there. You can also view the source code.
+
+Discord
+-------
+
+.. automodule:: enconnect.discord
    :members:
+   :undoc-members:
    :show-inheritance:
-   :noindex:
 
-Mattermost Client
------------------
+IRC
+---
 
-.. autoclass:: enconnect.mattermost.Client
+.. automodule:: enconnect.irc
    :members:
+   :undoc-members:
    :show-inheritance:
-   :noindex:
 
-.. autopydantic_model:: enconnect.mattermost.ClientEvent
+Mattermost
+----------
+
+.. automodule:: enconnect.mattermost
    :members:
+   :undoc-members:
    :show-inheritance:
-   :noindex:
 
-Philips Hue Parameters
-----------------------
+Philips
+-------
 
-.. autopydantic_model:: enconnect.philips.BridgeParams
+.. automodule:: enconnect.hue
    :members:
+   :undoc-members:
    :show-inheritance:
-   :noindex:
 
-Philips Hue Client
-------------------
+Hubitat
+-------
 
-.. autoclass:: enconnect.philips.Bridge
+.. automodule:: enconnect.elevation
    :members:
+   :undoc-members:
    :show-inheritance:
-   :noindex:
 
-Hubitat Elevation Parameters
-----------------------------
+Ubiquiti
+--------
 
-.. autopydantic_model:: enconnect.hubitat.BridgeParams
+.. automodule:: enconnect.router
    :members:
+   :undoc-members:
    :show-inheritance:
-   :noindex:
 
-Hubitat Elevation Client
-------------------------
+Instagram
+---------
 
-.. autoclass:: enconnect.hubitat.Bridge
+.. automodule:: enconnect.instagram
    :members:
+   :undoc-members:
    :show-inheritance:
-   :noindex:
 
-Reddit Parameters
------------------
+Reddit
+------
 
-.. autopydantic_model:: enconnect.reddit.RedditParams
+.. automodule:: enconnect.reddit
    :members:
+   :undoc-members:
    :show-inheritance:
-   :noindex:
 
-Reddit Client
--------------
+YouTube
+-------
 
-.. autoclass:: enconnect.reddit.Reddit
+.. automodule:: enconnect.youtube
    :members:
+   :undoc-members:
    :show-inheritance:
-   :noindex:
 
-.. autopydantic_model:: enconnect.reddit.RedditListing
-   :members:
-   :show-inheritance:
-   :noindex:
-
-Ubiquiti Router Parameters
---------------------------
-
-.. autopydantic_model:: enconnect.ubiquiti.RouterParams
-   :members:
-   :show-inheritance:
-   :noindex:
-
-Ubiquiti Router Client
-----------------------
-
-.. autoclass:: enconnect.ubiquiti.Router
-   :members:
-   :show-inheritance:
-   :noindex:
-
-YouTube Parameters
-------------------
-
-.. autopydantic_model:: enconnect.youtube.YouTubeParams
-   :members:
-   :show-inheritance:
-   :noindex:
-
-YouTube Client
---------------
-
-.. autoclass:: enconnect.youtube.YouTube
-   :members:
-   :show-inheritance:
-   :noindex:
-
-.. autopydantic_model:: enconnect.youtube.YouTubeResult
-   :members:
-   :show-inheritance:
-   :noindex:
-
-Low Level Utilities
+General Utilities
 -------------------
 
-.. autoclass:: enconnect.utils.HTTPClient
+.. automodule:: enconnect.utils
    :members:
+   :undoc-members:
    :show-inheritance:
-   :noindex:

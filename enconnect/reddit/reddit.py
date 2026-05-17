@@ -15,7 +15,7 @@ from typing import TYPE_CHECKING
 from httpx import Response
 
 from .models import RedditListing
-from ..utils import HTTPClient
+from ..utils.http import HTTPClient
 from ..utils.http import _HTTPAUTH
 from ..utils.http import _PAYLOAD
 

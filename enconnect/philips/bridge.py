@@ -18,7 +18,7 @@ from encommon.types import DictStrAny
 
 from httpx import Response
 
-from ..utils import HTTPClient
+from ..utils.http import HTTPClient
 from ..utils.http import _METHODS
 from ..utils.http import _PAYLOAD
 
