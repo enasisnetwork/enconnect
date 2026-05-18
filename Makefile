@@ -552,7 +552,7 @@ sphinx: \
 		documentation..<c0>)
 	@$(VENVD)/bin/sphinx-apidoc \
 		-o sphinx $(PROJECT) \
-    "$(PROJECT)/*/test"
+		"$(PROJECT)/*/test"
 	@$(VENVD)/bin/sphinx-build \
 		-b html sphinx/ sphinx/html
 	$(call MAKE_PR1NT,<cD>DONE<c0>)
