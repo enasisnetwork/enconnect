@@ -1,14 +1,6 @@
 enconnect.philips package
 =========================
 
-Subpackages
------------
-
-.. toctree::
-   :maxdepth: 4
-
-   enconnect.philips.test
-
 Submodules
 ----------
 

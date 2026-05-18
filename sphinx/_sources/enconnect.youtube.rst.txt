@@ -1,14 +1,6 @@
 enconnect.youtube package
 =========================
 
-Subpackages
------------
-
-.. toctree::
-   :maxdepth: 4
-
-   enconnect.youtube.test
-
 Submodules
 ----------
 

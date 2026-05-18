@@ -1,14 +1,6 @@
 enconnect.utils package
 =======================
 
-Subpackages
------------
-
-.. toctree::
-   :maxdepth: 4
-
-   enconnect.utils.test
-
 Submodules
 ----------
 

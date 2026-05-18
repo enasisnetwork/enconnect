@@ -1,14 +1,6 @@
 enconnect.ubiquiti package
 ==========================
 
-Subpackages
------------
-
-.. toctree::
-   :maxdepth: 4
-
-   enconnect.ubiquiti.test
-
 Submodules
 ----------
 

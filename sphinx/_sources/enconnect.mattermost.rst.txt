@@ -1,14 +1,6 @@
 enconnect.mattermost package
 ============================
 
-Subpackages
------------
-
-.. toctree::
-   :maxdepth: 4
-
-   enconnect.mattermost.test
-
 Submodules
 ----------
 
