@@ -128,12 +128,12 @@ def test_Instagram_block(
 
     sample = load_sample(
         sample_path,
-        [x.endumped
+        [x.model_dump()
          for x in latest],
         update=ENPYRWS)
 
     expect = prep_sample([
-        x.endumped
+        x.model_dump()
         for x in latest])
 
     assert expect == sample
@@ -144,11 +144,11 @@ def test_Instagram_block(
 
     sample = load_sample(
         sample_path,
-        media.endumped,
+        media.model_dump(),
         update=ENPYRWS)
 
     expect = prep_sample(
-        media.endumped)
+        media.model_dump())
 
     assert expect == sample
 
@@ -202,12 +202,12 @@ async def test_Instagram_async(
 
     sample = load_sample(
         sample_path,
-        [x.endumped
+        [x.model_dump()
          for x in latest],
         update=ENPYRWS)
 
     expect = prep_sample([
-        x.endumped
+        x.model_dump()
         for x in latest])
 
     assert expect == sample
@@ -218,10 +218,10 @@ async def test_Instagram_async(
 
     sample = load_sample(
         sample_path,
-        media.endumped,
+        media.model_dump(),
         update=ENPYRWS)
 
     expect = prep_sample(
-        media.endumped)
+        media.model_dump())
 
     assert expect == sample

@@ -31,8 +31,8 @@ from websockets.sync.client import ClientConnection
 from websockets.sync.client import connect
 
 from .models import ClientEvent
-from ..utils import HTTPClient
-from ..utils import dumlog
+from ..utils.dummy import dumlog
+from ..utils.http import HTTPClient
 from ..utils.http import _METHODS
 from ..utils.http import _PAYLOAD
 

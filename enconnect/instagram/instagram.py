@@ -15,7 +15,7 @@ from httpx import Response
 
 from .models import InstagramMedia
 from .models import MEDIA_FIELDS
-from ..utils import HTTPClient
+from ..utils.http import HTTPClient
 from ..utils.http import _PAYLOAD
 
 if TYPE_CHECKING:

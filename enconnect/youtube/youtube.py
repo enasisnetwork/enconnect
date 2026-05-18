@@ -17,7 +17,7 @@ from httpx import Response
 from .models import RESULT_KINDS
 from .models import YouTubeResult
 from .models import YouTubeVideo
-from ..utils import HTTPClient
+from ..utils.http import HTTPClient
 from ..utils.http import _PAYLOAD
 
 if TYPE_CHECKING:

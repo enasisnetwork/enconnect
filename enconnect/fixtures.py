@@ -7,12 +7,12 @@ is permitted, for more information consult the project license file.
 
 
 
-from .discord.test import DSCClientSocket
-from .discord.test import client_dscsock
-from .irc.test import IRCClientSocket
-from .irc.test import client_ircsock
-from .mattermost.test import MTMClientSocket
-from .mattermost.test import client_mtmsock
+from .discord.test.helpers import DSCClientSocket
+from .discord.test.helpers import client_dscsock
+from .irc.test.helpers import IRCClientSocket
+from .irc.test.helpers import client_ircsock
+from .mattermost.test.helpers import MTMClientSocket
+from .mattermost.test.helpers import client_mtmsock
 
 
 

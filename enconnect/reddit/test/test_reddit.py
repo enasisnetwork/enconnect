@@ -148,12 +148,12 @@ def test_Reddit_latest_block(
 
     sample = load_sample(
         sample_path,
-        [x.endumped
+        [x.model_dump()
          for x in latest],
         update=ENPYRWS)
 
     expect = prep_sample([
-        x.endumped
+        x.model_dump()
         for x in latest])
 
     assert expect == sample
@@ -224,12 +224,12 @@ async def test_Reddit_latest_async(
 
     sample = load_sample(
         sample_path,
-        [x.endumped
+        [x.model_dump()
          for x in latest],
         update=ENPYRWS)
 
     expect = prep_sample([
-        x.endumped
+        x.model_dump()
         for x in latest])
 
     assert expect == sample
@@ -302,11 +302,11 @@ def test_Reddit_listing_block(
 
     sample = load_sample(
         sample_path,
-        listing.endumped,
+        listing.model_dump(),
         update=ENPYRWS)
 
     expect = prep_sample(
-        listing.endumped)
+        listing.model_dump())
 
     assert expect == sample
 
@@ -376,10 +376,10 @@ async def test_Reddit_listing_async(
 
     sample = load_sample(
         sample_path,
-        listing.endumped,
+        listing.model_dump(),
         update=ENPYRWS)
 
     expect = prep_sample(
-        listing.endumped)
+        listing.model_dump())
 
     assert expect == sample
