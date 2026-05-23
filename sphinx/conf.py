@@ -20,12 +20,12 @@ SPHINX = (
     Path(__file__).parent
     .resolve())
 
-ENCOMMON = (
+PARENT = (
     SPHINX.parent
     .as_posix())
 
 sys_path.insert(
-    0, ENCOMMON)
+    0, PARENT)
 
 from enconnect import BOILER
 from enconnect import VERSION
