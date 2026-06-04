@@ -1,5 +1,27 @@
 >>> make flake8
   ● Executing flake8 in enconnect..
-    DONE
-  ● Executing flake8 in sphinx..
-    DONE
+enconnect/discord/client.py:27:1: ASYNC127 Use `httpx2` instead of `httpx`, which is no longer maintained, to get security updates.
+enconnect/discord/test/helpers.py:22:1: ASYNC127 Use `httpx2` instead of `httpx`, which is no longer maintained, to get security updates.
+enconnect/hubitat/bridge.py:13:1: ASYNC127 Use `httpx2` instead of `httpx`, which is no longer maintained, to get security updates.
+enconnect/hubitat/test/test_bridge.py:19:1: ASYNC127 Use `httpx2` instead of `httpx`, which is no longer maintained, to get security updates.
+enconnect/instagram/instagram.py:14:1: ASYNC127 Use `httpx2` instead of `httpx`, which is no longer maintained, to get security updates.
+enconnect/instagram/test/test_instagram.py:21:1: ASYNC127 Use `httpx2` instead of `httpx`, which is no longer maintained, to get security updates.
+enconnect/mattermost/client.py:23:1: ASYNC127 Use `httpx2` instead of `httpx`, which is no longer maintained, to get security updates.
+enconnect/mattermost/test/helpers.py:23:1: ASYNC127 Use `httpx2` instead of `httpx`, which is no longer maintained, to get security updates.
+enconnect/philips/bridge.py:19:1: ASYNC127 Use `httpx2` instead of `httpx`, which is no longer maintained, to get security updates.
+enconnect/philips/test/helpers.py:18:1: ASYNC127 Use `httpx2` instead of `httpx`, which is no longer maintained, to get security updates.
+enconnect/philips/test/helpers.py:19:1: ASYNC127 Use `httpx2` instead of `httpx`, which is no longer maintained, to get security updates.
+enconnect/philips/test/test_bridge.py:20:1: ASYNC127 Use `httpx2` instead of `httpx`, which is no longer maintained, to get security updates.
+enconnect/reddit/reddit.py:15:1: ASYNC127 Use `httpx2` instead of `httpx`, which is no longer maintained, to get security updates.
+enconnect/reddit/test/test_reddit.py:21:1: ASYNC127 Use `httpx2` instead of `httpx`, which is no longer maintained, to get security updates.
+enconnect/ubiquiti/router.py:13:1: ASYNC127 Use `httpx2` instead of `httpx`, which is no longer maintained, to get security updates.
+enconnect/ubiquiti/test/test_router.py:19:1: ASYNC127 Use `httpx2` instead of `httpx`, which is no longer maintained, to get security updates.
+enconnect/utils/http.py:21:1: ASYNC127 Use `httpx2` instead of `httpx`, which is no longer maintained, to get security updates.
+enconnect/utils/http.py:22:1: ASYNC127 Use `httpx2` instead of `httpx`, which is no longer maintained, to get security updates.
+enconnect/utils/http.py:23:1: ASYNC127 Use `httpx2` instead of `httpx`, which is no longer maintained, to get security updates.
+enconnect/utils/http.py:24:1: ASYNC127 Use `httpx2` instead of `httpx`, which is no longer maintained, to get security updates.
+enconnect/utils/test/test_http.py:20:1: ASYNC127 Use `httpx2` instead of `httpx`, which is no longer maintained, to get security updates.
+enconnect/utils/test/test_http.py:21:1: ASYNC127 Use `httpx2` instead of `httpx`, which is no longer maintained, to get security updates.
+enconnect/utils/test/test_http.py:22:1: ASYNC127 Use `httpx2` instead of `httpx`, which is no longer maintained, to get security updates.
+enconnect/youtube/test/test_youtube.py:18:1: ASYNC127 Use `httpx2` instead of `httpx`, which is no longer maintained, to get security updates.
+enconnect/youtube/youtube.py:15:1: ASYNC127 Use `httpx2` instead of `httpx`, which is no longer maintained, to get security updates.
