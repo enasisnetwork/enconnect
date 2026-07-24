@@ -1,5 +1,5750 @@
 >>> make ruff
   ● Executing ruff in enconnect..
-    DONE
-  ● Executing ruff in sphinx..
-    DONE
+I001 [*] Import block is un-sorted or un-formatted
+  --> enconnect/__init__.py:10:1
+   |
+10 | / from pathlib import Path
+11 | | from sys import flags
+   | |_____________________^
+   |
+help: Organize imports
+   |
+12 |
+   -
+   -
+13 | PROJECT = Path(__file__).parent
+   |
+
+I001 [*] Import block is un-sorted or un-formatted
+  --> enconnect/discord/__init__.py:10:1
+   |
+10 | / from .client import Client
+11 | | from .models import ClientEvent
+12 | | from .params import ClientParams
+   | |________________________________^
+   |
+help: Organize imports
+   |
+13 |
+   -
+   -
+14 | __all__ = [
+   |
+
+RUF022 [*] `__all__` is not sorted
+  --> enconnect/discord/__init__.py:16:11
+   |
+16 |   __all__ = [
+   |  ___________^
+17 | |     'Client',
+18 | |     'ClientParams',
+19 | |     'ClientEvent']
+   | |__________________^
+   |
+help: Apply an isort-style sorting to `__all__`
+   |
+17 |     'Client',
+18 +     'ClientEvent',
+19 |     'ClientParams',
+   -     'ClientEvent']
+20 + ]
+   |
+
+I001 [*] Import block is un-sorted or un-formatted
+  --> enconnect/discord/client.py:10:1
+   |
+10 | / from json import dumps
+11 | | from json import loads
+12 | | from queue import Queue
+13 | | from threading import Event
+14 | | from time import sleep as block_sleep
+15 | | from typing import Any
+16 | | from typing import Callable
+17 | | from typing import Optional
+18 | | from typing import TYPE_CHECKING
+19 | | from urllib.parse import quote
+20 | |
+21 | | from encommon.times import Timer
+22 | | from encommon.types import DictStrAny
+23 | | from encommon.types import NCNone
+24 | | from encommon.types import getate
+25 | | from encommon.types import sort_dict
+26 | |
+27 | | from httpx import Response
+28 | |
+29 | | from websockets.exceptions import ConnectionClosedOK
+30 | | from websockets.sync.client import ClientConnection
+31 | | from websockets.sync.client import connect
+32 | |
+33 | | from .models import ClientEvent
+34 | | from ..utils.dummy import dumlog
+35 | | from ..utils.http import HTTPClient
+36 | | from ..utils.http import _METHODS
+37 | | from ..utils.http import _PAYLOAD
+   | |_________________________________^
+38 |
+39 |   if TYPE_CHECKING:
+   |
+help: Organize imports
+   |
+9  |
+   - from json import dumps
+   - from json import loads
+10 + from json import dumps, loads
+11 | from queue import Queue
+12 | from threading import Event
+13 | from time import sleep as block_sleep
+   - from typing import Any
+   - from typing import Callable
+   - from typing import Optional
+   - from typing import TYPE_CHECKING
+14 + from typing import TYPE_CHECKING, Any, Callable, Optional
+15 | from urllib.parse import quote
+16 |
+17 | from encommon.times import Timer
+   - from encommon.types import DictStrAny
+   - from encommon.types import NCNone
+   - from encommon.types import getate
+   - from encommon.types import sort_dict
+   -
+18 + from encommon.types import DictStrAny, NCNone, getate, sort_dict
+19 | from httpx import Response
+   -
+20 | from websockets.exceptions import ConnectionClosedOK
+   - from websockets.sync.client import ClientConnection
+   - from websockets.sync.client import connect
+21 + from websockets.sync.client import ClientConnection, connect
+22 |
+   - from .models import ClientEvent
+23 | from ..utils.dummy import dumlog
+   - from ..utils.http import HTTPClient
+   - from ..utils.http import _METHODS
+   - from ..utils.http import _PAYLOAD
+24 + from ..utils.http import _METHODS, _PAYLOAD, HTTPClient
+25 + from .models import ClientEvent
+26 |
+   |
+
+UP035 [*] Import from `collections.abc` instead: `Callable`
+  --> enconnect/discord/client.py:16:1
+   |
+14 | from time import sleep as block_sleep
+15 | from typing import Any
+16 | from typing import Callable
+   | ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+17 | from typing import Optional
+18 | from typing import TYPE_CHECKING
+   |
+help: Import from `collections.abc`
+   |
+15 | from typing import Any
+   - from typing import Callable
+16 + from collections.abc import Callable
+17 | from typing import Optional
+   |
+
+UP045 [*] Use `X | None` for type annotations
+  --> enconnect/discord/client.py:61:15
+   |
+60 |     __client: HTTPClient
+61 |     __socket: Optional[ClientConnection]
+   |               ^^^^^^^^^^^^^^^^^^^^^^^^^^
+62 |     __conned: Event
+63 |     __exited: Event
+   |
+help: Convert to `X | None`
+   |
+60 |     __client: HTTPClient
+   -     __socket: Optional[ClientConnection]
+61 +     __socket: ClientConnection | None
+62 |     __conned: Event
+   |
+
+UP045 [*] Use `X | None` for type annotations
+  --> enconnect/discord/client.py:64:15
+   |
+62 |     __conned: Event
+63 |     __exited: Event
+64 |     __mynick: Optional[tuple[str, str]]
+   |               ^^^^^^^^^^^^^^^^^^^^^^^^^
+65 |     __lsnick: Optional[tuple[str, str]]
+66 |     __resume: Event
+   |
+help: Convert to `X | None`
+   |
+63 |     __exited: Event
+   -     __mynick: Optional[tuple[str, str]]
+64 +     __mynick: tuple[str, str] | None
+65 |     __lsnick: Optional[tuple[str, str]]
+   |
+
+UP045 [*] Use `X | None` for type annotations
+  --> enconnect/discord/client.py:65:15
+   |
+63 |     __exited: Event
+64 |     __mynick: Optional[tuple[str, str]]
+65 |     __lsnick: Optional[tuple[str, str]]
+   |               ^^^^^^^^^^^^^^^^^^^^^^^^^
+66 |     __resume: Event
+   |
+help: Convert to `X | None`
+   |
+64 |     __mynick: Optional[tuple[str, str]]
+   -     __lsnick: Optional[tuple[str, str]]
+65 +     __lsnick: tuple[str, str] | None
+66 |     __resume: Event
+   |
+
+UP045 [*] Use `X | None` for type annotations
+  --> enconnect/discord/client.py:68:13
+   |
+66 |     __resume: Event
+67 |
+68 |     __ping: Optional[int]
+   |             ^^^^^^^^^^^^^
+69 |     __path: Optional[str]
+70 |     __sesid: Optional[str]
+   |
+help: Convert to `X | None`
+   |
+67 |
+   -     __ping: Optional[int]
+68 +     __ping: int | None
+69 |     __path: Optional[str]
+   |
+
+UP045 [*] Use `X | None` for type annotations
+  --> enconnect/discord/client.py:69:13
+   |
+68 |     __ping: Optional[int]
+69 |     __path: Optional[str]
+   |             ^^^^^^^^^^^^^
+70 |     __sesid: Optional[str]
+71 |     __seqno: Optional[int]
+   |
+help: Convert to `X | None`
+   |
+68 |     __ping: Optional[int]
+   -     __path: Optional[str]
+69 +     __path: str | None
+70 |     __sesid: Optional[str]
+   |
+
+UP045 [*] Use `X | None` for type annotations
+  --> enconnect/discord/client.py:70:14
+   |
+68 |     __ping: Optional[int]
+69 |     __path: Optional[str]
+70 |     __sesid: Optional[str]
+   |              ^^^^^^^^^^^^^
+71 |     __seqno: Optional[int]
+   |
+help: Convert to `X | None`
+   |
+69 |     __path: Optional[str]
+   -     __sesid: Optional[str]
+70 +     __sesid: str | None
+71 |     __seqno: Optional[int]
+   |
+
+UP045 [*] Use `X | None` for type annotations
+  --> enconnect/discord/client.py:71:14
+   |
+69 |     __path: Optional[str]
+70 |     __sesid: Optional[str]
+71 |     __seqno: Optional[int]
+   |              ^^^^^^^^^^^^^
+72 |
+73 |     __mqueue: Queue[ClientEvent]
+   |
+help: Convert to `X | None`
+   |
+70 |     __sesid: Optional[str]
+   -     __seqno: Optional[int]
+71 +     __seqno: int | None
+72 |
+   |
+
+UP045 [*] Use `X | None` for type annotations
+  --> enconnect/discord/client.py:80:17
+   |
+78 |         self,
+79 |         params: 'ClientParams',
+80 |         logger: Optional[Callable[..., None]] = None,
+   |                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+81 |     ) -> None:
+82 |         """
+   |
+help: Convert to `X | None`
+   |
+79 |         params: 'ClientParams',
+   -         logger: Optional[Callable[..., None]] = None,
+80 +         logger: Callable[..., None] | None = None,
+81 |     ) -> None:
+   |
+
+UP045 [*] Use `X | None` for type annotations
+   --> enconnect/discord/client.py:145:10
+    |
+143 |     def nickname(
+144 |         self,
+145 |     ) -> Optional[tuple[str, str]]:
+    |          ^^^^^^^^^^^^^^^^^^^^^^^^^
+146 |         """
+147 |         Return the value for the attribute from class instance.
+    |
+help: Convert to `X | None`
+    |
+144 |         self,
+    -     ) -> Optional[tuple[str, str]]:
+145 +     ) -> tuple[str, str] | None:
+146 |         """
+    |
+
+RET501 [*] Do not explicitly `return None` in function if it is the only possible return value
+   --> enconnect/discord/client.py:345:13
+    |
+344 |         if opcode == 11:
+345 |             return None
+    |             ^^^^^^^^^^^
+    |
+help: Remove explicit `return None`
+    |
+344 |         if opcode == 11:
+    -             return None
+345 +             return
+346 |
+    |
+
+RET501 [*] Do not explicitly `return None` in function if it is the only possible return value
+   --> enconnect/discord/client.py:501:13
+    |
+499 |             self.__resumify()
+500 |
+501 |             return None
+    |             ^^^^^^^^^^^
+502 |
+503 |         props = {
+    |
+help: Remove explicit `return None`
+    |
+500 |
+    -             return None
+501 +             return
+502 |
+    |
+
+UP045 [*] Use `X | None` for type annotations
+   --> enconnect/discord/client.py:555:10
+    |
+553 |     def socket_recv(  # noqa: CFQ004
+554 |         self,
+555 |     ) -> Optional[DictStrAny]:
+    |          ^^^^^^^^^^^^^^^^^^^^
+556 |         """
+557 |         Return the content received from the socket connection.
+    |
+help: Convert to `X | None`
+    |
+554 |         self,
+    -     ) -> Optional[DictStrAny]:
+555 +     ) -> DictStrAny | None:
+556 |         """
+    |
+
+UP045 [*] Use `X | None` for type annotations
+   --> enconnect/discord/client.py:610:17
+    |
+608 |         method: _METHODS,
+609 |         path: str,
+610 |         params: Optional[_PAYLOAD] = None,
+    |                 ^^^^^^^^^^^^^^^^^^
+611 |         json: Optional[_PAYLOAD] = None,
+612 |         *,
+    |
+help: Convert to `X | None`
+    |
+609 |         path: str,
+    -         params: Optional[_PAYLOAD] = None,
+610 +         params: _PAYLOAD | None = None,
+611 |         json: Optional[_PAYLOAD] = None,
+    |
+
+UP045 [*] Use `X | None` for type annotations
+   --> enconnect/discord/client.py:611:15
+    |
+609 |         path: str,
+610 |         params: Optional[_PAYLOAD] = None,
+611 |         json: Optional[_PAYLOAD] = None,
+    |               ^^^^^^^^^^^^^^^^^^
+612 |         *,
+613 |         data: Optional[_PAYLOAD] = None,
+    |
+help: Convert to `X | None`
+    |
+610 |         params: Optional[_PAYLOAD] = None,
+    -         json: Optional[_PAYLOAD] = None,
+611 +         json: _PAYLOAD | None = None,
+612 |         *,
+    |
+
+UP045 [*] Use `X | None` for type annotations
+   --> enconnect/discord/client.py:613:15
+    |
+611 |         json: Optional[_PAYLOAD] = None,
+612 |         *,
+613 |         data: Optional[_PAYLOAD] = None,
+    |               ^^^^^^^^^^^^^^^^^^
+614 |         files: Optional[_PAYLOAD] = None,
+615 |         timeout: Optional[int] = None,
+    |
+help: Convert to `X | None`
+    |
+612 |         *,
+    -         data: Optional[_PAYLOAD] = None,
+613 +         data: _PAYLOAD | None = None,
+614 |         files: Optional[_PAYLOAD] = None,
+    |
+
+UP045 [*] Use `X | None` for type annotations
+   --> enconnect/discord/client.py:614:16
+    |
+612 |         *,
+613 |         data: Optional[_PAYLOAD] = None,
+614 |         files: Optional[_PAYLOAD] = None,
+    |                ^^^^^^^^^^^^^^^^^^
+615 |         timeout: Optional[int] = None,
+616 |     ) -> Response:
+    |
+help: Convert to `X | None`
+    |
+613 |         data: Optional[_PAYLOAD] = None,
+    -         files: Optional[_PAYLOAD] = None,
+614 +         files: _PAYLOAD | None = None,
+615 |         timeout: Optional[int] = None,
+    |
+
+UP045 [*] Use `X | None` for type annotations
+   --> enconnect/discord/client.py:615:18
+    |
+613 |         data: Optional[_PAYLOAD] = None,
+614 |         files: Optional[_PAYLOAD] = None,
+615 |         timeout: Optional[int] = None,
+    |                  ^^^^^^^^^^^^^
+616 |     ) -> Response:
+617 |         """
+    |
+help: Convert to `X | None`
+    |
+614 |         files: Optional[_PAYLOAD] = None,
+    -         timeout: Optional[int] = None,
+615 +         timeout: int | None = None,
+616 |     ) -> Response:
+    |
+
+UP045 [*] Use `X | None` for type annotations
+   --> enconnect/discord/client.py:681:16
+    |
+679 |         self,
+680 |         command: DictStrAny,
+681 |         guild: Optional[str] = None,
+    |                ^^^^^^^^^^^^^
+682 |     ) -> Response:
+683 |         """
+    |
+help: Convert to `X | None`
+    |
+680 |         command: DictStrAny,
+    -         guild: Optional[str] = None,
+681 +         guild: str | None = None,
+682 |     ) -> Response:
+    |
+
+UP045 [*] Use `X | None` for type annotations
+   --> enconnect/discord/client.py:717:16
+    |
+715 |         self,
+716 |         name: str,
+717 |         guild: Optional[str] = None,
+    |                ^^^^^^^^^^^^^
+718 |     ) -> None:
+719 |         """
+    |
+help: Convert to `X | None`
+    |
+716 |         name: str,
+    -         guild: Optional[str] = None,
+717 +         guild: str | None = None,
+718 |     ) -> None:
+    |
+
+I001 [*] Import block is un-sorted or un-formatted
+  --> enconnect/discord/models.py:10:1
+   |
+10 | / from re import IGNORECASE
+11 | | from re import escape as re_escape
+12 | | from re import search as re_search
+13 | | from typing import Annotated
+14 | | from typing import Literal
+15 | | from typing import Optional
+16 | | from typing import TYPE_CHECKING
+17 | |
+18 | | from encommon.types import BaseModel
+19 | | from encommon.types import DictStrAny
+20 | | from encommon.types import NCNone
+21 | |
+22 | | from pydantic import Field
+   | |__________________________^
+23 |
+24 |   if TYPE_CHECKING:
+   |
+help: Organize imports
+   |
+12 | from re import search as re_search
+   - from typing import Annotated
+   - from typing import Literal
+   - from typing import Optional
+   - from typing import TYPE_CHECKING
+13 + from typing import TYPE_CHECKING, Annotated, Literal, Optional
+14 |
+   - from encommon.types import BaseModel
+   - from encommon.types import DictStrAny
+   - from encommon.types import NCNone
+   -
+15 + from encommon.types import BaseModel, DictStrAny, NCNone
+16 | from pydantic import Field
+   |
+
+UP045 [*] Use `X | None` for type annotations
+  --> enconnect/discord/models.py:46:9
+   |
+45 |     type: Annotated[
+46 |         Optional[str],
+   |         ^^^^^^^^^^^^^
+47 |         Field(None,
+48 |               description='Type of event that occurred',
+   |
+help: Convert to `X | None`
+   |
+45 |     type: Annotated[
+   -         Optional[str],
+46 +         str | None,
+47 |         Field(None,
+   |
+
+UP045 [*] Use `X | None` for type annotations
+  --> enconnect/discord/models.py:58:9
+   |
+57 |     data: Annotated[
+58 |         Optional[DictStrAny],
+   |         ^^^^^^^^^^^^^^^^^^^^
+59 |         Field(None,
+60 |               description='Payload with the event data',
+   |
+help: Convert to `X | None`
+   |
+57 |     data: Annotated[
+   -         Optional[DictStrAny],
+58 +         DictStrAny | None,
+59 |         Field(None,
+   |
+
+UP045 [*] Use `X | None` for type annotations
+  --> enconnect/discord/models.py:64:9
+   |
+63 |     seqno: Annotated[
+64 |         Optional[int],
+   |         ^^^^^^^^^^^^^
+65 |         Field(None,
+66 |               description='Event number within squence',
+   |
+help: Convert to `X | None`
+   |
+63 |     seqno: Annotated[
+   -         Optional[int],
+64 +         int | None,
+65 |         Field(None,
+   |
+
+UP045 [*] Use `X | None` for type annotations
+  --> enconnect/discord/models.py:91:9
+   |
+90 |     whome: Annotated[
+91 |         Optional[tuple[str, str]],
+   |         ^^^^^^^^^^^^^^^^^^^^^^^^^
+92 |         Field(None,
+93 |               description='Current nickname of when received',
+   |
+help: Convert to `X | None`
+   |
+90 |     whome: Annotated[
+   -         Optional[tuple[str, str]],
+91 +         tuple[str, str] | None,
+92 |         Field(None,
+   |
+
+UP045 [*] Use `X | None` for type annotations
+  --> enconnect/discord/models.py:97:9
+   |
+96 |     author: Annotated[
+97 |         Optional[tuple[str, str]],
+   |         ^^^^^^^^^^^^^^^^^^^^^^^^^
+98 |         Field(None,
+99 |               description='Dynamic field parsed from event',
+   |
+help: Convert to `X | None`
+   |
+96 |     author: Annotated[
+   -         Optional[tuple[str, str]],
+97 +         tuple[str, str] | None,
+98 |         Field(None,
+   |
+
+UP045 [*] Use `X | None` for type annotations
+   --> enconnect/discord/models.py:103:9
+    |
+102 |     recipient: Annotated[
+103 |         Optional[tuple[Optional[str], str]],
+    |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+104 |         Field(None,
+105 |               description='Dynamic field parsed from event',
+    |
+help: Convert to `X | None`
+    |
+102 |     recipient: Annotated[
+    -         Optional[tuple[Optional[str], str]],
+103 +         tuple[Optional[str], str] | None,
+104 |         Field(None,
+    |
+
+UP045 [*] Use `X | None` for type annotations
+   --> enconnect/discord/models.py:103:24
+    |
+102 |     recipient: Annotated[
+103 |         Optional[tuple[Optional[str], str]],
+    |                        ^^^^^^^^^^^^^
+104 |         Field(None,
+105 |               description='Dynamic field parsed from event',
+    |
+help: Convert to `X | None`
+    |
+102 |     recipient: Annotated[
+    -         Optional[tuple[Optional[str], str]],
+103 +         Optional[tuple[str | None, str]],
+104 |         Field(None,
+    |
+
+UP045 [*] Use `X | None` for type annotations
+   --> enconnect/discord/models.py:109:9
+    |
+108 |     message: Annotated[
+109 |         Optional[str],
+    |         ^^^^^^^^^^^^^
+110 |         Field(None,
+111 |               description='Dynamic field parsed from event',
+    |
+help: Convert to `X | None`
+    |
+108 |     message: Annotated[
+    -         Optional[str],
+109 +         str | None,
+110 |         Field(None,
+    |
+
+RET501 [*] Do not explicitly `return None` in function if it is the only possible return value
+   --> enconnect/discord/models.py:275:13
+    |
+273 |         if (kind not in MESSAGE
+274 |                 or not data):
+275 |             return None
+    |             ^^^^^^^^^^^
+276 |
+277 |         content = (
+    |
+help: Remove explicit `return None`
+    |
+274 |                 or not data):
+    -             return None
+275 +             return
+276 |
+    |
+
+RET501 [*] Do not explicitly `return None` in function if it is the only possible return value
+   --> enconnect/discord/models.py:322:13
+    |
+321 |         if mynick is None:
+322 |             return None
+    |             ^^^^^^^^^^^
+323 |
+324 |         if message is None:
+    |
+help: Remove explicit `return None`
+    |
+321 |         if mynick is None:
+    -             return None
+322 +             return
+323 |
+    |
+
+RET501 [*] Do not explicitly `return None` in function if it is the only possible return value
+   --> enconnect/discord/models.py:325:13
+    |
+324 |         if message is None:
+325 |             return None
+    |             ^^^^^^^^^^^
+326 |
+327 |         needle = (
+    |
+help: Remove explicit `return None`
+    |
+324 |         if message is None:
+    -             return None
+325 +             return
+326 |
+    |
+
+I001 [*] Import block is un-sorted or un-formatted
+  --> enconnect/discord/params.py:10:1
+   |
+10 | / from typing import Annotated
+11 | | from typing import Any
+12 | | from typing import Optional
+13 | |
+14 | | from encommon.types import BaseModel
+15 | | from encommon.types import NCNone
+16 | |
+17 | | from pydantic import Field
+   | |__________________________^
+   |
+help: Organize imports
+   |
+9  |
+   - from typing import Annotated
+   - from typing import Any
+   - from typing import Optional
+   -
+   - from encommon.types import BaseModel
+   - from encommon.types import NCNone
+10 + from typing import Annotated, Any, Optional
+11 |
+12 + from encommon.types import BaseModel, NCNone
+13 | from pydantic import Field
+   -
+14 |
+   |
+
+UP045 [*] Use `X | None` for type annotations
+  --> enconnect/discord/params.py:27:9
+   |
+26 |     appid: Annotated[
+27 |         Optional[str],
+   |         ^^^^^^^^^^^^^
+28 |         Field(None,
+29 |               description='Optional application identifier',
+   |
+help: Convert to `X | None`
+   |
+26 |     appid: Annotated[
+   -         Optional[str],
+27 +         str | None,
+28 |         Field(None,
+   |
+
+UP045 [*] Use `X | None` for type annotations
+  --> enconnect/discord/params.py:50:9
+   |
+49 |     ssl_capem: Annotated[
+50 |         Optional[str],
+   |         ^^^^^^^^^^^^^
+51 |         Field(None,
+52 |               description='Verify the ceritifcate valid',
+   |
+help: Convert to `X | None`
+   |
+49 |     ssl_capem: Annotated[
+   -         Optional[str],
+50 +         str | None,
+51 |         Field(None,
+   |
+
+I001 [*] Import block is un-sorted or un-formatted
+  --> enconnect/discord/test/__init__.py:10:1
+   |
+10 | / from .helpers import DSCClientSocket
+11 | | from .helpers import EVENTS
+12 | | from .helpers import RVENTS
+13 | | from .helpers import client_dscsock
+   | |___________________________________^
+   |
+help: Organize imports
+   |
+9  |
+   - from .helpers import DSCClientSocket
+   - from .helpers import EVENTS
+   - from .helpers import RVENTS
+   - from .helpers import client_dscsock
+   -
+   -
+10 + from .helpers import EVENTS, RVENTS, DSCClientSocket, client_dscsock
+11 |
+   |
+
+RUF022 [*] `__all__` is not sorted
+  --> enconnect/discord/test/__init__.py:17:11
+   |
+17 |   __all__ = [
+   |  ___________^
+18 | |     'DSCClientSocket',
+19 | |     'client_dscsock',
+20 | |     'EVENTS',
+21 | |     'RVENTS']
+   | |_____________^
+   |
+help: Apply an isort-style sorting to `__all__`
+   |
+17 | __all__ = [
+18 +     'EVENTS',
+19 +     'RVENTS',
+20 |     'DSCClientSocket',
+21 |     'client_dscsock',
+   -     'EVENTS',
+   -     'RVENTS']
+22 + ]
+   |
+
+I001 [*] Import block is un-sorted or un-formatted
+  --> enconnect/discord/test/helpers.py:10:1
+   |
+10 | / from json import dumps
+11 | | from ssl import SSLContext
+12 | | from time import sleep as block_sleep
+13 | | from typing import Iterator
+14 | | from typing import Optional
+15 | | from typing import Protocol
+16 | | from typing import overload
+17 | | from unittest.mock import MagicMock
+18 | | from unittest.mock import Mock
+19 | |
+20 | | from encommon.types import LDictStrAny
+21 | |
+22 | | from httpx import Response
+23 | |
+24 | | from pytest import fixture
+25 | |
+26 | | from pytest_mock import MockerFixture
+27 | |
+28 | | from respx import MockRouter
+   | |____________________________^
+   |
+help: Organize imports
+   |
+12 | from time import sleep as block_sleep
+   - from typing import Iterator
+   - from typing import Optional
+   - from typing import Protocol
+   - from typing import overload
+   - from unittest.mock import MagicMock
+   - from unittest.mock import Mock
+13 + from typing import Iterator, Optional, Protocol, overload
+14 + from unittest.mock import MagicMock, Mock
+15 |
+16 | from encommon.types import LDictStrAny
+   -
+17 | from httpx import Response
+   -
+18 | from pytest import fixture
+   -
+19 | from pytest_mock import MockerFixture
+   -
+20 | from respx import MockRouter
+   -
+   -
+21 |
+   |
+
+UP035 [*] Import from `collections.abc` instead: `Iterator`
+  --> enconnect/discord/test/helpers.py:13:1
+   |
+11 | from ssl import SSLContext
+12 | from time import sleep as block_sleep
+13 | from typing import Iterator
+   | ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+14 | from typing import Optional
+15 | from typing import Protocol
+   |
+help: Import from `collections.abc`
+   |
+12 | from time import sleep as block_sleep
+   - from typing import Iterator
+13 + from collections.abc import Iterator
+14 | from typing import Optional
+   |
+
+UP045 Use `X | None` for type annotations
+  --> enconnect/discord/test/helpers.py:32:11
+   |
+32 | _EVENTS = Optional[LDictStrAny]
+   |           ^^^^^^^^^^^^^^^^^^^^^
+33 |
+34 | _SOCKET = tuple[
+   |
+help: Convert to `X | None`
+
+I001 [*] Import block is un-sorted or un-formatted
+  --> enconnect/discord/test/test_client.py:10:1
+   |
+10 | / from unittest.mock import Mock
+11 | |
+12 | | from encommon.types import inrepr
+13 | | from encommon.types import instr
+14 | | from encommon.types import lattrs
+15 | |
+16 | | from pytest import fixture
+17 | | from pytest import raises
+18 | |
+19 | | from ..client import Client
+20 | | from ..params import ClientParams
+21 | | from ...fixtures import DSCClientSocket
+   | |_______________________________________^
+   |
+help: Organize imports
+   |
+11 |
+   - from encommon.types import inrepr
+   - from encommon.types import instr
+   - from encommon.types import lattrs
+   -
+   - from pytest import fixture
+   - from pytest import raises
+12 + from encommon.types import inrepr, instr, lattrs
+13 + from pytest import fixture, raises
+14 |
+15 + from ...fixtures import DSCClientSocket
+16 | from ..client import Client
+17 | from ..params import ClientParams
+   - from ...fixtures import DSCClientSocket
+   -
+18 |
+   |
+
+I001 [*] Import block is un-sorted or un-formatted
+  --> enconnect/discord/test/test_models.py:10:1
+   |
+10 | / from threading import Thread
+11 | |
+12 | | from encommon.types import inrepr
+13 | | from encommon.types import instr
+14 | | from encommon.types import lattrs
+15 | |
+16 | | from pytest import raises
+17 | |
+18 | | from .helpers import EVENTS
+19 | | from ..client import Client
+20 | | from ..models import ClientEvent
+21 | | from ..params import ClientParams
+22 | | from ...fixtures import DSCClientSocket
+   | |_______________________________________^
+   |
+help: Organize imports
+   |
+11 |
+   - from encommon.types import inrepr
+   - from encommon.types import instr
+   - from encommon.types import lattrs
+   -
+12 + from encommon.types import inrepr, instr, lattrs
+13 | from pytest import raises
+14 |
+   - from .helpers import EVENTS
+15 + from ...fixtures import DSCClientSocket
+16 | from ..client import Client
+17 | from ..models import ClientEvent
+18 | from ..params import ClientParams
+   - from ...fixtures import DSCClientSocket
+   -
+19 + from .helpers import EVENTS
+20 |
+   |
+
+I001 [*] Import block is un-sorted or un-formatted
+  --> enconnect/fixtures.py:10:1
+   |
+10 | / from .discord.test.helpers import DSCClientSocket
+11 | | from .discord.test.helpers import client_dscsock
+12 | | from .irc.test.helpers import IRCClientSocket
+13 | | from .irc.test.helpers import client_ircsock
+14 | | from .mattermost.test.helpers import MTMClientSocket
+15 | | from .mattermost.test.helpers import client_mtmsock
+   | |___________________________________________________^
+   |
+help: Organize imports
+   |
+9  |
+   - from .discord.test.helpers import DSCClientSocket
+   - from .discord.test.helpers import client_dscsock
+   - from .irc.test.helpers import IRCClientSocket
+   - from .irc.test.helpers import client_ircsock
+   - from .mattermost.test.helpers import MTMClientSocket
+   - from .mattermost.test.helpers import client_mtmsock
+   -
+   -
+10 + from .discord.test.helpers import DSCClientSocket, client_dscsock
+11 + from .irc.test.helpers import IRCClientSocket, client_ircsock
+12 + from .mattermost.test.helpers import MTMClientSocket, client_mtmsock
+13 |
+   |
+
+RUF022 [*] `__all__` is not sorted
+  --> enconnect/fixtures.py:19:11
+   |
+19 |   __all__ = [
+   |  ___________^
+20 | |     'IRCClientSocket',
+21 | |     'client_ircsock',
+22 | |     'DSCClientSocket',
+23 | |     'client_dscsock',
+24 | |     'MTMClientSocket',
+25 | |     'client_mtmsock']
+   | |_____________________^
+   |
+help: Apply an isort-style sorting to `__all__`
+   |
+19 | __all__ = [
+   -     'IRCClientSocket',
+   -     'client_ircsock',
+20 |     'DSCClientSocket',
+   -     'client_dscsock',
+21 +     'IRCClientSocket',
+22 |     'MTMClientSocket',
+   -     'client_mtmsock']
+23 +     'client_dscsock',
+24 +     'client_ircsock',
+25 +     'client_mtmsock',
+26 + ]
+   |
+
+I001 [*] Import block is un-sorted or un-formatted
+  --> enconnect/hubitat/__init__.py:10:1
+   |
+10 | / from .bridge import Bridge
+11 | | from .params import BridgeParams
+   | |________________________________^
+   |
+help: Organize imports
+   |
+12 |
+   -
+   -
+13 | __all__ = [
+   |
+
+I001 [*] Import block is un-sorted or un-formatted
+  --> enconnect/hubitat/bridge.py:10:1
+   |
+10 | / from typing import Optional
+11 | | from typing import TYPE_CHECKING
+12 | |
+13 | | from httpx import Response
+14 | |
+15 | | from ..utils.http import HTTPClient
+16 | | from ..utils.http import _METHODS
+17 | | from ..utils.http import _PAYLOAD
+   | |_________________________________^
+18 |
+19 |   if TYPE_CHECKING:
+   |
+help: Organize imports
+   |
+9  |
+   - from typing import Optional
+   - from typing import TYPE_CHECKING
+10 + from typing import TYPE_CHECKING, Optional
+11 |
+12 | from httpx import Response
+13 |
+   - from ..utils.http import HTTPClient
+   - from ..utils.http import _METHODS
+   - from ..utils.http import _PAYLOAD
+14 + from ..utils.http import _METHODS, _PAYLOAD, HTTPClient
+15 |
+   |
+
+UP045 [*] Use `X | None` for type annotations
+  --> enconnect/hubitat/bridge.py:83:17
+   |
+81 |         method: _METHODS,
+82 |         path: str,
+83 |         params: Optional[_PAYLOAD] = None,
+   |                 ^^^^^^^^^^^^^^^^^^
+84 |         *,
+85 |         timeout: Optional[int] = None,
+   |
+help: Convert to `X | None`
+   |
+82 |         path: str,
+   -         params: Optional[_PAYLOAD] = None,
+83 +         params: _PAYLOAD | None = None,
+84 |         *,
+   |
+
+UP045 [*] Use `X | None` for type annotations
+  --> enconnect/hubitat/bridge.py:85:18
+   |
+83 |         params: Optional[_PAYLOAD] = None,
+84 |         *,
+85 |         timeout: Optional[int] = None,
+   |                  ^^^^^^^^^^^^^
+86 |     ) -> Response:
+87 |         """
+   |
+help: Convert to `X | None`
+   |
+84 |         *,
+   -         timeout: Optional[int] = None,
+85 +         timeout: int | None = None,
+86 |     ) -> Response:
+   |
+
+I001 [*] Import block is un-sorted or un-formatted
+  --> enconnect/hubitat/params.py:10:1
+   |
+10 | / from typing import Annotated
+11 | | from typing import Any
+12 | | from typing import Optional
+13 | |
+14 | | from encommon.types import BaseModel
+15 | |
+16 | | from pydantic import Field
+   | |__________________________^
+   |
+help: Organize imports
+   |
+9  |
+   - from typing import Annotated
+   - from typing import Any
+   - from typing import Optional
+10 + from typing import Annotated, Any, Optional
+11 |
+12 | from encommon.types import BaseModel
+   -
+13 | from pydantic import Field
+   -
+14 |
+   |
+
+UP045 [*] Use `X | None` for type annotations
+  --> enconnect/hubitat/params.py:55:9
+   |
+54 |     ssl_capem: Annotated[
+55 |         Optional[str],
+   |         ^^^^^^^^^^^^^
+56 |         Field(None,
+57 |               description='Verify the ceritifcate valid',
+   |
+help: Convert to `X | None`
+   |
+54 |     ssl_capem: Annotated[
+   -         Optional[str],
+55 +         str | None,
+56 |         Field(None,
+   |
+
+I001 [*] Import block is un-sorted or un-formatted
+  --> enconnect/hubitat/test/__init__.py:10:1
+   |
+10 | from pathlib import Path
+   | ^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+help: Organize imports
+   |
+11 |
+   -
+   -
+12 | SAMPLES = (
+   |
+
+I001 [*] Import block is un-sorted or un-formatted
+  --> enconnect/hubitat/test/test_bridge.py:10:1
+   |
+10 | / from encommon.types import inrepr
+11 | | from encommon.types import instr
+12 | | from encommon.types import lattrs
+13 | | from encommon.utils import load_sample
+14 | | from encommon.utils import prep_sample
+15 | | from encommon.utils import read_sample
+16 | | from encommon.utils import read_text
+17 | | from encommon.utils.sample import ENPYRWS
+18 | |
+19 | | from httpx import Response
+20 | |
+21 | | from pytest import fixture
+22 | |
+23 | | from respx import MockRouter
+24 | |
+25 | | from . import SAMPLES
+26 | | from ..bridge import Bridge
+27 | | from ..params import BridgeParams
+   | |_________________________________^
+   |
+help: Organize imports
+   |
+9  |
+   - from encommon.types import inrepr
+   - from encommon.types import instr
+   - from encommon.types import lattrs
+   - from encommon.utils import load_sample
+   - from encommon.utils import prep_sample
+   - from encommon.utils import read_sample
+   - from encommon.utils import read_text
+10 + from encommon.types import inrepr, instr, lattrs
+11 + from encommon.utils import load_sample, prep_sample, read_sample, read_text
+12 | from encommon.utils.sample import ENPYRWS
+   -
+13 | from httpx import Response
+   -
+14 | from pytest import fixture
+   -
+15 | from respx import MockRouter
+16 |
+   - from . import SAMPLES
+17 | from ..bridge import Bridge
+18 | from ..params import BridgeParams
+   -
+19 + from . import SAMPLES
+20 |
+   |
+
+I001 [*] Import block is un-sorted or un-formatted
+  --> enconnect/instagram/__init__.py:10:1
+   |
+10 | / from .instagram import Instagram
+11 | | from .models import InstagramMedia
+12 | | from .params import InstagramParams
+   | |___________________________________^
+   |
+help: Organize imports
+   |
+13 |
+   -
+   -
+14 | __all__ = [
+   |
+
+RUF022 [*] `__all__` is not sorted
+  --> enconnect/instagram/__init__.py:16:11
+   |
+16 |   __all__ = [
+   |  ___________^
+17 | |     'Instagram',
+18 | |     'InstagramParams',
+19 | |     'InstagramMedia']
+   | |_____________________^
+   |
+help: Apply an isort-style sorting to `__all__`
+   |
+17 |     'Instagram',
+18 +     'InstagramMedia',
+19 |     'InstagramParams',
+   -     'InstagramMedia']
+20 + ]
+   |
+
+I001 [*] Import block is un-sorted or un-formatted
+  --> enconnect/instagram/instagram.py:10:1
+   |
+10 | / from typing import Literal
+11 | | from typing import Optional
+12 | | from typing import TYPE_CHECKING
+13 | |
+14 | | from httpx import Response
+15 | |
+16 | | from .models import InstagramMedia
+17 | | from .models import MEDIA_FIELDS
+18 | | from ..utils.http import HTTPClient
+19 | | from ..utils.http import _PAYLOAD
+   | |_________________________________^
+20 |
+21 |   if TYPE_CHECKING:
+   |
+help: Organize imports
+   |
+9  |
+   - from typing import Literal
+   - from typing import Optional
+   - from typing import TYPE_CHECKING
+10 + from typing import TYPE_CHECKING, Literal, Optional
+11 |
+12 | from httpx import Response
+13 |
+   - from .models import InstagramMedia
+   - from .models import MEDIA_FIELDS
+   - from ..utils.http import HTTPClient
+   - from ..utils.http import _PAYLOAD
+14 + from ..utils.http import _PAYLOAD, HTTPClient
+15 + from .models import MEDIA_FIELDS, InstagramMedia
+16 |
+   |
+
+UP045 [*] Use `X | None` for type annotations
+  --> enconnect/instagram/instagram.py:85:17
+   |
+83 |         method: Literal['get'],
+84 |         path: str,
+85 |         params: Optional[_PAYLOAD] = None,
+   |                 ^^^^^^^^^^^^^^^^^^
+86 |     ) -> Response:
+87 |         """
+   |
+help: Convert to `X | None`
+   |
+84 |         path: str,
+   -         params: Optional[_PAYLOAD] = None,
+85 +         params: _PAYLOAD | None = None,
+86 |     ) -> Response:
+   |
+
+UP045 [*] Use `X | None` for type annotations
+   --> enconnect/instagram/instagram.py:119:17
+    |
+117 |         method: Literal['get'],
+118 |         path: str,
+119 |         params: Optional[_PAYLOAD] = None,
+    |                 ^^^^^^^^^^^^^^^^^^
+120 |     ) -> Response:
+121 |         """
+    |
+help: Convert to `X | None`
+    |
+118 |         path: str,
+    -         params: Optional[_PAYLOAD] = None,
+119 +         params: _PAYLOAD | None = None,
+120 |     ) -> Response:
+    |
+
+I001 [*] Import block is un-sorted or un-formatted
+  --> enconnect/instagram/models.py:10:1
+   |
+10 | / from typing import Annotated
+11 | | from typing import Any
+12 | | from typing import Optional
+13 | |
+14 | | from encommon.types import BaseModel
+15 | |
+16 | | from pydantic import Field
+   | |__________________________^
+   |
+help: Organize imports
+   |
+9  |
+   - from typing import Annotated
+   - from typing import Any
+   - from typing import Optional
+10 + from typing import Annotated, Any, Optional
+11 |
+12 | from encommon.types import BaseModel
+   -
+13 | from pydantic import Field
+   -
+   -
+14 |
+   |
+
+UP045 [*] Use `X | None` for type annotations
+  --> enconnect/instagram/models.py:45:9
+   |
+44 |     caption: Annotated[
+45 |         Optional[str],
+   |         ^^^^^^^^^^^^^
+46 |         Field(None,
+47 |               description='Value from the server response')]
+   |
+help: Convert to `X | None`
+   |
+44 |     caption: Annotated[
+   -         Optional[str],
+45 +         str | None,
+46 |         Field(None,
+   |
+
+UP045 [*] Use `X | None` for type annotations
+  --> enconnect/instagram/models.py:55:9
+   |
+54 |     shared: Annotated[
+55 |         Optional[bool],
+   |         ^^^^^^^^^^^^^^
+56 |         Field(None,
+57 |               description='Value from the server response')]
+   |
+help: Convert to `X | None`
+   |
+54 |     shared: Annotated[
+   -         Optional[bool],
+55 +         bool | None,
+56 |         Field(None,
+   |
+
+UP045 [*] Use `X | None` for type annotations
+  --> enconnect/instagram/models.py:70:9
+   |
+69 |     permalink: Annotated[
+70 |         Optional[str],
+   |         ^^^^^^^^^^^^^
+71 |         Field(None,
+72 |               description='Value from the server response')]
+   |
+help: Convert to `X | None`
+   |
+69 |     permalink: Annotated[
+   -         Optional[str],
+70 +         str | None,
+71 |         Field(None,
+   |
+
+UP045 [*] Use `X | None` for type annotations
+  --> enconnect/instagram/models.py:75:9
+   |
+74 |     thumbnail: Annotated[
+75 |         Optional[str],
+   |         ^^^^^^^^^^^^^
+76 |         Field(None,
+77 |               description='Value from the server response')]
+   |
+help: Convert to `X | None`
+   |
+74 |     thumbnail: Annotated[
+   -         Optional[str],
+75 +         str | None,
+76 |         Field(None,
+   |
+
+I001 [*] Import block is un-sorted or un-formatted
+  --> enconnect/instagram/params.py:10:1
+   |
+10 | / from typing import Annotated
+11 | | from typing import Any
+12 | | from typing import Optional
+13 | |
+14 | | from encommon.types import BaseModel
+15 | |
+16 | | from pydantic import Field
+   | |__________________________^
+   |
+help: Organize imports
+   |
+9  |
+   - from typing import Annotated
+   - from typing import Any
+   - from typing import Optional
+10 + from typing import Annotated, Any, Optional
+11 |
+12 | from encommon.types import BaseModel
+   -
+13 | from pydantic import Field
+   -
+14 |
+   |
+
+UP045 [*] Use `X | None` for type annotations
+  --> enconnect/instagram/params.py:43:9
+   |
+42 |     ssl_capem: Annotated[
+43 |         Optional[str],
+   |         ^^^^^^^^^^^^^
+44 |         Field(None,
+45 |               description='Verify the ceritifcate valid',
+   |
+help: Convert to `X | None`
+   |
+42 |     ssl_capem: Annotated[
+   -         Optional[str],
+43 +         str | None,
+44 |         Field(None,
+   |
+
+I001 [*] Import block is un-sorted or un-formatted
+  --> enconnect/instagram/test/__init__.py:10:1
+   |
+10 | from pathlib import Path
+   | ^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+help: Organize imports
+   |
+11 |
+   -
+   -
+12 | SAMPLES = (
+   |
+
+I001 [*] Import block is un-sorted or un-formatted
+  --> enconnect/instagram/test/test_instagram.py:10:1
+   |
+10 | / from json import dumps
+11 | | from json import loads
+12 | |
+13 | | from encommon.types import inrepr
+14 | | from encommon.types import instr
+15 | | from encommon.types import lattrs
+16 | | from encommon.utils import load_sample
+17 | | from encommon.utils import prep_sample
+18 | | from encommon.utils import read_text
+19 | | from encommon.utils.sample import ENPYRWS
+20 | |
+21 | | from httpx import Response
+22 | |
+23 | | from pytest import fixture
+24 | | from pytest import mark
+25 | |
+26 | | from respx import MockRouter
+27 | |
+28 | | from . import SAMPLES
+29 | | from ..instagram import Instagram
+30 | | from ..params import InstagramParams
+   | |____________________________________^
+   |
+help: Organize imports
+   |
+9  |
+   - from json import dumps
+   - from json import loads
+10 + from json import dumps, loads
+11 |
+   - from encommon.types import inrepr
+   - from encommon.types import instr
+   - from encommon.types import lattrs
+   - from encommon.utils import load_sample
+   - from encommon.utils import prep_sample
+   - from encommon.utils import read_text
+12 + from encommon.types import inrepr, instr, lattrs
+13 + from encommon.utils import load_sample, prep_sample, read_text
+14 | from encommon.utils.sample import ENPYRWS
+   -
+15 | from httpx import Response
+   -
+   - from pytest import fixture
+   - from pytest import mark
+   -
+16 + from pytest import fixture, mark
+17 | from respx import MockRouter
+18 |
+   - from . import SAMPLES
+19 | from ..instagram import Instagram
+20 | from ..params import InstagramParams
+   -
+21 + from . import SAMPLES
+22 |
+   |
+
+I001 [*] Import block is un-sorted or un-formatted
+  --> enconnect/instagram/test/test_models.py:10:1
+   |
+10 | / from json import loads
+11 | |
+12 | | from encommon.types import inrepr
+13 | | from encommon.types import instr
+14 | | from encommon.types import lattrs
+15 | | from encommon.utils import read_text
+16 | |
+17 | | from pytest import raises
+18 | |
+19 | | from . import SAMPLES
+20 | | from ..models import InstagramMedia
+   | |___________________________________^
+   |
+help: Organize imports
+   |
+11 |
+   - from encommon.types import inrepr
+   - from encommon.types import instr
+   - from encommon.types import lattrs
+12 + from encommon.types import inrepr, instr, lattrs
+13 | from encommon.utils import read_text
+   -
+14 | from pytest import raises
+15 |
+16 + from ..models import InstagramMedia
+17 | from . import SAMPLES
+   - from ..models import InstagramMedia
+   -
+18 |
+   |
+
+I001 [*] Import block is un-sorted or un-formatted
+  --> enconnect/irc/__init__.py:10:1
+   |
+10 | / from .client import Client
+11 | | from .models import ClientEvent
+12 | | from .params import ClientParams
+   | |________________________________^
+   |
+help: Organize imports
+   |
+13 |
+   -
+   -
+14 | __all__ = [
+   |
+
+RUF022 [*] `__all__` is not sorted
+  --> enconnect/irc/__init__.py:16:11
+   |
+16 |   __all__ = [
+   |  ___________^
+17 | |     'Client',
+18 | |     'ClientParams',
+19 | |     'ClientEvent']
+   | |__________________^
+   |
+help: Apply an isort-style sorting to `__all__`
+   |
+17 |     'Client',
+18 +     'ClientEvent',
+19 |     'ClientParams',
+   -     'ClientEvent']
+20 + ]
+   |
+
+I001 [*] Import block is un-sorted or un-formatted
+  --> enconnect/irc/client.py:10:1
+   |
+10 | / from codecs import getincrementaldecoder as getdecoder
+11 | | from queue import Queue
+12 | | from re import compile
+13 | | from re import match as re_match
+14 | | from socket import AF_INET
+15 | | from socket import SOCK_STREAM
+16 | | from socket import socket
+17 | | from ssl import CERT_NONE
+18 | | from ssl import CERT_REQUIRED
+19 | | from ssl import SSLSocket
+20 | | from ssl import create_default_context as default
+21 | | from threading import Event
+22 | | from typing import Callable
+23 | | from typing import Iterator
+24 | | from typing import Optional
+25 | | from typing import TYPE_CHECKING
+26 | |
+27 | | from encommon.times import Time
+28 | | from encommon.types import NCFalse
+29 | | from encommon.types.strings import NEWLINE
+30 | | from encommon.types.strings import SEMPTY
+31 | |
+32 | | from .models import ClientEvent
+33 | | from ..utils.dummy import dumlog
+   | |________________________________^
+34 |
+35 |   if TYPE_CHECKING:
+   |
+help: Organize imports
+   |
+13 | from re import match as re_match
+   - from socket import AF_INET
+   - from socket import SOCK_STREAM
+   - from socket import socket
+   - from ssl import CERT_NONE
+   - from ssl import CERT_REQUIRED
+   - from ssl import SSLSocket
+14 + from socket import AF_INET, SOCK_STREAM, socket
+15 + from ssl import CERT_NONE, CERT_REQUIRED, SSLSocket
+16 | from ssl import create_default_context as default
+17 | from threading import Event
+   - from typing import Callable
+   - from typing import Iterator
+   - from typing import Optional
+   - from typing import TYPE_CHECKING
+18 + from typing import TYPE_CHECKING, Callable, Iterator, Optional
+19 |
+20 | from encommon.times import Time
+21 | from encommon.types import NCFalse
+   - from encommon.types.strings import NEWLINE
+   - from encommon.types.strings import SEMPTY
+22 + from encommon.types.strings import NEWLINE, SEMPTY
+23 |
+24 + from ..utils.dummy import dumlog
+25 | from .models import ClientEvent
+   - from ..utils.dummy import dumlog
+26 |
+   |
+
+UP035 [*] Import from `collections.abc` instead: `Callable`
+  --> enconnect/irc/client.py:22:1
+   |
+20 | from ssl import create_default_context as default
+21 | from threading import Event
+22 | from typing import Callable
+   | ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+23 | from typing import Iterator
+24 | from typing import Optional
+   |
+help: Import from `collections.abc`
+   |
+21 | from threading import Event
+   - from typing import Callable
+22 + from collections.abc import Callable
+23 | from typing import Iterator
+   |
+
+UP035 [*] Import from `collections.abc` instead: `Iterator`
+  --> enconnect/irc/client.py:23:1
+   |
+21 | from threading import Event
+22 | from typing import Callable
+23 | from typing import Iterator
+   | ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+24 | from typing import Optional
+25 | from typing import TYPE_CHECKING
+   |
+help: Import from `collections.abc`
+   |
+22 | from typing import Callable
+   - from typing import Iterator
+23 + from collections.abc import Iterator
+24 | from typing import Optional
+   |
+
+UP045 [*] Use `X | None` for type annotations
+  --> enconnect/irc/client.py:64:15
+   |
+62 |     __logger: Callable[..., None]
+63 |
+64 |     __socket: Optional[socket | SSLSocket]
+   |               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+65 |     __conned: Event
+66 |     __exited: Event
+   |
+help: Convert to `X | None`
+   |
+63 |
+   -     __socket: Optional[socket | SSLSocket]
+64 +     __socket: socket | SSLSocket | None
+65 |     __conned: Event
+   |
+
+UP045 [*] Use `X | None` for type annotations
+  --> enconnect/irc/client.py:67:15
+   |
+65 |     __conned: Event
+66 |     __exited: Event
+67 |     __mynick: Optional[str]
+   |               ^^^^^^^^^^^^^
+68 |     __lsnick: Optional[str]
+69 |     __ponged: Optional[Time]
+   |
+help: Convert to `X | None`
+   |
+66 |     __exited: Event
+   -     __mynick: Optional[str]
+67 +     __mynick: str | None
+68 |     __lsnick: Optional[str]
+   |
+
+UP045 [*] Use `X | None` for type annotations
+  --> enconnect/irc/client.py:68:15
+   |
+66 |     __exited: Event
+67 |     __mynick: Optional[str]
+68 |     __lsnick: Optional[str]
+   |               ^^^^^^^^^^^^^
+69 |     __ponged: Optional[Time]
+   |
+help: Convert to `X | None`
+   |
+67 |     __mynick: Optional[str]
+   -     __lsnick: Optional[str]
+68 +     __lsnick: str | None
+69 |     __ponged: Optional[Time]
+   |
+
+UP045 [*] Use `X | None` for type annotations
+  --> enconnect/irc/client.py:69:15
+   |
+67 |     __mynick: Optional[str]
+68 |     __lsnick: Optional[str]
+69 |     __ponged: Optional[Time]
+   |               ^^^^^^^^^^^^^^
+70 |
+71 |     __mqueue: Queue[ClientEvent]
+   |
+help: Convert to `X | None`
+   |
+68 |     __lsnick: Optional[str]
+   -     __ponged: Optional[Time]
+69 +     __ponged: Time | None
+70 |
+   |
+
+UP045 [*] Use `X | None` for type annotations
+  --> enconnect/irc/client.py:78:17
+   |
+76 |         self,
+77 |         params: 'ClientParams',
+78 |         logger: Optional[Callable[..., None]] = None,
+   |                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+79 |     ) -> None:
+80 |         """
+   |
+help: Convert to `X | None`
+   |
+77 |         params: 'ClientParams',
+   -         logger: Optional[Callable[..., None]] = None,
+78 +         logger: Callable[..., None] | None = None,
+79 |     ) -> None:
+   |
+
+UP045 [*] Use `X | None` for type annotations
+   --> enconnect/irc/client.py:132:10
+    |
+130 |     def nickname(
+131 |         self,
+132 |     ) -> Optional[str]:
+    |          ^^^^^^^^^^^^^
+133 |         """
+134 |         Return the value for the attribute from class instance.
+    |
+help: Convert to `X | None`
+    |
+131 |         self,
+    -     ) -> Optional[str]:
+132 +     ) -> str | None:
+133 |         """
+    |
+
+RET501 [*] Do not explicitly `return None` in function if it is the only possible return value
+   --> enconnect/irc/client.py:333:13
+    |
+331 |             self.socket_send(pong)
+332 |
+333 |             return None
+    |             ^^^^^^^^^^^
+    |
+help: Remove explicit `return None`
+    |
+332 |
+    -             return None
+333 +             return
+334 |
+    |
+
+B010 [*] Do not call `setattr` with a constant attribute value. It is not any safer than normal property access.
+   --> enconnect/irc/client.py:379:9
+    |
+379 | /         setattr(
+380 | |             context,
+381 | |             'check_hostname',
+382 | |             verify)
+    | |___________________^
+    |
+help: Replace `setattr` with assignment
+    |
+378 |
+    -         setattr(
+    -             context,
+    -             'check_hostname',
+    -             verify)
+379 +         context.check_hostname = verify
+380 |
+    |
+
+B010 [*] Do not call `setattr` with a constant attribute value. It is not any safer than normal property access.
+   --> enconnect/irc/client.py:390:9
+    |
+388 |               else CERT_NONE)
+389 |
+390 | /         setattr(
+391 | |             context,
+392 | |             'verify_mode',
+393 | |             _verify)
+    | |____________________^
+    |
+help: Replace `setattr` with assignment
+    |
+389 |
+    -         setattr(
+    -             context,
+    -             'verify_mode',
+    -             _verify)
+390 +         context.verify_mode = _verify
+391 |
+    |
+
+UP012 [*] Unnecessary UTF-8 `encoding` argument to `encode`
+   --> enconnect/irc/client.py:516:13
+    |
+515 |           transmit = (
+516 | /             f'{send}\r\n'
+517 | |             .encode('utf-8'))
+    | |____________________________^
+518 |
+519 |           socket.send(transmit)
+    |
+help: Remove unnecessary `encoding` argument
+    |
+516 |             f'{send}\r\n'
+    -             .encode('utf-8'))
+517 +             .encode())
+518 |
+    |
+
+I001 [*] Import block is un-sorted or un-formatted
+  --> enconnect/irc/models.py:10:1
+   |
+10 | / from re import IGNORECASE
+11 | | from re import compile
+12 | | from re import escape as re_escape
+13 | | from re import match as re_match
+14 | | from re import search as re_search
+15 | | from typing import Annotated
+16 | | from typing import Literal
+17 | | from typing import Optional
+18 | | from typing import TYPE_CHECKING
+19 | |
+20 | | from encommon.types import BaseModel
+21 | | from encommon.types import DictStrAny
+22 | | from encommon.types import NCTrue
+23 | |
+24 | | from pydantic import Field
+   | |__________________________^
+25 |
+26 |   if TYPE_CHECKING:
+   |
+help: Organize imports
+   |
+9  |
+   - from re import IGNORECASE
+   - from re import compile
+10 + from re import IGNORECASE, compile
+11 | from re import escape as re_escape
+12 | from re import match as re_match
+13 | from re import search as re_search
+   - from typing import Annotated
+   - from typing import Literal
+   - from typing import Optional
+   - from typing import TYPE_CHECKING
+14 + from typing import TYPE_CHECKING, Annotated, Literal, Optional
+15 |
+   - from encommon.types import BaseModel
+   - from encommon.types import DictStrAny
+   - from encommon.types import NCTrue
+   -
+16 + from encommon.types import BaseModel, DictStrAny, NCTrue
+17 | from pydantic import Field
+   |
+
+UP045 [*] Use `X | None` for type annotations
+  --> enconnect/irc/models.py:53:9
+   |
+52 |     prefix: Annotated[
+53 |         Optional[str],
+   |         ^^^^^^^^^^^^^
+54 |         Field(None,
+55 |               description='Prefix or origin information',
+   |
+help: Convert to `X | None`
+   |
+52 |     prefix: Annotated[
+   -         Optional[str],
+53 +         str | None,
+54 |         Field(None,
+   |
+
+UP045 [*] Use `X | None` for type annotations
+  --> enconnect/irc/models.py:59:9
+   |
+58 |     command: Annotated[
+59 |         Optional[str],
+   |         ^^^^^^^^^^^^^
+60 |         Field(None,
+61 |               description='Code or command for the event',
+   |
+help: Convert to `X | None`
+   |
+58 |     command: Annotated[
+   -         Optional[str],
+59 +         str | None,
+60 |         Field(None,
+   |
+
+UP045 [*] Use `X | None` for type annotations
+  --> enconnect/irc/models.py:65:9
+   |
+64 |     params: Annotated[
+65 |         Optional[str],
+   |         ^^^^^^^^^^^^^
+66 |         Field(None,
+67 |               description='Event or command parameters')]
+   |
+help: Convert to `X | None`
+   |
+64 |     params: Annotated[
+   -         Optional[str],
+65 +         str | None,
+66 |         Field(None,
+   |
+
+UP045 [*] Use `X | None` for type annotations
+  --> enconnect/irc/models.py:91:9
+   |
+90 |     whome: Annotated[
+91 |         Optional[str],
+   |         ^^^^^^^^^^^^^
+92 |         Field(None,
+93 |               description='Current nickname of when received',
+   |
+help: Convert to `X | None`
+   |
+90 |     whome: Annotated[
+   -         Optional[str],
+91 +         str | None,
+92 |         Field(None,
+   |
+
+UP045 [*] Use `X | None` for type annotations
+  --> enconnect/irc/models.py:97:9
+   |
+96 |     author: Annotated[
+97 |         Optional[str],
+   |         ^^^^^^^^^^^^^
+98 |         Field(None,
+99 |               description='Dynamic field parsed from event',
+   |
+help: Convert to `X | None`
+   |
+96 |     author: Annotated[
+   -         Optional[str],
+97 +         str | None,
+98 |         Field(None,
+   |
+
+UP045 [*] Use `X | None` for type annotations
+   --> enconnect/irc/models.py:103:9
+    |
+102 |     recipient: Annotated[
+103 |         Optional[str],
+    |         ^^^^^^^^^^^^^
+104 |         Field(None,
+105 |               description='Dynamic field parsed from event',
+    |
+help: Convert to `X | None`
+    |
+102 |     recipient: Annotated[
+    -         Optional[str],
+103 +         str | None,
+104 |         Field(None,
+    |
+
+UP045 [*] Use `X | None` for type annotations
+   --> enconnect/irc/models.py:109:9
+    |
+108 |     message: Annotated[
+109 |         Optional[str],
+    |         ^^^^^^^^^^^^^
+110 |         Field(None,
+111 |               description='Dynamic field parsed from event',
+    |
+help: Convert to `X | None`
+    |
+108 |     message: Annotated[
+    -         Optional[str],
+109 +         str | None,
+110 |         Field(None,
+    |
+
+RET501 [*] Do not explicitly `return None` in function if it is the only possible return value
+   --> enconnect/irc/models.py:214:13
+    |
+213 |         if kind not in MESSAGE:
+214 |             return None
+    |             ^^^^^^^^^^^
+215 |
+216 |         assert prefix is not None
+    |
+help: Remove explicit `return None`
+    |
+213 |         if kind not in MESSAGE:
+    -             return None
+214 +             return
+215 |
+    |
+
+RET501 [*] Do not explicitly `return None` in function if it is the only possible return value
+   --> enconnect/irc/models.py:236:13
+    |
+234 |         if (kind not in MESSAGE
+235 |                 or not params):
+236 |             return None
+    |             ^^^^^^^^^^^
+237 |
+238 |         split = params.split(' ')
+    |
+help: Remove explicit `return None`
+    |
+235 |                 or not params):
+    -             return None
+236 +             return
+237 |
+    |
+
+RET501 [*] Do not explicitly `return None` in function if it is the only possible return value
+   --> enconnect/irc/models.py:255:13
+    |
+253 |         if (kind not in MESSAGE
+254 |                 or not params):
+255 |             return None
+    |             ^^^^^^^^^^^
+256 |
+257 |         message = (
+    |
+help: Remove explicit `return None`
+    |
+254 |                 or not params):
+    -             return None
+255 +             return
+256 |
+    |
+
+RET501 [*] Do not explicitly `return None` in function if it is the only possible return value
+   --> enconnect/irc/models.py:331:13
+    |
+330 |         if mynick is None:
+331 |             return None
+    |             ^^^^^^^^^^^
+332 |
+333 |         if message is None:
+    |
+help: Remove explicit `return None`
+    |
+330 |         if mynick is None:
+    -             return None
+331 +             return
+332 |
+    |
+
+RET501 [*] Do not explicitly `return None` in function if it is the only possible return value
+   --> enconnect/irc/models.py:334:13
+    |
+333 |         if message is None:
+334 |             return None
+    |             ^^^^^^^^^^^
+335 |
+336 |         needle = re_escape(mynick)
+    |
+help: Remove explicit `return None`
+    |
+333 |         if message is None:
+    -             return None
+334 +             return
+335 |
+    |
+
+I001 [*] Import block is un-sorted or un-formatted
+  --> enconnect/irc/params.py:10:1
+   |
+10 | / from typing import Annotated
+11 | | from typing import Any
+12 | | from typing import Literal
+13 | | from typing import Optional
+14 | |
+15 | | from encommon.types import BaseModel
+16 | |
+17 | | from pydantic import Field
+   | |__________________________^
+   |
+help: Organize imports
+   |
+9  |
+   - from typing import Annotated
+   - from typing import Any
+   - from typing import Literal
+   - from typing import Optional
+10 + from typing import Annotated, Any, Literal, Optional
+11 |
+12 | from encommon.types import BaseModel
+   -
+13 | from pydantic import Field
+   -
+14 |
+   |
+
+UP045 [*] Use `X | None` for type annotations
+  --> enconnect/irc/params.py:68:9
+   |
+67 |     password: Annotated[
+68 |         Optional[str],
+   |         ^^^^^^^^^^^^^
+69 |         Field(None,
+70 |               description='Parameter for the integration',
+   |
+help: Convert to `X | None`
+   |
+67 |     password: Annotated[
+   -         Optional[str],
+68 +         str | None,
+69 |         Field(None,
+   |
+
+I001 [*] Import block is un-sorted or un-formatted
+  --> enconnect/irc/test/__init__.py:10:1
+   |
+10 | / from .helpers import EVENTS
+11 | | from .helpers import IRCClientSocket
+12 | | from .helpers import RVENTS
+13 | | from .helpers import SVENTS
+14 | | from .helpers import client_ircsock
+   | |___________________________________^
+   |
+help: Organize imports
+   |
+9  |
+   - from .helpers import EVENTS
+   - from .helpers import IRCClientSocket
+   - from .helpers import RVENTS
+   - from .helpers import SVENTS
+   - from .helpers import client_ircsock
+   -
+   -
+10 + from .helpers import EVENTS, RVENTS, SVENTS, IRCClientSocket, client_ircsock
+11 |
+   |
+
+RUF022 [*] `__all__` is not sorted
+  --> enconnect/irc/test/__init__.py:18:11
+   |
+18 |   __all__ = [
+   |  ___________^
+19 | |     'IRCClientSocket',
+20 | |     'client_ircsock',
+21 | |     'EVENTS',
+22 | |     'RVENTS',
+23 | |     'SVENTS']
+   | |_____________^
+   |
+help: Apply an isort-style sorting to `__all__`
+   |
+18 | __all__ = [
+   -     'IRCClientSocket',
+   -     'client_ircsock',
+19 |     'EVENTS',
+20 |     'RVENTS',
+   -     'SVENTS']
+21 +     'SVENTS',
+22 +     'IRCClientSocket',
+23 +     'client_ircsock',
+24 + ]
+   |
+
+I001 [*] Import block is un-sorted or un-formatted
+  --> enconnect/irc/test/helpers.py:10:1
+   |
+10 | / from ssl import SSLContext
+11 | | from ssl import SSLSocket
+12 | | from time import sleep as block_sleep
+13 | | from typing import Iterator
+14 | | from typing import Optional
+15 | | from typing import Protocol
+16 | | from typing import overload
+17 | | from unittest.mock import MagicMock
+18 | | from unittest.mock import Mock
+19 | |
+20 | | from pytest import fixture
+21 | |
+22 | | from pytest_mock import MockerFixture
+   | |_____________________________________^
+   |
+help: Organize imports
+   |
+9  |
+   - from ssl import SSLContext
+   - from ssl import SSLSocket
+10 + from ssl import SSLContext, SSLSocket
+11 | from time import sleep as block_sleep
+   - from typing import Iterator
+   - from typing import Optional
+   - from typing import Protocol
+   - from typing import overload
+   - from unittest.mock import MagicMock
+   - from unittest.mock import Mock
+12 + from typing import Iterator, Optional, Protocol, overload
+13 + from unittest.mock import MagicMock, Mock
+14 |
+15 | from pytest import fixture
+   -
+16 | from pytest_mock import MockerFixture
+   -
+   -
+17 |
+   |
+
+UP035 [*] Import from `collections.abc` instead: `Iterator`
+  --> enconnect/irc/test/helpers.py:13:1
+   |
+11 | from ssl import SSLSocket
+12 | from time import sleep as block_sleep
+13 | from typing import Iterator
+   | ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+14 | from typing import Optional
+15 | from typing import Protocol
+   |
+help: Import from `collections.abc`
+   |
+12 | from time import sleep as block_sleep
+   - from typing import Iterator
+13 + from collections.abc import Iterator
+14 | from typing import Optional
+   |
+
+UP045 Use `X | None` for type annotations
+  --> enconnect/irc/test/helpers.py:26:11
+   |
+26 | _EVENTS = Optional[list[str]]
+   |           ^^^^^^^^^^^^^^^^^^^
+27 |
+28 | _SOCKET = tuple[
+   |
+help: Convert to `X | None`
+
+I001 [*] Import block is un-sorted or un-formatted
+  --> enconnect/irc/test/test_client.py:10:1
+   |
+10 | / from unittest.mock import Mock
+11 | |
+12 | | from encommon.types import inrepr
+13 | | from encommon.types import instr
+14 | | from encommon.types import lattrs
+15 | |
+16 | | from pytest import fixture
+17 | | from pytest import raises
+18 | |
+19 | | from ..client import Client
+20 | | from ..params import ClientParams
+21 | | from ...fixtures import IRCClientSocket
+   | |_______________________________________^
+   |
+help: Organize imports
+   |
+11 |
+   - from encommon.types import inrepr
+   - from encommon.types import instr
+   - from encommon.types import lattrs
+   -
+   - from pytest import fixture
+   - from pytest import raises
+12 + from encommon.types import inrepr, instr, lattrs
+13 + from pytest import fixture, raises
+14 |
+15 + from ...fixtures import IRCClientSocket
+16 | from ..client import Client
+17 | from ..params import ClientParams
+   - from ...fixtures import IRCClientSocket
+   -
+18 |
+   |
+
+I001 [*] Import block is un-sorted or un-formatted
+  --> enconnect/irc/test/test_models.py:10:1
+   |
+10 | / from threading import Thread
+11 | | from time import sleep as block_sleep
+12 | |
+13 | | from encommon.types import inrepr
+14 | | from encommon.types import instr
+15 | | from encommon.types import lattrs
+16 | |
+17 | | from pytest import raises
+18 | |
+19 | | from .helpers import EVENTS
+20 | | from .helpers import SVENTS
+21 | | from ..client import Client
+22 | | from ..models import ClientEvent
+23 | | from ..params import ClientParams
+24 | | from ...fixtures import IRCClientSocket
+   | |_______________________________________^
+   |
+help: Organize imports
+   |
+12 |
+   - from encommon.types import inrepr
+   - from encommon.types import instr
+   - from encommon.types import lattrs
+   -
+13 + from encommon.types import inrepr, instr, lattrs
+14 | from pytest import raises
+15 |
+   - from .helpers import EVENTS
+   - from .helpers import SVENTS
+16 + from ...fixtures import IRCClientSocket
+17 | from ..client import Client
+18 | from ..models import ClientEvent
+19 | from ..params import ClientParams
+   - from ...fixtures import IRCClientSocket
+   -
+20 + from .helpers import EVENTS, SVENTS
+21 |
+   |
+
+I001 [*] Import block is un-sorted or un-formatted
+  --> enconnect/mattermost/__init__.py:10:1
+   |
+10 | / from .client import Client
+11 | | from .models import ClientEvent
+12 | | from .params import ClientParams
+   | |________________________________^
+   |
+help: Organize imports
+   |
+13 |
+   -
+   -
+14 | __all__ = [
+   |
+
+RUF022 [*] `__all__` is not sorted
+  --> enconnect/mattermost/__init__.py:16:11
+   |
+16 |   __all__ = [
+   |  ___________^
+17 | |     'Client',
+18 | |     'ClientParams',
+19 | |     'ClientEvent']
+   | |__________________^
+   |
+help: Apply an isort-style sorting to `__all__`
+   |
+17 |     'Client',
+18 +     'ClientEvent',
+19 |     'ClientParams',
+   -     'ClientEvent']
+20 + ]
+   |
+
+I001 [*] Import block is un-sorted or un-formatted
+  --> enconnect/mattermost/client.py:10:1
+   |
+10 | / from json import dumps
+11 | | from json import loads
+12 | | from queue import Queue
+13 | | from threading import Event
+14 | | from typing import Callable
+15 | | from typing import Optional
+16 | | from typing import TYPE_CHECKING
+17 | |
+18 | | from encommon.times import Timer
+19 | | from encommon.types import DictStrAny
+20 | | from encommon.types import NCNone
+21 | | from encommon.types import sort_dict
+22 | |
+23 | | from httpx import Response
+24 | |
+25 | | from websockets.exceptions import ConnectionClosedOK
+26 | | from websockets.sync.client import ClientConnection
+27 | | from websockets.sync.client import connect
+28 | |
+29 | | from .models import ClientEvent
+30 | | from ..utils.dummy import dumlog
+31 | | from ..utils.http import HTTPClient
+32 | | from ..utils.http import _METHODS
+33 | | from ..utils.http import _PAYLOAD
+   | |_________________________________^
+34 |
+35 |   if TYPE_CHECKING:
+   |
+help: Organize imports
+   |
+9  |
+   - from json import dumps
+   - from json import loads
+10 + from json import dumps, loads
+11 | from queue import Queue
+12 | from threading import Event
+   - from typing import Callable
+   - from typing import Optional
+   - from typing import TYPE_CHECKING
+13 + from typing import TYPE_CHECKING, Callable, Optional
+14 |
+15 | from encommon.times import Timer
+   - from encommon.types import DictStrAny
+   - from encommon.types import NCNone
+   - from encommon.types import sort_dict
+   -
+16 + from encommon.types import DictStrAny, NCNone, sort_dict
+17 | from httpx import Response
+   -
+18 | from websockets.exceptions import ConnectionClosedOK
+   - from websockets.sync.client import ClientConnection
+   - from websockets.sync.client import connect
+19 + from websockets.sync.client import ClientConnection, connect
+20 |
+   - from .models import ClientEvent
+21 | from ..utils.dummy import dumlog
+   - from ..utils.http import HTTPClient
+   - from ..utils.http import _METHODS
+   - from ..utils.http import _PAYLOAD
+22 + from ..utils.http import _METHODS, _PAYLOAD, HTTPClient
+23 + from .models import ClientEvent
+24 |
+   |
+
+UP035 [*] Import from `collections.abc` instead: `Callable`
+  --> enconnect/mattermost/client.py:14:1
+   |
+12 | from queue import Queue
+13 | from threading import Event
+14 | from typing import Callable
+   | ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+15 | from typing import Optional
+16 | from typing import TYPE_CHECKING
+   |
+help: Import from `collections.abc`
+   |
+13 | from threading import Event
+   - from typing import Callable
+14 + from collections.abc import Callable
+15 | from typing import Optional
+   |
+
+UP045 [*] Use `X | None` for type annotations
+  --> enconnect/mattermost/client.py:57:15
+   |
+56 |     __client: HTTPClient
+57 |     __socket: Optional[ClientConnection]
+   |               ^^^^^^^^^^^^^^^^^^^^^^^^^^
+58 |     __conned: Event
+59 |     __exited: Event
+   |
+help: Convert to `X | None`
+   |
+56 |     __client: HTTPClient
+   -     __socket: Optional[ClientConnection]
+57 +     __socket: ClientConnection | None
+58 |     __conned: Event
+   |
+
+UP045 [*] Use `X | None` for type annotations
+  --> enconnect/mattermost/client.py:60:15
+   |
+58 |     __conned: Event
+59 |     __exited: Event
+60 |     __mynick: Optional[tuple[str, str]]
+   |               ^^^^^^^^^^^^^^^^^^^^^^^^^
+61 |     __lsnick: Optional[tuple[str, str]]
+   |
+help: Convert to `X | None`
+   |
+59 |     __exited: Event
+   -     __mynick: Optional[tuple[str, str]]
+60 +     __mynick: tuple[str, str] | None
+61 |     __lsnick: Optional[tuple[str, str]]
+   |
+
+UP045 [*] Use `X | None` for type annotations
+  --> enconnect/mattermost/client.py:61:15
+   |
+59 |     __exited: Event
+60 |     __mynick: Optional[tuple[str, str]]
+61 |     __lsnick: Optional[tuple[str, str]]
+   |               ^^^^^^^^^^^^^^^^^^^^^^^^^
+62 |
+63 |     __mqueue: Queue[ClientEvent]
+   |
+help: Convert to `X | None`
+   |
+60 |     __mynick: Optional[tuple[str, str]]
+   -     __lsnick: Optional[tuple[str, str]]
+61 +     __lsnick: tuple[str, str] | None
+62 |
+   |
+
+UP045 [*] Use `X | None` for type annotations
+  --> enconnect/mattermost/client.py:70:17
+   |
+68 |         self,
+69 |         params: 'ClientParams',
+70 |         logger: Optional[Callable[..., None]] = None,
+   |                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+71 |     ) -> None:
+72 |         """
+   |
+help: Convert to `X | None`
+   |
+69 |         params: 'ClientParams',
+   -         logger: Optional[Callable[..., None]] = None,
+70 +         logger: Callable[..., None] | None = None,
+71 |     ) -> None:
+   |
+
+UP045 [*] Use `X | None` for type annotations
+   --> enconnect/mattermost/client.py:129:10
+    |
+127 |     def nickname(
+128 |         self,
+129 |     ) -> Optional[tuple[str, str]]:
+    |          ^^^^^^^^^^^^^^^^^^^^^^^^^
+130 |         """
+131 |         Return the value for the attribute from class instance.
+    |
+help: Convert to `X | None`
+    |
+128 |         self,
+    -     ) -> Optional[tuple[str, str]]:
+129 +     ) -> tuple[str, str] | None:
+130 |         """
+    |
+
+UP045 [*] Use `X | None` for type annotations
+   --> enconnect/mattermost/client.py:405:10
+    |
+403 |     def socket_recv(  # noqa: CFQ004
+404 |         self,
+405 |     ) -> Optional[DictStrAny]:
+    |          ^^^^^^^^^^^^^^^^^^^^
+406 |         """
+407 |         Return the content received from the socket connection.
+    |
+help: Convert to `X | None`
+    |
+404 |         self,
+    -     ) -> Optional[DictStrAny]:
+405 +     ) -> DictStrAny | None:
+406 |         """
+    |
+
+UP045 [*] Use `X | None` for type annotations
+   --> enconnect/mattermost/client.py:452:17
+    |
+450 |         method: _METHODS,
+451 |         path: str,
+452 |         params: Optional[_PAYLOAD] = None,
+    |                 ^^^^^^^^^^^^^^^^^^
+453 |         json: Optional[_PAYLOAD] = None,
+454 |         *,
+    |
+help: Convert to `X | None`
+    |
+451 |         path: str,
+    -         params: Optional[_PAYLOAD] = None,
+452 +         params: _PAYLOAD | None = None,
+453 |         json: Optional[_PAYLOAD] = None,
+    |
+
+UP045 [*] Use `X | None` for type annotations
+   --> enconnect/mattermost/client.py:453:15
+    |
+451 |         path: str,
+452 |         params: Optional[_PAYLOAD] = None,
+453 |         json: Optional[_PAYLOAD] = None,
+    |               ^^^^^^^^^^^^^^^^^^
+454 |         *,
+455 |         timeout: Optional[int] = None,
+    |
+help: Convert to `X | None`
+    |
+452 |         params: Optional[_PAYLOAD] = None,
+    -         json: Optional[_PAYLOAD] = None,
+453 +         json: _PAYLOAD | None = None,
+454 |         *,
+    |
+
+UP045 [*] Use `X | None` for type annotations
+   --> enconnect/mattermost/client.py:455:18
+    |
+453 |         json: Optional[_PAYLOAD] = None,
+454 |         *,
+455 |         timeout: Optional[int] = None,
+    |                  ^^^^^^^^^^^^^
+456 |     ) -> Response:
+457 |         """
+    |
+help: Convert to `X | None`
+    |
+454 |         *,
+    -         timeout: Optional[int] = None,
+455 +         timeout: int | None = None,
+456 |     ) -> Response:
+    |
+
+I001 [*] Import block is un-sorted or un-formatted
+  --> enconnect/mattermost/models.py:10:1
+   |
+10 | / from json import loads
+11 | | from re import IGNORECASE
+12 | | from re import escape as re_escape
+13 | | from re import search as re_search
+14 | | from typing import Annotated
+15 | | from typing import Literal
+16 | | from typing import Optional
+17 | | from typing import TYPE_CHECKING
+18 | |
+19 | | from encommon.types import BaseModel
+20 | | from encommon.types import DictStrAny
+21 | |
+22 | | from pydantic import Field
+   | |__________________________^
+23 |
+24 |   if TYPE_CHECKING:
+   |
+help: Organize imports
+   |
+13 | from re import search as re_search
+   - from typing import Annotated
+   - from typing import Literal
+   - from typing import Optional
+   - from typing import TYPE_CHECKING
+   -
+   - from encommon.types import BaseModel
+   - from encommon.types import DictStrAny
+14 + from typing import TYPE_CHECKING, Annotated, Literal, Optional
+15 |
+16 + from encommon.types import BaseModel, DictStrAny
+17 | from pydantic import Field
+   |
+
+UP045 [*] Use `X | None` for type annotations
+  --> enconnect/mattermost/models.py:46:9
+   |
+45 |     type: Annotated[
+46 |         Optional[str],
+   |         ^^^^^^^^^^^^^
+47 |         Field(None,
+48 |               description='Type of event that occurred',
+   |
+help: Convert to `X | None`
+   |
+45 |     type: Annotated[
+   -         Optional[str],
+46 +         str | None,
+47 |         Field(None,
+   |
+
+UP045 [*] Use `X | None` for type annotations
+  --> enconnect/mattermost/models.py:52:9
+   |
+51 |     data: Annotated[
+52 |         Optional[DictStrAny],
+   |         ^^^^^^^^^^^^^^^^^^^^
+53 |         Field(None,
+54 |               description='Payload with the event data',
+   |
+help: Convert to `X | None`
+   |
+51 |     data: Annotated[
+   -         Optional[DictStrAny],
+52 +         DictStrAny | None,
+53 |         Field(None,
+   |
+
+UP045 [*] Use `X | None` for type annotations
+  --> enconnect/mattermost/models.py:58:9
+   |
+57 |     broadcast: Annotated[
+58 |         Optional[DictStrAny],
+   |         ^^^^^^^^^^^^^^^^^^^^
+59 |         Field(None,
+60 |               description='Payload with the event data',
+   |
+help: Convert to `X | None`
+   |
+57 |     broadcast: Annotated[
+   -         Optional[DictStrAny],
+58 +         DictStrAny | None,
+59 |         Field(None,
+   |
+
+UP045 [*] Use `X | None` for type annotations
+  --> enconnect/mattermost/models.py:64:9
+   |
+63 |     seqno: Annotated[
+64 |         Optional[int],
+   |         ^^^^^^^^^^^^^
+65 |         Field(None,
+66 |               description='Event number within squence',
+   |
+help: Convert to `X | None`
+   |
+63 |     seqno: Annotated[
+   -         Optional[int],
+64 +         int | None,
+65 |         Field(None,
+   |
+
+UP045 [*] Use `X | None` for type annotations
+  --> enconnect/mattermost/models.py:70:9
+   |
+69 |     status: Annotated[
+70 |         Optional[str],
+   |         ^^^^^^^^^^^^^
+71 |         Field(None,
+72 |               description='Type of event that occurred',
+   |
+help: Convert to `X | None`
+   |
+69 |     status: Annotated[
+   -         Optional[str],
+70 +         str | None,
+71 |         Field(None,
+   |
+
+UP045 [*] Use `X | None` for type annotations
+  --> enconnect/mattermost/models.py:76:9
+   |
+75 |     error: Annotated[
+76 |         Optional[DictStrAny],
+   |         ^^^^^^^^^^^^^^^^^^^^
+77 |         Field(None,
+78 |               description='Payload with the event data',
+   |
+help: Convert to `X | None`
+   |
+75 |     error: Annotated[
+   -         Optional[DictStrAny],
+76 +         DictStrAny | None,
+77 |         Field(None,
+   |
+
+UP045 [*] Use `X | None` for type annotations
+  --> enconnect/mattermost/models.py:82:9
+   |
+81 |     seqre: Annotated[
+82 |         Optional[int],
+   |         ^^^^^^^^^^^^^
+83 |         Field(None,
+84 |               description='Reply number within squence',
+   |
+help: Convert to `X | None`
+   |
+81 |     seqre: Annotated[
+   -         Optional[int],
+82 +         int | None,
+83 |         Field(None,
+   |
+
+UP045 [*] Use `X | None` for type annotations
+   --> enconnect/mattermost/models.py:109:9
+    |
+108 |     whome: Annotated[
+109 |         Optional[tuple[str, str]],
+    |         ^^^^^^^^^^^^^^^^^^^^^^^^^
+110 |         Field(None,
+111 |               description='Current nickname of when received',
+    |
+help: Convert to `X | None`
+    |
+108 |     whome: Annotated[
+    -         Optional[tuple[str, str]],
+109 +         tuple[str, str] | None,
+110 |         Field(None,
+    |
+
+UP045 [*] Use `X | None` for type annotations
+   --> enconnect/mattermost/models.py:115:9
+    |
+114 |     author: Annotated[
+115 |         Optional[tuple[str, str]],
+    |         ^^^^^^^^^^^^^^^^^^^^^^^^^
+116 |         Field(None,
+117 |               description='Dynamic field parsed from event',
+    |
+help: Convert to `X | None`
+    |
+114 |     author: Annotated[
+    -         Optional[tuple[str, str]],
+115 +         tuple[str, str] | None,
+116 |         Field(None,
+    |
+
+UP045 [*] Use `X | None` for type annotations
+   --> enconnect/mattermost/models.py:121:9
+    |
+120 |     recipient: Annotated[
+121 |         Optional[str],
+    |         ^^^^^^^^^^^^^
+122 |         Field(None,
+123 |               description='Dynamic field parsed from event',
+    |
+help: Convert to `X | None`
+    |
+120 |     recipient: Annotated[
+    -         Optional[str],
+121 +         str | None,
+122 |         Field(None,
+    |
+
+UP045 [*] Use `X | None` for type annotations
+   --> enconnect/mattermost/models.py:127:9
+    |
+126 |     message: Annotated[
+127 |         Optional[str],
+    |         ^^^^^^^^^^^^^
+128 |         Field(None,
+129 |               description='Dynamic field parsed from event',
+    |
+help: Convert to `X | None`
+    |
+126 |     message: Annotated[
+    -         Optional[str],
+127 +         str | None,
+128 |         Field(None,
+    |
+
+RET501 [*] Do not explicitly `return None` in function if it is the only possible return value
+   --> enconnect/mattermost/models.py:231:13
+    |
+229 |         if (kind not in MESSAGE
+230 |                 or not data):
+231 |             return None
+    |             ^^^^^^^^^^^
+232 |
+233 |         post = loads(data['post'])
+    |
+help: Remove explicit `return None`
+    |
+230 |                 or not data):
+    -             return None
+231 +             return
+232 |
+    |
+
+RET501 [*] Do not explicitly `return None` in function if it is the only possible return value
+   --> enconnect/mattermost/models.py:256:13
+    |
+254 |         if (kind not in MESSAGE
+255 |                 or not data):
+256 |             return None
+    |             ^^^^^^^^^^^
+257 |
+258 |         post = loads(data['post'])
+    |
+help: Remove explicit `return None`
+    |
+255 |                 or not data):
+    -             return None
+256 +             return
+257 |
+    |
+
+RET501 [*] Do not explicitly `return None` in function if it is the only possible return value
+   --> enconnect/mattermost/models.py:277:13
+    |
+275 |         if (kind not in MESSAGE
+276 |                 or not data):
+277 |             return None
+    |             ^^^^^^^^^^^
+278 |
+279 |         post = loads(data['post'])
+    |
+help: Remove explicit `return None`
+    |
+276 |                 or not data):
+    -             return None
+277 +             return
+278 |
+    |
+
+RET501 [*] Do not explicitly `return None` in function if it is the only possible return value
+   --> enconnect/mattermost/models.py:325:13
+    |
+324 |         if mynick is None:
+325 |             return None
+    |             ^^^^^^^^^^^
+326 |
+327 |         if message is None:
+    |
+help: Remove explicit `return None`
+    |
+324 |         if mynick is None:
+    -             return None
+325 +             return
+326 |
+    |
+
+RET501 [*] Do not explicitly `return None` in function if it is the only possible return value
+   --> enconnect/mattermost/models.py:328:13
+    |
+327 |         if message is None:
+328 |             return None
+    |             ^^^^^^^^^^^
+329 |
+330 |         needle = (
+    |
+help: Remove explicit `return None`
+    |
+327 |         if message is None:
+    -             return None
+328 +             return
+329 |
+    |
+
+I001 [*] Import block is un-sorted or un-formatted
+  --> enconnect/mattermost/params.py:10:1
+   |
+10 | / from typing import Annotated
+11 | | from typing import Any
+12 | | from typing import Optional
+13 | |
+14 | | from encommon.types import BaseModel
+15 | |
+16 | | from pydantic import Field
+   | |__________________________^
+   |
+help: Organize imports
+   |
+9  |
+   - from typing import Annotated
+   - from typing import Any
+   - from typing import Optional
+10 + from typing import Annotated, Any, Optional
+11 |
+12 | from encommon.types import BaseModel
+   -
+13 | from pydantic import Field
+   -
+14 |
+   |
+
+UP045 [*] Use `X | None` for type annotations
+  --> enconnect/mattermost/params.py:61:9
+   |
+60 |     ssl_capem: Annotated[
+61 |         Optional[str],
+   |         ^^^^^^^^^^^^^
+62 |         Field(None,
+63 |               description='Verify the ceritifcate valid',
+   |
+help: Convert to `X | None`
+   |
+60 |     ssl_capem: Annotated[
+   -         Optional[str],
+61 +         str | None,
+62 |         Field(None,
+   |
+
+I001 [*] Import block is un-sorted or un-formatted
+  --> enconnect/mattermost/test/__init__.py:10:1
+   |
+10 | / from .helpers import EVENTS
+11 | | from .helpers import MTMClientSocket
+12 | | from .helpers import RVENTS
+13 | | from .helpers import WHOME
+14 | | from .helpers import client_mtmsock
+   | |___________________________________^
+   |
+help: Organize imports
+   |
+9  |
+   - from .helpers import EVENTS
+   - from .helpers import MTMClientSocket
+   - from .helpers import RVENTS
+   - from .helpers import WHOME
+   - from .helpers import client_mtmsock
+   -
+   -
+10 + from .helpers import EVENTS, RVENTS, WHOME, MTMClientSocket, client_mtmsock
+11 |
+   |
+
+RUF022 [*] `__all__` is not sorted
+  --> enconnect/mattermost/test/__init__.py:18:11
+   |
+18 |   __all__ = [
+   |  ___________^
+19 | |     'MTMClientSocket',
+20 | |     'client_mtmsock',
+21 | |     'EVENTS',
+22 | |     'RVENTS',
+23 | |     'WHOME']
+   | |____________^
+   |
+help: Apply an isort-style sorting to `__all__`
+   |
+18 | __all__ = [
+   -     'MTMClientSocket',
+   -     'client_mtmsock',
+19 |     'EVENTS',
+20 |     'RVENTS',
+   -     'WHOME']
+21 +     'WHOME',
+22 +     'MTMClientSocket',
+23 +     'client_mtmsock',
+24 + ]
+   |
+
+I001 [*] Import block is un-sorted or un-formatted
+  --> enconnect/mattermost/test/helpers.py:10:1
+   |
+10 | / from json import dumps
+11 | | from ssl import SSLContext
+12 | | from time import sleep as block_sleep
+13 | | from typing import Iterator
+14 | | from typing import Optional
+15 | | from typing import Protocol
+16 | | from typing import overload
+17 | | from unittest.mock import MagicMock
+18 | | from unittest.mock import Mock
+19 | |
+20 | | from encommon.types import DictStrAny
+21 | | from encommon.types import LDictStrAny
+22 | |
+23 | | from httpx import Response
+24 | |
+25 | | from pytest import fixture
+26 | |
+27 | | from pytest_mock import MockerFixture
+28 | |
+29 | | from respx import MockRouter
+   | |____________________________^
+   |
+help: Organize imports
+   |
+12 | from time import sleep as block_sleep
+   - from typing import Iterator
+   - from typing import Optional
+   - from typing import Protocol
+   - from typing import overload
+   - from unittest.mock import MagicMock
+   - from unittest.mock import Mock
+   -
+   - from encommon.types import DictStrAny
+   - from encommon.types import LDictStrAny
+13 + from typing import Iterator, Optional, Protocol, overload
+14 + from unittest.mock import MagicMock, Mock
+15 |
+16 + from encommon.types import DictStrAny, LDictStrAny
+17 | from httpx import Response
+   -
+18 | from pytest import fixture
+   -
+19 | from pytest_mock import MockerFixture
+   -
+20 | from respx import MockRouter
+   -
+   -
+21 |
+   |
+
+UP035 [*] Import from `collections.abc` instead: `Iterator`
+  --> enconnect/mattermost/test/helpers.py:13:1
+   |
+11 | from ssl import SSLContext
+12 | from time import sleep as block_sleep
+13 | from typing import Iterator
+   | ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+14 | from typing import Optional
+15 | from typing import Protocol
+   |
+help: Import from `collections.abc`
+   |
+12 | from time import sleep as block_sleep
+   - from typing import Iterator
+13 + from collections.abc import Iterator
+14 | from typing import Optional
+   |
+
+UP045 Use `X | None` for type annotations
+  --> enconnect/mattermost/test/helpers.py:33:11
+   |
+33 | _EVENTS = Optional[LDictStrAny]
+   |           ^^^^^^^^^^^^^^^^^^^^^
+34 |
+35 | _SOCKET = tuple[
+   |
+help: Convert to `X | None`
+
+I001 [*] Import block is un-sorted or un-formatted
+  --> enconnect/mattermost/test/test_client.py:10:1
+   |
+10 | / from unittest.mock import Mock
+11 | |
+12 | | from encommon.types import inrepr
+13 | | from encommon.types import instr
+14 | | from encommon.types import lattrs
+15 | |
+16 | | from pytest import fixture
+17 | | from pytest import raises
+18 | |
+19 | | from ..client import Client
+20 | | from ..params import ClientParams
+21 | | from ...fixtures import MTMClientSocket
+   | |_______________________________________^
+   |
+help: Organize imports
+   |
+11 |
+   - from encommon.types import inrepr
+   - from encommon.types import instr
+   - from encommon.types import lattrs
+   -
+   - from pytest import fixture
+   - from pytest import raises
+12 + from encommon.types import inrepr, instr, lattrs
+13 + from pytest import fixture, raises
+14 |
+15 + from ...fixtures import MTMClientSocket
+16 | from ..client import Client
+17 | from ..params import ClientParams
+   - from ...fixtures import MTMClientSocket
+   -
+18 |
+   |
+
+I001 [*] Import block is un-sorted or un-formatted
+  --> enconnect/mattermost/test/test_models.py:10:1
+   |
+10 | / from threading import Thread
+11 | |
+12 | | from encommon.types import inrepr
+13 | | from encommon.types import instr
+14 | | from encommon.types import lattrs
+15 | |
+16 | | from pytest import raises
+17 | |
+18 | | from .helpers import EVENTS
+19 | | from ..client import Client
+20 | | from ..models import ClientEvent
+21 | | from ..params import ClientParams
+22 | | from ...fixtures import MTMClientSocket
+   | |_______________________________________^
+   |
+help: Organize imports
+   |
+11 |
+   - from encommon.types import inrepr
+   - from encommon.types import instr
+   - from encommon.types import lattrs
+   -
+12 + from encommon.types import inrepr, instr, lattrs
+13 | from pytest import raises
+14 |
+   - from .helpers import EVENTS
+15 + from ...fixtures import MTMClientSocket
+16 | from ..client import Client
+17 | from ..models import ClientEvent
+18 | from ..params import ClientParams
+   - from ...fixtures import MTMClientSocket
+   -
+19 + from .helpers import EVENTS
+20 |
+   |
+
+I001 [*] Import block is un-sorted or un-formatted
+  --> enconnect/philips/__init__.py:10:1
+   |
+10 | / from .bridge import Bridge
+11 | | from .params import BridgeParams
+   | |________________________________^
+   |
+help: Organize imports
+   |
+12 |
+   -
+   -
+13 | __all__ = [
+   |
+
+I001 [*] Import block is un-sorted or un-formatted
+  --> enconnect/philips/bridge.py:10:1
+   |
+10 | / import asyncio
+11 | | from json import loads
+12 | | from typing import AsyncIterator
+13 | | from typing import Iterator
+14 | | from typing import Optional
+15 | | from typing import TYPE_CHECKING
+16 | |
+17 | | from encommon.types import DictStrAny
+18 | |
+19 | | from httpx import Response
+20 | |
+21 | | from ..utils.http import HTTPClient
+22 | | from ..utils.http import _METHODS
+23 | | from ..utils.http import _PAYLOAD
+   | |_________________________________^
+24 |
+25 |   if TYPE_CHECKING:
+   |
+help: Organize imports
+   |
+11 | from json import loads
+   - from typing import AsyncIterator
+   - from typing import Iterator
+   - from typing import Optional
+   - from typing import TYPE_CHECKING
+12 + from typing import TYPE_CHECKING, AsyncIterator, Iterator, Optional
+13 |
+14 | from encommon.types import DictStrAny
+   -
+15 | from httpx import Response
+16 |
+   - from ..utils.http import HTTPClient
+   - from ..utils.http import _METHODS
+   - from ..utils.http import _PAYLOAD
+17 + from ..utils.http import _METHODS, _PAYLOAD, HTTPClient
+18 |
+   |
+
+UP035 [*] Import from `collections.abc` instead: `AsyncIterator`
+  --> enconnect/philips/bridge.py:12:1
+   |
+10 | import asyncio
+11 | from json import loads
+12 | from typing import AsyncIterator
+   | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+13 | from typing import Iterator
+14 | from typing import Optional
+   |
+help: Import from `collections.abc`
+   |
+11 | from json import loads
+   - from typing import AsyncIterator
+12 + from collections.abc import AsyncIterator
+13 | from typing import Iterator
+   |
+
+UP035 [*] Import from `collections.abc` instead: `Iterator`
+  --> enconnect/philips/bridge.py:13:1
+   |
+11 | from json import loads
+12 | from typing import AsyncIterator
+13 | from typing import Iterator
+   | ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+14 | from typing import Optional
+15 | from typing import TYPE_CHECKING
+   |
+help: Import from `collections.abc`
+   |
+12 | from typing import AsyncIterator
+   - from typing import Iterator
+13 + from collections.abc import Iterator
+14 | from typing import Optional
+   |
+
+UP045 [*] Use `X | None` for type annotations
+  --> enconnect/philips/bridge.py:89:17
+   |
+87 |         method: _METHODS,
+88 |         path: str,
+89 |         params: Optional[_PAYLOAD] = None,
+   |                 ^^^^^^^^^^^^^^^^^^
+90 |         json: Optional[_PAYLOAD] = None,
+91 |         *,
+   |
+help: Convert to `X | None`
+   |
+88 |         path: str,
+   -         params: Optional[_PAYLOAD] = None,
+89 +         params: _PAYLOAD | None = None,
+90 |         json: Optional[_PAYLOAD] = None,
+   |
+
+UP045 [*] Use `X | None` for type annotations
+  --> enconnect/philips/bridge.py:90:15
+   |
+88 |         path: str,
+89 |         params: Optional[_PAYLOAD] = None,
+90 |         json: Optional[_PAYLOAD] = None,
+   |               ^^^^^^^^^^^^^^^^^^
+91 |         *,
+92 |         timeout: Optional[int] = None,
+   |
+help: Convert to `X | None`
+   |
+89 |         params: Optional[_PAYLOAD] = None,
+   -         json: Optional[_PAYLOAD] = None,
+90 +         json: _PAYLOAD | None = None,
+91 |         *,
+   |
+
+UP045 [*] Use `X | None` for type annotations
+  --> enconnect/philips/bridge.py:92:18
+   |
+90 |         json: Optional[_PAYLOAD] = None,
+91 |         *,
+92 |         timeout: Optional[int] = None,
+   |                  ^^^^^^^^^^^^^
+93 |     ) -> Response:
+94 |         """
+   |
+help: Convert to `X | None`
+   |
+91 |         *,
+   -         timeout: Optional[int] = None,
+92 +         timeout: int | None = None,
+93 |     ) -> Response:
+   |
+
+UP045 [*] Use `X | None` for type annotations
+   --> enconnect/philips/bridge.py:135:18
+    |
+133 |     def events_block(
+134 |         self,
+135 |         timeout: Optional[int] = None,
+    |                  ^^^^^^^^^^^^^
+136 |     ) -> Iterator[DictStrAny]:
+137 |         """
+    |
+help: Convert to `X | None`
+    |
+134 |         self,
+    -         timeout: Optional[int] = None,
+135 +         timeout: int | None = None,
+136 |     ) -> Iterator[DictStrAny]:
+    |
+
+UP045 [*] Use `X | None` for type annotations
+   --> enconnect/philips/bridge.py:192:18
+    |
+190 |     async def events_async(
+191 |         self,
+192 |         timeout: Optional[int] = None,
+    |                  ^^^^^^^^^^^^^
+193 |     ) -> AsyncIterator[DictStrAny]:
+194 |         """
+    |
+help: Convert to `X | None`
+    |
+191 |         self,
+    -         timeout: Optional[int] = None,
+192 +         timeout: int | None = None,
+193 |     ) -> AsyncIterator[DictStrAny]:
+    |
+
+I001 [*] Import block is un-sorted or un-formatted
+  --> enconnect/philips/params.py:10:1
+   |
+10 | / from typing import Annotated
+11 | | from typing import Any
+12 | | from typing import Optional
+13 | |
+14 | | from encommon.types import BaseModel
+15 | |
+16 | | from pydantic import Field
+   | |__________________________^
+   |
+help: Organize imports
+   |
+9  |
+   - from typing import Annotated
+   - from typing import Any
+   - from typing import Optional
+10 + from typing import Annotated, Any, Optional
+11 |
+12 | from encommon.types import BaseModel
+   -
+13 | from pydantic import Field
+   -
+14 |
+   |
+
+UP045 [*] Use `X | None` for type annotations
+  --> enconnect/philips/params.py:49:9
+   |
+48 |     ssl_capem: Annotated[
+49 |         Optional[str],
+   |         ^^^^^^^^^^^^^
+50 |         Field(None,
+51 |               description='Verify the ceritifcate valid',
+   |
+help: Convert to `X | None`
+   |
+48 |     ssl_capem: Annotated[
+   -         Optional[str],
+49 +         str | None,
+50 |         Field(None,
+   |
+
+I001 [*] Import block is un-sorted or un-formatted
+  --> enconnect/philips/test/__init__.py:10:1
+   |
+10 | / from pathlib import Path
+11 | |
+12 | | from .helpers import ByteStreamAsync
+13 | | from .helpers import ByteStreamBlock
+   | |____________________________________^
+   |
+help: Organize imports
+   |
+11 |
+   - from .helpers import ByteStreamAsync
+   - from .helpers import ByteStreamBlock
+   -
+   -
+12 + from .helpers import ByteStreamAsync, ByteStreamBlock
+13 |
+   |
+
+RUF022 [*] `__all__` is not sorted
+  --> enconnect/philips/test/__init__.py:23:11
+   |
+23 |   __all__ = [
+   |  ___________^
+24 | |     'ByteStreamBlock',
+25 | |     'ByteStreamAsync']
+   | |______________________^
+   |
+help: Apply an isort-style sorting to `__all__`
+   |
+23 | __all__ = [
+24 +     'ByteStreamAsync',
+25 |     'ByteStreamBlock',
+   -     'ByteStreamAsync']
+26 + ]
+   |
+
+I001 [*] Import block is un-sorted or un-formatted
+  --> enconnect/philips/test/helpers.py:10:1
+   |
+10 | / import asyncio
+11 | | from json import dumps
+12 | | from json import loads
+13 | | from typing import AsyncIterator
+14 | | from typing import Iterator
+15 | |
+16 | | from encommon.types import LDictStrAny
+17 | |
+18 | | from httpx import AsyncByteStream
+19 | | from httpx import SyncByteStream
+   | |________________________________^
+   |
+help: Organize imports
+   |
+10 | import asyncio
+   - from json import dumps
+   - from json import loads
+   - from typing import AsyncIterator
+   - from typing import Iterator
+11 + from json import dumps, loads
+12 + from typing import AsyncIterator, Iterator
+13 |
+14 | from encommon.types import LDictStrAny
+   -
+   - from httpx import AsyncByteStream
+   - from httpx import SyncByteStream
+   -
+15 + from httpx import AsyncByteStream, SyncByteStream
+16 |
+   |
+
+UP035 [*] Import from `collections.abc` instead: `AsyncIterator`
+  --> enconnect/philips/test/helpers.py:13:1
+   |
+11 | from json import dumps
+12 | from json import loads
+13 | from typing import AsyncIterator
+   | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+14 | from typing import Iterator
+   |
+help: Import from `collections.abc`
+   |
+12 | from json import loads
+   - from typing import AsyncIterator
+13 + from collections.abc import AsyncIterator
+14 | from typing import Iterator
+   |
+
+UP035 [*] Import from `collections.abc` instead: `Iterator`
+  --> enconnect/philips/test/helpers.py:14:1
+   |
+12 | from json import loads
+13 | from typing import AsyncIterator
+14 | from typing import Iterator
+   | ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+15 |
+16 | from encommon.types import LDictStrAny
+   |
+help: Import from `collections.abc`
+   |
+13 | from typing import AsyncIterator
+   - from typing import Iterator
+14 + from collections.abc import Iterator
+15 |
+   |
+
+UP012 [*] Unnecessary UTF-8 `encoding` argument to `encode`
+  --> enconnect/philips/test/helpers.py:52:14
+   |
+51 |           chunks = [
+52 |               (f'data: {dumps(x)}\n'
+   |  ______________^
+53 | |              .encode('utf-8'))
+   | |_____________________________^
+54 |               for x in source]
+   |
+help: Remove unnecessary `encoding` argument
+   |
+52 |             (f'data: {dumps(x)}\n'
+   -              .encode('utf-8'))
+53 +              .encode())
+54 |             for x in source]
+   |
+
+UP012 [*] Unnecessary UTF-8 `encoding` argument to `encode`
+  --> enconnect/philips/test/helpers.py:92:14
+   |
+91 |           chunks = [
+92 |               (f'data: {dumps(x)}\n'
+   |  ______________^
+93 | |              .encode('utf-8'))
+   | |_____________________________^
+94 |               for x in source]
+   |
+help: Remove unnecessary `encoding` argument
+   |
+92 |             (f'data: {dumps(x)}\n'
+   -              .encode('utf-8'))
+93 +              .encode())
+94 |             for x in source]
+   |
+
+I001 [*] Import block is un-sorted or un-formatted
+  --> enconnect/philips/test/test_bridge.py:10:1
+   |
+10 | / from encommon.types import LDictStrAny
+11 | | from encommon.types import inrepr
+12 | | from encommon.types import instr
+13 | | from encommon.types import lattrs
+14 | | from encommon.utils import load_sample
+15 | | from encommon.utils import prep_sample
+16 | | from encommon.utils import read_sample
+17 | | from encommon.utils import read_text
+18 | | from encommon.utils.sample import ENPYRWS
+19 | |
+20 | | from httpx import Response
+21 | |
+22 | | from pytest import fixture
+23 | | from pytest import mark
+24 | |
+25 | | from respx import MockRouter
+26 | |
+27 | | from . import SAMPLES
+28 | | from .helpers import ByteStreamAsync
+29 | | from .helpers import ByteStreamBlock
+30 | | from ..bridge import Bridge
+31 | | from ..params import BridgeParams
+   | |_________________________________^
+   |
+help: Organize imports
+   |
+9  |
+   - from encommon.types import LDictStrAny
+   - from encommon.types import inrepr
+   - from encommon.types import instr
+   - from encommon.types import lattrs
+   - from encommon.utils import load_sample
+   - from encommon.utils import prep_sample
+   - from encommon.utils import read_sample
+   - from encommon.utils import read_text
+10 + from encommon.types import LDictStrAny, inrepr, instr, lattrs
+11 + from encommon.utils import load_sample, prep_sample, read_sample, read_text
+12 | from encommon.utils.sample import ENPYRWS
+   -
+13 | from httpx import Response
+   -
+   - from pytest import fixture
+   - from pytest import mark
+   -
+14 + from pytest import fixture, mark
+15 | from respx import MockRouter
+16 |
+   - from . import SAMPLES
+   - from .helpers import ByteStreamAsync
+   - from .helpers import ByteStreamBlock
+17 | from ..bridge import Bridge
+18 | from ..params import BridgeParams
+   -
+19 + from . import SAMPLES
+20 + from .helpers import ByteStreamAsync, ByteStreamBlock
+21 |
+   |
+
+I001 [*] Import block is un-sorted or un-formatted
+  --> enconnect/reddit/__init__.py:10:1
+   |
+10 | / from .models import RedditListing
+11 | | from .params import RedditParams
+12 | | from .reddit import Reddit
+   | |__________________________^
+   |
+help: Organize imports
+   |
+13 |
+   -
+   -
+14 | __all__ = [
+   |
+
+RUF022 [*] `__all__` is not sorted
+  --> enconnect/reddit/__init__.py:16:11
+   |
+16 |   __all__ = [
+   |  ___________^
+17 | |     'Reddit',
+18 | |     'RedditParams',
+19 | |     'RedditListing']
+   | |____________________^
+   |
+help: Apply an isort-style sorting to `__all__`
+   |
+17 |     'Reddit',
+18 +     'RedditListing',
+19 |     'RedditParams',
+   -     'RedditListing']
+20 + ]
+   |
+
+I001 [*] Import block is un-sorted or un-formatted
+  --> enconnect/reddit/models.py:10:1
+   |
+10 | / from typing import Annotated
+11 | | from typing import Any
+12 | | from typing import Optional
+13 | |
+14 | | from encommon.types import BaseModel
+15 | | from encommon.types import getate
+16 | | from encommon.types import sort_dict
+17 | |
+18 | | from pydantic import Field
+   | |__________________________^
+   |
+help: Organize imports
+   |
+9  |
+   - from typing import Annotated
+   - from typing import Any
+   - from typing import Optional
+   -
+   - from encommon.types import BaseModel
+   - from encommon.types import getate
+   - from encommon.types import sort_dict
+10 + from typing import Annotated, Any, Optional
+11 |
+12 + from encommon.types import BaseModel, getate, sort_dict
+13 | from pydantic import Field
+   -
+   -
+14 |
+   |
+
+UP045 [*] Use `X | None` for type annotations
+  --> enconnect/reddit/models.py:57:9
+   |
+56 |     selftext: Annotated[
+57 |         Optional[str],
+   |         ^^^^^^^^^^^^^
+58 |         Field(None,
+59 |               description='Value from the server response')]
+   |
+help: Convert to `X | None`
+   |
+56 |     selftext: Annotated[
+   -         Optional[str],
+57 +         str | None,
+58 |         Field(None,
+   |
+
+UP045 [*] Use `X | None` for type annotations
+  --> enconnect/reddit/models.py:82:9
+   |
+81 |     url_dest: Annotated[
+82 |         Optional[str],
+   |         ^^^^^^^^^^^^^
+83 |         Field(None,
+84 |               description='Value from the server response')]
+   |
+help: Convert to `X | None`
+   |
+81 |     url_dest: Annotated[
+   -         Optional[str],
+82 +         str | None,
+83 |         Field(None,
+   |
+
+UP045 [*] Use `X | None` for type annotations
+  --> enconnect/reddit/models.py:92:9
+   |
+91 |     medias: Annotated[
+92 |         Optional[list[str]],
+   |         ^^^^^^^^^^^^^^^^^^^
+93 |         Field(None,
+94 |               description='Value from the server response')]
+   |
+help: Convert to `X | None`
+   |
+91 |     medias: Annotated[
+   -         Optional[list[str]],
+92 +         list[str] | None,
+93 |         Field(None,
+   |
+
+I001 [*] Import block is un-sorted or un-formatted
+  --> enconnect/reddit/params.py:10:1
+   |
+10 | / from typing import Annotated
+11 | | from typing import Any
+12 | | from typing import Optional
+13 | |
+14 | | from encommon.types import BaseModel
+15 | |
+16 | | from pydantic import Field
+   | |__________________________^
+   |
+help: Organize imports
+   |
+9  |
+   - from typing import Annotated
+   - from typing import Any
+   - from typing import Optional
+10 + from typing import Annotated, Any, Optional
+11 |
+12 | from encommon.types import BaseModel
+   -
+13 | from pydantic import Field
+   -
+14 |
+   |
+
+UP045 [*] Use `X | None` for type annotations
+  --> enconnect/reddit/params.py:67:9
+   |
+66 |     ssl_capem: Annotated[
+67 |         Optional[str],
+   |         ^^^^^^^^^^^^^
+68 |         Field(None,
+69 |               description='Verify the ceritifcate valid',
+   |
+help: Convert to `X | None`
+   |
+66 |     ssl_capem: Annotated[
+   -         Optional[str],
+67 +         str | None,
+68 |         Field(None,
+   |
+
+I001 [*] Import block is un-sorted or un-formatted
+  --> enconnect/reddit/reddit.py:10:1
+   |
+10 | / import asyncio
+11 | | from typing import Literal
+12 | | from typing import Optional
+13 | | from typing import TYPE_CHECKING
+14 | |
+15 | | from httpx import Response
+16 | |
+17 | | from .models import RedditListing
+18 | | from ..utils.http import HTTPClient
+19 | | from ..utils.http import _HTTPAUTH
+20 | | from ..utils.http import _PAYLOAD
+   | |_________________________________^
+21 |
+22 |   if TYPE_CHECKING:
+   |
+help: Organize imports
+   |
+10 | import asyncio
+   - from typing import Literal
+   - from typing import Optional
+   - from typing import TYPE_CHECKING
+11 + from typing import TYPE_CHECKING, Literal, Optional
+12 |
+13 | from httpx import Response
+14 |
+15 + from ..utils.http import _HTTPAUTH, _PAYLOAD, HTTPClient
+16 | from .models import RedditListing
+   - from ..utils.http import HTTPClient
+   - from ..utils.http import _HTTPAUTH
+   - from ..utils.http import _PAYLOAD
+17 |
+   |
+
+UP045 [*] Use `X | None` for type annotations
+  --> enconnect/reddit/reddit.py:37:14
+   |
+35 |     __client: HTTPClient
+36 |
+37 |     __token: Optional[str]
+   |              ^^^^^^^^^^^^^
+   |
+help: Convert to `X | None`
+   |
+36 |
+   -     __token: Optional[str]
+37 +     __token: str | None
+38 |
+   |
+
+UP045 [*] Use `X | None` for type annotations
+  --> enconnect/reddit/reddit.py:89:10
+   |
+87 |     def token(
+88 |         self,
+89 |     ) -> Optional[str]:
+   |          ^^^^^^^^^^^^^
+90 |         """
+91 |         Return the value for the attribute from class instance.
+   |
+help: Convert to `X | None`
+   |
+88 |         self,
+   -     ) -> Optional[str]:
+89 +     ) -> str | None:
+90 |         """
+   |
+
+UP045 [*] Use `X | None` for type annotations
+   --> enconnect/reddit/reddit.py:190:17
+    |
+188 |         method: Literal['get', 'post'],
+189 |         path: str,
+190 |         params: Optional[_PAYLOAD] = None,
+    |                 ^^^^^^^^^^^^^^^^^^
+191 |         data: Optional[_PAYLOAD] = None,
+192 |         *,
+    |
+help: Convert to `X | None`
+    |
+189 |         path: str,
+    -         params: Optional[_PAYLOAD] = None,
+190 +         params: _PAYLOAD | None = None,
+191 |         data: Optional[_PAYLOAD] = None,
+    |
+
+UP045 [*] Use `X | None` for type annotations
+   --> enconnect/reddit/reddit.py:191:15
+    |
+189 |         path: str,
+190 |         params: Optional[_PAYLOAD] = None,
+191 |         data: Optional[_PAYLOAD] = None,
+    |               ^^^^^^^^^^^^^^^^^^
+192 |         *,
+193 |         httpauth: Optional[_HTTPAUTH] = None,
+    |
+help: Convert to `X | None`
+    |
+190 |         params: Optional[_PAYLOAD] = None,
+    -         data: Optional[_PAYLOAD] = None,
+191 +         data: _PAYLOAD | None = None,
+192 |         *,
+    |
+
+UP045 [*] Use `X | None` for type annotations
+   --> enconnect/reddit/reddit.py:193:19
+    |
+191 |         data: Optional[_PAYLOAD] = None,
+192 |         *,
+193 |         httpauth: Optional[_HTTPAUTH] = None,
+    |                   ^^^^^^^^^^^^^^^^^^^
+194 |     ) -> Response:
+195 |         """
+    |
+help: Convert to `X | None`
+    |
+192 |         *,
+    -         httpauth: Optional[_HTTPAUTH] = None,
+193 +         httpauth: _HTTPAUTH | None = None,
+194 |     ) -> Response:
+    |
+
+UP045 [*] Use `X | None` for type annotations
+   --> enconnect/reddit/reddit.py:242:17
+    |
+240 |         method: Literal['get', 'post'],
+241 |         path: str,
+242 |         params: Optional[_PAYLOAD] = None,
+    |                 ^^^^^^^^^^^^^^^^^^
+243 |         data: Optional[_PAYLOAD] = None,
+244 |         *,
+    |
+help: Convert to `X | None`
+    |
+241 |         path: str,
+    -         params: Optional[_PAYLOAD] = None,
+242 +         params: _PAYLOAD | None = None,
+243 |         data: Optional[_PAYLOAD] = None,
+    |
+
+UP045 [*] Use `X | None` for type annotations
+   --> enconnect/reddit/reddit.py:243:15
+    |
+241 |         path: str,
+242 |         params: Optional[_PAYLOAD] = None,
+243 |         data: Optional[_PAYLOAD] = None,
+    |               ^^^^^^^^^^^^^^^^^^
+244 |         *,
+245 |         httpauth: Optional[_HTTPAUTH] = None,
+    |
+help: Convert to `X | None`
+    |
+242 |         params: Optional[_PAYLOAD] = None,
+    -         data: Optional[_PAYLOAD] = None,
+243 +         data: _PAYLOAD | None = None,
+244 |         *,
+    |
+
+UP045 [*] Use `X | None` for type annotations
+   --> enconnect/reddit/reddit.py:245:19
+    |
+243 |         data: Optional[_PAYLOAD] = None,
+244 |         *,
+245 |         httpauth: Optional[_HTTPAUTH] = None,
+    |                   ^^^^^^^^^^^^^^^^^^^
+246 |     ) -> Response:
+247 |         """
+    |
+help: Convert to `X | None`
+    |
+244 |         *,
+    -         httpauth: Optional[_HTTPAUTH] = None,
+245 +         httpauth: _HTTPAUTH | None = None,
+246 |     ) -> Response:
+    |
+
+UP045 [*] Use `X | None` for type annotations
+   --> enconnect/reddit/reddit.py:404:17
+    |
+402 |         self,
+403 |         subred: str,
+404 |         params: Optional[_PAYLOAD] = None,
+    |                 ^^^^^^^^^^^^^^^^^^
+405 |     ) -> list[RedditListing]:
+406 |         """
+    |
+help: Convert to `X | None`
+    |
+403 |         subred: str,
+    -         params: Optional[_PAYLOAD] = None,
+404 +         params: _PAYLOAD | None = None,
+405 |     ) -> list[RedditListing]:
+    |
+
+UP045 [*] Use `X | None` for type annotations
+   --> enconnect/reddit/reddit.py:420:17
+    |
+418 |         self,
+419 |         subred: str,
+420 |         params: Optional[_PAYLOAD] = None,
+    |                 ^^^^^^^^^^^^^^^^^^
+421 |     ) -> list[RedditListing]:
+422 |         """
+    |
+help: Convert to `X | None`
+    |
+419 |         subred: str,
+    -         params: Optional[_PAYLOAD] = None,
+420 +         params: _PAYLOAD | None = None,
+421 |     ) -> list[RedditListing]:
+    |
+
+UP045 [*] Use `X | None` for type annotations
+   --> enconnect/reddit/reddit.py:473:17
+    |
+471 |         self,
+472 |         subred: str,
+473 |         params: Optional[_PAYLOAD] = None,
+    |                 ^^^^^^^^^^^^^^^^^^
+474 |     ) -> list[RedditListing]:
+475 |         """
+    |
+help: Convert to `X | None`
+    |
+472 |         subred: str,
+    -         params: Optional[_PAYLOAD] = None,
+473 +         params: _PAYLOAD | None = None,
+474 |     ) -> list[RedditListing]:
+    |
+
+I001 [*] Import block is un-sorted or un-formatted
+  --> enconnect/reddit/test/__init__.py:10:1
+   |
+10 | from pathlib import Path
+   | ^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+help: Organize imports
+   |
+11 |
+   -
+   -
+12 | SAMPLES = (
+   |
+
+I001 [*] Import block is un-sorted or un-formatted
+  --> enconnect/reddit/test/test_models.py:10:1
+   |
+10 | / from json import loads
+11 | |
+12 | | from encommon.types import inrepr
+13 | | from encommon.types import instr
+14 | | from encommon.types import lattrs
+15 | | from encommon.utils import read_text
+16 | |
+17 | | from pytest import raises
+18 | |
+19 | | from . import SAMPLES
+20 | | from ..models import RedditListing
+   | |__________________________________^
+   |
+help: Organize imports
+   |
+11 |
+   - from encommon.types import inrepr
+   - from encommon.types import instr
+   - from encommon.types import lattrs
+12 + from encommon.types import inrepr, instr, lattrs
+13 | from encommon.utils import read_text
+   -
+14 | from pytest import raises
+15 |
+16 + from ..models import RedditListing
+17 | from . import SAMPLES
+   - from ..models import RedditListing
+   -
+18 |
+   |
+
+I001 [*] Import block is un-sorted or un-formatted
+  --> enconnect/reddit/test/test_reddit.py:10:1
+   |
+10 | / from json import dumps
+11 | | from json import loads
+12 | |
+13 | | from encommon.types import inrepr
+14 | | from encommon.types import instr
+15 | | from encommon.types import lattrs
+16 | | from encommon.utils import load_sample
+17 | | from encommon.utils import prep_sample
+18 | | from encommon.utils import read_text
+19 | | from encommon.utils.sample import ENPYRWS
+20 | |
+21 | | from httpx import Response
+22 | |
+23 | | from pytest import fixture
+24 | | from pytest import mark
+25 | |
+26 | | from respx import MockRouter
+27 | |
+28 | | from . import SAMPLES
+29 | | from ..params import RedditParams
+30 | | from ..reddit import Reddit
+   | |___________________________^
+   |
+help: Organize imports
+   |
+9  |
+   - from json import dumps
+   - from json import loads
+10 + from json import dumps, loads
+11 |
+   - from encommon.types import inrepr
+   - from encommon.types import instr
+   - from encommon.types import lattrs
+   - from encommon.utils import load_sample
+   - from encommon.utils import prep_sample
+   - from encommon.utils import read_text
+12 + from encommon.types import inrepr, instr, lattrs
+13 + from encommon.utils import load_sample, prep_sample, read_text
+14 | from encommon.utils.sample import ENPYRWS
+   -
+15 | from httpx import Response
+   -
+   - from pytest import fixture
+   - from pytest import mark
+   -
+16 + from pytest import fixture, mark
+17 | from respx import MockRouter
+18 |
+   - from . import SAMPLES
+19 | from ..params import RedditParams
+20 | from ..reddit import Reddit
+   -
+21 + from . import SAMPLES
+22 |
+   |
+
+I001 [*] Import block is un-sorted or un-formatted
+  --> enconnect/ubiquiti/__init__.py:10:1
+   |
+10 | / from .params import RouterParams
+11 | | from .router import Router
+   | |__________________________^
+   |
+help: Organize imports
+   |
+12 |
+   -
+   -
+13 | __all__ = [
+   |
+
+I001 [*] Import block is un-sorted or un-formatted
+  --> enconnect/ubiquiti/params.py:10:1
+   |
+10 | / from typing import Annotated
+11 | | from typing import Any
+12 | | from typing import Optional
+13 | |
+14 | | from encommon.types import BaseModel
+15 | |
+16 | | from pydantic import Field
+   | |__________________________^
+   |
+help: Organize imports
+   |
+9  |
+   - from typing import Annotated
+   - from typing import Any
+   - from typing import Optional
+10 + from typing import Annotated, Any, Optional
+11 |
+12 | from encommon.types import BaseModel
+   -
+13 | from pydantic import Field
+   -
+14 |
+   |
+
+UP045 [*] Use `X | None` for type annotations
+  --> enconnect/ubiquiti/params.py:61:9
+   |
+60 |     ssl_capem: Annotated[
+61 |         Optional[str],
+   |         ^^^^^^^^^^^^^
+62 |         Field(None,
+63 |               description='Verify the ceritifcate valid',
+   |
+help: Convert to `X | None`
+   |
+60 |     ssl_capem: Annotated[
+   -         Optional[str],
+61 +         str | None,
+62 |         Field(None,
+   |
+
+I001 [*] Import block is un-sorted or un-formatted
+  --> enconnect/ubiquiti/router.py:10:1
+   |
+10 | / from typing import Optional
+11 | | from typing import TYPE_CHECKING
+12 | |
+13 | | from httpx import Response
+14 | |
+15 | | from ..utils.http import HTTPClient
+16 | | from ..utils.http import _METHODS
+17 | | from ..utils.http import _PAYLOAD
+   | |_________________________________^
+18 |
+19 |   if TYPE_CHECKING:
+   |
+help: Organize imports
+   |
+9  |
+   - from typing import Optional
+   - from typing import TYPE_CHECKING
+10 + from typing import TYPE_CHECKING, Optional
+11 |
+12 | from httpx import Response
+13 |
+   - from ..utils.http import HTTPClient
+   - from ..utils.http import _METHODS
+   - from ..utils.http import _PAYLOAD
+14 + from ..utils.http import _METHODS, _PAYLOAD, HTTPClient
+15 |
+   |
+
+UP045 [*] Use `X | None` for type annotations
+   --> enconnect/ubiquiti/router.py:110:17
+    |
+108 |         method: _METHODS,
+109 |         path: str,
+110 |         params: Optional[_PAYLOAD] = None,
+    |                 ^^^^^^^^^^^^^^^^^^
+111 |         json: Optional[_PAYLOAD] = None,
+112 |         *,
+    |
+help: Convert to `X | None`
+    |
+109 |         path: str,
+    -         params: Optional[_PAYLOAD] = None,
+110 +         params: _PAYLOAD | None = None,
+111 |         json: Optional[_PAYLOAD] = None,
+    |
+
+UP045 [*] Use `X | None` for type annotations
+   --> enconnect/ubiquiti/router.py:111:15
+    |
+109 |         path: str,
+110 |         params: Optional[_PAYLOAD] = None,
+111 |         json: Optional[_PAYLOAD] = None,
+    |               ^^^^^^^^^^^^^^^^^^
+112 |         *,
+113 |         timeout: Optional[int] = None,
+    |
+help: Convert to `X | None`
+    |
+110 |         params: Optional[_PAYLOAD] = None,
+    -         json: Optional[_PAYLOAD] = None,
+111 +         json: _PAYLOAD | None = None,
+112 |         *,
+    |
+
+UP045 [*] Use `X | None` for type annotations
+   --> enconnect/ubiquiti/router.py:113:18
+    |
+111 |         json: Optional[_PAYLOAD] = None,
+112 |         *,
+113 |         timeout: Optional[int] = None,
+    |                  ^^^^^^^^^^^^^
+114 |     ) -> Response:
+115 |         """
+    |
+help: Convert to `X | None`
+    |
+112 |         *,
+    -         timeout: Optional[int] = None,
+113 +         timeout: int | None = None,
+114 |     ) -> Response:
+    |
+
+UP045 [*] Use `X | None` for type annotations
+   --> enconnect/ubiquiti/router.py:151:17
+    |
+149 |         method: _METHODS,
+150 |         path: str,
+151 |         params: Optional[_PAYLOAD] = None,
+    |                 ^^^^^^^^^^^^^^^^^^
+152 |         json: Optional[_PAYLOAD] = None,
+153 |         *,
+    |
+help: Convert to `X | None`
+    |
+150 |         path: str,
+    -         params: Optional[_PAYLOAD] = None,
+151 +         params: _PAYLOAD | None = None,
+152 |         json: Optional[_PAYLOAD] = None,
+    |
+
+UP045 [*] Use `X | None` for type annotations
+   --> enconnect/ubiquiti/router.py:152:15
+    |
+150 |         path: str,
+151 |         params: Optional[_PAYLOAD] = None,
+152 |         json: Optional[_PAYLOAD] = None,
+    |               ^^^^^^^^^^^^^^^^^^
+153 |         *,
+154 |         timeout: Optional[int] = None,
+    |
+help: Convert to `X | None`
+    |
+151 |         params: Optional[_PAYLOAD] = None,
+    -         json: Optional[_PAYLOAD] = None,
+152 +         json: _PAYLOAD | None = None,
+153 |         *,
+    |
+
+UP045 [*] Use `X | None` for type annotations
+   --> enconnect/ubiquiti/router.py:154:18
+    |
+152 |         json: Optional[_PAYLOAD] = None,
+153 |         *,
+154 |         timeout: Optional[int] = None,
+    |                  ^^^^^^^^^^^^^
+155 |     ) -> Response:
+156 |         """
+    |
+help: Convert to `X | None`
+    |
+153 |         *,
+    -         timeout: Optional[int] = None,
+154 +         timeout: int | None = None,
+155 |     ) -> Response:
+    |
+
+I001 [*] Import block is un-sorted or un-formatted
+  --> enconnect/ubiquiti/test/__init__.py:10:1
+   |
+10 | from pathlib import Path
+   | ^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+help: Organize imports
+   |
+11 |
+   -
+   -
+12 | SAMPLES = (
+   |
+
+I001 [*] Import block is un-sorted or un-formatted
+  --> enconnect/ubiquiti/test/test_router.py:10:1
+   |
+10 | / from encommon.types import inrepr
+11 | | from encommon.types import instr
+12 | | from encommon.types import lattrs
+13 | | from encommon.utils import load_sample
+14 | | from encommon.utils import prep_sample
+15 | | from encommon.utils import read_sample
+16 | | from encommon.utils import read_text
+17 | | from encommon.utils.sample import ENPYRWS
+18 | |
+19 | | from httpx import Response
+20 | |
+21 | | from pytest import fixture
+22 | |
+23 | | from respx import MockRouter
+24 | |
+25 | | from . import SAMPLES
+26 | | from ..params import RouterParams
+27 | | from ..router import Router
+   | |___________________________^
+   |
+help: Organize imports
+   |
+9  |
+   - from encommon.types import inrepr
+   - from encommon.types import instr
+   - from encommon.types import lattrs
+   - from encommon.utils import load_sample
+   - from encommon.utils import prep_sample
+   - from encommon.utils import read_sample
+   - from encommon.utils import read_text
+10 + from encommon.types import inrepr, instr, lattrs
+11 + from encommon.utils import load_sample, prep_sample, read_sample, read_text
+12 | from encommon.utils.sample import ENPYRWS
+   -
+13 | from httpx import Response
+   -
+14 | from pytest import fixture
+   -
+15 | from respx import MockRouter
+16 |
+   - from . import SAMPLES
+17 | from ..params import RouterParams
+18 | from ..router import Router
+   -
+19 + from . import SAMPLES
+20 |
+   |
+
+I001 [*] Import block is un-sorted or un-formatted
+  --> enconnect/utils/__init__.py:10:1
+   |
+10 | / from .dummy import dumlog
+11 | | from .http import HTTPClient
+   | |____________________________^
+   |
+help: Organize imports
+   |
+12 |
+   -
+   -
+13 | __all__ = [
+   |
+
+I001 [*] Import block is un-sorted or un-formatted
+  --> enconnect/utils/dummy.py:10:1
+   |
+10 | from typing import Any
+   | ^^^^^^^^^^^^^^^^^^^^^^
+   |
+help: Organize imports
+   |
+12 |
+   -
+13 | def dumlog(
+   |
+
+I001 [*] Import block is un-sorted or un-formatted
+  --> enconnect/utils/http.py:10:1
+   |
+10 | / import asyncio
+11 | | from copy import deepcopy
+12 | | from ssl import SSLContext
+13 | | from time import sleep
+14 | | from typing import AsyncIterator
+15 | | from typing import Iterator
+16 | | from typing import Literal
+17 | | from typing import Optional
+18 | |
+19 | | from encommon.types import DictStrAny
+20 | |
+21 | | from httpx import AsyncClient
+22 | | from httpx import Client as BlockClient
+23 | | from httpx import Response
+24 | | from httpx._client import UseClientDefault
+   | |__________________________________________^
+   |
+help: Organize imports
+   |
+13 | from time import sleep
+   - from typing import AsyncIterator
+   - from typing import Iterator
+   - from typing import Literal
+   - from typing import Optional
+14 + from typing import AsyncIterator, Iterator, Literal, Optional
+15 |
+16 | from encommon.types import DictStrAny
+   -
+   - from httpx import AsyncClient
+17 + from httpx import AsyncClient, Response
+18 | from httpx import Client as BlockClient
+   - from httpx import Response
+19 | from httpx._client import UseClientDefault
+   -
+   -
+20 |
+   |
+
+UP035 [*] Import from `collections.abc` instead: `AsyncIterator`
+  --> enconnect/utils/http.py:14:1
+   |
+12 | from ssl import SSLContext
+13 | from time import sleep
+14 | from typing import AsyncIterator
+   | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+15 | from typing import Iterator
+16 | from typing import Literal
+   |
+help: Import from `collections.abc`
+   |
+13 | from time import sleep
+   - from typing import AsyncIterator
+14 + from collections.abc import AsyncIterator
+15 | from typing import Iterator
+   |
+
+UP035 [*] Import from `collections.abc` instead: `Iterator`
+  --> enconnect/utils/http.py:15:1
+   |
+13 | from time import sleep
+14 | from typing import AsyncIterator
+15 | from typing import Iterator
+   | ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+16 | from typing import Literal
+17 | from typing import Optional
+   |
+help: Import from `collections.abc`
+   |
+14 | from typing import AsyncIterator
+   - from typing import Iterator
+15 + from collections.abc import Iterator
+16 | from typing import Literal
+   |
+
+UP045 [*] Use `X | None` for type annotations
+  --> enconnect/utils/http.py:60:16
+   |
+59 |     __timeout: int
+60 |     __headers: Optional[_HEADERS]
+   |                ^^^^^^^^^^^^^^^^^^
+61 |     __verify: _VERIFY
+62 |     __capem: Optional[str]
+   |
+help: Convert to `X | None`
+   |
+59 |     __timeout: int
+   -     __headers: Optional[_HEADERS]
+60 +     __headers: _HEADERS | None
+61 |     __verify: _VERIFY
+   |
+
+UP045 [*] Use `X | None` for type annotations
+  --> enconnect/utils/http.py:62:14
+   |
+60 |     __headers: Optional[_HEADERS]
+61 |     __verify: _VERIFY
+62 |     __capem: Optional[str]
+   |              ^^^^^^^^^^^^^
+63 |     __httpauth: Optional[_HTTPAUTH]
+64 |     __retry: int
+   |
+help: Convert to `X | None`
+   |
+61 |     __verify: _VERIFY
+   -     __capem: Optional[str]
+62 +     __capem: str | None
+63 |     __httpauth: Optional[_HTTPAUTH]
+   |
+
+UP045 [*] Use `X | None` for type annotations
+  --> enconnect/utils/http.py:63:17
+   |
+61 |     __verify: _VERIFY
+62 |     __capem: Optional[str]
+63 |     __httpauth: Optional[_HTTPAUTH]
+   |                 ^^^^^^^^^^^^^^^^^^^
+64 |     __retry: int
+65 |     __backoff: float
+   |
+help: Convert to `X | None`
+   |
+62 |     __capem: Optional[str]
+   -     __httpauth: Optional[_HTTPAUTH]
+63 +     __httpauth: _HTTPAUTH | None
+64 |     __retry: int
+   |
+
+UP045 [*] Use `X | None` for type annotations
+  --> enconnect/utils/http.py:75:18
+   |
+73 |         self,
+74 |         timeout: int = 30,
+75 |         headers: Optional[_HEADERS] = None,
+   |                  ^^^^^^^^^^^^^^^^^^
+76 |         verify: _VERIFY = True,
+77 |         capem: Optional[str] = None,
+   |
+help: Convert to `X | None`
+   |
+74 |         timeout: int = 30,
+   -         headers: Optional[_HEADERS] = None,
+75 +         headers: _HEADERS | None = None,
+76 |         verify: _VERIFY = True,
+   |
+
+UP045 [*] Use `X | None` for type annotations
+  --> enconnect/utils/http.py:77:16
+   |
+75 |         headers: Optional[_HEADERS] = None,
+76 |         verify: _VERIFY = True,
+77 |         capem: Optional[str] = None,
+   |                ^^^^^^^^^^^^^
+78 |         httpauth: Optional[_HTTPAUTH] = None,
+79 |         retry: int = 3,
+   |
+help: Convert to `X | None`
+   |
+76 |         verify: _VERIFY = True,
+   -         capem: Optional[str] = None,
+77 +         capem: str | None = None,
+78 |         httpauth: Optional[_HTTPAUTH] = None,
+   |
+
+UP045 [*] Use `X | None` for type annotations
+  --> enconnect/utils/http.py:78:19
+   |
+76 |         verify: _VERIFY = True,
+77 |         capem: Optional[str] = None,
+78 |         httpauth: Optional[_HTTPAUTH] = None,
+   |                   ^^^^^^^^^^^^^^^^^^^
+79 |         retry: int = 3,
+80 |         backoff: float = 3.0,
+   |
+help: Convert to `X | None`
+   |
+77 |         capem: Optional[str] = None,
+   -         httpauth: Optional[_HTTPAUTH] = None,
+78 +         httpauth: _HTTPAUTH | None = None,
+79 |         retry: int = 3,
+   |
+
+B006 Do not use mutable data structures for argument defaults
+  --> enconnect/utils/http.py:81:28
+   |
+79 |         retry: int = 3,
+80 |         backoff: float = 3.0,
+81 |         states: set[int] = {429},
+   |                            ^^^^^
+82 |     ) -> None:
+83 |         """
+   |
+help: Replace with `None`; initialize within function
+
+UP045 [*] Use `X | None` for type annotations
+   --> enconnect/utils/http.py:137:10
+    |
+135 |     def httpauth(
+136 |         self,
+137 |     ) -> Optional[_HTTPAUTH]:
+    |          ^^^^^^^^^^^^^^^^^^^
+138 |         """
+139 |         Return the value for the attribute from class instance.
+    |
+help: Convert to `X | None`
+    |
+136 |         self,
+    -     ) -> Optional[_HTTPAUTH]:
+137 +     ) -> _HTTPAUTH | None:
+138 |         """
+    |
+
+UP045 [*] Use `X | None` for type annotations
+   --> enconnect/utils/http.py:150:10
+    |
+148 |     def headers(
+149 |         self,
+150 |     ) -> Optional[_HEADERS]:
+    |          ^^^^^^^^^^^^^^^^^^
+151 |         """
+152 |         Return the value for the attribute from class instance.
+    |
+help: Convert to `X | None`
+    |
+149 |         self,
+    -     ) -> Optional[_HEADERS]:
+150 +     ) -> _HEADERS | None:
+151 |         """
+    |
+
+UP045 [*] Use `X | None` for type annotations
+   --> enconnect/utils/http.py:176:10
+    |
+174 |     def capem(
+175 |         self,
+176 |     ) -> Optional[str]:
+    |          ^^^^^^^^^^^^^
+177 |         """
+178 |         Return the value for the attribute from class instance.
+    |
+help: Convert to `X | None`
+    |
+175 |         self,
+    -     ) -> Optional[str]:
+176 +     ) -> str | None:
+177 |         """
+    |
+
+UP045 [*] Use `X | None` for type annotations
+   --> enconnect/utils/http.py:255:17
+    |
+253 |         method: _METHODS,
+254 |         location: str,
+255 |         params: Optional[_PAYLOAD] = None,
+    |                 ^^^^^^^^^^^^^^^^^^
+256 |         json: Optional[_PAYLOAD] = None,
+257 |         *,
+    |
+help: Convert to `X | None`
+    |
+254 |         location: str,
+    -         params: Optional[_PAYLOAD] = None,
+255 +         params: _PAYLOAD | None = None,
+256 |         json: Optional[_PAYLOAD] = None,
+    |
+
+UP045 [*] Use `X | None` for type annotations
+   --> enconnect/utils/http.py:256:15
+    |
+254 |         location: str,
+255 |         params: Optional[_PAYLOAD] = None,
+256 |         json: Optional[_PAYLOAD] = None,
+    |               ^^^^^^^^^^^^^^^^^^
+257 |         *,
+258 |         data: Optional[_PAYLOAD] = None,
+    |
+help: Convert to `X | None`
+    |
+255 |         params: Optional[_PAYLOAD] = None,
+    -         json: Optional[_PAYLOAD] = None,
+256 +         json: _PAYLOAD | None = None,
+257 |         *,
+    |
+
+UP045 [*] Use `X | None` for type annotations
+   --> enconnect/utils/http.py:258:15
+    |
+256 |         json: Optional[_PAYLOAD] = None,
+257 |         *,
+258 |         data: Optional[_PAYLOAD] = None,
+    |               ^^^^^^^^^^^^^^^^^^
+259 |         files: Optional[_PAYLOAD] = None,
+260 |         timeout: Optional[int] = None,
+    |
+help: Convert to `X | None`
+    |
+257 |         *,
+    -         data: Optional[_PAYLOAD] = None,
+258 +         data: _PAYLOAD | None = None,
+259 |         files: Optional[_PAYLOAD] = None,
+    |
+
+UP045 [*] Use `X | None` for type annotations
+   --> enconnect/utils/http.py:259:16
+    |
+257 |         *,
+258 |         data: Optional[_PAYLOAD] = None,
+259 |         files: Optional[_PAYLOAD] = None,
+    |                ^^^^^^^^^^^^^^^^^^
+260 |         timeout: Optional[int] = None,
+261 |         headers: Optional[_HEADERS] = None,
+    |
+help: Convert to `X | None`
+    |
+258 |         data: Optional[_PAYLOAD] = None,
+    -         files: Optional[_PAYLOAD] = None,
+259 +         files: _PAYLOAD | None = None,
+260 |         timeout: Optional[int] = None,
+    |
+
+UP045 [*] Use `X | None` for type annotations
+   --> enconnect/utils/http.py:260:18
+    |
+258 |         data: Optional[_PAYLOAD] = None,
+259 |         files: Optional[_PAYLOAD] = None,
+260 |         timeout: Optional[int] = None,
+    |                  ^^^^^^^^^^^^^
+261 |         headers: Optional[_HEADERS] = None,
+262 |         httpauth: Optional[_HTTPAUTH] = None,
+    |
+help: Convert to `X | None`
+    |
+259 |         files: Optional[_PAYLOAD] = None,
+    -         timeout: Optional[int] = None,
+260 +         timeout: int | None = None,
+261 |         headers: Optional[_HEADERS] = None,
+    |
+
+UP045 [*] Use `X | None` for type annotations
+   --> enconnect/utils/http.py:261:18
+    |
+259 |         files: Optional[_PAYLOAD] = None,
+260 |         timeout: Optional[int] = None,
+261 |         headers: Optional[_HEADERS] = None,
+    |                  ^^^^^^^^^^^^^^^^^^
+262 |         httpauth: Optional[_HTTPAUTH] = None,
+263 |     ) -> Response:
+    |
+help: Convert to `X | None`
+    |
+260 |         timeout: Optional[int] = None,
+    -         headers: Optional[_HEADERS] = None,
+261 +         headers: _HEADERS | None = None,
+262 |         httpauth: Optional[_HTTPAUTH] = None,
+    |
+
+UP045 [*] Use `X | None` for type annotations
+   --> enconnect/utils/http.py:262:19
+    |
+260 |         timeout: Optional[int] = None,
+261 |         headers: Optional[_HEADERS] = None,
+262 |         httpauth: Optional[_HTTPAUTH] = None,
+    |                   ^^^^^^^^^^^^^^^^^^^
+263 |     ) -> Response:
+264 |         """
+    |
+help: Convert to `X | None`
+    |
+261 |         headers: Optional[_HEADERS] = None,
+    -         httpauth: Optional[_HTTPAUTH] = None,
+262 +         httpauth: _HTTPAUTH | None = None,
+263 |     ) -> Response:
+    |
+
+UP045 [*] Use `X | None` for type annotations
+   --> enconnect/utils/http.py:317:17
+    |
+315 |         method: _METHODS,
+316 |         location: str,
+317 |         params: Optional[_PAYLOAD] = None,
+    |                 ^^^^^^^^^^^^^^^^^^
+318 |         json: Optional[_PAYLOAD] = None,
+319 |         *,
+    |
+help: Convert to `X | None`
+    |
+316 |         location: str,
+    -         params: Optional[_PAYLOAD] = None,
+317 +         params: _PAYLOAD | None = None,
+318 |         json: Optional[_PAYLOAD] = None,
+    |
+
+UP045 [*] Use `X | None` for type annotations
+   --> enconnect/utils/http.py:318:15
+    |
+316 |         location: str,
+317 |         params: Optional[_PAYLOAD] = None,
+318 |         json: Optional[_PAYLOAD] = None,
+    |               ^^^^^^^^^^^^^^^^^^
+319 |         *,
+320 |         data: Optional[_PAYLOAD] = None,
+    |
+help: Convert to `X | None`
+    |
+317 |         params: Optional[_PAYLOAD] = None,
+    -         json: Optional[_PAYLOAD] = None,
+318 +         json: _PAYLOAD | None = None,
+319 |         *,
+    |
+
+UP045 [*] Use `X | None` for type annotations
+   --> enconnect/utils/http.py:320:15
+    |
+318 |         json: Optional[_PAYLOAD] = None,
+319 |         *,
+320 |         data: Optional[_PAYLOAD] = None,
+    |               ^^^^^^^^^^^^^^^^^^
+321 |         files: Optional[_PAYLOAD] = None,
+322 |         timeout: Optional[int] = None,
+    |
+help: Convert to `X | None`
+    |
+319 |         *,
+    -         data: Optional[_PAYLOAD] = None,
+320 +         data: _PAYLOAD | None = None,
+321 |         files: Optional[_PAYLOAD] = None,
+    |
+
+UP045 [*] Use `X | None` for type annotations
+   --> enconnect/utils/http.py:321:16
+    |
+319 |         *,
+320 |         data: Optional[_PAYLOAD] = None,
+321 |         files: Optional[_PAYLOAD] = None,
+    |                ^^^^^^^^^^^^^^^^^^
+322 |         timeout: Optional[int] = None,
+323 |         headers: Optional[_HEADERS] = None,
+    |
+help: Convert to `X | None`
+    |
+320 |         data: Optional[_PAYLOAD] = None,
+    -         files: Optional[_PAYLOAD] = None,
+321 +         files: _PAYLOAD | None = None,
+322 |         timeout: Optional[int] = None,
+    |
+
+UP045 [*] Use `X | None` for type annotations
+   --> enconnect/utils/http.py:322:18
+    |
+320 |         data: Optional[_PAYLOAD] = None,
+321 |         files: Optional[_PAYLOAD] = None,
+322 |         timeout: Optional[int] = None,
+    |                  ^^^^^^^^^^^^^
+323 |         headers: Optional[_HEADERS] = None,
+324 |         httpauth: Optional[_HTTPAUTH] = None,
+    |
+help: Convert to `X | None`
+    |
+321 |         files: Optional[_PAYLOAD] = None,
+    -         timeout: Optional[int] = None,
+322 +         timeout: int | None = None,
+323 |         headers: Optional[_HEADERS] = None,
+    |
+
+UP045 [*] Use `X | None` for type annotations
+   --> enconnect/utils/http.py:323:18
+    |
+321 |         files: Optional[_PAYLOAD] = None,
+322 |         timeout: Optional[int] = None,
+323 |         headers: Optional[_HEADERS] = None,
+    |                  ^^^^^^^^^^^^^^^^^^
+324 |         httpauth: Optional[_HTTPAUTH] = None,
+325 |     ) -> Response:
+    |
+help: Convert to `X | None`
+    |
+322 |         timeout: Optional[int] = None,
+    -         headers: Optional[_HEADERS] = None,
+323 +         headers: _HEADERS | None = None,
+324 |         httpauth: Optional[_HTTPAUTH] = None,
+    |
+
+UP045 [*] Use `X | None` for type annotations
+   --> enconnect/utils/http.py:324:19
+    |
+322 |         timeout: Optional[int] = None,
+323 |         headers: Optional[_HEADERS] = None,
+324 |         httpauth: Optional[_HTTPAUTH] = None,
+    |                   ^^^^^^^^^^^^^^^^^^^
+325 |     ) -> Response:
+326 |         """
+    |
+help: Convert to `X | None`
+    |
+323 |         headers: Optional[_HEADERS] = None,
+    -         httpauth: Optional[_HTTPAUTH] = None,
+324 +         httpauth: _HTTPAUTH | None = None,
+325 |     ) -> Response:
+    |
+
+UP045 [*] Use `X | None` for type annotations
+   --> enconnect/utils/http.py:381:17
+    |
+379 |         method: _METHODS,
+380 |         location: str,
+381 |         params: Optional[_PAYLOAD] = None,
+    |                 ^^^^^^^^^^^^^^^^^^
+382 |         json: Optional[_PAYLOAD] = None,
+383 |         *,
+    |
+help: Convert to `X | None`
+    |
+380 |         location: str,
+    -         params: Optional[_PAYLOAD] = None,
+381 +         params: _PAYLOAD | None = None,
+382 |         json: Optional[_PAYLOAD] = None,
+    |
+
+UP045 [*] Use `X | None` for type annotations
+   --> enconnect/utils/http.py:382:15
+    |
+380 |         location: str,
+381 |         params: Optional[_PAYLOAD] = None,
+382 |         json: Optional[_PAYLOAD] = None,
+    |               ^^^^^^^^^^^^^^^^^^
+383 |         *,
+384 |         data: Optional[_PAYLOAD] = None,
+    |
+help: Convert to `X | None`
+    |
+381 |         params: Optional[_PAYLOAD] = None,
+    -         json: Optional[_PAYLOAD] = None,
+382 +         json: _PAYLOAD | None = None,
+383 |         *,
+    |
+
+UP045 [*] Use `X | None` for type annotations
+   --> enconnect/utils/http.py:384:15
+    |
+382 |         json: Optional[_PAYLOAD] = None,
+383 |         *,
+384 |         data: Optional[_PAYLOAD] = None,
+    |               ^^^^^^^^^^^^^^^^^^
+385 |         timeout: Optional[int] = None,
+386 |         headers: Optional[_HEADERS] = None,
+    |
+help: Convert to `X | None`
+    |
+383 |         *,
+    -         data: Optional[_PAYLOAD] = None,
+384 +         data: _PAYLOAD | None = None,
+385 |         timeout: Optional[int] = None,
+    |
+
+UP045 [*] Use `X | None` for type annotations
+   --> enconnect/utils/http.py:385:18
+    |
+383 |         *,
+384 |         data: Optional[_PAYLOAD] = None,
+385 |         timeout: Optional[int] = None,
+    |                  ^^^^^^^^^^^^^
+386 |         headers: Optional[_HEADERS] = None,
+387 |         httpauth: Optional[_HTTPAUTH] = None,
+    |
+help: Convert to `X | None`
+    |
+384 |         data: Optional[_PAYLOAD] = None,
+    -         timeout: Optional[int] = None,
+385 +         timeout: int | None = None,
+386 |         headers: Optional[_HEADERS] = None,
+    |
+
+UP045 [*] Use `X | None` for type annotations
+   --> enconnect/utils/http.py:386:18
+    |
+384 |         data: Optional[_PAYLOAD] = None,
+385 |         timeout: Optional[int] = None,
+386 |         headers: Optional[_HEADERS] = None,
+    |                  ^^^^^^^^^^^^^^^^^^
+387 |         httpauth: Optional[_HTTPAUTH] = None,
+388 |     ) -> Iterator[str]:
+    |
+help: Convert to `X | None`
+    |
+385 |         timeout: Optional[int] = None,
+    -         headers: Optional[_HEADERS] = None,
+386 +         headers: _HEADERS | None = None,
+387 |         httpauth: Optional[_HTTPAUTH] = None,
+    |
+
+UP045 [*] Use `X | None` for type annotations
+   --> enconnect/utils/http.py:387:19
+    |
+385 |         timeout: Optional[int] = None,
+386 |         headers: Optional[_HEADERS] = None,
+387 |         httpauth: Optional[_HTTPAUTH] = None,
+    |                   ^^^^^^^^^^^^^^^^^^^
+388 |     ) -> Iterator[str]:
+389 |         """
+    |
+help: Convert to `X | None`
+    |
+386 |         headers: Optional[_HEADERS] = None,
+    -         httpauth: Optional[_HTTPAUTH] = None,
+387 +         httpauth: _HTTPAUTH | None = None,
+388 |     ) -> Iterator[str]:
+    |
+
+UP045 [*] Use `X | None` for type annotations
+   --> enconnect/utils/http.py:432:17
+    |
+430 |         method: _METHODS,
+431 |         location: str,
+432 |         params: Optional[_PAYLOAD] = None,
+    |                 ^^^^^^^^^^^^^^^^^^
+433 |         json: Optional[_PAYLOAD] = None,
+434 |         *,
+    |
+help: Convert to `X | None`
+    |
+431 |         location: str,
+    -         params: Optional[_PAYLOAD] = None,
+432 +         params: _PAYLOAD | None = None,
+433 |         json: Optional[_PAYLOAD] = None,
+    |
+
+UP045 [*] Use `X | None` for type annotations
+   --> enconnect/utils/http.py:433:15
+    |
+431 |         location: str,
+432 |         params: Optional[_PAYLOAD] = None,
+433 |         json: Optional[_PAYLOAD] = None,
+    |               ^^^^^^^^^^^^^^^^^^
+434 |         *,
+435 |         data: Optional[_PAYLOAD] = None,
+    |
+help: Convert to `X | None`
+    |
+432 |         params: Optional[_PAYLOAD] = None,
+    -         json: Optional[_PAYLOAD] = None,
+433 +         json: _PAYLOAD | None = None,
+434 |         *,
+    |
+
+UP045 [*] Use `X | None` for type annotations
+   --> enconnect/utils/http.py:435:15
+    |
+433 |         json: Optional[_PAYLOAD] = None,
+434 |         *,
+435 |         data: Optional[_PAYLOAD] = None,
+    |               ^^^^^^^^^^^^^^^^^^
+436 |         timeout: Optional[int] = None,
+437 |         headers: Optional[_HEADERS] = None,
+    |
+help: Convert to `X | None`
+    |
+434 |         *,
+    -         data: Optional[_PAYLOAD] = None,
+435 +         data: _PAYLOAD | None = None,
+436 |         timeout: Optional[int] = None,
+    |
+
+UP045 [*] Use `X | None` for type annotations
+   --> enconnect/utils/http.py:436:18
+    |
+434 |         *,
+435 |         data: Optional[_PAYLOAD] = None,
+436 |         timeout: Optional[int] = None,
+    |                  ^^^^^^^^^^^^^
+437 |         headers: Optional[_HEADERS] = None,
+438 |         httpauth: Optional[_HTTPAUTH] = None,
+    |
+help: Convert to `X | None`
+    |
+435 |         data: Optional[_PAYLOAD] = None,
+    -         timeout: Optional[int] = None,
+436 +         timeout: int | None = None,
+437 |         headers: Optional[_HEADERS] = None,
+    |
+
+UP045 [*] Use `X | None` for type annotations
+   --> enconnect/utils/http.py:437:18
+    |
+435 |         data: Optional[_PAYLOAD] = None,
+436 |         timeout: Optional[int] = None,
+437 |         headers: Optional[_HEADERS] = None,
+    |                  ^^^^^^^^^^^^^^^^^^
+438 |         httpauth: Optional[_HTTPAUTH] = None,
+439 |     ) -> AsyncIterator[str]:
+    |
+help: Convert to `X | None`
+    |
+436 |         timeout: Optional[int] = None,
+    -         headers: Optional[_HEADERS] = None,
+437 +         headers: _HEADERS | None = None,
+438 |         httpauth: Optional[_HTTPAUTH] = None,
+    |
+
+UP045 [*] Use `X | None` for type annotations
+   --> enconnect/utils/http.py:438:19
+    |
+436 |         timeout: Optional[int] = None,
+437 |         headers: Optional[_HEADERS] = None,
+438 |         httpauth: Optional[_HTTPAUTH] = None,
+    |                   ^^^^^^^^^^^^^^^^^^^
+439 |     ) -> AsyncIterator[str]:
+440 |         """
+    |
+help: Convert to `X | None`
+    |
+437 |         headers: Optional[_HEADERS] = None,
+    -         httpauth: Optional[_HTTPAUTH] = None,
+438 +         httpauth: _HTTPAUTH | None = None,
+439 |     ) -> AsyncIterator[str]:
+    |
+
+I001 [*] Import block is un-sorted or un-formatted
+  --> enconnect/utils/test/test_http.py:10:1
+   |
+10 | / import asyncio
+11 | | from typing import AsyncIterator
+12 | | from typing import Iterator
+13 | | from unittest.mock import AsyncMock
+14 | | from unittest.mock import patch
+15 | |
+16 | | from encommon.types import inrepr
+17 | | from encommon.types import instr
+18 | | from encommon.types import lattrs
+19 | |
+20 | | from httpx import AsyncByteStream
+21 | | from httpx import Response
+22 | | from httpx import SyncByteStream
+23 | |
+24 | | from pytest import fixture
+25 | | from pytest import mark
+26 | |
+27 | | from respx import MockRouter
+28 | |
+29 | | from ..http import HTTPClient
+   | |_____________________________^
+   |
+help: Organize imports
+   |
+10 | import asyncio
+   - from typing import AsyncIterator
+   - from typing import Iterator
+   - from unittest.mock import AsyncMock
+   - from unittest.mock import patch
+   -
+   - from encommon.types import inrepr
+   - from encommon.types import instr
+   - from encommon.types import lattrs
+   -
+   - from httpx import AsyncByteStream
+   - from httpx import Response
+   - from httpx import SyncByteStream
+   -
+   - from pytest import fixture
+   - from pytest import mark
+11 + from typing import AsyncIterator, Iterator
+12 + from unittest.mock import AsyncMock, patch
+13 |
+14 + from encommon.types import inrepr, instr, lattrs
+15 + from httpx import AsyncByteStream, Response, SyncByteStream
+16 + from pytest import fixture, mark
+17 | from respx import MockRouter
+18 |
+19 | from ..http import HTTPClient
+   -
+20 |
+   |
+
+UP035 [*] Import from `collections.abc` instead: `AsyncIterator`
+  --> enconnect/utils/test/test_http.py:11:1
+   |
+10 | import asyncio
+11 | from typing import AsyncIterator
+   | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+12 | from typing import Iterator
+13 | from unittest.mock import AsyncMock
+   |
+help: Import from `collections.abc`
+   |
+10 | import asyncio
+   - from typing import AsyncIterator
+11 + from collections.abc import AsyncIterator
+12 | from typing import Iterator
+   |
+
+UP035 [*] Import from `collections.abc` instead: `Iterator`
+  --> enconnect/utils/test/test_http.py:12:1
+   |
+10 | import asyncio
+11 | from typing import AsyncIterator
+12 | from typing import Iterator
+   | ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+13 | from unittest.mock import AsyncMock
+14 | from unittest.mock import patch
+   |
+help: Import from `collections.abc`
+   |
+11 | from typing import AsyncIterator
+   - from typing import Iterator
+12 + from collections.abc import Iterator
+13 | from unittest.mock import AsyncMock
+   |
+
+PERF402 Use `list` or `list.copy` to create a copy of a list
+   --> enconnect/utils/test/test_http.py:216:9
+    |
+215 |     for chunk in stream:
+216 |         chunks.append(chunk)
+    |         ^^^^^^^^^^^^^^^^^^^^
+217 |
+218 |     assert chunks == [
+    |
+
+I001 [*] Import block is un-sorted or un-formatted
+  --> enconnect/youtube/__init__.py:10:1
+   |
+10 | / from .models import YouTubeResult
+11 | | from .models import YouTubeVideo
+12 | | from .params import YouTubeParams
+13 | | from .youtube import YouTube
+   | |____________________________^
+   |
+help: Organize imports
+   |
+9  |
+   - from .models import YouTubeResult
+   - from .models import YouTubeVideo
+10 + from .models import YouTubeResult, YouTubeVideo
+11 | from .params import YouTubeParams
+12 | from .youtube import YouTube
+   -
+   -
+13 |
+   |
+
+I001 [*] Import block is un-sorted or un-formatted
+  --> enconnect/youtube/models.py:10:1
+   |
+10 | / from typing import Annotated
+11 | | from typing import Any
+12 | | from typing import Literal
+13 | | from typing import Optional
+14 | |
+15 | | from encommon.types import BaseModel
+16 | |
+17 | | from pydantic import Field
+   | |__________________________^
+   |
+help: Organize imports
+   |
+9  |
+   - from typing import Annotated
+   - from typing import Any
+   - from typing import Literal
+   - from typing import Optional
+10 + from typing import Annotated, Any, Literal, Optional
+11 |
+12 | from encommon.types import BaseModel
+   -
+13 | from pydantic import Field
+   -
+   -
+14 |
+   |
+
+UP045 [*] Use `X | None` for type annotations
+  --> enconnect/youtube/models.py:61:9
+   |
+60 |     channel: Annotated[
+61 |         Optional[str],
+   |         ^^^^^^^^^^^^^
+62 |         Field(None,
+63 |               description='Value from the server response')]
+   |
+help: Convert to `X | None`
+   |
+60 |     channel: Annotated[
+   -         Optional[str],
+61 +         str | None,
+62 |         Field(None,
+   |
+
+UP045 [*] Use `X | None` for type annotations
+  --> enconnect/youtube/models.py:66:9
+   |
+65 |     playlist: Annotated[
+66 |         Optional[str],
+   |         ^^^^^^^^^^^^^
+67 |         Field(None,
+68 |               description='Value from the server response')]
+   |
+help: Convert to `X | None`
+   |
+65 |     playlist: Annotated[
+   -         Optional[str],
+66 +         str | None,
+67 |         Field(None,
+   |
+
+UP045 [*] Use `X | None` for type annotations
+  --> enconnect/youtube/models.py:71:9
+   |
+70 |     video: Annotated[
+71 |         Optional[str],
+   |         ^^^^^^^^^^^^^
+72 |         Field(None,
+73 |               description='Value from the server response')]
+   |
+help: Convert to `X | None`
+   |
+70 |     video: Annotated[
+   -         Optional[str],
+71 +         str | None,
+72 |         Field(None,
+   |
+
+UP045 [*] Use `X | None` for type annotations
+  --> enconnect/youtube/models.py:81:9
+   |
+80 |     about: Annotated[
+81 |         Optional[str],
+   |         ^^^^^^^^^^^^^
+82 |         Field(None,
+83 |               description='Value from the server response')]
+   |
+help: Convert to `X | None`
+   |
+80 |     about: Annotated[
+   -         Optional[str],
+81 +         str | None,
+82 |         Field(None,
+   |
+
+UP045 [*] Use `X | None` for type annotations
+  --> enconnect/youtube/models.py:86:9
+   |
+85 |     channel_title: Annotated[
+86 |         Optional[str],
+   |         ^^^^^^^^^^^^^
+87 |         Field(None,
+88 |               description='Value from the server response')]
+   |
+help: Convert to `X | None`
+   |
+85 |     channel_title: Annotated[
+   -         Optional[str],
+86 +         str | None,
+87 |         Field(None,
+   |
+
+UP045 [*] Use `X | None` for type annotations
+   --> enconnect/youtube/models.py:178:9
+    |
+177 |     about: Annotated[
+178 |         Optional[str],
+    |         ^^^^^^^^^^^^^
+179 |         Field(None,
+180 |               description='Value from the server response')]
+    |
+help: Convert to `X | None`
+    |
+177 |     about: Annotated[
+    -         Optional[str],
+178 +         str | None,
+179 |         Field(None,
+    |
+
+I001 [*] Import block is un-sorted or un-formatted
+  --> enconnect/youtube/params.py:10:1
+   |
+10 | / from typing import Annotated
+11 | | from typing import Any
+12 | | from typing import Optional
+13 | |
+14 | | from encommon.types import BaseModel
+15 | |
+16 | | from pydantic import Field
+   | |__________________________^
+   |
+help: Organize imports
+   |
+9  |
+   - from typing import Annotated
+   - from typing import Any
+   - from typing import Optional
+10 + from typing import Annotated, Any, Optional
+11 |
+12 | from encommon.types import BaseModel
+   -
+13 | from pydantic import Field
+   -
+14 |
+   |
+
+UP045 [*] Use `X | None` for type annotations
+  --> enconnect/youtube/params.py:43:9
+   |
+42 |     ssl_capem: Annotated[
+43 |         Optional[str],
+   |         ^^^^^^^^^^^^^
+44 |         Field(None,
+45 |               description='Verify the ceritifcate valid',
+   |
+help: Convert to `X | None`
+   |
+42 |     ssl_capem: Annotated[
+   -         Optional[str],
+43 +         str | None,
+44 |         Field(None,
+   |
+
+I001 [*] Import block is un-sorted or un-formatted
+  --> enconnect/youtube/test/__init__.py:10:1
+   |
+10 | from pathlib import Path
+   | ^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+help: Organize imports
+   |
+11 |
+   -
+   -
+12 | SAMPLES = (
+   |
+
+I001 [*] Import block is un-sorted or un-formatted
+  --> enconnect/youtube/test/test_models.py:10:1
+   |
+10 | / from json import loads
+11 | |
+12 | | from encommon.types import inrepr
+13 | | from encommon.types import instr
+14 | | from encommon.types import lattrs
+15 | | from encommon.utils import read_text
+16 | |
+17 | | from pytest import raises
+18 | |
+19 | | from . import SAMPLES
+20 | | from ..models import YouTubeResult
+21 | | from ..models import YouTubeVideo
+   | |_________________________________^
+   |
+help: Organize imports
+   |
+11 |
+   - from encommon.types import inrepr
+   - from encommon.types import instr
+   - from encommon.types import lattrs
+12 + from encommon.types import inrepr, instr, lattrs
+13 | from encommon.utils import read_text
+   -
+14 | from pytest import raises
+15 |
+16 + from ..models import YouTubeResult, YouTubeVideo
+17 | from . import SAMPLES
+   - from ..models import YouTubeResult
+   - from ..models import YouTubeVideo
+   -
+18 |
+   |
+
+I001 [*] Import block is un-sorted or un-formatted
+  --> enconnect/youtube/test/test_youtube.py:10:1
+   |
+10 | / from encommon.types import inrepr
+11 | | from encommon.types import instr
+12 | | from encommon.types import lattrs
+13 | | from encommon.utils import load_sample
+14 | | from encommon.utils import prep_sample
+15 | | from encommon.utils import read_text
+16 | | from encommon.utils.sample import ENPYRWS
+17 | |
+18 | | from httpx import Response
+19 | |
+20 | | from pytest import fixture
+21 | | from pytest import mark
+22 | |
+23 | | from respx import MockRouter
+24 | |
+25 | | from . import SAMPLES
+26 | | from ..params import YouTubeParams
+27 | | from ..youtube import YouTube
+   | |_____________________________^
+   |
+help: Organize imports
+   |
+9  |
+   - from encommon.types import inrepr
+   - from encommon.types import instr
+   - from encommon.types import lattrs
+   - from encommon.utils import load_sample
+   - from encommon.utils import prep_sample
+   - from encommon.utils import read_text
+10 + from encommon.types import inrepr, instr, lattrs
+11 + from encommon.utils import load_sample, prep_sample, read_text
+12 | from encommon.utils.sample import ENPYRWS
+   -
+13 | from httpx import Response
+   -
+   - from pytest import fixture
+   - from pytest import mark
+   -
+14 + from pytest import fixture, mark
+15 | from respx import MockRouter
+16 |
+   - from . import SAMPLES
+17 | from ..params import YouTubeParams
+18 | from ..youtube import YouTube
+   -
+19 + from . import SAMPLES
+20 |
+   |
+
+I001 [*] Import block is un-sorted or un-formatted
+  --> enconnect/youtube/youtube.py:10:1
+   |
+10 | / from typing import Literal
+11 | | from typing import Optional
+12 | | from typing import TYPE_CHECKING
+13 | | from typing import get_args
+14 | |
+15 | | from httpx import Response
+16 | |
+17 | | from .models import RESULT_KINDS
+18 | | from .models import YouTubeResult
+19 | | from .models import YouTubeVideo
+20 | | from ..utils.http import HTTPClient
+21 | | from ..utils.http import _PAYLOAD
+   | |_________________________________^
+22 |
+23 |   if TYPE_CHECKING:
+   |
+help: Organize imports
+   |
+9  |
+   - from typing import Literal
+   - from typing import Optional
+   - from typing import TYPE_CHECKING
+   - from typing import get_args
+10 + from typing import TYPE_CHECKING, Literal, Optional, get_args
+11 |
+12 | from httpx import Response
+13 |
+   - from .models import RESULT_KINDS
+   - from .models import YouTubeResult
+   - from .models import YouTubeVideo
+   - from ..utils.http import HTTPClient
+   - from ..utils.http import _PAYLOAD
+14 + from ..utils.http import _PAYLOAD, HTTPClient
+15 + from .models import RESULT_KINDS, YouTubeResult, YouTubeVideo
+16 |
+   |
+
+UP045 [*] Use `X | None` for type annotations
+  --> enconnect/youtube/youtube.py:93:17
+   |
+91 |         method: Literal['get'],
+92 |         path: str,
+93 |         params: Optional[_PAYLOAD] = None,
+   |                 ^^^^^^^^^^^^^^^^^^
+94 |     ) -> Response:
+95 |         """
+   |
+help: Convert to `X | None`
+   |
+92 |         path: str,
+   -         params: Optional[_PAYLOAD] = None,
+93 +         params: _PAYLOAD | None = None,
+94 |     ) -> Response:
+   |
+
+UP045 [*] Use `X | None` for type annotations
+   --> enconnect/youtube/youtube.py:128:17
+    |
+126 |         method: Literal['get'],
+127 |         path: str,
+128 |         params: Optional[_PAYLOAD] = None,
+    |                 ^^^^^^^^^^^^^^^^^^
+129 |     ) -> Response:
+130 |         """
+    |
+help: Convert to `X | None`
+    |
+127 |         path: str,
+    -         params: Optional[_PAYLOAD] = None,
+128 +         params: _PAYLOAD | None = None,
+129 |     ) -> Response:
+    |
+
+UP045 [*] Use `X | None` for type annotations
+   --> enconnect/youtube/youtube.py:162:17
+    |
+160 |         # NOCVR
+161 |         self,
+162 |         params: Optional[_PAYLOAD] = None,
+    |                 ^^^^^^^^^^^^^^^^^^
+163 |     ) -> list[YouTubeResult]:
+164 |         """
+    |
+help: Convert to `X | None`
+    |
+161 |         self,
+    -         params: Optional[_PAYLOAD] = None,
+162 +         params: _PAYLOAD | None = None,
+163 |     ) -> list[YouTubeResult]:
+    |
+
+UP045 [*] Use `X | None` for type annotations
+   --> enconnect/youtube/youtube.py:176:17
+    |
+174 |     def search_block(
+175 |         self,
+176 |         params: Optional[_PAYLOAD] = None,
+    |                 ^^^^^^^^^^^^^^^^^^
+177 |     ) -> list[YouTubeResult]:
+178 |         """
+    |
+help: Convert to `X | None`
+    |
+175 |         self,
+    -         params: Optional[_PAYLOAD] = None,
+176 +         params: _PAYLOAD | None = None,
+177 |     ) -> list[YouTubeResult]:
+    |
+
+UP045 [*] Use `X | None` for type annotations
+   --> enconnect/youtube/youtube.py:219:17
+    |
+217 |     async def search_async(
+218 |         self,
+219 |         params: Optional[_PAYLOAD] = None,
+    |                 ^^^^^^^^^^^^^^^^^^
+220 |     ) -> list[YouTubeResult]:
+221 |         """
+    |
+help: Convert to `X | None`
+    |
+218 |         self,
+    -         params: Optional[_PAYLOAD] = None,
+219 +         params: _PAYLOAD | None = None,
+220 |     ) -> list[YouTubeResult]:
+    |
+
+UP045 [*] Use `X | None` for type annotations
+   --> enconnect/youtube/youtube.py:263:17
+    |
+261 |         # NOCVR
+262 |         self,
+263 |         params: Optional[_PAYLOAD] = None,
+    |                 ^^^^^^^^^^^^^^^^^^
+264 |     ) -> list[YouTubeVideo]:
+265 |         """
+    |
+help: Convert to `X | None`
+    |
+262 |         self,
+    -         params: Optional[_PAYLOAD] = None,
+263 +         params: _PAYLOAD | None = None,
+264 |     ) -> list[YouTubeVideo]:
+    |
+
+UP045 [*] Use `X | None` for type annotations
+   --> enconnect/youtube/youtube.py:277:17
+    |
+275 |     def videos_block(
+276 |         self,
+277 |         params: Optional[_PAYLOAD] = None,
+    |                 ^^^^^^^^^^^^^^^^^^
+278 |     ) -> list[YouTubeVideo]:
+279 |         """
+    |
+help: Convert to `X | None`
+    |
+276 |         self,
+    -         params: Optional[_PAYLOAD] = None,
+277 +         params: _PAYLOAD | None = None,
+278 |     ) -> list[YouTubeVideo]:
+    |
+
+UP045 [*] Use `X | None` for type annotations
+   --> enconnect/youtube/youtube.py:318:17
+    |
+316 |     async def videos_async(
+317 |         self,
+318 |         params: Optional[_PAYLOAD] = None,
+    |                 ^^^^^^^^^^^^^^^^^^
+319 |     ) -> list[YouTubeVideo]:
+320 |         """
+    |
+help: Convert to `X | None`
+    |
+317 |         self,
+    -         params: Optional[_PAYLOAD] = None,
+318 +         params: _PAYLOAD | None = None,
+319 |     ) -> list[YouTubeVideo]:
+    |
+
