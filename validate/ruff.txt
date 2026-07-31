@@ -6,7 +6,6 @@ I001 [*] Import block is un-sorted or un-formatted
 10 | / from pathlib import Path
 11 | | from sys import flags
    | |_____________________^
-   |
 help: Organize imports
    |
 12 |
@@ -22,7 +21,6 @@ I001 [*] Import block is un-sorted or un-formatted
 11 | | from .models import ClientEvent
 12 | | from .params import ClientParams
    | |________________________________^
-   |
 help: Organize imports
    |
 13 |
@@ -40,7 +38,6 @@ RUF022 [*] `__all__` is not sorted
 18 | |     'ClientParams',
 19 | |     'ClientEvent']
    | |__________________^
-   |
 help: Apply an isort-style sorting to `__all__`
    |
 17 |     'Client',
@@ -307,7 +304,6 @@ RET501 [*] Do not explicitly `return None` in function if it is the only possibl
 344 |         if opcode == 11:
 345 |             return None
     |             ^^^^^^^^^^^
-    |
 help: Remove explicit `return None`
     |
 344 |         if opcode == 11:
@@ -715,7 +711,6 @@ I001 [*] Import block is un-sorted or un-formatted
 16 | |
 17 | | from pydantic import Field
    | |__________________________^
-   |
 help: Organize imports
    |
 9  |
@@ -775,7 +770,6 @@ I001 [*] Import block is un-sorted or un-formatted
 12 | | from .helpers import RVENTS
 13 | | from .helpers import client_dscsock
    | |___________________________________^
-   |
 help: Organize imports
    |
 9  |
@@ -799,7 +793,6 @@ RUF022 [*] `__all__` is not sorted
 20 | |     'EVENTS',
 21 | |     'RVENTS']
    | |_____________^
-   |
 help: Apply an isort-style sorting to `__all__`
    |
 17 | __all__ = [
@@ -835,7 +828,6 @@ I001 [*] Import block is un-sorted or un-formatted
 27 | |
 28 | | from respx import MockRouter
    | |____________________________^
-   |
 help: Organize imports
    |
 12 | from time import sleep as block_sleep
@@ -906,7 +898,6 @@ I001 [*] Import block is un-sorted or un-formatted
 20 | | from ..params import ClientParams
 21 | | from ...fixtures import DSCClientSocket
    | |_______________________________________^
-   |
 help: Organize imports
    |
 11 |
@@ -944,7 +935,6 @@ I001 [*] Import block is un-sorted or un-formatted
 21 | | from ..params import ClientParams
 22 | | from ...fixtures import DSCClientSocket
    | |_______________________________________^
-   |
 help: Organize imports
    |
 11 |
@@ -976,7 +966,6 @@ I001 [*] Import block is un-sorted or un-formatted
 14 | | from .mattermost.test.helpers import MTMClientSocket
 15 | | from .mattermost.test.helpers import client_mtmsock
    | |___________________________________________________^
-   |
 help: Organize imports
    |
 9  |
@@ -1006,7 +995,6 @@ RUF022 [*] `__all__` is not sorted
 24 | |     'MTMClientSocket',
 25 | |     'client_mtmsock']
    | |_____________________^
-   |
 help: Apply an isort-style sorting to `__all__`
    |
 19 | __all__ = [
@@ -1029,7 +1017,6 @@ I001 [*] Import block is un-sorted or un-formatted
 10 | / from .bridge import Bridge
 11 | | from .params import BridgeParams
    | |________________________________^
-   |
 help: Organize imports
    |
 12 |
@@ -1116,7 +1103,6 @@ I001 [*] Import block is un-sorted or un-formatted
 15 | |
 16 | | from pydantic import Field
    | |__________________________^
-   |
 help: Organize imports
    |
 9  |
@@ -1154,7 +1140,6 @@ I001 [*] Import block is un-sorted or un-formatted
    |
 10 | from pathlib import Path
    | ^^^^^^^^^^^^^^^^^^^^^^^^
-   |
 help: Organize imports
    |
 11 |
@@ -1185,7 +1170,6 @@ I001 [*] Import block is un-sorted or un-formatted
 26 | | from ..bridge import Bridge
 27 | | from ..params import BridgeParams
    | |_________________________________^
-   |
 help: Organize imports
    |
 9  |
@@ -1221,7 +1205,6 @@ I001 [*] Import block is un-sorted or un-formatted
 11 | | from .models import InstagramMedia
 12 | | from .params import InstagramParams
    | |___________________________________^
-   |
 help: Organize imports
    |
 13 |
@@ -1239,7 +1222,6 @@ RUF022 [*] `__all__` is not sorted
 18 | |     'InstagramParams',
 19 | |     'InstagramMedia']
    | |_____________________^
-   |
 help: Apply an isort-style sorting to `__all__`
    |
 17 |     'Instagram',
@@ -1332,7 +1314,6 @@ I001 [*] Import block is un-sorted or un-formatted
 15 | |
 16 | | from pydantic import Field
    | |__________________________^
-   |
 help: Organize imports
    |
 9  |
@@ -1428,7 +1409,6 @@ I001 [*] Import block is un-sorted or un-formatted
 15 | |
 16 | | from pydantic import Field
    | |__________________________^
-   |
 help: Organize imports
    |
 9  |
@@ -1466,7 +1446,6 @@ I001 [*] Import block is un-sorted or un-formatted
    |
 10 | from pathlib import Path
    | ^^^^^^^^^^^^^^^^^^^^^^^^
-   |
 help: Organize imports
    |
 11 |
@@ -1500,7 +1479,6 @@ I001 [*] Import block is un-sorted or un-formatted
 29 | | from ..instagram import Instagram
 30 | | from ..params import InstagramParams
    | |____________________________________^
-   |
 help: Organize imports
    |
 9  |
@@ -1549,7 +1527,6 @@ I001 [*] Import block is un-sorted or un-formatted
 19 | | from . import SAMPLES
 20 | | from ..models import InstagramMedia
    | |___________________________________^
-   |
 help: Organize imports
    |
 11 |
@@ -1575,7 +1552,6 @@ I001 [*] Import block is un-sorted or un-formatted
 11 | | from .models import ClientEvent
 12 | | from .params import ClientParams
    | |________________________________^
-   |
 help: Organize imports
    |
 13 |
@@ -1593,7 +1569,6 @@ RUF022 [*] `__all__` is not sorted
 18 | |     'ClientParams',
 19 | |     'ClientEvent']
    | |__________________^
-   |
 help: Apply an isort-style sorting to `__all__`
    |
 17 |     'Client',
@@ -1815,7 +1790,6 @@ RET501 [*] Do not explicitly `return None` in function if it is the only possibl
 332 |
 333 |             return None
     |             ^^^^^^^^^^^
-    |
 help: Remove explicit `return None`
     |
 332 |
@@ -1832,7 +1806,6 @@ B010 [*] Do not call `setattr` with a constant attribute value. It is not any sa
 381 | |             'check_hostname',
 382 | |             verify)
     | |___________________^
-    |
 help: Replace `setattr` with assignment
     |
 378 |
@@ -1854,7 +1827,6 @@ B010 [*] Do not call `setattr` with a constant attribute value. It is not any sa
 392 | |             'verify_mode',
 393 | |             _verify)
     | |____________________^
-    |
 help: Replace `setattr` with assignment
     |
 389 |
@@ -2147,7 +2119,6 @@ I001 [*] Import block is un-sorted or un-formatted
 16 | |
 17 | | from pydantic import Field
    | |__________________________^
-   |
 help: Organize imports
    |
 9  |
@@ -2190,7 +2161,6 @@ I001 [*] Import block is un-sorted or un-formatted
 13 | | from .helpers import SVENTS
 14 | | from .helpers import client_ircsock
    | |___________________________________^
-   |
 help: Organize imports
    |
 9  |
@@ -2216,7 +2186,6 @@ RUF022 [*] `__all__` is not sorted
 22 | |     'RVENTS',
 23 | |     'SVENTS']
    | |_____________^
-   |
 help: Apply an isort-style sorting to `__all__`
    |
 18 | __all__ = [
@@ -2248,7 +2217,6 @@ I001 [*] Import block is un-sorted or un-formatted
 21 | |
 22 | | from pytest_mock import MockerFixture
    | |_____________________________________^
-   |
 help: Organize imports
    |
 9  |
@@ -2317,7 +2285,6 @@ I001 [*] Import block is un-sorted or un-formatted
 20 | | from ..params import ClientParams
 21 | | from ...fixtures import IRCClientSocket
    | |_______________________________________^
-   |
 help: Organize imports
    |
 11 |
@@ -2357,7 +2324,6 @@ I001 [*] Import block is un-sorted or un-formatted
 23 | | from ..params import ClientParams
 24 | | from ...fixtures import IRCClientSocket
    | |_______________________________________^
-   |
 help: Organize imports
    |
 12 |
@@ -2387,7 +2353,6 @@ I001 [*] Import block is un-sorted or un-formatted
 11 | | from .models import ClientEvent
 12 | | from .params import ClientParams
    | |________________________________^
-   |
 help: Organize imports
    |
 13 |
@@ -2405,7 +2370,6 @@ RUF022 [*] `__all__` is not sorted
 18 | |     'ClientParams',
 19 | |     'ClientEvent']
    | |__________________^
-   |
 help: Apply an isort-style sorting to `__all__`
    |
 17 |     'Client',
@@ -2982,7 +2946,6 @@ I001 [*] Import block is un-sorted or un-formatted
 15 | |
 16 | | from pydantic import Field
    | |__________________________^
-   |
 help: Organize imports
    |
 9  |
@@ -3024,7 +2987,6 @@ I001 [*] Import block is un-sorted or un-formatted
 13 | | from .helpers import WHOME
 14 | | from .helpers import client_mtmsock
    | |___________________________________^
-   |
 help: Organize imports
    |
 9  |
@@ -3050,7 +3012,6 @@ RUF022 [*] `__all__` is not sorted
 22 | |     'RVENTS',
 23 | |     'WHOME']
    | |____________^
-   |
 help: Apply an isort-style sorting to `__all__`
    |
 18 | __all__ = [
@@ -3089,7 +3050,6 @@ I001 [*] Import block is un-sorted or un-formatted
 28 | |
 29 | | from respx import MockRouter
    | |____________________________^
-   |
 help: Organize imports
    |
 12 | from time import sleep as block_sleep
@@ -3162,7 +3122,6 @@ I001 [*] Import block is un-sorted or un-formatted
 20 | | from ..params import ClientParams
 21 | | from ...fixtures import MTMClientSocket
    | |_______________________________________^
-   |
 help: Organize imports
    |
 11 |
@@ -3200,7 +3159,6 @@ I001 [*] Import block is un-sorted or un-formatted
 21 | | from ..params import ClientParams
 22 | | from ...fixtures import MTMClientSocket
    | |_______________________________________^
-   |
 help: Organize imports
    |
 11 |
@@ -3228,7 +3186,6 @@ I001 [*] Import block is un-sorted or un-formatted
 10 | / from .bridge import Bridge
 11 | | from .params import BridgeParams
    | |________________________________^
-   |
 help: Organize imports
    |
 12 |
@@ -3415,7 +3372,6 @@ I001 [*] Import block is un-sorted or un-formatted
 15 | |
 16 | | from pydantic import Field
    | |__________________________^
-   |
 help: Organize imports
    |
 9  |
@@ -3456,7 +3412,6 @@ I001 [*] Import block is un-sorted or un-formatted
 12 | | from .helpers import ByteStreamAsync
 13 | | from .helpers import ByteStreamBlock
    | |____________________________________^
-   |
 help: Organize imports
    |
 11 |
@@ -3476,7 +3431,6 @@ RUF022 [*] `__all__` is not sorted
 24 | |     'ByteStreamBlock',
 25 | |     'ByteStreamAsync']
    | |______________________^
-   |
 help: Apply an isort-style sorting to `__all__`
    |
 23 | __all__ = [
@@ -3500,7 +3454,6 @@ I001 [*] Import block is un-sorted or un-formatted
 18 | | from httpx import AsyncByteStream
 19 | | from httpx import SyncByteStream
    | |________________________________^
-   |
 help: Organize imports
    |
 10 | import asyncio
@@ -3617,7 +3570,6 @@ I001 [*] Import block is un-sorted or un-formatted
 30 | | from ..bridge import Bridge
 31 | | from ..params import BridgeParams
    | |_________________________________^
-   |
 help: Organize imports
    |
 9  |
@@ -3659,7 +3611,6 @@ I001 [*] Import block is un-sorted or un-formatted
 11 | | from .params import RedditParams
 12 | | from .reddit import Reddit
    | |__________________________^
-   |
 help: Organize imports
    |
 13 |
@@ -3677,7 +3628,6 @@ RUF022 [*] `__all__` is not sorted
 18 | |     'RedditParams',
 19 | |     'RedditListing']
    | |____________________^
-   |
 help: Apply an isort-style sorting to `__all__`
    |
 17 |     'Reddit',
@@ -3700,7 +3650,6 @@ I001 [*] Import block is un-sorted or un-formatted
 17 | |
 18 | | from pydantic import Field
    | |__________________________^
-   |
 help: Organize imports
    |
 9  |
@@ -3782,7 +3731,6 @@ I001 [*] Import block is un-sorted or un-formatted
 15 | |
 16 | | from pydantic import Field
    | |__________________________^
-   |
 help: Organize imports
    |
 9  |
@@ -3858,7 +3806,6 @@ UP045 [*] Use `X | None` for type annotations
 36 |
 37 |     __token: Optional[str]
    |              ^^^^^^^^^^^^^
-   |
 help: Convert to `X | None`
    |
 36 |
@@ -4052,7 +3999,6 @@ I001 [*] Import block is un-sorted or un-formatted
    |
 10 | from pathlib import Path
    | ^^^^^^^^^^^^^^^^^^^^^^^^
-   |
 help: Organize imports
    |
 11 |
@@ -4076,7 +4022,6 @@ I001 [*] Import block is un-sorted or un-formatted
 19 | | from . import SAMPLES
 20 | | from ..models import RedditListing
    | |__________________________________^
-   |
 help: Organize imports
    |
 11 |
@@ -4120,7 +4065,6 @@ I001 [*] Import block is un-sorted or un-formatted
 29 | | from ..params import RedditParams
 30 | | from ..reddit import Reddit
    | |___________________________^
-   |
 help: Organize imports
    |
 9  |
@@ -4160,7 +4104,6 @@ I001 [*] Import block is un-sorted or un-formatted
 10 | / from .params import RouterParams
 11 | | from .router import Router
    | |__________________________^
-   |
 help: Organize imports
    |
 12 |
@@ -4180,7 +4123,6 @@ I001 [*] Import block is un-sorted or un-formatted
 15 | |
 16 | | from pydantic import Field
    | |__________________________^
-   |
 help: Organize imports
    |
 9  |
@@ -4357,7 +4299,6 @@ I001 [*] Import block is un-sorted or un-formatted
    |
 10 | from pathlib import Path
    | ^^^^^^^^^^^^^^^^^^^^^^^^
-   |
 help: Organize imports
    |
 11 |
@@ -4388,7 +4329,6 @@ I001 [*] Import block is un-sorted or un-formatted
 26 | | from ..params import RouterParams
 27 | | from ..router import Router
    | |___________________________^
-   |
 help: Organize imports
    |
 9  |
@@ -4423,7 +4363,6 @@ I001 [*] Import block is un-sorted or un-formatted
 10 | / from .dummy import dumlog
 11 | | from .http import HTTPClient
    | |____________________________^
-   |
 help: Organize imports
    |
 12 |
@@ -4437,7 +4376,6 @@ I001 [*] Import block is un-sorted or un-formatted
    |
 10 | from typing import Any
    | ^^^^^^^^^^^^^^^^^^^^^^
-   |
 help: Organize imports
    |
 12 |
@@ -4464,7 +4402,6 @@ I001 [*] Import block is un-sorted or un-formatted
 23 | | from httpx import Response
 24 | | from httpx._client import UseClientDefault
    | |__________________________________________^
-   |
 help: Organize imports
    |
 13 | from time import sleep
@@ -5187,7 +5124,6 @@ I001 [*] Import block is un-sorted or un-formatted
 28 | |
 29 | | from ..http import HTTPClient
    | |_____________________________^
-   |
 help: Organize imports
    |
 10 | import asyncio
@@ -5272,7 +5208,6 @@ I001 [*] Import block is un-sorted or un-formatted
 12 | | from .params import YouTubeParams
 13 | | from .youtube import YouTube
    | |____________________________^
-   |
 help: Organize imports
    |
 9  |
@@ -5298,7 +5233,6 @@ I001 [*] Import block is un-sorted or un-formatted
 16 | |
 17 | | from pydantic import Field
    | |__________________________^
-   |
 help: Organize imports
    |
 9  |
@@ -5429,7 +5363,6 @@ I001 [*] Import block is un-sorted or un-formatted
 15 | |
 16 | | from pydantic import Field
    | |__________________________^
-   |
 help: Organize imports
    |
 9  |
@@ -5467,7 +5400,6 @@ I001 [*] Import block is un-sorted or un-formatted
    |
 10 | from pathlib import Path
    | ^^^^^^^^^^^^^^^^^^^^^^^^
-   |
 help: Organize imports
    |
 11 |
@@ -5492,7 +5424,6 @@ I001 [*] Import block is un-sorted or un-formatted
 20 | | from ..models import YouTubeResult
 21 | | from ..models import YouTubeVideo
    | |_________________________________^
-   |
 help: Organize imports
    |
 11 |
@@ -5534,7 +5465,6 @@ I001 [*] Import block is un-sorted or un-formatted
 26 | | from ..params import YouTubeParams
 27 | | from ..youtube import YouTube
    | |_____________________________^
-   |
 help: Organize imports
    |
 9  |
