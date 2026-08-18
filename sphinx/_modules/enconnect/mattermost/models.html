@@ -293,12 +293,12 @@
                 <article class="bd-article">
                   
   <h1>Source code for enconnect.mattermost.models</h1><div class="highlight"><pre>
-<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span></span><span class="sd">"""</span>
 <span class="sd">Functions and routines associated with Enasis Network Remote Connect.</span>
 
 <span class="sd">This file is part of Enasis Network software eco-system. Distribution</span>
 <span class="sd">is permitted, for more information consult the project license file.</span>
-<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">"""</span>
 
 
 
@@ -322,155 +322,155 @@
 
 
 <span class="n">KINDS</span> <span class="o">=</span> <span class="n">Literal</span><span class="p">[</span>
-    <span class="s1">&#39;event&#39;</span><span class="p">,</span>
-    <span class="s1">&#39;chanmsg&#39;</span><span class="p">,</span>
-    <span class="s1">&#39;privmsg&#39;</span><span class="p">]</span>
+    <span class="s1">'event'</span><span class="p">,</span>
+    <span class="s1">'chanmsg'</span><span class="p">,</span>
+    <span class="s1">'privmsg'</span><span class="p">]</span>
 
 <span class="n">MESSAGE</span> <span class="o">=</span> <span class="p">[</span>
-    <span class="s1">&#39;chanmsg&#39;</span><span class="p">,</span>
-    <span class="s1">&#39;privmsg&#39;</span><span class="p">]</span>
+    <span class="s1">'chanmsg'</span><span class="p">,</span>
+    <span class="s1">'privmsg'</span><span class="p">]</span>
 
 
 
 <div class="viewcode-block" id="ClientEvent">
 <a class="viewcode-back" href="../../../index.html#enconnect.mattermost.models.ClientEvent">[docs]</a>
-<span class="k">class</span><span class="w"> </span><span class="nc">ClientEvent</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">,</span> <span class="n">extra</span><span class="o">=</span><span class="s1">&#39;ignore&#39;</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">ClientEvent</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">,</span> <span class="n">extra</span><span class="o">=</span><span class="s1">'ignore'</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">"""</span>
 <span class="sd">    Contains information returned from the upstream server.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
 
     <span class="nb">type</span><span class="p">:</span> <span class="n">Annotated</span><span class="p">[</span>
         <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span>
         <span class="n">Field</span><span class="p">(</span><span class="kc">None</span><span class="p">,</span>
-              <span class="n">description</span><span class="o">=</span><span class="s1">&#39;Type of event that occurred&#39;</span><span class="p">,</span>
+              <span class="n">description</span><span class="o">=</span><span class="s1">'Type of event that occurred'</span><span class="p">,</span>
               <span class="n">min_length</span><span class="o">=</span><span class="mi">1</span><span class="p">)]</span>
 
     <span class="n">data</span><span class="p">:</span> <span class="n">Annotated</span><span class="p">[</span>
         <span class="n">Optional</span><span class="p">[</span><span class="n">DictStrAny</span><span class="p">],</span>
         <span class="n">Field</span><span class="p">(</span><span class="kc">None</span><span class="p">,</span>
-              <span class="n">description</span><span class="o">=</span><span class="s1">&#39;Payload with the event data&#39;</span><span class="p">,</span>
+              <span class="n">description</span><span class="o">=</span><span class="s1">'Payload with the event data'</span><span class="p">,</span>
               <span class="n">min_length</span><span class="o">=</span><span class="mi">1</span><span class="p">)]</span>
 
     <span class="n">broadcast</span><span class="p">:</span> <span class="n">Annotated</span><span class="p">[</span>
         <span class="n">Optional</span><span class="p">[</span><span class="n">DictStrAny</span><span class="p">],</span>
         <span class="n">Field</span><span class="p">(</span><span class="kc">None</span><span class="p">,</span>
-              <span class="n">description</span><span class="o">=</span><span class="s1">&#39;Payload with the event data&#39;</span><span class="p">,</span>
+              <span class="n">description</span><span class="o">=</span><span class="s1">'Payload with the event data'</span><span class="p">,</span>
               <span class="n">min_length</span><span class="o">=</span><span class="mi">1</span><span class="p">)]</span>
 
     <span class="n">seqno</span><span class="p">:</span> <span class="n">Annotated</span><span class="p">[</span>
         <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">],</span>
         <span class="n">Field</span><span class="p">(</span><span class="kc">None</span><span class="p">,</span>
-              <span class="n">description</span><span class="o">=</span><span class="s1">&#39;Event number within squence&#39;</span><span class="p">,</span>
+              <span class="n">description</span><span class="o">=</span><span class="s1">'Event number within squence'</span><span class="p">,</span>
               <span class="n">ge</span><span class="o">=</span><span class="mi">0</span><span class="p">)]</span>
 
     <span class="n">status</span><span class="p">:</span> <span class="n">Annotated</span><span class="p">[</span>
         <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span>
         <span class="n">Field</span><span class="p">(</span><span class="kc">None</span><span class="p">,</span>
-              <span class="n">description</span><span class="o">=</span><span class="s1">&#39;Type of event that occurred&#39;</span><span class="p">,</span>
+              <span class="n">description</span><span class="o">=</span><span class="s1">'Type of event that occurred'</span><span class="p">,</span>
               <span class="n">min_length</span><span class="o">=</span><span class="mi">1</span><span class="p">)]</span>
 
     <span class="n">error</span><span class="p">:</span> <span class="n">Annotated</span><span class="p">[</span>
         <span class="n">Optional</span><span class="p">[</span><span class="n">DictStrAny</span><span class="p">],</span>
         <span class="n">Field</span><span class="p">(</span><span class="kc">None</span><span class="p">,</span>
-              <span class="n">description</span><span class="o">=</span><span class="s1">&#39;Payload with the event data&#39;</span><span class="p">,</span>
+              <span class="n">description</span><span class="o">=</span><span class="s1">'Payload with the event data'</span><span class="p">,</span>
               <span class="n">min_length</span><span class="o">=</span><span class="mi">1</span><span class="p">)]</span>
 
     <span class="n">seqre</span><span class="p">:</span> <span class="n">Annotated</span><span class="p">[</span>
         <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">],</span>
         <span class="n">Field</span><span class="p">(</span><span class="kc">None</span><span class="p">,</span>
-              <span class="n">description</span><span class="o">=</span><span class="s1">&#39;Reply number within squence&#39;</span><span class="p">,</span>
+              <span class="n">description</span><span class="o">=</span><span class="s1">'Reply number within squence'</span><span class="p">,</span>
               <span class="n">ge</span><span class="o">=</span><span class="mi">0</span><span class="p">)]</span>
 
     <span class="n">original</span><span class="p">:</span> <span class="n">Annotated</span><span class="p">[</span>
         <span class="n">DictStrAny</span><span class="p">,</span>
         <span class="n">Field</span><span class="p">(</span><span class="o">...</span><span class="p">,</span>
-              <span class="n">description</span><span class="o">=</span><span class="s1">&#39;Original received from server&#39;</span><span class="p">,</span>
+              <span class="n">description</span><span class="o">=</span><span class="s1">'Original received from server'</span><span class="p">,</span>
               <span class="n">min_length</span><span class="o">=</span><span class="mi">1</span><span class="p">)]</span>
 
     <span class="n">kind</span><span class="p">:</span> <span class="n">Annotated</span><span class="p">[</span>
         <span class="n">KINDS</span><span class="p">,</span>
-        <span class="n">Field</span><span class="p">(</span><span class="s1">&#39;event&#39;</span><span class="p">,</span>
-              <span class="n">description</span><span class="o">=</span><span class="s1">&#39;Dynamic field parsed from event&#39;</span><span class="p">)]</span>
+        <span class="n">Field</span><span class="p">(</span><span class="s1">'event'</span><span class="p">,</span>
+              <span class="n">description</span><span class="o">=</span><span class="s1">'Dynamic field parsed from event'</span><span class="p">)]</span>
 
     <span class="n">isme</span><span class="p">:</span> <span class="n">Annotated</span><span class="p">[</span>
         <span class="nb">bool</span><span class="p">,</span>
         <span class="n">Field</span><span class="p">(</span><span class="kc">False</span><span class="p">,</span>
-              <span class="n">description</span><span class="o">=</span><span class="s1">&#39;Indicates message is from client&#39;</span><span class="p">)]</span>
+              <span class="n">description</span><span class="o">=</span><span class="s1">'Indicates message is from client'</span><span class="p">)]</span>
 
     <span class="n">hasme</span><span class="p">:</span> <span class="n">Annotated</span><span class="p">[</span>
         <span class="nb">bool</span><span class="p">,</span>
         <span class="n">Field</span><span class="p">(</span><span class="kc">False</span><span class="p">,</span>
-              <span class="n">description</span><span class="o">=</span><span class="s1">&#39;Indicates message mentions client&#39;</span><span class="p">)]</span>
+              <span class="n">description</span><span class="o">=</span><span class="s1">'Indicates message mentions client'</span><span class="p">)]</span>
 
     <span class="n">whome</span><span class="p">:</span> <span class="n">Annotated</span><span class="p">[</span>
         <span class="n">Optional</span><span class="p">[</span><span class="nb">tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]],</span>
         <span class="n">Field</span><span class="p">(</span><span class="kc">None</span><span class="p">,</span>
-              <span class="n">description</span><span class="o">=</span><span class="s1">&#39;Current nickname of when received&#39;</span><span class="p">,</span>
+              <span class="n">description</span><span class="o">=</span><span class="s1">'Current nickname of when received'</span><span class="p">,</span>
               <span class="n">min_length</span><span class="o">=</span><span class="mi">1</span><span class="p">)]</span>
 
     <span class="n">author</span><span class="p">:</span> <span class="n">Annotated</span><span class="p">[</span>
         <span class="n">Optional</span><span class="p">[</span><span class="nb">tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]],</span>
         <span class="n">Field</span><span class="p">(</span><span class="kc">None</span><span class="p">,</span>
-              <span class="n">description</span><span class="o">=</span><span class="s1">&#39;Dynamic field parsed from event&#39;</span><span class="p">,</span>
+              <span class="n">description</span><span class="o">=</span><span class="s1">'Dynamic field parsed from event'</span><span class="p">,</span>
               <span class="n">min_length</span><span class="o">=</span><span class="mi">1</span><span class="p">)]</span>
 
     <span class="n">recipient</span><span class="p">:</span> <span class="n">Annotated</span><span class="p">[</span>
         <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span>
         <span class="n">Field</span><span class="p">(</span><span class="kc">None</span><span class="p">,</span>
-              <span class="n">description</span><span class="o">=</span><span class="s1">&#39;Dynamic field parsed from event&#39;</span><span class="p">,</span>
+              <span class="n">description</span><span class="o">=</span><span class="s1">'Dynamic field parsed from event'</span><span class="p">,</span>
               <span class="n">min_length</span><span class="o">=</span><span class="mi">1</span><span class="p">)]</span>
 
     <span class="n">message</span><span class="p">:</span> <span class="n">Annotated</span><span class="p">[</span>
         <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span>
         <span class="n">Field</span><span class="p">(</span><span class="kc">None</span><span class="p">,</span>
-              <span class="n">description</span><span class="o">=</span><span class="s1">&#39;Dynamic field parsed from event&#39;</span><span class="p">,</span>
+              <span class="n">description</span><span class="o">=</span><span class="s1">'Dynamic field parsed from event'</span><span class="p">,</span>
               <span class="n">min_length</span><span class="o">=</span><span class="mi">1</span><span class="p">)]</span>
 
 
     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="o">/</span><span class="p">,</span>
-        <span class="n">client</span><span class="p">:</span> <span class="s1">&#39;Client&#39;</span><span class="p">,</span>
+        <span class="n">client</span><span class="p">:</span> <span class="s1">'Client'</span><span class="p">,</span>
         <span class="n">event</span><span class="p">:</span> <span class="n">DictStrAny</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Initialize instance for class using provided parameters.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
 
         <span class="n">data</span><span class="p">:</span> <span class="n">DictStrAny</span> <span class="o">=</span> <span class="p">{</span>
-            <span class="s1">&#39;original&#39;</span><span class="p">:</span> <span class="n">event</span><span class="p">}</span>
+            <span class="s1">'original'</span><span class="p">:</span> <span class="n">event</span><span class="p">}</span>
 
 
-        <span class="nb">type</span> <span class="o">=</span> <span class="n">event</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;event&#39;</span><span class="p">)</span>
-        <span class="n">_data</span> <span class="o">=</span> <span class="n">event</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;data&#39;</span><span class="p">)</span>
-        <span class="n">bcast</span> <span class="o">=</span> <span class="n">event</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;broadcast&#39;</span><span class="p">)</span>
-        <span class="n">seqno</span> <span class="o">=</span> <span class="n">event</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;seq&#39;</span><span class="p">)</span>
+        <span class="nb">type</span> <span class="o">=</span> <span class="n">event</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'event'</span><span class="p">)</span>
+        <span class="n">_data</span> <span class="o">=</span> <span class="n">event</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'data'</span><span class="p">)</span>
+        <span class="n">bcast</span> <span class="o">=</span> <span class="n">event</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'broadcast'</span><span class="p">)</span>
+        <span class="n">seqno</span> <span class="o">=</span> <span class="n">event</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'seq'</span><span class="p">)</span>
 
-        <span class="n">status</span> <span class="o">=</span> <span class="n">event</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;status&#39;</span><span class="p">)</span>
-        <span class="n">seqre</span> <span class="o">=</span> <span class="n">event</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;seq_reply&#39;</span><span class="p">)</span>
-        <span class="n">error</span> <span class="o">=</span> <span class="n">event</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;error&#39;</span><span class="p">)</span>
+        <span class="n">status</span> <span class="o">=</span> <span class="n">event</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'status'</span><span class="p">)</span>
+        <span class="n">seqre</span> <span class="o">=</span> <span class="n">event</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'seq_reply'</span><span class="p">)</span>
+        <span class="n">error</span> <span class="o">=</span> <span class="n">event</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'error'</span><span class="p">)</span>
 
 
         <span class="k">if</span> <span class="nb">type</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="n">data</span><span class="p">[</span><span class="s1">&#39;type&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">type</span>
+            <span class="n">data</span><span class="p">[</span><span class="s1">'type'</span><span class="p">]</span> <span class="o">=</span> <span class="nb">type</span>
 
         <span class="k">if</span> <span class="n">_data</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="n">data</span><span class="p">[</span><span class="s1">&#39;data&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">_data</span>
+            <span class="n">data</span><span class="p">[</span><span class="s1">'data'</span><span class="p">]</span> <span class="o">=</span> <span class="n">_data</span>
 
         <span class="k">if</span> <span class="n">bcast</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="n">data</span><span class="p">[</span><span class="s1">&#39;broadcast&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">bcast</span>
+            <span class="n">data</span><span class="p">[</span><span class="s1">'broadcast'</span><span class="p">]</span> <span class="o">=</span> <span class="n">bcast</span>
 
         <span class="k">if</span> <span class="n">seqno</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="n">data</span><span class="p">[</span><span class="s1">&#39;seqno&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">seqno</span>
+            <span class="n">data</span><span class="p">[</span><span class="s1">'seqno'</span><span class="p">]</span> <span class="o">=</span> <span class="n">seqno</span>
 
         <span class="k">if</span> <span class="n">status</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="n">data</span><span class="p">[</span><span class="s1">&#39;status&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">status</span>
+            <span class="n">data</span><span class="p">[</span><span class="s1">'status'</span><span class="p">]</span> <span class="o">=</span> <span class="n">status</span>
 
         <span class="k">if</span> <span class="n">error</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="n">data</span><span class="p">[</span><span class="s1">&#39;error&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">error</span>
+            <span class="n">data</span><span class="p">[</span><span class="s1">'error'</span><span class="p">]</span> <span class="o">=</span> <span class="n">error</span>
 
         <span class="k">if</span> <span class="n">seqre</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="n">data</span><span class="p">[</span><span class="s1">&#39;seqre&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">seqre</span>
+            <span class="n">data</span><span class="p">[</span><span class="s1">'seqre'</span><span class="p">]</span> <span class="o">=</span> <span class="n">seqre</span>
 
 
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">**</span><span class="n">data</span><span class="p">)</span>
@@ -487,27 +487,27 @@
     <span class="k">def</span><span class="w"> </span><span class="nf">__set_kind</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Update the value for the attribute from class instance.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
 
         <span class="nb">type</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">type</span>
         <span class="n">data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span>
 
-        <span class="n">kind</span><span class="p">:</span> <span class="n">KINDS</span> <span class="o">=</span> <span class="s1">&#39;event&#39;</span>
+        <span class="n">kind</span><span class="p">:</span> <span class="n">KINDS</span> <span class="o">=</span> <span class="s1">'event'</span>
 
 
-        <span class="k">if</span> <span class="nb">type</span> <span class="o">==</span> <span class="s1">&#39;posted&#39;</span><span class="p">:</span>
+        <span class="k">if</span> <span class="nb">type</span> <span class="o">==</span> <span class="s1">'posted'</span><span class="p">:</span>
 
             <span class="k">assert</span> <span class="n">data</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
 
             <span class="n">_type</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span>
-                <span class="s1">&#39;channel_type&#39;</span><span class="p">]</span>
+                <span class="s1">'channel_type'</span><span class="p">]</span>
 
             <span class="n">kind</span> <span class="o">=</span> <span class="p">(</span>
-                <span class="s1">&#39;privmsg&#39;</span>
-                <span class="k">if</span> <span class="n">_type</span> <span class="o">==</span> <span class="s1">&#39;D&#39;</span>
-                <span class="k">else</span> <span class="s1">&#39;chanmsg&#39;</span><span class="p">)</span>
+                <span class="s1">'privmsg'</span>
+                <span class="k">if</span> <span class="n">_type</span> <span class="o">==</span> <span class="s1">'D'</span>
+                <span class="k">else</span> <span class="s1">'chanmsg'</span><span class="p">)</span>
 
 
         <span class="bp">self</span><span class="o">.</span><span class="n">kind</span> <span class="o">=</span> <span class="n">kind</span>
@@ -516,9 +516,9 @@
     <span class="k">def</span><span class="w"> </span><span class="nf">__set_author</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Update the value for the attribute from class instance.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
 
         <span class="n">kind</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">kind</span>
         <span class="n">data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span>
@@ -527,12 +527,12 @@
                 <span class="ow">or</span> <span class="ow">not</span> <span class="n">data</span><span class="p">):</span>
             <span class="k">return</span> <span class="kc">None</span>
 
-        <span class="n">post</span> <span class="o">=</span> <span class="n">loads</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;post&#39;</span><span class="p">])</span>
+        <span class="n">post</span> <span class="o">=</span> <span class="n">loads</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s1">'post'</span><span class="p">])</span>
 
-        <span class="n">unique</span> <span class="o">=</span> <span class="n">post</span><span class="p">[</span><span class="s1">&#39;user_id&#39;</span><span class="p">]</span>
+        <span class="n">unique</span> <span class="o">=</span> <span class="n">post</span><span class="p">[</span><span class="s1">'user_id'</span><span class="p">]</span>
         <span class="n">name</span> <span class="o">=</span> <span class="p">(</span>
-            <span class="n">data</span><span class="p">[</span><span class="s1">&#39;sender_name&#39;</span><span class="p">]</span>
-            <span class="o">.</span><span class="n">lstrip</span><span class="p">(</span><span class="s1">&#39;@&#39;</span><span class="p">))</span>
+            <span class="n">data</span><span class="p">[</span><span class="s1">'sender_name'</span><span class="p">]</span>
+            <span class="o">.</span><span class="n">lstrip</span><span class="p">(</span><span class="s1">'@'</span><span class="p">))</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">author</span> <span class="o">=</span> <span class="p">(</span>
             <span class="n">name</span><span class="p">,</span> <span class="n">unique</span><span class="p">)</span>
@@ -541,9 +541,9 @@
     <span class="k">def</span><span class="w"> </span><span class="nf">__set_recipient</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Update the value for the attribute from class instance.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
 
         <span class="n">kind</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">kind</span>
         <span class="n">data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span>
@@ -552,9 +552,9 @@
                 <span class="ow">or</span> <span class="ow">not</span> <span class="n">data</span><span class="p">):</span>
             <span class="k">return</span> <span class="kc">None</span>
 
-        <span class="n">post</span> <span class="o">=</span> <span class="n">loads</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;post&#39;</span><span class="p">])</span>
+        <span class="n">post</span> <span class="o">=</span> <span class="n">loads</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s1">'post'</span><span class="p">])</span>
 
-        <span class="n">channel</span> <span class="o">=</span> <span class="n">post</span><span class="p">[</span><span class="s1">&#39;channel_id&#39;</span><span class="p">]</span>
+        <span class="n">channel</span> <span class="o">=</span> <span class="n">post</span><span class="p">[</span><span class="s1">'channel_id'</span><span class="p">]</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">recipient</span> <span class="o">=</span> <span class="n">channel</span>
 
@@ -562,9 +562,9 @@
     <span class="k">def</span><span class="w"> </span><span class="nf">__set_message</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Update the value for the attribute from class instance.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
 
         <span class="n">kind</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">kind</span>
         <span class="n">data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span>
@@ -573,22 +573,22 @@
                 <span class="ow">or</span> <span class="ow">not</span> <span class="n">data</span><span class="p">):</span>
             <span class="k">return</span> <span class="kc">None</span>
 
-        <span class="n">post</span> <span class="o">=</span> <span class="n">loads</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;post&#39;</span><span class="p">])</span>
+        <span class="n">post</span> <span class="o">=</span> <span class="n">loads</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s1">'post'</span><span class="p">])</span>
 
-        <span class="n">message</span> <span class="o">=</span> <span class="n">post</span><span class="p">[</span><span class="s1">&#39;message&#39;</span><span class="p">]</span>
+        <span class="n">message</span> <span class="o">=</span> <span class="n">post</span><span class="p">[</span><span class="s1">'message'</span><span class="p">]</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">message</span> <span class="o">=</span> <span class="n">message</span>
 
 
     <span class="k">def</span><span class="w"> </span><span class="nf">__set_isme</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
-        <span class="n">client</span><span class="p">:</span> <span class="s1">&#39;Client&#39;</span><span class="p">,</span>
+        <span class="n">client</span><span class="p">:</span> <span class="s1">'Client'</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Update the value for the attribute from class instance.</span>
 
 <span class="sd">        :param client: Class instance for connecting to service.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
 
         <span class="n">mynick</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">nickname</span>
         <span class="n">author</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">author</span>
@@ -607,13 +607,13 @@
 
     <span class="k">def</span><span class="w"> </span><span class="nf">__set_hasme</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
-        <span class="n">client</span><span class="p">:</span> <span class="s1">&#39;Client&#39;</span><span class="p">,</span>
+        <span class="n">client</span><span class="p">:</span> <span class="s1">'Client'</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Update the value for the attribute from class instance.</span>
 
 <span class="sd">        :param client: Class instance for connecting to service.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
 
         <span class="n">mynick</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">nickname</span>
         <span class="n">message</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">message</span>
@@ -629,8 +629,8 @@
             <span class="n">re_escape</span><span class="p">(</span><span class="n">mynick</span><span class="p">[</span><span class="mi">1</span><span class="p">]))</span>
 
         <span class="n">pattern</span> <span class="o">=</span> <span class="p">(</span>
-            <span class="sa">rf</span><span class="s1">&#39;\b(</span><span class="si">{</span><span class="n">needle</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s1">)&#39;</span>
-            <span class="sa">rf</span><span class="s1">&#39;|(</span><span class="si">{</span><span class="n">needle</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="si">}</span><span class="s1">)\b&#39;</span><span class="p">)</span>
+            <span class="sa">rf</span><span class="s1">'\b(</span><span class="si">{</span><span class="n">needle</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s1">)'</span>
+            <span class="sa">rf</span><span class="s1">'|(</span><span class="si">{</span><span class="n">needle</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="si">}</span><span class="s1">)\b'</span><span class="p">)</span>
 
         <span class="n">results</span> <span class="o">=</span> <span class="nb">bool</span><span class="p">(</span>
             <span class="n">re_search</span><span class="p">(</span>
@@ -643,13 +643,13 @@
 
     <span class="k">def</span><span class="w"> </span><span class="nf">__set_whome</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
-        <span class="n">client</span><span class="p">:</span> <span class="s1">&#39;Client&#39;</span><span class="p">,</span>
+        <span class="n">client</span><span class="p">:</span> <span class="s1">'Client'</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Update the value for the attribute from class instance.</span>
 
 <span class="sd">        :param client: Class instance for connecting to service.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">whome</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">nickname</span></div>
 

@@ -293,12 +293,12 @@
                 <article class="bd-article">
                   
   <h1>Source code for enconnect.philips.bridge</h1><div class="highlight"><pre>
-<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span></span><span class="sd">"""</span>
 <span class="sd">Functions and routines associated with Enasis Network Remote Connect.</span>
 
 <span class="sd">This file is part of Enasis Network software eco-system. Distribution</span>
 <span class="sd">is permitted, for more information consult the project license file.</span>
-<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">"""</span>
 
 
 
@@ -325,23 +325,23 @@
 <div class="viewcode-block" id="Bridge">
 <a class="viewcode-back" href="../../../enconnect.philips.html#enconnect.philips.bridge.Bridge">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">Bridge</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""</span>
 <span class="sd">    Interact with the local service API with various methods.</span>
 
 <span class="sd">    :param params: Parameters used to instantiate the class.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
 
-    <span class="n">__params</span><span class="p">:</span> <span class="s1">&#39;BridgeParams&#39;</span>
+    <span class="n">__params</span><span class="p">:</span> <span class="s1">'BridgeParams'</span>
     <span class="n">__client</span><span class="p">:</span> <span class="n">HTTPClient</span>
 
 
     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
-        <span class="n">params</span><span class="p">:</span> <span class="s1">&#39;BridgeParams&#39;</span><span class="p">,</span>
+        <span class="n">params</span><span class="p">:</span> <span class="s1">'BridgeParams'</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Initialize instance for class using provided parameters.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">__params</span> <span class="o">=</span> <span class="n">params</span>
 
@@ -356,12 +356,12 @@
     <span class="nd">@property</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">params</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
-    <span class="p">)</span> <span class="o">-&gt;</span> <span class="s1">&#39;BridgeParams&#39;</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="s1">'BridgeParams'</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Return the Pydantic model containing the configuration.</span>
 
 <span class="sd">        :returns: Pydantic model containing the configuration.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
 
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__params</span>
 
@@ -370,11 +370,11 @@
     <span class="k">def</span><span class="w"> </span><span class="nf">client</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">HTTPClient</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Return the value for the attribute from class instance.</span>
 
 <span class="sd">        :returns: Value for the attribute from class instance.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
 
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__client</span>
 
@@ -390,7 +390,7 @@
         <span class="o">*</span><span class="p">,</span>
         <span class="n">timeout</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Response</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Return the response for upstream request to the server.</span>
 
 <span class="sd">        :param method: Method for operation with the API server.</span>
@@ -400,7 +400,7 @@
 <span class="sd">        :param timeout: Timeout waiting for the server response.</span>
 <span class="sd">            This will override the default client instantiated.</span>
 <span class="sd">        :returns: Response from upstream request to the server.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
 
         <span class="n">params</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">params</span> <span class="ow">or</span> <span class="p">{})</span>
         <span class="n">json</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">json</span> <span class="ow">or</span> <span class="p">{})</span>
@@ -411,13 +411,13 @@
 
         <span class="n">client</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__client</span>
 
-        <span class="n">tokey</span> <span class="o">=</span> <span class="s1">&#39;hue-application-key&#39;</span>
+        <span class="n">tokey</span> <span class="o">=</span> <span class="s1">'hue-application-key'</span>
 
         <span class="n">headers</span> <span class="o">=</span> <span class="p">{</span><span class="n">tokey</span><span class="p">:</span> <span class="n">token</span><span class="p">}</span>
 
         <span class="n">location</span> <span class="o">=</span> <span class="p">(</span>
-            <span class="sa">f</span><span class="s1">&#39;https://</span><span class="si">{</span><span class="n">server</span><span class="si">}</span><span class="s1">&#39;</span>
-            <span class="sa">f</span><span class="s1">&#39;/clip/v2/</span><span class="si">{</span><span class="n">path</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+            <span class="sa">f</span><span class="s1">'https://</span><span class="si">{</span><span class="n">server</span><span class="si">}</span><span class="s1">'</span>
+            <span class="sa">f</span><span class="s1">'/clip/v2/</span><span class="si">{</span><span class="n">path</span><span class="si">}</span><span class="s1">'</span><span class="p">)</span>
 
         <span class="n">request</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">request_block</span>
 
@@ -436,12 +436,12 @@
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">timeout</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Iterator</span><span class="p">[</span><span class="n">DictStrAny</span><span class="p">]:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Return the response for upstream request to the server.</span>
 
 <span class="sd">        :param timeout: Timeout waiting for the server response.</span>
 <span class="sd">            This will override the default client instantiated.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
 
         <span class="n">_params</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__params</span>
         <span class="n">server</span> <span class="o">=</span> <span class="n">_params</span><span class="o">.</span><span class="n">server</span>
@@ -449,22 +449,22 @@
 
         <span class="n">client</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__client</span>
 
-        <span class="n">accept</span> <span class="o">=</span> <span class="s1">&#39;text/event-stream&#39;</span>
-        <span class="n">tokey</span> <span class="o">=</span> <span class="s1">&#39;hue-application-key&#39;</span>
+        <span class="n">accept</span> <span class="o">=</span> <span class="s1">'text/event-stream'</span>
+        <span class="n">tokey</span> <span class="o">=</span> <span class="s1">'hue-application-key'</span>
 
         <span class="n">headers</span> <span class="o">=</span> <span class="p">{</span>
-            <span class="s1">&#39;Accept&#39;</span><span class="p">:</span> <span class="n">accept</span><span class="p">,</span>
+            <span class="s1">'Accept'</span><span class="p">:</span> <span class="n">accept</span><span class="p">,</span>
             <span class="n">tokey</span><span class="p">:</span> <span class="n">token</span><span class="p">}</span>
 
         <span class="n">location</span> <span class="o">=</span> <span class="p">(</span>
-            <span class="sa">f</span><span class="s1">&#39;https://</span><span class="si">{</span><span class="n">server</span><span class="si">}</span><span class="s1">&#39;</span>
-            <span class="sa">f</span><span class="s1">&#39;/eventstream/clip/v2&#39;</span><span class="p">)</span>
+            <span class="sa">f</span><span class="s1">'https://</span><span class="si">{</span><span class="n">server</span><span class="si">}</span><span class="s1">'</span>
+            <span class="sa">f</span><span class="s1">'/eventstream/clip/v2'</span><span class="p">)</span>
 
         <span class="n">request</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">stream_block</span>
 
 
         <span class="n">stream</span> <span class="o">=</span> <span class="n">request</span><span class="p">(</span>
-            <span class="n">method</span><span class="o">=</span><span class="s1">&#39;get&#39;</span><span class="p">,</span>
+            <span class="n">method</span><span class="o">=</span><span class="s1">'get'</span><span class="p">,</span>
             <span class="n">location</span><span class="o">=</span><span class="n">location</span><span class="p">,</span>
             <span class="n">headers</span><span class="o">=</span><span class="n">headers</span><span class="p">,</span>
             <span class="n">timeout</span><span class="o">=</span><span class="n">timeout</span><span class="p">)</span>
@@ -477,14 +477,14 @@
 
             <span class="n">event</span> <span class="o">=</span> <span class="n">event</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
 
-            <span class="k">if</span> <span class="n">event</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">5</span><span class="p">]</span> <span class="o">!=</span> <span class="s1">&#39;data:&#39;</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">event</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">5</span><span class="p">]</span> <span class="o">!=</span> <span class="s1">'data:'</span><span class="p">:</span>
                 <span class="k">continue</span>
 
             <span class="n">loaded</span> <span class="o">=</span> <span class="n">loads</span><span class="p">(</span><span class="n">event</span><span class="p">[</span><span class="mi">6</span><span class="p">:])</span>
 
             <span class="k">for</span> <span class="n">_event</span> <span class="ow">in</span> <span class="n">loaded</span><span class="p">:</span>
 
-                <span class="n">events</span> <span class="o">=</span> <span class="n">_event</span><span class="p">[</span><span class="s1">&#39;data&#39;</span><span class="p">]</span>
+                <span class="n">events</span> <span class="o">=</span> <span class="n">_event</span><span class="p">[</span><span class="s1">'data'</span><span class="p">]</span>
 
                 <span class="k">yield from</span> <span class="n">events</span></div>
 
@@ -496,12 +496,12 @@
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">timeout</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">AsyncIterator</span><span class="p">[</span><span class="n">DictStrAny</span><span class="p">]:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Return the response for upstream request to the server.</span>
 
 <span class="sd">        :param timeout: Timeout waiting for the server response.</span>
 <span class="sd">            This will override the default client instantiated.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
 
         <span class="n">_params</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__params</span>
         <span class="n">server</span> <span class="o">=</span> <span class="n">_params</span><span class="o">.</span><span class="n">server</span>
@@ -509,22 +509,22 @@
 
         <span class="n">client</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__client</span>
 
-        <span class="n">accept</span> <span class="o">=</span> <span class="s1">&#39;text/event-stream&#39;</span>
-        <span class="n">tokey</span> <span class="o">=</span> <span class="s1">&#39;hue-application-key&#39;</span>
+        <span class="n">accept</span> <span class="o">=</span> <span class="s1">'text/event-stream'</span>
+        <span class="n">tokey</span> <span class="o">=</span> <span class="s1">'hue-application-key'</span>
 
         <span class="n">headers</span> <span class="o">=</span> <span class="p">{</span>
-            <span class="s1">&#39;Accept&#39;</span><span class="p">:</span> <span class="n">accept</span><span class="p">,</span>
+            <span class="s1">'Accept'</span><span class="p">:</span> <span class="n">accept</span><span class="p">,</span>
             <span class="n">tokey</span><span class="p">:</span> <span class="n">token</span><span class="p">}</span>
 
         <span class="n">location</span> <span class="o">=</span> <span class="p">(</span>
-            <span class="sa">f</span><span class="s1">&#39;https://</span><span class="si">{</span><span class="n">server</span><span class="si">}</span><span class="s1">&#39;</span>
-            <span class="sa">f</span><span class="s1">&#39;/eventstream/clip/v2&#39;</span><span class="p">)</span>
+            <span class="sa">f</span><span class="s1">'https://</span><span class="si">{</span><span class="n">server</span><span class="si">}</span><span class="s1">'</span>
+            <span class="sa">f</span><span class="s1">'/eventstream/clip/v2'</span><span class="p">)</span>
 
         <span class="n">request</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">stream_async</span>
 
 
         <span class="n">stream</span> <span class="o">=</span> <span class="n">request</span><span class="p">(</span>
-            <span class="n">method</span><span class="o">=</span><span class="s1">&#39;get&#39;</span><span class="p">,</span>
+            <span class="n">method</span><span class="o">=</span><span class="s1">'get'</span><span class="p">,</span>
             <span class="n">location</span><span class="o">=</span><span class="n">location</span><span class="p">,</span>
             <span class="n">headers</span><span class="o">=</span><span class="n">headers</span><span class="p">,</span>
             <span class="n">timeout</span><span class="o">=</span><span class="n">timeout</span><span class="p">)</span>
@@ -537,14 +537,14 @@
 
             <span class="n">event</span> <span class="o">=</span> <span class="n">event</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
 
-            <span class="k">if</span> <span class="n">event</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">5</span><span class="p">]</span> <span class="o">!=</span> <span class="s1">&#39;data:&#39;</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">event</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">5</span><span class="p">]</span> <span class="o">!=</span> <span class="s1">'data:'</span><span class="p">:</span>
                 <span class="k">continue</span>
 
             <span class="n">loaded</span> <span class="o">=</span> <span class="n">loads</span><span class="p">(</span><span class="n">event</span><span class="p">[</span><span class="mi">6</span><span class="p">:])</span>
 
             <span class="k">for</span> <span class="n">_event</span> <span class="ow">in</span> <span class="n">loaded</span><span class="p">:</span>
 
-                <span class="n">events</span> <span class="o">=</span> <span class="n">_event</span><span class="p">[</span><span class="s1">&#39;data&#39;</span><span class="p">]</span>
+                <span class="n">events</span> <span class="o">=</span> <span class="n">_event</span><span class="p">[</span><span class="s1">'data'</span><span class="p">]</span>
 
                 <span class="k">for</span> <span class="n">event</span> <span class="ow">in</span> <span class="n">events</span><span class="p">:</span>
 
