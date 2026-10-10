@@ -4577,6 +4577,18 @@ B006 Do not use mutable data structures for argument defaults
 83 |         """
    |
 help: Replace with `None`; initialize within function
+   |
+80 |         backoff: float = 3.0,
+   -         states: set[int] = {429},
+81 +         states: set[int] = None,
+82 |     ) -> None:
+--------------------------------------------------------------------------------
+86 |
+87 +         if states is None:
+88 +             states = {429}
+89 |         timeout = int(timeout)
+   |
+note: This is an unsafe fix and may change runtime behavior
 
 UP045 [*] Use `X | None` for type annotations
    --> enconnect/utils/http.py:137:10
